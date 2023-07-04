@@ -9,6 +9,7 @@ use App\Http\Controllers\AcceptationClientsController;
 use App\Http\Controllers\ApiUsersController;
 use App\Http\Controllers\ANIMALINFOsController;
 use App\Http\Controllers\ImportationsController;
+use App\Http\Controllers\BacksController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,6 +91,26 @@ Route::group([
          ->name('importations.client.update')->where('id', '[0-9]+');
     Route::delete('/importation/{importation}',[ImportationsController::class, 'destroyclient'])
          ->name('importations.client.destroy')->where('id', '[0-9]+');
+});
+
+
+Route::group([
+    'prefix' => 'backs',
+], function () {
+    Route::get('/', [BacksController::class, 'indexclient'])
+         ->name('backs.client.index');
+    Route::get('/create', [BacksController::class, 'createclient'])
+         ->name('backs.client.create');
+    Route::get('/show/{back}',[BacksController::class, 'showclient'])
+         ->name('backs.client.show')->where('id', '[0-9]+');
+    Route::get('/{back}/edit',[BacksController::class, 'editclient'])
+         ->name('backs.client.edit')->where('id', '[0-9]+');
+    Route::post('/', [BacksController::class, 'storeclient'])
+         ->name('backs.client.store');
+    Route::put('back/{back}', [BacksController::class, 'updateclient'])
+         ->name('backs.client.update')->where('id', '[0-9]+');
+    Route::delete('/back/{back}',[BacksController::class, 'destroyclient'])
+         ->name('backs.client.destroy')->where('id', '[0-9]+');
 });
 
 
@@ -254,4 +275,23 @@ Route::group([
          ->name('importations.importation.update')->where('id', '[0-9]+');
     Route::delete('/importation/{importation}',[ImportationsController::class, 'destroy'])
          ->name('importations.importation.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'backs',
+], function () {
+    Route::get('/', [BacksController::class, 'index'])
+         ->name('backs.back.index');
+    Route::get('/create', [BacksController::class, 'create'])
+         ->name('backs.back.create');
+    Route::get('/show/{back}',[BacksController::class, 'show'])
+         ->name('backs.back.show')->where('id', '[0-9]+');
+    Route::get('/{back}/edit',[BacksController::class, 'edit'])
+         ->name('backs.back.edit')->where('id', '[0-9]+');
+    Route::post('/', [BacksController::class, 'store'])
+         ->name('backs.back.store');
+    Route::put('back/{back}', [BacksController::class, 'update'])
+         ->name('backs.back.update')->where('id', '[0-9]+');
+    Route::delete('/back/{back}',[BacksController::class, 'destroy'])
+         ->name('backs.back.destroy')->where('id', '[0-9]+');
 });

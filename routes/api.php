@@ -31,11 +31,14 @@ Route::get('command', function () {
     echo \Artisan::output();
     \Artisan::call('config:cache');
     echo \Artisan::output();
+    \Artisan::call('view:clear');
+
+
+    echo \Artisan::output();
     \Artisan::call('migrate');
 
 
     echo \Artisan::output();
-
 
 
 });

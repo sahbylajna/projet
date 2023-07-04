@@ -23,5 +23,9 @@
     {
         "model-name": "importation",
         "resource-file": "importations.json"
+    },
+    {
+        "model-name": "back",
+        "resource-file": "backs.json"
     }
 ]
