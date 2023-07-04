@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
-
+use Illuminate\Support\Facades\Hash;
 class PermissionsDemoSeeder extends Seeder
 {
     /**
@@ -31,7 +31,13 @@ class PermissionsDemoSeeder extends Seeder
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
-        $user = \App\Models\User::find(1);
+        $user = new \App\Models\User();
+        $user->first_name = "admin";
+        $user->last_name = "admin";
+        $user->email = "admin@admin.com";
+        $user->ud = "12346798";
+        $user->password = Hash::make("password");
+        $user->save();
         $user->assignRole($role3);
 
 
