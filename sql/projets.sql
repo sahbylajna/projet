@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 12 juin 2023 à 18:57
+-- Généré le : mar. 04 juil. 2023 à 11:51
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.0.25
 
@@ -20,6 +20,90 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `projets`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `acceptation_clients`
+--
+
+CREATE TABLE `acceptation_clients` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `User_id` int(10) UNSIGNED DEFAULT NULL,
+  `Client_id` int(10) UNSIGNED DEFAULT NULL,
+  `commenter` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `acceptation_clients`
+--
+
+INSERT INTO `acceptation_clients` (`id`, `created_at`, `updated_at`, `User_id`, `Client_id`, `commenter`) VALUES
+(1, '2023-06-13 08:55:17', '2023-06-13 08:55:17', 1, 5, NULL),
+(2, '2023-06-13 09:42:00', '2023-06-13 09:42:00', 1, 5, '$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request'),
+(3, '2023-06-13 09:42:06', '2023-06-13 09:42:06', 1, 5, '$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request'),
+(4, '2023-06-13 09:42:21', '2023-06-13 09:42:21', 1, 5, '$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request$request'),
+(5, '2023-06-13 10:43:34', '2023-06-13 10:43:34', 1, 2, 'accepted'),
+(6, '2023-06-13 11:32:54', '2023-06-13 11:32:54', 1, 5, 'accepted'),
+(7, '2023-06-13 14:37:06', '2023-06-13 14:37:06', 1, 5, 'accepted'),
+(8, '2023-06-13 14:54:21', '2023-06-13 14:54:21', 1, 2, 'test refused');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `api_users`
+--
+
+CREATE TABLE `api_users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `Username` varchar(255) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL,
+  `access_token` varchar(2500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `api_users`
+--
+
+INSERT INTO `api_users` (`id`, `created_at`, `updated_at`, `Username`, `Password`, `access_token`) VALUES
+(1, '2023-07-03 08:04:56', '2023-07-03 08:04:56', 'HIJIN', 'H!J!N@2023', '4S9EAfJYVtjK87xgMmryuf1x9NVxmzaz_uhsm4DyvJXuD6rYTN_fwk7Zpb1Vw5qHYcCYnkDvqgi_WbDNhVHE_19U1o4jAjbd5G3VAH08AxllkHzl2WoHbpbWYkQM3WMH_mHqWQbbV3MEFi3C-xga1FANA5lBIeXMhvXNIt1jrY-rCmScvxeHtMmNrI9xVIdOywhMQFq6o6Q5f3-ULElVsR2rq9fDknpoT7HjMSGcU6V4HDz2VUBGf7sU-eWt4YvxFTZ4w37_r6KjZAXiBz0XYM00FnTlZ5tNHa8dSVR_C1qQ9WcN6-JXsMTdCEDV0s3h');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `a_n_i_m_a_l__i_n_f_os`
+--
+
+CREATE TABLE `a_n_i_m_a_l__i_n_f_os` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `EXPORT_COUNTRY` varchar(255) DEFAULT NULL,
+  `ORIGIN_COUNTRY` varchar(255) DEFAULT NULL,
+  `TRANSIET_COUNTRY` varchar(255) DEFAULT NULL,
+  `ANML_SPECIES` varchar(255) DEFAULT NULL,
+  `ANML_SEX` varchar(255) DEFAULT NULL,
+  `ANML_NUMBER` varchar(255) DEFAULT NULL,
+  `ANML_USE` varchar(255) DEFAULT NULL,
+  `ANIMAL_BREED` varchar(255) DEFAULT NULL,
+  `client_id` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `a_n_i_m_a_l__i_n_f_os`
+--
+
+INSERT INTO `a_n_i_m_a_l__i_n_f_os` (`id`, `EXPORT_COUNTRY`, `ORIGIN_COUNTRY`, `TRANSIET_COUNTRY`, `ANML_SPECIES`, `ANML_SEX`, `ANML_NUMBER`, `ANML_USE`, `ANIMAL_BREED`, `client_id`, `created_at`, `updated_at`) VALUES
+(22, 'QATAR', 'QATAR', 'QATAR', 'ابل هجن', 'ذكر', '999999545', 'مشاركة', 'مزاين', NULL, NULL, NULL),
+(23, 'QATAR', 'QATAR', 'QATAR', 'ابل هجن', 'ذكر', '999999545', 'مشاركة', 'مزاين', NULL, NULL, NULL),
+(24, 'QATAR', 'QATAR', 'QATAR', 'ابل هجن', 'ذكر', '999999545', 'مشاركة', 'مزاين', NULL, NULL, NULL),
+(25, 'QATAR', 'QATAR', 'QATAR', 'ابل هجن', 'ذكر', '999999545', 'مشاركة', 'مزاين', NULL, NULL, NULL),
+(26, 'QATAR', 'QATAR', 'QATAR', 'ابل هجن', 'ذكر', '999999545', 'مشاركة', 'مزاين', NULL, NULL, NULL),
+(27, 'QATAR', 'QATAR', 'QATAR', 'ابل هجن', 'ذكر', '999999545', 'مشاركة', 'مزاين', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -45,15 +129,17 @@ CREATE TABLE `clients` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `singateur` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
-  `virification` varchar(255) DEFAULT NULL
+  `virification` varchar(255) DEFAULT NULL,
+  `remember_token` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`id`, `created_at`, `updated_at`, `first_name`, `last_name`, `phone`, `email`, `ud`, `photo_ud_frent`, `photo_ud_back`, `password`, `contry_id`, `accepted`, `refused`, `deleted_at`, `singateur`, `code`, `virification`) VALUES
-(2, '2023-06-12 15:27:15', '2023-06-12 15:27:37', 'Bellgha', 'Youssef', '56818880', 'bellaghayoussef20@gmail.com', '123245678901', 'C:\\xampp1\\tmp\\phpF25D.tmp', 'C:\\xampp1\\tmp\\phpF25E.tmp', 'password', 217, NULL, NULL, NULL, '1', '5940', '1');
+INSERT INTO `clients` (`id`, `created_at`, `updated_at`, `first_name`, `last_name`, `phone`, `email`, `ud`, `photo_ud_frent`, `photo_ud_back`, `password`, `contry_id`, `accepted`, `refused`, `deleted_at`, `singateur`, `code`, `virification`, `remember_token`) VALUES
+(2, '2023-06-12 15:27:15', '2023-06-13 14:54:21', 'Bellgha', 'Youssef', '568188803', 'bellaghayoussef20@gmail.com', '123245678901', 'C:\\xampp1\\tmp\\phpF25D.tmp', 'C:\\xampp1\\tmp\\phpF25E.tmp', 'password', 217, '0', '1', NULL, '7KMeivj8svCn.png', '9688', '1', NULL),
+(5, '2023-06-13 08:45:03', '2023-06-13 14:53:48', 'Bellgha', 'Youssef', '56818880', 'bellaghayoussef200@gmail.com', '12345679802', 'images/EcjLG487fI7JgQwWUcoZtQIUeTheI6x6MBIbgacH.png', 'images/clC8AMw2pCZAgxBcWJIQJXqsJlxxBn0ccjHTysly.png', '$2y$10$dByVifMfHJmSw763HM/v7OaXufVSkzX0ZKDi07UdcdO.TEAt3/ezC', 217, '1', '0', NULL, 'mRJf8jDLchQ0.png', '7397', '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -349,6 +435,83 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `importations`
+--
+
+CREATE TABLE `importations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `client_id` int(10) UNSIGNED DEFAULT NULL,
+  `CER_TYPE` varchar(255) DEFAULT NULL,
+  `CER_LANG` varchar(255) DEFAULT NULL,
+  `COMP_ID` varchar(255) DEFAULT NULL,
+  `EUSER_QID` varchar(255) DEFAULT NULL,
+  `EXP_NAME` varchar(255) DEFAULT NULL,
+  `EXP_TEL` varchar(255) DEFAULT NULL,
+  `EXP_QID` varchar(255) DEFAULT NULL,
+  `EXP_FAX` varchar(255) DEFAULT NULL,
+  `EXP_COUNTRY` varchar(255) DEFAULT NULL,
+  `IMP_NAME` varchar(255) DEFAULT NULL,
+  `IMP_ADDRESS` varchar(255) DEFAULT NULL,
+  `IMP_FAX` varchar(255) DEFAULT NULL,
+  `IMP_TEL` varchar(255) DEFAULT NULL,
+  `IMP_POBOX` varchar(255) DEFAULT NULL,
+  `IMP_COUNTRY` varchar(255) DEFAULT NULL,
+  `ORIGIN_COUNTRY` varchar(255) DEFAULT NULL,
+  `SHIPPING_PLACE` varchar(255) DEFAULT NULL,
+  `ENTERY_PORT` varchar(255) DEFAULT NULL,
+  `EXPECTED_ARRIVAL_DATE` varchar(255) DEFAULT NULL,
+  `TRANSPORT` varchar(255) DEFAULT NULL,
+  `SHIPPING_DATE` varchar(255) DEFAULT NULL,
+  `APPLICANT_NAME` varchar(255) DEFAULT NULL,
+  `APPLICANT_TEL` varchar(255) DEFAULT NULL,
+  `EXP_NATIONALITY` varchar(255) DEFAULT NULL,
+  `EXP_PASSPORT_NUM` varchar(255) DEFAULT NULL,
+  `accepted` varchar(255) DEFAULT NULL,
+  `reson` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `importations`
+--
+
+INSERT INTO `importations` (`id`, `created_at`, `updated_at`, `client_id`, `CER_TYPE`, `CER_LANG`, `COMP_ID`, `EUSER_QID`, `EXP_NAME`, `EXP_TEL`, `EXP_QID`, `EXP_FAX`, `EXP_COUNTRY`, `IMP_NAME`, `IMP_ADDRESS`, `IMP_FAX`, `IMP_TEL`, `IMP_POBOX`, `IMP_COUNTRY`, `ORIGIN_COUNTRY`, `SHIPPING_PLACE`, `ENTERY_PORT`, `EXPECTED_ARRIVAL_DATE`, `TRANSPORT`, `SHIPPING_DATE`, `APPLICANT_NAME`, `APPLICANT_TEL`, `EXP_NATIONALITY`, `EXP_PASSPORT_NUM`, `accepted`, `reson`) VALUES
+(1, '2023-07-03 11:35:48', '2023-07-03 11:35:48', 5, 'vcbmn', 'cvbn', 'cvbn', 'cvbn', 'ddd', '231', '321d3', 'd1', '313', '1d32', '32d1321', 'd13', '2d131', 'd323', '1321', '321', '32', '1d32d', '13', 'd131d', '31', 'd32', '1d3', '21d3', '1d3', NULL, NULL),
+(2, '2023-07-03 11:37:17', '2023-07-03 11:37:17', 5, 'vcbmn', 'cvbn', 'cvbn', 'cvbn', 'ddd', '231', '321d3', 'd1', '313', '1d32', '32d1321', 'd13', '2d131', 'd323', '1321', '321', '32', '1d32d', '13', 'd131d', '31', 'd32', '1d3', '21d3', '1d3', NULL, NULL),
+(3, '2023-07-03 11:37:49', '2023-07-03 11:37:49', 5, 'vcbmn', 'cvbn', 'cvbn', 'cvbn', 'ddd', '231', '321d3', 'd1', '313', '1d32', '32d1321', 'd13', '2d131', 'd323', '1321', '321', '32', '1d32d', '13', 'd131d', '31', 'd32', '1d3', '21d3', '1d3', NULL, NULL),
+(4, '2023-07-03 12:07:25', '2023-07-03 12:07:25', 5, 'vcbmn', 'cvbn', 'cvbn', 'cvbn', 'ddd', '231', '321d3', 'd1', '313', '1d32', '32d1321', 'd13', '2d131', 'd323', '1321', '321', '32', '1d32d', '13', 'd131d', '31', 'd32', '1d3', '21d3', '1d3', NULL, NULL),
+(5, NULL, NULL, 5, 'IMPLC', 'A', '01003501', NULL, 'HEJEN RACING COMMITTEE', '332244553', '4433221144', '33223344', 'QATAR', 'سعيد', 'DOHA', '554433', '44332211', '44332211', 'EMARITS', 'EMARITS', 'DOHA', 'DOHA', '2010-06-10', NULL, '2010-06-10', NULL, '77665544', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `importation_a_n_i_m_a_l__i_n_f_os`
+--
+
+CREATE TABLE `importation_a_n_i_m_a_l__i_n_f_os` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `importation_id` bigint(20) UNSIGNED NOT NULL,
+  `a_n_i_m_a_l__i_n_f_os_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `importation_a_n_i_m_a_l__i_n_f_os`
+--
+
+INSERT INTO `importation_a_n_i_m_a_l__i_n_f_os` (`id`, `importation_id`, `a_n_i_m_a_l__i_n_f_os_id`, `created_at`, `updated_at`) VALUES
+(21, 5, 22, NULL, NULL),
+(22, 5, 23, NULL, NULL),
+(23, 5, 24, NULL, NULL),
+(24, 5, 25, NULL, NULL),
+(25, 5, 26, NULL, NULL),
+(26, 5, 27, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `migrations`
 --
 
@@ -373,7 +536,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2023_06_12_105638_add_delet_users', 4),
 (9, '2023_06_12_121522_create_clients_table', 5),
 (10, '2023_06_12_135940_add_delet_client', 6),
-(11, '2023_06_12_150603_add_code_client', 7);
+(11, '2023_06_12_150603_add_code_client', 7),
+(12, '2023_06_13_092531_create_acceptation_clients_table', 8),
+(13, '2023_06_13_123459_add_remaber_client', 9),
+(15, '2023_07_03_084139_create_api_users_table', 10),
+(18, '2023_07_03_093147_add_files_to_importation', 13),
+(19, '2023_07_03_093536_importaion_animal', 14),
+(20, '2023_07_03_091154_create_a_n_i_m_a_l__i_n_f_os_table', 15),
+(23, '2023_07_03_092257_create_importations_table', 16);
 
 -- --------------------------------------------------------
 
@@ -546,6 +716,27 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `ud`, `email`, `email_veri
 --
 
 --
+-- Index pour la table `acceptation_clients`
+--
+ALTER TABLE `acceptation_clients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `acceptation_clients_user_id_index` (`User_id`),
+  ADD KEY `acceptation_clients_client_id_index` (`Client_id`);
+
+--
+-- Index pour la table `api_users`
+--
+ALTER TABLE `api_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `a_n_i_m_a_l__i_n_f_os`
+--
+ALTER TABLE `a_n_i_m_a_l__i_n_f_os`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `a_n_i_m_a_l__i_n_f_os_client_id_index` (`client_id`);
+
+--
 -- Index pour la table `clients`
 --
 ALTER TABLE `clients`
@@ -564,6 +755,19 @@ ALTER TABLE `countries`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Index pour la table `importations`
+--
+ALTER TABLE `importations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `importations_client_id_index` (`client_id`);
+
+--
+-- Index pour la table `importation_a_n_i_m_a_l__i_n_f_os`
+--
+ALTER TABLE `importation_a_n_i_m_a_l__i_n_f_os`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `migrations`
@@ -639,10 +843,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT pour la table `acceptation_clients`
+--
+ALTER TABLE `acceptation_clients`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `api_users`
+--
+ALTER TABLE `api_users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `a_n_i_m_a_l__i_n_f_os`
+--
+ALTER TABLE `a_n_i_m_a_l__i_n_f_os`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
 -- AUTO_INCREMENT pour la table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `countries`
@@ -657,10 +879,22 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `importations`
+--
+ALTER TABLE `importations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `importation_a_n_i_m_a_l__i_n_f_os`
+--
+ALTER TABLE `importation_a_n_i_m_a_l__i_n_f_os`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
 -- AUTO_INCREMENT pour la table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `permissions`
