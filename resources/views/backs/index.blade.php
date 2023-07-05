@@ -22,11 +22,7 @@
                 <h4 class="mt-5 mb-5">{{ trans('backs.model_plural') }}</h4>
             </div>
 
-            <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('backs.back.create') }}" class="btn btn-success" title="{{ trans('backs.create') }}">
-                    <span class="fa fa-plus" aria-hidden="true"></span>
-                </a>
-            </div>
+
 
         </div>
 
