@@ -17,7 +17,7 @@ class ClientsController extends Controller
             'contry_id' => 'required',
         ]);
 
-        $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->first();
+        $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->where('accepted', '1')->first();
 
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return response()->json([
@@ -25,7 +25,7 @@ class ClientsController extends Controller
             ]);
         }
 
-        $token = $user->createToken('android')->plainTextToken;
+        $token = $user->createToken('ios')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
