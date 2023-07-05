@@ -16,11 +16,17 @@ use App\Http\Controllers\api\ClientsController;
 Route::middleware('auth:sanctum')->group(function () {
 
 });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/user', function() {
+
+    return auth()->user();
+})->middleware('auth:sanctum');
 
 Route::post('/login', [ClientsController::class, 'create_token']);
+Route::post('/sungupp', [ClientsController::class, 'sungupp']);
+
+Route::post('confiramtion/{client}', [ClientsController::class, 'confiramtion']);
+
+Route::post('signature/{client}', [ClientsController::class, 'signature']);
 
 Route::get('contries', function () {
     $contries = App\Models\countries::where('active','1')->get();
@@ -31,6 +37,8 @@ Route::get('contries', function () {
 
 
 });
+
+
 
 Route::get('command', function () {
 
