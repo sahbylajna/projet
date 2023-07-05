@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [ClientsController::class, 'create_token']);
 
 Route::get('contries', function () {
-    $contries = App\Models\countries::where('active','1')->pluck('name','id')->all();
+    $contries = App\Models\countries::where('active','1')->get();
     return response()->json([
         'contries' => $contries
 
