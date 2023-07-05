@@ -100,70 +100,7 @@
             </a>
           </li>
 
-        {{-- <li class="nav-item">
-          <a class="nav-link " href="../pages/tables.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons-round opacity-10">table_view</i>
-            </div>
-            <span class="nav-link-text me-1">الجداول</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/billing.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons-round opacity-10">receipt_long</i>
-            </div>
-            <span class="nav-link-text me-1">الفواتير</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/virtual-reality.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons-round opacity-10">view_in_ar</i>
-            </div>
-            <span class="nav-link-text me-1">الواقع الافتراضي</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="../pages/rtl.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons-round opacity-10">format_textdirection_r_to_l</i>
-            </div>
-            <span class="nav-link-text me-1">RTL</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/notifications.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">notifications</i>
-            </div>
-            <span class="nav-link-text me-1">إشعارات</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/profile.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons-round opacity-10">person</i>
-            </div>
-            <span class="nav-link-text me-1">حساب تعريفي</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-in.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons-round opacity-10">login</i>
-            </div>
-            <span class="nav-link-text me-1">تسجيل الدخول</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-up.html">
-            <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons-round opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text me-1">اشتراك</span>
-          </a>
-        </li> --}}
+
       </ul>
     </div>
 

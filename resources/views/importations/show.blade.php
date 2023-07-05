@@ -123,9 +123,9 @@
 
 
 
-            </div>
+               </div>
 
-                </form>
+                 </form>
             @elseif ($importation->accepted == 1)
             <p class="btn btn-info">{{ trans('clients.accepted') }}</p>
             @elseif ($importation->accepted == 0)

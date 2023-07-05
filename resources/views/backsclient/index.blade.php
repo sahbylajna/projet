@@ -76,7 +76,7 @@
                     <tbody>
                     @foreach($backs as $back)
                         <tr>
-                            <td>{{ optional($back->client)->created_at }}</td>
+                            <td>{{ optional($back->client)->ud }}</td>
                             <td>{{ $back->CER_TYPE }}</td>
                             <td>{{ $back->CER_LANG }}</td>
                             <td>{{ optional($back->cOMP)->id }}</td>
@@ -135,9 +135,7 @@
             </div>
         </div>
 
-        <div class="panel-footer">
-            {!! $backs->render() !!}
-        </div>
+
 
         @endif
 

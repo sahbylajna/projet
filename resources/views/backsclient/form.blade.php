@@ -1,20 +1,9 @@
 <input type="hidden" name="client_id" value="{{ auth()->guard('clientt')->user()->id }}">
 
-<div class="form-group {{ $errors->has('CER_TYPE') ? 'has-error' : '' }}">
-    <label for="CER_TYPE" class="col-md-2 control-label">{{ trans('backs.CER_TYPE') }}</label>
-    <div class="col-md-10">
-        <input class="form-control" name="CER_TYPE" type="text" id="CER_TYPE" value="{{ old('CER_TYPE', optional($back)->CER_TYPE) }}" minlength="1" placeholder="{{ trans('backs.CER_TYPE__placeholder') }}">
-        {!! $errors->first('CER_TYPE', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
+<input type="hidden" name="CER_TYPE" value="IMPLC">
+<input type="hidden" name="CER_LANG" value="A">
 
-<div class="form-group {{ $errors->has('CER_LANG') ? 'has-error' : '' }}">
-    <label for="CER_LANG" class="col-md-2 control-label">{{ trans('backs.CER_LANG') }}</label>
-    <div class="col-md-10">
-        <input class="form-control" name="CER_LANG" type="text" id="CER_LANG" value="{{ old('CER_LANG', optional($back)->CER_LANG) }}" minlength="1" placeholder="{{ trans('backs.CER_LANG__placeholder') }}">
-        {!! $errors->first('CER_LANG', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
+
 
 <div class="form-group {{ $errors->has('COMP_ID') ? 'has-error' : '' }}">
     <label for="COMP_ID" class="col-md-2 control-label">{{ trans('backs.COMP_ID') }}</label>
@@ -202,19 +191,13 @@
     </div>
 </div>
 
-<div class="form-group {{ $errors->has('accepted') ? 'has-error' : '' }}">
-    <label for="accepted" class="col-md-2 control-label">{{ trans('backs.accepted') }}</label>
+
+<div class="form-group {{ $errors->has('EXP_PASSPORT_NUM') ? 'has-error' : '' }}">
+    <label for="EXP_PASSPORT_NUM" class="col-md-2 control-label">{{ trans('importations.files') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="accepted" type="text" id="accepted" value="{{ old('accepted', optional($back)->accepted) }}" minlength="1" placeholder="{{ trans('backs.accepted__placeholder') }}">
-        {!! $errors->first('accepted', '<p class="help-block">:message</p>') !!}
+        <input class="form-control" name="files" type="file" id="files" value="{{ old('files', optional($back)->files) }}" minlength="1" placeholder="{{ trans('importations.files') }}">
+        {!! $errors->first('EXP_PASSPORT_NUM', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
-<div class="form-group {{ $errors->has('reson') ? 'has-error' : '' }}">
-    <label for="reson" class="col-md-2 control-label">{{ trans('backs.reson') }}</label>
-    <div class="col-md-10">
-        <input class="form-control" name="reson" type="text" id="reson" value="{{ old('reson', optional($back)->reson) }}" minlength="1" placeholder="{{ trans('backs.reson__placeholder') }}">
-        {!! $errors->first('reson', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
-
+<br><br><br><br>

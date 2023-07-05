@@ -99,45 +99,7 @@
                 </div>
             </div>
 
-            <div class="form-group {{ $errors->has('ANML_SPECIES') ? 'has-error' : '' }}">
-                <label for="ANML_SPECIES" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SPECIES') }}</label>
-                <div class="col-md-10">
-                    <input class="form-control" name="ANML_SPECIES" type="text" id="ANML_SPECIES" minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SPECIES__placeholdera') }}">
-                    {!! $errors->first('ANML_SPECIES', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
 
-            <div class="form-group {{ $errors->has('ANML_SEX') ? 'has-error' : '' }}">
-                <label for="ANML_SEX" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SEX') }}</label>
-                <div class="col-md-10">
-                    <input class="form-control" name="ANML_SEX" type="text" id="ANML_SEX"  minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SEX__placeholdera') }}">
-                    {!! $errors->first('ANML_SEX', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
-            <div class="form-group {{ $errors->has('ANML_NUMBER') ? 'has-error' : '' }}">
-                <label for="ANML_NUMBER" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_NUMBER') }}</label>
-                <div class="col-md-10">
-                    <input class="form-control" name="ANML_NUMBER" type="number" id="ANML_NUMBER" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_NUMBER__placeholdera') }}">
-                    {!! $errors->first('ANML_NUMBER', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
-            <div class="form-group {{ $errors->has('ANML_USE') ? 'has-error' : '' }}">
-                <label for="ANML_USE" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_USE') }}</label>
-                <div class="col-md-10">
-                    <input class="form-control" name="ANML_USE" type="text" id="ANML_USE"  minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_USE__placeholdera') }}">
-                    {!! $errors->first('ANML_USE', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
-            <div class="form-group {{ $errors->has('ANIMAL_BREED') ? 'has-error' : '' }}">
-                <label for="ANIMAL_BREED" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANIMAL_BREED') }}</label>
-                <div class="col-md-10">
-                    <input class="form-control" name="ANIMAL_BREED" type="text" id="ANIMAL_BREED" minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANIMAL_BREED__placeholdera') }}">
-                    {!! $errors->first('ANIMAL_BREED', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
 
             <input type="hidden" name="client_id" id="client_id" value="{{ auth()->guard('clientt')->user()->id }}" >
 

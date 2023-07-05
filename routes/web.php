@@ -288,6 +288,12 @@ Route::group([
          ->name('backs.back.show')->where('id', '[0-9]+');
     Route::get('/{back}/edit',[BacksController::class, 'edit'])
          ->name('backs.back.edit')->where('id', '[0-9]+');
+
+         Route::get('/{back}/accept',[BacksController::class, 'accept'])
+         ->name('back.accept')->where('id', '[0-9]+');
+
+
+
     Route::post('/', [BacksController::class, 'store'])
          ->name('backs.back.store');
     Route::put('back/{back}', [BacksController::class, 'update'])

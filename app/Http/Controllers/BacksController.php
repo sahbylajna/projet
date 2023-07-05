@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Client;
 use App\Models\back;
+use App\Models\ANIMAL_INFO;
 use Illuminate\Http\Request;
 use Exception;
-
+use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client as ClientHTTP;
+use App\Models\ApiUser;
 class BacksController extends Controller
 {
 
@@ -19,7 +22,7 @@ class BacksController extends Controller
      */
     public function index()
     {
-        $backs = back::with('client','comp')->paginate(25);
+        $backs = back::with('client')->paginate(25);
 
         return view('backs.index', compact('backs'));
     }
@@ -167,9 +170,9 @@ class BacksController extends Controller
             'ORIGIN_COUNTRY' => 'string|nullable',
             'SHIPPING_PLACE' => 'string|min:1|nullable',
             'ENTERY_PORT' => 'string|min:1|nullable',
-            'EXPECTED_ARRIVAL_DATE' => 'date_format:j/n/Y|nullable',
+            'EXPECTED_ARRIVAL_DATE' => 'string|nullable',
             'TRANSPORT' => 'string|min:1|nullable',
-            'SHIPPING_DATE' => 'date_format:j/n/Y|nullable',
+            'SHIPPING_DATE' => 'string|nullable',
             'APPLICANT_NAME' => 'string|min:1|nullable',
             'APPLICANT_TEL' => 'string|min:1|nullable',
             'EXP_NATIONALITY' => 'string|min:1|nullable',
@@ -236,11 +239,7 @@ class BacksController extends Controller
             $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa[$key];
             $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRY[$key];
             $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRY[$key];
-            $animal->ANML_SPECIES = $request->ANML_SPECIES[$key];
-            $animal->ANML_SEX = $request->ANML_SEX[$key];
-            $animal->ANML_NUMBER = $request->ANML_NUMBER[$key];
-            $animal->ANML_USE = $request->ANML_USE[$key];
-            $animal->ANIMAL_BREED = $request->ANIMAL_BREED[$key];
+
             $animal->client_id =  auth()->guard('clientt')->user()->id ;
             $animal->save();
             $back->animal()->attach( $animal->id);
@@ -249,7 +248,7 @@ class BacksController extends Controller
 
 
 
-dd($request);
+
 
             return redirect()->route('backs.client.index')
                 ->with('success_message', trans('backs.model_was_added'));
@@ -383,6 +382,7 @@ $data['EXP_NATIONALITY'] = $back->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $back->EXP_PASSPORT_NUM;
 
 $ANIMALINFO = [];
+
 
 foreach ($back->animal as $key => $value) {
 
