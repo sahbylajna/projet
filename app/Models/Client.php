@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Laravel\Sanctum\HasApiTokens;
 class Client  extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens,Notifiable;
     use SoftDeletes;
 
     protected $hidden = ['password',  'remember_token'];
