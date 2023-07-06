@@ -103,7 +103,7 @@ return [
     'add' => 'Add',
     'update' => 'Update',
     'confirm_delete' => 'Click Ok to delete Back.',
-    'none_available' => 'No Backs Available.',
+    'none_available' => 'لا عودة متاحة.',
     'model_plural' => 'عودة ',
     'model_was_added' => 'Back was successfully added.',
     'model_was_retrieved' => 'Back was successfully retrieved.',
