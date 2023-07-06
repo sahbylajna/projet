@@ -58,7 +58,18 @@
 <div class="form-group {{ $errors->has('EXP_COUNTRY') ? 'has-error' : '' }}">
     <label for="EXP_COUNTRY" class="col-md-2 control-label">{{ trans('backs.EXP_COUNTRY') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="EXP_COUNTRY" type="text" id="EXP_COUNTRY" value="{{ old('EXP_COUNTRY', optional($back)->EXP_COUNTRY) }}" placeholder="{{ trans('backs.EXP_COUNTRY__placeholder') }}">
+        @php
+        $countries =   App\Models\countries::where('active',1)->get();
+
+        @endphp
+                <select name="EXP_COUNTRY" id="EXP_COUNTRY"  class="form-control">
+                    @foreach ($countries as $countrie)
+                    <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
+                    @endforeach
+                </select>
+
+
+
         {!! $errors->first('EXP_COUNTRY', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -66,7 +77,7 @@
 <div class="form-group {{ $errors->has('IMP_NAME') ? 'has-error' : '' }}">
     <label for="IMP_NAME" class="col-md-2 control-label">{{ trans('backs.IMP_NAME') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_NAME" type="text" id="IMP_NAME" value="{{ old('IMP_NAME', optional($back)->IMP_NAME) }}" minlength="1" placeholder="{{ trans('backs.IMP_NAME__placeholder') }}">
+        <input class="form-control" name="IMP_NAME" type="text" id="IMP_NAME" value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->last_name }}" minlength="1" placeholder="{{ trans('backs.IMP_NAME__placeholder') }}">
         {!! $errors->first('IMP_NAME', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -106,7 +117,12 @@
 <div class="form-group {{ $errors->has('IMP_COUNTRY') ? 'has-error' : '' }}">
     <label for="IMP_COUNTRY" class="col-md-2 control-label">{{ trans('backs.IMP_COUNTRY') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_COUNTRY" type="text" id="IMP_COUNTRY" value="{{ old('IMP_COUNTRY', optional($back)->IMP_COUNTRY) }}" placeholder="{{ trans('backs.IMP_COUNTRY__placeholder') }}">
+        <select name="IMP_COUNTRY" id="IMP_COUNTRY"  class="form-control">
+            @foreach ($countries as $countrie)
+            <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
+            @endforeach
+        </select>
+
         {!! $errors->first('IMP_COUNTRY', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -114,7 +130,12 @@
 <div class="form-group {{ $errors->has('ORIGIN_COUNTRY') ? 'has-error' : '' }}">
     <label for="ORIGIN_COUNTRY" class="col-md-2 control-label">{{ trans('backs.ORIGIN_COUNTRY') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="ORIGIN_COUNTRY" type="text" id="ORIGIN_COUNTRY" value="{{ old('ORIGIN_COUNTRY', optional($back)->ORIGIN_COUNTRY) }}" placeholder="{{ trans('backs.ORIGIN_COUNTRY__placeholder') }}">
+        <select name="ORIGIN_COUNTRY" id="ORIGIN_COUNTRY"  class="form-control">
+            @foreach ($countries as $countrie)
+            <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
+            @endforeach
+        </select>
+
         {!! $errors->first('ORIGIN_COUNTRY', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

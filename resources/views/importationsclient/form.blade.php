@@ -78,7 +78,7 @@
 <div class="form-group {{ $errors->has('IMP_NAME') ? 'has-error' : '' }}">
     <label for="IMP_NAME" class="col-md-2 control-label">{{ trans('importations.IMP_NAME') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_NAME" type="text" id="IMP_NAME" value="{{ old('IMP_NAME', optional($importation)->IMP_NAME) }}" minlength="1" placeholder="{{ trans('importations.IMP_NAME__placeholder') }}">
+        <input class="form-control" name="IMP_NAME" type="text" id="IMP_NAME" value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->last_name }}" minlength="1" placeholder="{{ trans('importations.IMP_NAME__placeholder') }}">
         {!! $errors->first('IMP_NAME', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -86,7 +86,7 @@
 <div class="form-group {{ $errors->has('IMP_ADDRESS') ? 'has-error' : '' }}">
     <label for="IMP_ADDRESS" class="col-md-2 control-label">{{ trans('importations.IMP_ADDRESS') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_ADDRESS" type="text" id="IMP_ADDRESS" value="{{ old('IMP_ADDRESS', optional($importation)->IMP_ADDRESS) }}" minlength="1" placeholder="{{ trans('importations.IMP_ADDRESS__placeholder') }}">
+        <input class="form-control" name="IMP_ADDRESS" type="text" id="IMP_ADDRESS" value="" minlength="1" placeholder="{{ trans('importations.IMP_ADDRESS__placeholder') }}">
         {!! $errors->first('IMP_ADDRESS', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -102,7 +102,7 @@
 <div class="form-group {{ $errors->has('IMP_TEL') ? 'has-error' : '' }}">
     <label for="IMP_TEL" class="col-md-2 control-label">{{ trans('importations.IMP_TEL') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_TEL" type="text" id="IMP_TEL" value="{{ old('IMP_TEL', optional($importation)->IMP_TEL) }}" minlength="1" placeholder="{{ trans('importations.IMP_TEL__placeholder') }}">
+        <input class="form-control" name="IMP_TEL" type="text" id="IMP_TEL" value="{{ auth()->guard('clientt')->user()->phone }}" minlength="1" placeholder="{{ trans('importations.IMP_TEL__placeholder') }}">
         {!! $errors->first('IMP_TEL', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -118,7 +118,16 @@
 <div class="form-group {{ $errors->has('IMP_COUNTRY') ? 'has-error' : '' }}">
     <label for="IMP_COUNTRY" class="col-md-2 control-label">{{ trans('importations.IMP_COUNTRY') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_COUNTRY" type="number" id="IMP_COUNTRY" value="{{ old('IMP_COUNTRY', optional($importation)->IMP_COUNTRY) }}" placeholder="{{ trans('importations.IMP_COUNTRY__placeholder') }}">
+        @php
+$countries =   App\Models\countries::where('active',1)->get();
+
+@endphp
+        <select name="IMP_COUNTRY" id="IMP_COUNTRY"  class="form-control">
+            @foreach ($countries as $countrie)
+            <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
+            @endforeach
+        </select>
+
         {!! $errors->first('IMP_COUNTRY', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -126,7 +135,15 @@
 <div class="form-group {{ $errors->has('ORIGIN_COUNTRY') ? 'has-error' : '' }}">
     <label for="ORIGIN_COUNTRY" class="col-md-2 control-label">{{ trans('importations.ORIGIN_COUNTRY') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="ORIGIN_COUNTRY" type="number" id="ORIGIN_COUNTRY" value="{{ old('ORIGIN_COUNTRY', optional($importation)->ORIGIN_COUNTRY) }}" placeholder="{{ trans('importations.ORIGIN_COUNTRY__placeholder') }}">
+        @php
+$countries =   App\Models\countries::where('active',1)->get();
+
+@endphp
+        <select name="ORIGIN_COUNTRY" id="ORIGIN_COUNTRY"  class="form-control">
+            @foreach ($countries as $countrie)
+            <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
+            @endforeach
+        </select>
         {!! $errors->first('ORIGIN_COUNTRY', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
