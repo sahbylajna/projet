@@ -100,7 +100,7 @@ return [
     'edit' => 'Edit Back',
     'show' => 'Show Back',
     'show_all' => 'Show All Back',
-    'add' => 'Add',
+    'add' => 'إضافة',
     'update' => 'Update',
     'confirm_delete' => 'Click Ok to delete Back.',
     'none_available' => 'لا عودة متاحة.',

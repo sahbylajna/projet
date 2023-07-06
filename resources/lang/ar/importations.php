@@ -98,7 +98,7 @@ return [
     'edit' => 'Edit Importation',
     'show' => 'Show Importation',
     'show_all' => 'Show All Importation',
-    'add' => 'Add',
+    'add' => 'إضافة',
     'update' => 'Update',
     'confirm_delete' => 'Click Ok to delete Importation.',
     'none_available' => 'لا توجد دخول متاحة',

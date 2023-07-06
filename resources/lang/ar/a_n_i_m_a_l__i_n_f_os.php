@@ -57,7 +57,7 @@ return [
     'edit' => 'Edit A N I M A L  I N F O',
     'show' => 'Show A N I M A L  I N F O',
     'show_all' => 'Show All A N I M A L  I N F O',
-    'add' => 'Add',
+    'add' => 'إضافة',
     'EXPORT_COUNTRY' => 'بلد التصدير',
     'update' => 'Update',
     'confirm_delete' => 'Click Ok to delete A N I M A L  I N F O.',
