@@ -36,7 +36,8 @@ class ANIMAL_INFO extends Model
                   'ANML_NUMBER',
                   'ANML_USE',
                   'ANIMAL_BREED',
-                  'client_id'
+                  'client_id',
+                  'ANML_MICROCHIP'
               ];
 
     /**
@@ -71,6 +72,12 @@ class ANIMAL_INFO extends Model
     public function back()
     {
         return $this->belongsToMany(back::class, 'back_a_n_i_m_a_l__i_n_f_os', 'a_n_i_m_a_l__i_n_f_os_id', 'back_id');
+    }
+
+
+    public function export()
+    {
+        return $this->belongsToMany(export::class, 'export_a_n_i_m_a_l__i_n_f_os', 'a_n_i_m_a_l__i_n_f_os_id', 'export_id');
     }
 
 

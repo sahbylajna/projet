@@ -27,5 +27,9 @@
     {
         "model-name": "back",
         "resource-file": "backs.json"
+    },
+    {
+        "model-name": "export",
+        "resource-file": "exports.json"
     }
 ]

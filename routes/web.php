@@ -10,6 +10,7 @@ use App\Http\Controllers\ApiUsersController;
 use App\Http\Controllers\ANIMALINFOsController;
 use App\Http\Controllers\ImportationsController;
 use App\Http\Controllers\BacksController;
+use App\Http\Controllers\ExportsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,6 +72,28 @@ Route::get('/client/home', [App\Http\Controllers\HomeClientController::class, 'i
 Route::group([
     'prefix' => 'client',
 ], function () {
+
+
+    Route::group([
+        'prefix' => 'exports',
+    ], function () {
+        Route::get('/', [ExportsController::class, 'indexclient'])
+             ->name('exports.clientindex');
+        Route::get('/create', [ExportsController::class, 'createclient'])
+             ->name('exports.clientcreate');
+        Route::get('/show/{export}',[ExportsController::class, 'showclient'])
+             ->name('exports.clientshow')->where('id', '[0-9]+');
+        Route::get('/{export}/edit',[ExportsController::class, 'editclient'])
+             ->name('exports.clientedit')->where('id', '[0-9]+');
+        Route::post('/', [ExportsController::class, 'storeclient'])
+             ->name('exports.clientstore');
+        Route::put('export/{export}', [ExportsController::class, 'updateclient'])
+             ->name('exports.clientupdate')->where('id', '[0-9]+');
+        Route::delete('/export/{export}',[ExportsController::class, 'destroyclient'])
+             ->name('exports.clientdestroy')->where('id', '[0-9]+');
+    });
+
+
 
 
 Route::group([
@@ -300,4 +323,27 @@ Route::group([
          ->name('backs.back.update')->where('id', '[0-9]+');
     Route::delete('/back/{back}',[BacksController::class, 'destroy'])
          ->name('backs.back.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'exports',
+], function () {
+    Route::get('/', [ExportsController::class, 'index'])
+         ->name('exports.export.index');
+
+
+         Route::get('/{export}/accept',[ExportsController::class, 'accept'])
+         ->name('exports.accept')->where('id', '[0-9]+');
+    Route::get('/create', [ExportsController::class, 'create'])
+         ->name('exports.export.create');
+    Route::get('/show/{export}',[ExportsController::class, 'show'])
+         ->name('exports.export.show')->where('id', '[0-9]+');
+    Route::get('/{export}/edit',[ExportsController::class, 'edit'])
+         ->name('exports.export.edit')->where('id', '[0-9]+');
+    Route::post('/', [ExportsController::class, 'store'])
+         ->name('exports.export.store');
+    Route::put('export/{export}', [ExportsController::class, 'update'])
+         ->name('exports.export.update')->where('id', '[0-9]+');
+    Route::delete('/export/{export}',[ExportsController::class, 'destroy'])
+         ->name('exports.export.destroy')->where('id', '[0-9]+');
 });

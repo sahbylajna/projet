@@ -1,21 +1,12 @@
 
 <input type="hidden" name="client_id" value="{{ auth()->guard('clientt')->user()->id }}">
 
-<div class="form-group {{ $errors->has('CER_TYPE') ? 'has-error' : '' }}">
-    <label for="CER_TYPE" class="col-md-2 control-label">{{ trans('importations.CER_TYPE') }}</label>
-    <div class="col-md-10">
-        <input class="form-control" name="CER_TYPE" type="text" id="CER_TYPE" value="{{ old('CER_TYPE', optional($importation)->CER_TYPE) }}" minlength="1" placeholder="{{ trans('importations.CER_TYPE__placeholder') }}">
-        {!! $errors->first('CER_TYPE', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
+<input type="hidden" name="CER_TYPE" value="IMPLC">
+<input type="hidden" name="CER_LANG" value="A">
 
-<div class="form-group {{ $errors->has('CER_LANG') ? 'has-error' : '' }}">
-    <label for="CER_LANG" class="col-md-2 control-label">{{ trans('importations.CER_LANG') }}</label>
-    <div class="col-md-10">
-        <input class="form-control" name="CER_LANG" type="text" id="CER_LANG" value="{{ old('CER_LANG', optional($importation)->CER_LANG) }}" minlength="1" placeholder="{{ trans('importations.CER_LANG__placeholder') }}">
-        {!! $errors->first('CER_LANG', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
+
+
+
 
 <div class="form-group {{ $errors->has('COMP_ID') ? 'has-error' : '' }}">
     <label for="COMP_ID" class="col-md-2 control-label">{{ trans('importations.COMP_ID') }}</label>
