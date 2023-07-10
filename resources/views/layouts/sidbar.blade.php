@@ -99,7 +99,14 @@
               <span class="nav-link-text me-1">{{ trans('backs.model_plural') }} </span>
             </a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link " href="{{ route('exports.export.index') }}">
+              <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons-round opacity-10">dashboard</i>
+              </div>
+              <span class="nav-link-text me-1">{{ trans('exports.model_plural') }} </span>
+            </a>
+          </li>
 
       </ul>
     </div>

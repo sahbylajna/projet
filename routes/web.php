@@ -78,19 +78,19 @@ Route::group([
         'prefix' => 'exports',
     ], function () {
         Route::get('/', [ExportsController::class, 'indexclient'])
-             ->name('exports.clientindex');
+             ->name('exports.client.index');
         Route::get('/create', [ExportsController::class, 'createclient'])
-             ->name('exports.clientcreate');
+             ->name('exports.client.create');
         Route::get('/show/{export}',[ExportsController::class, 'showclient'])
-             ->name('exports.clientshow')->where('id', '[0-9]+');
+             ->name('exports.client.show')->where('id', '[0-9]+');
         Route::get('/{export}/edit',[ExportsController::class, 'editclient'])
-             ->name('exports.clientedit')->where('id', '[0-9]+');
+             ->name('exports.client.edit')->where('id', '[0-9]+');
         Route::post('/', [ExportsController::class, 'storeclient'])
-             ->name('exports.clientstore');
+             ->name('exports.client.store');
         Route::put('export/{export}', [ExportsController::class, 'updateclient'])
-             ->name('exports.clientupdate')->where('id', '[0-9]+');
+             ->name('exports.client.update')->where('id', '[0-9]+');
         Route::delete('/export/{export}',[ExportsController::class, 'destroyclient'])
-             ->name('exports.clientdestroy')->where('id', '[0-9]+');
+             ->name('exports.client.destroy')->where('id', '[0-9]+');
     });
 
 
