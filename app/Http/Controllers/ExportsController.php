@@ -379,7 +379,7 @@ class ExportsController extends Controller
  $data['SHIPPING_PLACE'] = $export->SHIPPING_PLACE;
  $data['ENTERY_PORT'] = $export->ENTERY_PORT;
  $data['EXPECTED_ARRIVAL_DATE'] = $export->EXPECTED_ARRIVAL_DATE;
- $data['TRANSPORT'] = $export->TRANSPORT;
+
  $data['SHIPPING_DATE'] = $export->SHIPPING_DATE;
  $data['APPLICANT_NAME'] = $export->APPLICANT_NAME;
  $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
@@ -390,14 +390,12 @@ class ExportsController extends Controller
 
  foreach ($export->animal as $key => $value) {
 
-     $data1['EXPORT_COUNTRY'] = $value->EXPORT_COUNTRY;
-     $data1['ORIGIN_COUNTRY'] = $value->ORIGIN_COUNTRY;
-     $data1['TRANSIET_COUNTRY'] = $value->TRANSIET_COUNTRY;
+
      $data1['ANML_SPECIES'] = $value->EUSER_QID;
      $data1['ANML_SEX'] = $value->ANML_SEX;
-     $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
+     $data1['ANML_MICROCHIP'] = $value->ANML_MICROCHIP;
      $data1['ANML_USE'] = $value->ANML_USE;
-     $data1['ANIMAL_BREED'] = $value->ANIMAL_BREED;
+
      $ANIMALINFO[$key] = $data1;
 
 
@@ -416,7 +414,7 @@ class ExportsController extends Controller
 
  try{
      $client2 = new ClientHTTP();
-     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
+     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHCC_SUBMIT', [
          'form_params' => [
              'DATA' => $data,
              'ANIMAL_INFO' =>$ANIMALINFOj,

@@ -51,7 +51,8 @@ class export extends Model
                   'EXP_NATIONALITY',
                   'EXP_PASSPORT_NUM',
                   'accepted',
-                  'reson'
+                  'reson',
+                  'files'
               ];
 
     /**

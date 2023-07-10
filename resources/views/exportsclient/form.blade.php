@@ -182,3 +182,16 @@
 </div>
 
 
+
+
+<div class="form-group {{ $errors->has('EXP_PASSPORT_NUM') ? 'has-error' : '' }}">
+    <label for="EXP_PASSPORT_NUM" class="col-md-2 control-label">{{ trans('importations.files') }}</label>
+    <div class="col-md-10">
+        <input class="form-control" name="files" type="file" id="files" value="{{ old('files', optional($export)->files) }}" minlength="1" placeholder="{{ trans('importations.files') }}">
+        {!! $errors->first('EXP_PASSPORT_NUM', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+<br><br><br><br>
+
+
