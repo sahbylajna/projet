@@ -23,7 +23,7 @@
             </div>
 
             <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('exports.export.create') }}" class="btn btn-success" title="{{ trans('exports.create') }}">
+                <a href="{{ route('exports.client.create') }}" class="btn btn-success" title="{{ trans('exports.create') }}">
                     <span class="fa fa-plus" aria-hidden="true"></span>
                 </a>
             </div>
