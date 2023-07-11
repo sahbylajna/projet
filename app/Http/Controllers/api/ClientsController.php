@@ -24,7 +24,10 @@ class ClientsController extends Controller
 
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return response()->json([
-                'error' => 'The provided credentials are incorrect.'
+
+                'access_token' => '',
+            'error' => 'The provided credentials are incorrect.',
+            'token_type' => ''
             ]);
         }
 
@@ -32,6 +35,7 @@ class ClientsController extends Controller
 
         return response()->json([
             'access_token' => $token,
+            'error' => '',
             'token_type' => 'Bearer'
         ]);
     }
