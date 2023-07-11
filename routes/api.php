@@ -30,10 +30,10 @@ Route::post('signature/{client}', [ClientsController::class, 'signature']);
 
 Route::get('contries', function () {
     $contries = App\Models\countries::where('active','1')->get();
-    return response()->json([
+    return response()->json(
      $contries
 
-    ]);
+    );
 
 
 });
