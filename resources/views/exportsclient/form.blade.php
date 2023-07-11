@@ -141,7 +141,7 @@
     </div>
 </div>
 
-<div class="form-group {{ $errors->has('SHIPPING_DATE') ? 'has-error' : '' }}">
+<div class="form-group {{ $errors->has('SHIPPING_DATE') ? 'has-error' : '' }}">`
     <label for="SHIPPING_DATE" class="col-md-2 control-label">{{ trans('exports.SHIPPING_DATE') }}</label>
     <div class="col-md-10">
         <input class="form-control" name="SHIPPING_DATE" type="date" id="SHIPPING_DATE" value="{{ old('SHIPPING_DATE', optional($export)->SHIPPING_DATE) }}" placeholder="{{ trans('exports.SHIPPING_DATE__placeholder') }}">
