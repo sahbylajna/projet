@@ -51,7 +51,8 @@ class ClientsController extends Controller
 
          return response()->json([
             'id' => $client->id,
-            'message' => 'success'
+            'message' => 'success',
+            'errors' => 'errors'
         ]);
         } catch (Exception $exception) {
             return response()->json([
