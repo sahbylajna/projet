@@ -54,7 +54,10 @@ class ClientsController extends Controller
             'message' => 'success'
         ]);
         } catch (Exception $exception) {
+            return response()->json([
 
+                'message' => 'error'
+            ]);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
