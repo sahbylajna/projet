@@ -41,9 +41,9 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>{{ trans('importations.client_id') }}</th>
+                            {{-- <th>{{ trans('importations.client_id') }}</th>
                             <th>{{ trans('importations.CER_TYPE') }}</th>
-                            <th>{{ trans('importations.CER_LANG') }}</th>
+                            <th>{{ trans('importations.CER_LANG') }}</th> --}}
                             <th>{{ trans('importations.COMP_ID') }}</th>
                             <th>{{ trans('importations.EUSER_QID') }}</th>
                             <th>{{ trans('importations.EXP_NAME') }}</th>
@@ -67,8 +67,8 @@
                             <th>{{ trans('importations.APPLICANT_TEL') }}</th>
                             <th>{{ trans('importations.EXP_NATIONALITY') }}</th>
                             <th>{{ trans('importations.EXP_PASSPORT_NUM') }}</th>
-                            <th>{{ trans('importations.accepted') }}</th>
-                            <th>{{ trans('importations.reson') }}</th>
+                            {{-- <th>{{ trans('importations.accepted') }}</th>
+                            <th>{{ trans('importations.reson') }}</th> --}}
 
                             <th></th>
                         </tr>
@@ -76,10 +76,10 @@
                     <tbody>
                     @foreach($importations as $importation)
                         <tr>
-                            <td>{{ optional($importation->client)->created_at }}</td>
+                            {{-- <td>{{ optional($importation->client)->created_at }}</td>
                             <td>{{ $importation->CER_TYPE }}</td>
-                            <td>{{ $importation->CER_LANG }}</td>
-                            <td>{{ optional($importation->cOMP)->id }}</td>
+                            <td>{{ $importation->CER_LANG }}</td> --}}
+                            <td>{{ $importation->COMP_ID }}</td>
                             <td>{{ $importation->EUSER_QID }}</td>
                             <td>{{ $importation->EXP_NAME }}</td>
                             <td>{{ $importation->EXP_TEL }}</td>
@@ -102,29 +102,11 @@
                             <td>{{ $importation->APPLICANT_TEL }}</td>
                             <td>{{ $importation->EXP_NATIONALITY }}</td>
                             <td>{{ $importation->EXP_PASSPORT_NUM }}</td>
-                            <td>{{ $importation->accepted }}</td>
-                            <td>{{ $importation->reson }}</td>
+
 
                             <td>
 
-                                <form method="POST" action="{!! route('importations.client.destroy', $importation->id) !!}" accept-charset="UTF-8">
-                                <input name="_method" value="DELETE" type="hidden">
-                                {{ csrf_field() }}
 
-                                    <div class="btn-group btn-group-xs pull-right" role="group">
-                                        <a href="{{ route('importations.client.show', $importation->id ) }}" class="btn btn-info" title="{{ trans('importations.show') }}">
-                                            <span class="fa fa-eye" aria-hidden="true"></span>
-                                        </a>
-                                        <a href="{{ route('importations.client.edit', $importation->id ) }}" class="btn btn-primary" title="{{ trans('importations.edit') }}">
-                                            <span class="fa fa-pencil" aria-hidden="true"></span>
-                                        </a>
-
-                                        <button type="submit" class="btn btn-danger" title="{{ trans('importations.delete') }}" onclick="return confirm(&quot;{{ trans('importations.confirm_delete') }}&quot;)">
-                                            <span class="fa fa-trash" aria-hidden="true"></span>
-                                        </button>
-                                    </div>
-
-                                </form>
 
                             </td>
                         </tr>

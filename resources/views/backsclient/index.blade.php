@@ -41,9 +41,9 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>{{ trans('backs.client_id') }}</th>
+                            {{-- <th>{{ trans('backs.client_id') }}</th>
                             <th>{{ trans('backs.CER_TYPE') }}</th>
-                            <th>{{ trans('backs.CER_LANG') }}</th>
+                            <th>{{ trans('backs.CER_LANG') }}</th> --}}
                             <th>{{ trans('backs.COMP_ID') }}</th>
                             <th>{{ trans('backs.EUSER_QID') }}</th>
                             <th>{{ trans('backs.EXP_NAME') }}</th>
@@ -76,10 +76,10 @@
                     <tbody>
                     @foreach($backs as $back)
                         <tr>
-                            <td>{{ optional($back->client)->ud }}</td>
+                            {{-- <td>{{ optional($back->client)->ud }}</td>
                             <td>{{ $back->CER_TYPE }}</td>
-                            <td>{{ $back->CER_LANG }}</td>
-                            <td>{{ optional($back->cOMP)->id }}</td>
+                            <td>{{ $back->CER_LANG }}</td> --}}
+                            <td>{{ $back->COMP_ID }}</td>
                             <td>{{ $back->EUSER_QID }}</td>
                             <td>{{ $back->EXP_NAME }}</td>
                             <td>{{ $back->EXP_TEL }}</td>

@@ -11,7 +11,7 @@
             </span>
 
             <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('backs.back.index') }}" class="btn btn-primary" title="{{ trans('backs.show_all') }}">
+                <a href="{{ route('backs.client.index') }}" class="btn btn-primary" title="{{ trans('backs.show_all') }}">
                     <span class="fa fa-th-list" aria-hidden="true"></span>
                 </a>
             </div>
@@ -68,12 +68,17 @@
 
 
     <!-- The Modal -->
-    <div id="myModal" class="modal">
 
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-         <div  class="form-horizontal">
+    <div class="modal w-lg fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" >
+        <div class="modal-dialog " role="document">
+            <div class="modal-content card shade">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
             <div class="form-group {{ $errors->has('EXPORT_COUNTRY') ? 'has-error' : '' }}">
                 <label for="EXPORT_COUNTRY" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.EXPORT_COUNTRY') }}</label>
@@ -121,15 +126,18 @@
 
 
 
+        </div>
+        <div class="modal-footer">
+
+
             <input type="hidden" name="client_id" id="client_id" value="{{ auth()->guard('clientt')->user()->id }}" >
 
-            <input type="button" class="btn btn-primary" value=" {{ trans('importations.add') }} "  onclick="addRowto()" >
-
-
-         </div>
+<input type="button" class="btn outlined f-main" value=" {{ trans('importations.add') }} "  onclick="addRowto()" >
         </div>
+    </div>
+</div>
+</div>
 
-      </div>
     @endsection
 
     @section('css')

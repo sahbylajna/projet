@@ -41,9 +41,9 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>{{ trans('exports.client_id') }}</th>
+                            {{-- <th>{{ trans('exports.client_id') }}</th>
                             <th>{{ trans('exports.CER_TYPE') }}</th>
-                            <th>{{ trans('exports.CER_LANG') }}</th>
+                            <th>{{ trans('exports.CER_LANG') }}</th> --}}
                             <th>{{ trans('exports.COMP_ID') }}</th>
                             <th>{{ trans('exports.EUSER_QID') }}</th>
                             <th>{{ trans('exports.EXP_NAME') }}</th>
@@ -71,9 +71,9 @@
                     <tbody>
                     @foreach($exports as $export)
                         <tr>
-                            <td>{{ optional($export->client)->ud }}</td>
+                            {{-- <td>{{ optional($export->client)->ud }}</td>
                             <td>{{ $export->CER_TYPE }}</td>
-                            <td>{{ $export->CER_LANG }}</td>
+                            <td>{{ $export->CER_LANG }}</td> --}}
                             <td>{{ $export->COMP_ID }}</td>
                             <td>{{ $export->EUSER_QID }}</td>
                             <td>{{ $export->EXP_NAME }}</td>

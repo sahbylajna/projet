@@ -61,8 +61,17 @@
 <div class="form-group {{ $errors->has('EXP_COUNTRY') ? 'has-error' : '' }}">
     <label for="EXP_COUNTRY" class="col-md-2 control-label">{{ trans('importations.EXP_COUNTRY') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="EXP_COUNTRY" type="number" id="EXP_COUNTRY" value="{{ old('EXP_COUNTRY', optional($importation)->EXP_COUNTRY) }}" placeholder="{{ trans('importations.EXP_COUNTRY__placeholder') }}">
-        {!! $errors->first('EXP_COUNTRY', '<p class="help-block">:message</p>') !!}
+        @php
+        $countries =   App\Models\countries::where('active',1)->get();
+
+        @endphp
+                <select name="EXP_COUNTRY" id="EXP_COUNTRY"  class="form-control">
+                    @foreach ($countries as $countrie)
+                    <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
+                    @endforeach
+                </select>
+
+                {!! $errors->first('EXP_COUNTRY', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
