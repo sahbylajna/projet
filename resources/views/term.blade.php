@@ -48,7 +48,7 @@ body {
 .title {
 	text-align: center;
 
-    margin-top: 53px;
+    margin-top: 30px;
 }
 
 label,
