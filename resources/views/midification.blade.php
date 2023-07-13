@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <!-- Design by foolishdeveloper.com -->
-    <title></title>
+  <title>اللجنة المنضمة لسباق الهجن</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
