@@ -161,7 +161,7 @@
         var newRow = "<tr>"
        newRow=newRow + '<td><input  style="    border: aliceblue;" type="text" name="ANML_SPECIES[]" id="" value="'+ document.getElementById("ANML_SPECIES").value+'" readonly></td>';
        newRow=newRow + '<td><input  style="    border: aliceblue;" type="text" name="ANML_SEX[]" id="" value="'+ document.getElementById("ANML_SEX").value+'" readonly></td>';
-       newRow=newRow + '<td><input  style="    border: aliceblue;" type="text" name="ANML_NUMBER[]" id="" value="'+ document.getElementById("ANML_NUMBER").value+'" readonly></td>';
+       newRow=newRow + '<td><input  style="    border: aliceblue;" type="text" name="ANML_USE[]" id="" value="'+ document.getElementById("ANML_USE").value+'" readonly></td>';
        newRow=newRow + '<td><input  style="    border: aliceblue;" type="text" name="ANML_MICROCHIP[]" id="" value="'+ document.getElementById("ANML_MICROCHIP").value+'" readonly></td>';
 
 
