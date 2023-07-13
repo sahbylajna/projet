@@ -257,15 +257,20 @@ class ClientsController extends Controller
             $client = Client::findOrFail($id);
             if($client->code == $request->code){
                 $client->virification = 1;
+                $client->save();
+            return redirect()->route('/' )
+                ->with('success_message', trans('clients.model_was_added'));
+            }else{
+                return back()->withInput()
+                ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
             }
 
             $client->save();
             return redirect()->route('/' )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
-           dd( $exception);
-            return back()->withInput()
-                ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
+          // dd( $exception);
+
         }
     }
 

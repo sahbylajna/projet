@@ -9,6 +9,76 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->
     <style media="screen">
+
+body {
+	background: #4d3278;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	font-family: sans-serif;
+}
+
+
+.pic {
+    background-image: url({{ asset('images/logo-modified.png') }});
+    background-repeat: no-repeat;
+    background-position: center center;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 140px;
+	height: 140px;
+	border-radius: 50%;
+	font-size: 24px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 60px;
+	border: 10px solid #4d3278;
+	/* background: linear-gradient(to right, #9d50bb, #6e48aa); */
+	transform: translate(-50%, -50%);
+}
+
+.form {
+    background: #FFF;
+    border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	text-align: center;
+
+    margin-top: 53px;
+}
+
+label,
+.links,
+button {
+	margin-top: 20px;
+}
+
+label {
+	margin-top: 20px;
+	font-size: 16px;
+	color: rgb(77, 77, 77);
+	font-weight: 600;
+    margin-bottom: 12px;
+
+}
+
+
+button {
+	background: linear-gradient(to right, #9d50bb, #6e48aa);
+	padding: 14px;
+	border: 0;
+	color: #fff;
+	font-size: 15px;
+	letter-spacing: 1px;
+	border-radius: 31px;
+	text-transform: uppercase;
+}
+
       *,
 *:before,
 *:after{
@@ -16,12 +86,10 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
-    background-color: #080710;
-}
+
 .background{
     width: 430px;
-    height: 520px;
+
     position: absolute;
     transform: translate(-50%,-50%);
     left: 50%;
@@ -52,12 +120,11 @@ body{
 }
 form{
 
+    width: auto;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
-    transform: translate(-50%,-50%);
-    top: 187%;
-    padding-top: 125px;
-    margin-top: 147px;
+    transform: translate(-50%,-6%);
+    top: 50%;
     left: 50%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
@@ -67,7 +134,7 @@ form{
 }
 form *{
     font-family: 'Poppins',sans-serif;
-    color: #ffffff;
+
     letter-spacing: 0.5px;
     outline: none;
     border: none;
@@ -80,18 +147,25 @@ form h3{
 }
 
 label{
-    display: block;
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 16px;
-    font-weight: 500;
+    color: rgb(77, 77, 77);
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 select,input{
+    padding: 15px;
+    outline: none;
+    border: 0;
+    background: #EEE;
+    border-radius: 31px;
     display: block;
     height: 50px;
+    color: rgb(77, 77, 77);
     width: 100%;
-    background-color: rgba(255,255,255,0.07);
-    border-radius: 3px;
-    padding: 0 10px;
+
+
+
     margin-top: 8px;
     font-size: 14px;
     font-weight: 300;
@@ -102,12 +176,11 @@ select,input{
 button{
     margin-top: 50px;
     width: 100%;
-    background-color: #ffffff;
-    color: #080710;
+
     padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
-    border-radius: 5px;
+
     cursor: pointer;
 }
 .social{
@@ -133,16 +206,10 @@ button{
   margin-right: 4px;
 }
 #container {width:100%; font-size: 0;}
-#left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
-#left {width: 25%; }
-#middle {width: 70%; }
-#right {width: 25%;}
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
-* {
-    padding: 0;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-}
+#left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;padding: 5px;}
+#left {width: 40%; }
+#middle {width: 50%; }
+#right {width: 100%;}
 
 .flex-row {
     display: flex;
@@ -181,7 +248,7 @@ button#clear span {
 
   @endphp
 
-    <form method="POST" action="{{ route('clients.client.signature', $id) }}"  onsubmit="return validateForm()" enctype="multipart/form-data"  id="edit_client_form" name="edit_client_form" accept-charset="UTF-8" class="form-horizontal">
+    <form method="POST" action="{{ route('clients.client.signature', $id) }}"  onsubmit="return validateForm()" enctype="multipart/form-data"  id="edit_client_form" name="edit_client_form" accept-charset="UTF-8" class="form">
         {{ csrf_field() }}
         <input name="_method" type="hidden" value="PUT">
         <h3>{{ __('login.Login Here') }}</h3>

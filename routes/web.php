@@ -32,7 +32,7 @@ if(auth()->guard()->check()){
     return redirect()->route('home');
     }
 
-    return view('welcome');
+    return view('login');
 })->name('/');
 
 Route::get('/term', function (Request $request) {

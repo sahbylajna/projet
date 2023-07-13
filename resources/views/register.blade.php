@@ -9,6 +9,76 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->
     <style media="screen">
+
+body {
+	background: #4d3278;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	font-family: sans-serif;
+}
+
+
+.pic {
+    background-image: url({{ asset('images/logo-modified.png') }});
+    background-repeat: no-repeat;
+    background-position: center center;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 140px;
+	height: 140px;
+	border-radius: 50%;
+	font-size: 24px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 60px;
+	border: 10px solid #4d3278;
+	/* background: linear-gradient(to right, #9d50bb, #6e48aa); */
+	transform: translate(-50%, -50%);
+}
+
+.form {
+    background: #FFF;
+    border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	text-align: center;
+
+    margin-top: 53px;
+}
+
+label,
+.links,
+button {
+	margin-top: 20px;
+}
+
+label {
+	margin-top: 20px;
+	font-size: 16px;
+	color: rgb(77, 77, 77);
+	font-weight: 600;
+    margin-bottom: 12px;
+
+}
+
+
+button {
+	background: linear-gradient(to right, #9d50bb, #6e48aa);
+	padding: 14px;
+	border: 0;
+	color: #fff;
+	font-size: 15px;
+	letter-spacing: 1px;
+	border-radius: 31px;
+	text-transform: uppercase;
+}
+
       *,
 *:before,
 *:after{
@@ -16,9 +86,7 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
-    background-color: #080710;
-}
+
 .background{
     width: 430px;
 
@@ -79,18 +147,25 @@ form h3{
 }
 
 label{
-    display: block;
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 16px;
-    font-weight: 500;
+    color: rgb(77, 77, 77);
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 select,input{
+    padding: 15px;
+    outline: none;
+    border: 0;
+    background: #EEE;
+    border-radius: 31px;
     display: block;
     height: 50px;
+    color: rgb(77, 77, 77);
     width: 100%;
-    background-color: rgba(255,255,255,0.07);
-    border-radius: 3px;
-    padding: 0 10px;
+
+
+
     margin-top: 8px;
     font-size: 14px;
     font-weight: 300;
@@ -101,12 +176,11 @@ select,input{
 button{
     margin-top: 50px;
     width: 100%;
-    background-color: #ffffff;
-    color: #080710;
+
     padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
-    border-radius: 5px;
+
     cursor: pointer;
 }
 .social{
@@ -139,15 +213,12 @@ button{
     </style>
 </head>
 <body>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
+
     @php
     $countries =   App\Models\countries::where('active',1)->get();
 
   @endphp
-    <form  method="POST" action="{{ route('clients.client.sungupp') }}" enctype="multipart/form-data" accept-charset="UTF-8" id="create_client_form" name="create_client_form" class="form-horizontal">
+    <form  method="POST" action="{{ route('clients.client.sungupp') }}" enctype="multipart/form-data" accept-charset="UTF-8" id="create_client_form" name="create_client_form" class="form">
         {{ csrf_field() }}
 
 
