@@ -47,12 +47,20 @@ class ClientsController extends Controller
 
         try {
 
-            $data = $this->getData($request);
+          //  $data = $this->getData($request);
 
-         $client =    Client::create($data);
-
+         $client =    new Client();
+         $client->first_name = $request->first_name ;
+         $client->last_name = $request->last_name ;
+         $client->phone = $request->phone ;
+         $client->ud = $request->ud ;
+         $client->email = $request->email ;
+         $client->photo_ud_frent = $request->photo_ud_frent ;
+         $client->photo_ud_back = $request->photo_ud_back ;
+         $client->password = $request->password ;
+         $client->contry_id = $request->contry_id ;
          return response()->json([
-            'id' => $client->id,
+            'id' => $client->first_name,
             'message' => 'success',
             'errors' => ''
         ]);
