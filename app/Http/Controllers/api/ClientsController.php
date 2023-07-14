@@ -59,6 +59,7 @@ class ClientsController extends Controller
          $client->photo_ud_back = $request->photo_ud_back ;
          $client->password = $request->password ;
          $client->contry_id = $request->contry_id ;
+         $client->save();
          return response()->json([
             'id' => 1,
             'message' => 'success',
