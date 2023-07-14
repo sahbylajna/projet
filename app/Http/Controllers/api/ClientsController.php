@@ -43,11 +43,8 @@ class ClientsController extends Controller
 
     public function sungupp(Request $request)
     {
-        return response()->json([
-            'id' =>'1',
-            'message' => 'success',
-            'errors' => ''
-        ]);
+
+
         try {
 
             $data = $this->getData($request);
@@ -61,8 +58,9 @@ class ClientsController extends Controller
         ]);
         } catch (Exception $exception) {
             return response()->json([
-
-                'message' => 'error'
+                'id' => '',
+                'message' => '',
+                'errors' => ''
             ]);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
