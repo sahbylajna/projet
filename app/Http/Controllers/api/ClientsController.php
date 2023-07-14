@@ -60,7 +60,7 @@ class ClientsController extends Controller
          $client->password = $request->password ;
          $client->contry_id = $request->contry_id ;
          return response()->json([
-            'id' => $client->first_name,
+            'id' => 1,
             'message' => 'success',
             'errors' => ''
         ]);
