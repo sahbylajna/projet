@@ -44,7 +44,7 @@ class ClientsController extends Controller
     public function sungupp(Request $request)
     {
         return response()->json([
-            'id' => $client->id,
+            'id' =>'1',
             'message' => 'success',
             'errors' => ''
         ]);
