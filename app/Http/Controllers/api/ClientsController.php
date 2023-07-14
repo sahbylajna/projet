@@ -75,7 +75,7 @@ class ClientsController extends Controller
         }else{
             $client =    new Client();
             if ($request->photo_ud_frent) {
-                $folderPath = "uploads/";
+                $folderPath = "iamges/";
                 $base64Image = explode(";base64,", $request->photo_ud_frent);
                 $explodeImage = explode("image/", $base64Image[0]);
                 $imageType = $explodeImage[1];
@@ -86,7 +86,7 @@ class ClientsController extends Controller
             }
 
             if ($request->photo_ud_back) {
-                $folderPath = "uploads/";
+                $folderPath = "iamges/";
                 $base64Image = explode(";base64,", $request->photo_ud_back);
                 $explodeImage = explode("image/", $base64Image[0]);
                 $imageType = $explodeImage[1];
