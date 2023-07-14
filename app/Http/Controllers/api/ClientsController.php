@@ -87,13 +87,13 @@ class ClientsController extends Controller
 
             if ($request->photo_ud_back) {
                 $folderPath = "images/";
-                $base64Image = explode(";base64,", $request->photo_ud_back);
-                $explodeImage = explode("image/", $base64Image[0]);
-                $imageType = $explodeImage[1];
-                $image_base64 = base64_decode($base64Image[1]);
-                $file = $folderPath . uniqid() .'.'.$imageType;
-                file_put_contents($file, $image_base64);
-                $client->photo_ud_back = $file ;
+                $base64Image2 = explode(";base64,", $request->photo_ud_back);
+                $explodeImage2 = explode("image/", $base64Image2[0]);
+                $imageType5 = $explodeImage2[1];
+                $image_base642 = base64_decode($base64Image2[1]);
+                $file5 = $folderPath . uniqid() .'.'.$imageType5;
+                file_put_contents($file5, $image_base642);
+                $client->photo_ud_back = $file5 ;
             }
 
          $client->first_name = $request->first_name ;
