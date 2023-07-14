@@ -85,13 +85,24 @@ class ClientsController extends Controller
                 $client->photo_ud_frent = $file ;
             }
 
+            if ($request->photo_ud_back) {
+                $folderPath = "uploads/";
+                $base64Image = explode(";base64,", $request->photo_ud_back);
+                $explodeImage = explode("image/", $base64Image[0]);
+                $imageType = $explodeImage[1];
+                $image_base64 = base64_decode($base64Image[1]);
+                $file = $folderPath . uniqid() . '. '.$imageType;
+                file_put_contents($file, $image_base64);
+                $client->photo_ud_back = $file ;
+            }
+
          $client->first_name = $request->first_name ;
          $client->last_name = $request->last_name ;
          $client->phone = $request->phone ;
          $client->ud = $request->ud ;
          $client->email = $request->email ;
 
-         $client->photo_ud_back = $request->photo_ud_back ;
+
          $client->password = Hash::make($request->password)  ;
          $client->contry_id = $request->contry_id ;
          $client->save();

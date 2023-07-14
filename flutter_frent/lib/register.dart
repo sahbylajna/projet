@@ -352,7 +352,7 @@ print(base64Image2);
 print(base64Image1);
 
 
- Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),base64Image1,base64Image2))!;
+ Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),base64Image1.toString(),base64Image2.toString()))!;
 
 
  if(!success.errors!.isEmpty){

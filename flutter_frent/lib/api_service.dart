@@ -111,7 +111,8 @@ class ApiService {
     }),
     );
 
-
+print('/////////////////////////////////////////////////////////////////////////');
+print(response.statusCode );
       if (response.statusCode == 200) {
         Success _model = successFromJson(response.body);
         log(_model.toString());
