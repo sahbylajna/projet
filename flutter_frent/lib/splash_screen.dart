@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             child: Center(
               child: ClipOval(
-                child: Image.asset('logo.png'), //put your logo here
+                child: Image.asset('assets/logo.png'), //put your logo here
               ),
             ),
           ),

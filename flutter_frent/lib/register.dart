@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/model/success.dart';
 import 'package:flutter_frent/model/token.dart';
+import 'package:flutter_frent/term.dart';
 import 'package:flutter_frent/widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'api_service.dart';
@@ -90,6 +92,12 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration('الاسم الأول', 'أدخل اسمك الأول'),
                              controller: fistname,
+                             validator: (val) {
+                              if( (val!.isEmpty)){
+                                return "أدخل  اسمك الأول ";
+                              }
+
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -98,6 +106,12 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration('اسم العائلة', 'أدخل اسم العائلة الخاص بك'),
                              controller: lastname,
+                                                          validator: (val) {
+                              if( (val!.isEmpty)){
+                                return "أدخل  اسمك العائلة ";
+                              }
+
+                            },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -108,7 +122,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                             decoration: ThemeHelper().textInputDecoration("بريد إلكتروني", "أدخل بريدك الإلكتروني"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
+                              if(!(val!.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)  || (val!.isEmpty)){
                                 return "أدخل عنوان بريد إلكتروني صحيحًا";
                               }
 
@@ -125,7 +139,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                 controller: ud,
                             keyboardType: TextInputType.number,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
+                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)  || (val!.isEmpty)){
                                 return "أدخل رقم id صحيحًا";
                               }
 
@@ -148,7 +162,7 @@ width: _screen.width * 0.45,
                                 controller: phone,
                             keyboardType: TextInputType.phone,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
+                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val) || (val!.isEmpty)){
                                 return "أدخل رقم هاتف صحيحًا";
                               }
 
@@ -215,9 +229,9 @@ width: _screen.width * 0.45,
 
 
                               ),
- image == null?Container():Image.file(File(image!.path),
-width: _screen.width * 0.40,
- height: _screen.width * 0.20,)
+//  image == null?Container():Image.file(File(image!.path),
+// width: _screen.width * 0.40,
+//  height: _screen.width * 0.20,)
 
 
 
@@ -242,9 +256,9 @@ width: _screen.width * 0.40,
 
 
                               ),
- image2 == null?Container():Image.file(File(image2!.path),
-width: _screen.width * 0.40,
- height: _screen.width * 0.20,)
+//  image2 == null?Container():Image.network(image2!.path,
+// width: _screen.width * 0.40,
+//  height: _screen.width * 0.20,)
 
 
 
@@ -364,14 +378,18 @@ print(base64Image1);
                                           context);
                                     },
                                   );
+                                    }else{
+                                            final user = await SharedPreferences.getInstance();
+                                    user.setString('id',success.id.toString());
+Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => TermContent()
+                                    ),
+                                        (Route<dynamic> route) => false
+                                );
                                     }
 
-                                // Navigator.of(context).pushAndRemoveUntil(
-                                //     MaterialPageRoute(
-                                //         builder: (context) => LoginPage()
-                                //     ),
-                                //         (Route<dynamic> route) => false
-                                // );
+
                               }
                             },
                           ),

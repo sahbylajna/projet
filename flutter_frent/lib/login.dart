@@ -8,6 +8,7 @@ import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/model/token.dart';
 import 'package:flutter_frent/model/user.dart';
 import 'package:flutter_frent/register.dart';
+import 'package:flutter_frent/term.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_frent/constants.dart';
 import 'package:flutter_frent/api_service.dart';
@@ -249,7 +250,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                     TextSpan(text: "ليس لديك حساب؟ ",
                                     recognizer: TapGestureRecognizer()
                                         ..onTap = (){
-                                         Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+                                         Navigator.push(context, MaterialPageRoute(builder: (context) => TermContent()));
                                         },),
 
                                   ]
