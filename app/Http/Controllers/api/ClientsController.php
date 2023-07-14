@@ -59,7 +59,7 @@ class ClientsController extends Controller
             'contry_id' => 'required',
 
         ];
-        
+
 
           //  $data = $this->getData($request);
           $validator = \Validator::make($request->all(),  $rules);
