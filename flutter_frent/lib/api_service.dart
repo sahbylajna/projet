@@ -106,15 +106,12 @@ class ApiService {
       'email':email,
       'ud': ud,
       'contry_id': contry_id,
-      'photo_ud_frent': photo_ud_frent.toString(),
+      'photo_ud_frent': photo_ud_frent,
       'photo_ud_back': photo_ud_back.toString(),
     }),
     );
 
-    print('//////////////////////////////////////////////////////////////////////////////');
- print('response.statusCode');
-     print(response.statusCode);
- print('//////////////////////////////////////////////////////////////////////////////');
+
       if (response.statusCode == 200) {
         Success _model = successFromJson(response.body);
         log(_model.toString());

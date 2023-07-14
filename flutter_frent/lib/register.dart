@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -342,14 +343,16 @@ width: _screen.width * 0.40,
                             ),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-log(fistname.text);
-log(lastname.text);
-log(email.text);
-log(phone.text);
-log(password.text);
-log(_selectedValue!.id.toString());
+                                 final bytes = File(image!.path).readAsBytesSync();
+                          String base64Image1 =  "data:image/png;base64,"+base64Encode(bytes);
+                             final bytes2 = File(image2!.path).readAsBytesSync();
+                          String base64Image2 =  "data:image/png;base64,"+base64Encode(bytes2);
 
- Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),image!.path,image2!.path))!;
+print(base64Image2);
+print(base64Image1);
+
+
+ Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),base64Image1,base64Image2))!;
 
 
  if(!success.errors!.isEmpty){

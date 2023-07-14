@@ -73,13 +73,24 @@ class ClientsController extends Controller
                 'errors' => 'errors'
             ]);
         }else{
-         $client =    new Client();
+            $client =    new Client();
+            if ($request->photo_ud_frent) {
+                $folderPath = "uploads/";
+                $base64Image = explode(";base64,", $request->photo_ud_frent);
+                $explodeImage = explode("image/", $base64Image[0]);
+                $imageType = $explodeImage[1];
+                $image_base64 = base64_decode($base64Image[1]);
+                $file = $folderPath . uniqid() . '. '.$imageType;
+                file_put_contents($file, $image_base64);
+                $client->photo_ud_frent = $file ;
+            }
+
          $client->first_name = $request->first_name ;
          $client->last_name = $request->last_name ;
          $client->phone = $request->phone ;
          $client->ud = $request->ud ;
          $client->email = $request->email ;
-         $client->photo_ud_frent = $request->photo_ud_frent ;
+
          $client->photo_ud_back = $request->photo_ud_back ;
          $client->password = Hash::make($request->password)  ;
          $client->contry_id = $request->contry_id ;
