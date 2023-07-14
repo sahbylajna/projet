@@ -9,14 +9,14 @@ Success successFromJson(String str) => Success.fromJson(json.decode(str));
 String successToJson(Success data) => json.encode(data.toJson());
 
 class Success {
-    int id;
-    String message;
-    String errors;
+    String? id;
+    String? message;
+    String? errors;
 
     Success({
-         this.id,
-        required this.message,
-        required this.errors,
+        this.id,
+        this.message,
+        this.errors,
     });
 
     factory Success.fromJson(Map<String, dynamic> json) => Success(

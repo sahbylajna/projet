@@ -349,13 +349,12 @@ log(phone.text);
 log(password.text);
 log(_selectedValue!.id.toString());
 
-// Success success =  (await ApiService().register('fistname.text','lastname.text','email.text','phone.text','password.text','_selectedValue!.id.toString()','image!.path','image!.path'))!;
+ Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),image!.path,image2!.path))!;
 
 
 
 
-Success success =  (await ApiService().sung())!;
-log(success.message);
+log(success.toString());
                                 // Navigator.of(context).pushAndRemoveUntil(
                                 //     MaterialPageRoute(
                                 //         builder: (context) => LoginPage()
