@@ -53,8 +53,8 @@ class ClientsController extends Controller
             'phone' => 'required|numeric|min:8|unique:clients,phone',
             'ud' => 'required|numeric|min:12|unique:clients,ud',
             'email' => 'required|email|min:10|max:255|unique:clients,email',
-            'photo_ud_frent' => 'file|nullable',
-            'photo_ud_back' => 'file|nullable',
+            'photo_ud_frent' => 'nullable',
+            'photo_ud_back' => 'nullable',
             'password' => 'required',
             'contry_id' => 'required',
 
