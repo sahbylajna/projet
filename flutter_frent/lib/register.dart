@@ -352,9 +352,17 @@ log(_selectedValue!.id.toString());
  Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),image!.path,image2!.path))!;
 
 
+ if(!success.errors!.isEmpty){
+                                           showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ThemeHelper().alartDialog("إنتباه",
+                                        'رقم الهاتف أو كلمة المرور غير صحيحة' ,
+                                          context);
+                                    },
+                                  );
+                                    }
 
-
-log(success.errors.toString());
                                 // Navigator.of(context).pushAndRemoveUntil(
                                 //     MaterialPageRoute(
                                 //         builder: (context) => LoginPage()

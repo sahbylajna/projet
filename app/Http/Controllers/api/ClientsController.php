@@ -68,7 +68,7 @@ class ClientsController extends Controller
             //pass validator errors as errors object for ajax response
 
             return response()->json([
-                'id' => '',
+                'id' => 0,
                 'message' => '',
                 'errors' => 'errors'
             ]);
@@ -92,7 +92,7 @@ class ClientsController extends Controller
     }
         } catch (Exception $exception) {
             return response()->json([
-                'id' => '',
+                'id' => 0,
                 'message' => '',
                 'errors' => ''
             ]);
