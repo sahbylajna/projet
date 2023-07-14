@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage>{
  final user = SharedPreferences.getInstance();
       late List<Contries> _contrie = [];
     Contries? _selectedValue;
-    int contry_id = 0;
+
 @override
   void initState() {
     super.initState();

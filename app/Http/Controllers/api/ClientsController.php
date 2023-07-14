@@ -43,6 +43,11 @@ class ClientsController extends Controller
 
     public function sungupp(Request $request)
     {
+        return response()->json([
+            'id' => $client->id,
+            'message' => 'success',
+            'errors' => ''
+        ]);
         try {
 
             $data = $this->getData($request);

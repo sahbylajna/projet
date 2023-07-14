@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/model/success.dart';
+import 'package:flutter_frent/model/token.dart';
 import 'package:flutter_frent/widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -351,10 +352,10 @@ log(_selectedValue!.id.toString());
 // Success success =  (await ApiService().register('fistname.text','lastname.text','email.text','phone.text','password.text','_selectedValue!.id.toString()','image!.path','image!.path'))!;
 
 
-log((await ApiService().register()).toString());
 
-// Success success =  (await ApiService().register())!;
 
+Success success =  (await ApiService().sung())!;
+log(success.message);
                                 // Navigator.of(context).pushAndRemoveUntil(
                                 //     MaterialPageRoute(
                                 //         builder: (context) => LoginPage()

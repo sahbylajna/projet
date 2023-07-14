@@ -90,32 +90,82 @@ class ApiService {
   Future<Success?> register() async {
     try {
 
-        // ignore: unnecessary_new
+
 
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.register);
-      var response = await http.post(url,
-    headers: <String, String>{
-        "Accept": "application/json",
 
+      var response = await http.post(url,
+       headers: <String, String>{
+      'Content-Type': 'application/json',
     },
     body: jsonEncode( <String, String>{
-      'first_name': 'first_name',
-      'last_name': 'last_name',
-      'phone': '50164069',
-      'password': 'password',
-      'email': 'email@as.cc',
-      'contry_id': '174',
-      'photo_ud_frent': 'photo_ud_frent.toString()',
-      'photo_ud_back': 'photo_ud_back.toString()',
+      'first_name': 'first_name'.toString(),
+      'last_name': 'last_name'.toString(),
+      'phone': '50164066'.toString(),
+      'password': 'password'.toString(),
+      'email': 'ss@as.cc'.toString(),
+      'ud': '123456786974'.toString(),
+      'contry_id': '174'.toString(),
+      'photo_ud_frent': 'photo_ud_frent.toString()'.toString(),
+      'photo_ud_back': 'photo_ud_back.toString()'.toString(),
     }),
     );
+
+    print('//////////////////////////////////////////////////////////////////////////////');
+ print('response.statusCode');
+     print(response.statusCode);
+ print('//////////////////////////////////////////////////////////////////////////////');
       if (response.statusCode == 200) {
         Success _model = successFromJson(response.body);
         log(_model.toString());
         return _model;
       }
+       log('e.toString()1h');
+    } catch (e) {
+        print(e);
+
+    }
+  }
+
+Future<Success?> sung() async {
+
+
+
+
+
+
+try {
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.register);
+      var response = await http.post(url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+       'first_name': 'first_name'.toString(),
+      'last_name': 'last_name'.toString(),
+      'phone': '50164066'.toString(),
+      'password': 'password'.toString(),
+      'email': 'ss@as.cc'.toString(),
+      'ud': '123456786974'.toString(),
+      'contry_id': '174'.toString(),
+      'photo_ud_frent': 'photo_ud_frent.toString()'.toString(),
+      'photo_ud_back': 'photo_ud_back.toString()'.toString(),
+    }),
+    );
+     print('//////////////////////////////////////////////////////////////////////////////');
+ print('response.statusCode');
+     print(response.statusCode);
+ print('//////////////////////////////////////////////////////////////////////////////');
+      if (response.statusCode == 200) {
+        Success _model = successFromJson(response.body);
+        return _model;
+      }
     } catch (e) {
       log(e.toString());
     }
-  }
+    }
+
+
+
+
 }
