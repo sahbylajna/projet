@@ -9,7 +9,7 @@ Success successFromJson(String str) => Success.fromJson(json.decode(str));
 String successToJson(Success data) => json.encode(data.toJson());
 
 class Success {
-    String? id;
+    int? id;
     String? message;
     String? errors;
 

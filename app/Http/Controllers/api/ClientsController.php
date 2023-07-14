@@ -81,7 +81,7 @@ class ClientsController extends Controller
          $client->email = $request->email ;
          $client->photo_ud_frent = $request->photo_ud_frent ;
          $client->photo_ud_back = $request->photo_ud_back ;
-         $client->password = $request->password ;
+         $client->password = Hash::make($request->password)  ;
          $client->contry_id = $request->contry_id ;
          $client->save();
          return response()->json([
