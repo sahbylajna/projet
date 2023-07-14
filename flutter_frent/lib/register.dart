@@ -109,7 +109,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                               if(!(val!.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
                                 return "أدخل عنوان بريد إلكتروني صحيحًا";
                               }
-                              return null;
+
                             },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
@@ -126,7 +126,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                               if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
                                 return "أدخل رقم id صحيحًا";
                               }
-                              return null;
+
                             },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
@@ -149,7 +149,7 @@ width: _screen.width * 0.45,
                               if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
                                 return "أدخل رقم هاتف صحيحًا";
                               }
-                              return null;
+
                             },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
@@ -281,7 +281,7 @@ width: _screen.width * 0.40,
                               if (val!.isEmpty) {
                                 return "من فضلك أدخل رقمك السري";
                               }
-                              return null;
+
                             },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
@@ -319,7 +319,7 @@ width: _screen.width * 0.40,
                             if (!checkboxValue) {
                               return 'تحتاج إلى قبول الشروط والأحكام';
                             } else {
-                              return null;
+
                             }
                           },
                         ),
@@ -351,9 +351,9 @@ log(_selectedValue!.id.toString());
 // Success success =  (await ApiService().register('fistname.text','lastname.text','email.text','phone.text','password.text','_selectedValue!.id.toString()','image!.path','image!.path'))!;
 
 
+log((await ApiService().register()).toString());
 
-
-Success success =  (await ApiService().register())!;
+// Success success =  (await ApiService().register())!;
 
                                 // Navigator.of(context).pushAndRemoveUntil(
                                 //     MaterialPageRoute(

@@ -5,6 +5,6 @@ class ApiConstants {
 
   static String user = '/user';
 
-  static String sungupp = '/sungupp';
+  static String register = '/sungupp';
 
 }

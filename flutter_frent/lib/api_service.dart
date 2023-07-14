@@ -92,26 +92,26 @@ class ApiService {
 
         // ignore: unnecessary_new
 
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.sungupp);
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.register);
       var response = await http.post(url,
     headers: <String, String>{
         "Accept": "application/json",
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
 
+    },
     body: jsonEncode( <String, String>{
       'first_name': 'first_name',
       'last_name': 'last_name',
-      'phone': 'phone',
+      'phone': '50164069',
       'password': 'password',
-      'email': 'email',
-      'contry_id': 'contry',
+      'email': 'email@as.cc',
+      'contry_id': '174',
       'photo_ud_frent': 'photo_ud_frent.toString()',
       'photo_ud_back': 'photo_ud_back.toString()',
     }),
     );
       if (response.statusCode == 200) {
         Success _model = successFromJson(response.body);
+        log(_model.toString());
         return _model;
       }
     } catch (e) {
