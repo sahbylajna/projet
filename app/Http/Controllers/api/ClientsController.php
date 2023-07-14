@@ -61,7 +61,7 @@ class ClientsController extends Controller
          $client->contry_id = $request->contry_id ;
          $client->save();
          return response()->json([
-            'id' => 1,
+            'id' =>$client->id,
             'message' => 'success',
             'errors' => ''
         ]);
