@@ -48,7 +48,20 @@ class ClientsController extends Controller
         try {
 
           //  $data = $this->getData($request);
+          $validated = $request->validate([
 
+            'first_name' => 'string|min:1|required',
+            'last_name' => 'string|min:1|required',
+            'phone' => 'required|numeric|min:8|unique:clients,phone',
+            'ud' => 'required|numeric|min:12|unique:clients,ud',
+            'email' => 'required|email|min:10|max:255|unique:clients,email',
+            'photo_ud_frent' => 'file|nullable',
+            'photo_ud_back' => 'file|nullable',
+            'password' => 'required',
+            'contry_id' => 'required',
+
+         ]);
+         if($validated){
          $client =    new Client();
          $client->first_name = $request->first_name ;
          $client->last_name = $request->last_name ;
@@ -65,6 +78,13 @@ class ClientsController extends Controller
             'message' => 'success',
             'errors' => ''
         ]);
+    }else{
+        return response()->json([
+            'id' => '',
+            'message' => '',
+            'errors' => ''
+        ]);
+    }
         } catch (Exception $exception) {
             return response()->json([
                 'id' => '',
