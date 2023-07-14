@@ -70,7 +70,7 @@ class ClientsController extends Controller
             return response()->json([
                 'id' => '',
                 'message' => '',
-                'errors' => 'errors'
+                'errors' => $validator->messages()
             ]);
         }else{
          $client =    new Client();
