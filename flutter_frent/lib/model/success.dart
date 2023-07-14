@@ -14,7 +14,7 @@ class Success {
     String errors;
 
     Success({
-        required this.id,
+         this.id,
         required this.message,
         required this.errors,
     });

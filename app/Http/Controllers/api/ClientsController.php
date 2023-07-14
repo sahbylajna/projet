@@ -47,10 +47,8 @@ class ClientsController extends Controller
 
         try {
 
-          //  $data = $this->getData($request);
-          $validated = $request->validate([
-
-            'first_name' => 'string|min:1|required',
+            $rules = [
+                'first_name' => 'string|min:1|required',
             'last_name' => 'string|min:1|required',
             'phone' => 'required|numeric|min:8|unique:clients,phone',
             'ud' => 'required|numeric|min:12|unique:clients,ud',
@@ -60,8 +58,20 @@ class ClientsController extends Controller
             'password' => 'required',
             'contry_id' => 'required',
 
-         ]);
-         if($validated){
+        ];
+
+          //  $data = $this->getData($request);
+          $validator = \Validator::make($request->all(),  $rules);
+         if ($validator->fails()) {
+
+            //pass validator errors as errors object for ajax response
+
+            return response()->json([
+                'id' => '',
+                'message' => '',
+                'errors' => 'errors'
+            ]);
+        }else{
          $client =    new Client();
          $client->first_name = $request->first_name ;
          $client->last_name = $request->last_name ;
@@ -76,12 +86,6 @@ class ClientsController extends Controller
          return response()->json([
             'id' =>$client->id,
             'message' => 'success',
-            'errors' => ''
-        ]);
-    }else{
-        return response()->json([
-            'id' => '',
-            'message' => '',
             'errors' => ''
         ]);
     }
