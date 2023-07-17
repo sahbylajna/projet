@@ -239,14 +239,12 @@ class ExportsController extends Controller
 
            foreach ($request->ANML_SPECIES as $key => $animale) {
              $animal = new ANIMAL_INFO();
-             $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa[$key];
-             $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRY[$key];
-             $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRY[$key];
+
              $animal->ANML_SPECIES = $request->ANML_SPECIES[$key];
              $animal->ANML_SEX = $request->ANML_SEX[$key];
-             $animal->ANML_NUMBER = $request->ANML_NUMBER[$key];
+             $animal->ANML_NUMBER = $request->ANML_MICROCHIP[$key];
              $animal->ANML_USE = $request->ANML_USE[$key];
-             $animal->ANIMAL_BREED = $request->ANIMAL_BREED[$key];
+
              $animal->client_id =  auth()->guard('clientt')->user()->id ;
              $animal->save();
              $export->animal()->attach( $animal->id);
