@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\ANIMAL_INFO;
 use App\Models\Client;
 use App\Models\export;
 use Illuminate\Http\Request;
@@ -236,7 +237,7 @@ class ExportsController extends Controller
 
            $export =  export::create($data);
 
-           foreach ($request->ORIGIN_COUNTRYa as $key => $animale) {
+           foreach ($request->ANML_SPECIES as $key => $animale) {
              $animal = new ANIMAL_INFO();
              $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa[$key];
              $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRY[$key];

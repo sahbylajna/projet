@@ -104,9 +104,7 @@
             </div>
         </div>
 
-        <div class="panel-footer">
-            {!! $exports->render() !!}
-        </div>
+
 
         @endif
 

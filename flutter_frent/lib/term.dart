@@ -1,15 +1,41 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_frent/widgets/header_widget.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 
 import 'common/theme_helper.dart';
+import 'dart:ui' as ui;
 
 
 
 class TermContent extends StatelessWidget  {
       double _headerHeight = 250;
   Key _formKey = GlobalKey<FormState>();
+  
+  GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
+
+   void _handleSaveButtonPressed(BuildContext context) async {
+     final data =
+        await _signaturePadKey.currentState!.toImage(pixelRatio: 3.0);
+    final bytes = await data.toByteData(format: ui.ImageByteFormat.png);
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(
+              child: Container(
+                color: Colors.grey[300],
+                child: Image.memory(bytes!.buffer.asUint8List()),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
   @override
   Widget build( context) {
 
@@ -54,22 +80,55 @@ class TermContent extends StatelessWidget  {
 
                             SizedBox(height: 15.0),
 
-                               Container(
-                                 height: 150.0,
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        color: Colors.deepOrange,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))
-      ),
-
-                                child:SfSignaturePad(
-
+Container(
+                              decoration: ThemeHelper().buttonBoxDecoration(context),
+                              child:ElevatedButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return  AlertDialog(
+        contentPadding: const EdgeInsets.all(6.0),
+        title: Text('إمضاء'),
+        content: Column(mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [SfSignaturePad(
+key: _signaturePadKey,
                       backgroundColor: Colors.white,
                       strokeColor: Colors.black,
                       minimumStrokeWidth: 1.0,
-                      maximumStrokeWidth: 4.0),
+                      maximumStrokeWidth: 4.0),]),
+            actions: [
+ElevatedButton(                     // FlatButton widget is used to make a text to work like a button
 
-                            ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },             // function used to perform after pressing the button
+                  child: Text('إلغاء'),
+                ),
+                ElevatedButton(
+
+                  onPressed: () async {
+                      ui.Image image = await _signaturePadKey.currentState!.toImage();
+                      print(image.clone.toString());
+                      _handleSaveButtonPressed(context);
+   Navigator.of(context).pop();
+                  },
+                  child: Text('قبول'),
+                ),
+            ],
+          );
+            },
+          );
+        },
+       child: Padding(
+                                  padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                                  child: Text('إمضاء'),),
+style: ThemeHelper().buttonStyle(),
+      ),
+),
+
+
                             Container(
                               decoration: ThemeHelper().buttonBoxDecoration(context),
                               child: ElevatedButton(
@@ -79,6 +138,9 @@ class TermContent extends StatelessWidget  {
                                   child: Text('تسجيل الدخول'.toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                                 ),
                                 onPressed: () async {
+
+
+
 
 
 
@@ -104,4 +166,6 @@ class TermContent extends StatelessWidget  {
     ));
 
 }
+
+
 }
