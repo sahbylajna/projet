@@ -97,7 +97,7 @@
                 {{-- <form method="POST" action="{!! route('clients.client.refused', $client->id) !!}" accept-charset="UTF-8"> --}}
                     {{-- <input name="_method" value="DELETE" type="hidden"> --}}
                     {{-- {{ csrf_field() }} --}}
-                <a href="{{ route('export.accept', $export->id) }}" class="btn btn-primary">{{ trans('clients.accepted') }}</a>
+                <a href="{{ route('exports.accept', $export->id) }}" class="btn btn-primary">{{ trans('clients.accepted') }}</a>
 
 
 
