@@ -416,6 +416,15 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<link rel="stylesheet" href="{{ asset('client/css/main.css')}}">
 <style>
+    .rtl .avam-container.bmd-drawer-in::before {
+
+    width: 0px!important;
+    margin: 0px;
+    padding: 0px;
+}
+:not(.bmd-drawer-out).bmd-drawer-in.bmd-drawer-f-l>.bmd-layout-content {
+    padding-right: 0!important;
+}
     .side.a-collapse {
     overflow: hidden;
    height: 54px!important;
@@ -434,6 +443,19 @@
                     data-toggle="drawer" data-target="#dw-s1">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <li class="side a-collapse short m-2 pr-1 pl-1 ">
+                    <a style="    color: #6c757d;" href="{{ route('client.home') }}" class="side-item  {{'client/home' == request()->path() ? 'selected' : ''}} "><i class="fas fa-tachometer-alt mr-1"></i>لوحة القيادة</a>
+                </li>
+                <li class="side a-collapse short m-2 pr-1 pl-1 ">
+                    <a style="    color: #6c757d;" href="{{ route('importations.client.index') }}" class="side-item {{'client/importations/create' == request()->path() ? 'selected' : ''}} {{'client/importations' == request()->path() ? 'selected' : ''}}"><i class="fas fa-language  mr-1"></i> {{ trans('importations.model_plural') }}</a>
+                </li>
+                <li class="side a-collapse short m-2 pr-1 pl-1 ">
+                    <a style="    color: #6c757d;" href="{{ route('backs.client.index') }}" class="side-item {{'client/backs' == request()->path() ? 'selected' : ''}} {{'client/backs/create' == request()->path() ? 'selected' : ''}}"><i class="fas fa-language  mr-1"></i> {{ trans('backs.model_plural') }}</a>
+                </li>
+                <li class="side a-collapse short m-2 pr-1 pl-1 ">
+                    <a style="    color: #6c757d;" href="{{ route('exports.client.index') }}" class="side-item  {{'client/exports' == request()->path() ? 'selected' : ''}} {{'client/exports/create' == request()->path() ? 'selected' : ''}}"><i class="fas fa-language  mr-1"></i> {{ trans('exports.model_plural') }}</a>
+                </li>
+
                 <ul class="nav navbar-nav ">
                     {{-- <li class="nav-item">
                         <div class="dropdown">
@@ -524,7 +546,7 @@
                 </ul>
             </div>
         </header>
-       @include('layouts.sidbarclient')
+       {{-- @include('layouts.sidbarclient') --}}
         <main class="bmd-layout-content">
             <div class="container-fluid ">
 
