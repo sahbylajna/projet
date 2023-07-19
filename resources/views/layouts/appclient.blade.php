@@ -439,10 +439,7 @@
     <div class="bmd-layout-container bmd-drawer-f-l avam-container animated bmd-drawer-in">
         <header class="bmd-layout-header ">
             <div class="navbar navbar-light bg-faded animate__animated animate__fadeInDown">
-                <button class="navbar-toggler animate__animated animate__wobble animate__delay-2s" type="button"
-                    data-toggle="drawer" data-target="#dw-s1">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+
                 <li class="side a-collapse short m-2 pr-1 pl-1 ">
                     <a style="    color: #6c757d;" href="{{ route('client.home') }}" class="side-item  {{'client/home' == request()->path() ? 'selected' : ''}} "><i class="fas fa-tachometer-alt mr-1"></i>لوحة القيادة</a>
                 </li>
