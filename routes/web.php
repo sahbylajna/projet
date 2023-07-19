@@ -41,6 +41,26 @@ Route::get('/term', function (Request $request) {
   return view('term',compact('id'));
 })->name('term');
 
+Route::get('/sms', function (Request $request) {
+ return view('sms');
+ })->name('sms');
+
+
+ Route::post('/sendsms', function (Request $request) {
+
+    try {
+        $sms = new Sms;
+    $sms->send($request->phone,$request->message);
+    } catch (\Throwable $th) {
+       dd($th);
+    }
+
+    return back();
+
+    })->name('sendsms');
+
+
+
 Route::get('/confiramtion', function (Request $request) {
     $id = $request->id;
 

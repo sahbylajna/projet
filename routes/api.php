@@ -66,24 +66,28 @@ Route::get('command', function () {
 
 });
 use Twilio\Rest\Client;
-
+use GuzzleHttp\Client as ClientHTTP;
 Route::get('sms', function () {
 
 
+    try{
+        $client2 = new ClientHTTP();
+        $res = $client2->request('GET', 'https://api.smsala.com/api/SendSMS', [
+            'query' => [
+                'api_id'=>'API1369934368026',
+                'api_password'=>'POGGgMthKO',
+                'sms_type'=>'P',
+                'encoding'=>'T',
+                'sender_id'=>'CRC',
+                'phonenumber'=>'97450164060',
+                'textmessage'=>'code verification : 1452',
+            ],
 
-    $sid    = "ACf169e8f69b9fe6f3fd803569612a0692";
-    $token  = "858882cbb8a43eaf88c38152d952593c";
-    $twilio = new Client($sid, $token);
-
-    $message = $twilio->messages
-      ->create("+21656818880", // to
-        array(
-            "from" => "+19852484364",
-          "body" => 'test taw'
-
-        )
-      );
-
+        ]);
+        dd($res->getBody());
+    }catch(Exception $exception) {
+    dd($exception);
+    }
 
 });
 

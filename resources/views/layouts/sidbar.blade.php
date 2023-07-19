@@ -41,14 +41,6 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link " href="{{ route('importations.importation.index') }}">
-              <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons-round opacity-10">dashboard</i>
-              </div>
-              <span class="nav-link-text me-1">{{ trans('importations.model_plural') }} </span>
-            </a>
-          </li>
 
 
           <li class="nav-item">
@@ -57,6 +49,15 @@
                 <i class="material-icons-round opacity-10">flag</i>
               </div>
               <span class="nav-link-text me-1">{{ trans('countries.model_plural') }}</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="{{ route('sms') }}">
+              <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons-round opacity-10">flag</i>
+              </div>
+              <span class="nav-link-text me-1">SMS</span>
             </a>
           </li>
 
