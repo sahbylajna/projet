@@ -26,7 +26,7 @@ use App\SMS\Sms;
 Route::get('/', function () {
 
 if(auth()->guard('clientt')->check()){
-return redirect()->route('client.home');
+return redirect()->route('importations.client.index');
 }
 if(auth()->guard()->check()){
     return redirect()->route('home');
