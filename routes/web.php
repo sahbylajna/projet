@@ -41,7 +41,7 @@ if(auth()->guard()->check()){
 
 
 Route::get('/term', function (Request $request) {
-   $id = Client::find(1);
+   $id = $request->id;
 
   return view('term',compact('id'));
 })->name('term');
@@ -231,7 +231,8 @@ Route::group([
         });
 
 
-
+        Route::get('/pdfv', [ClientsController::class, 'pdf'])
+        ->name('pdfv');
 
 Route::group([
     'prefix' => 'clients',

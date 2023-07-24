@@ -232,29 +232,20 @@ class ClientsController extends Controller
         try {
 
 
-            // $image = $request->signature;  // your base64 encoded
-            // $image = str_replace('data:image/png;base64,', '', $image);
-            // $image = str_replace(' ', '+', $image);
-            // $imageName = Str::random(12) . '.png';
+            $image = $request->signature;  // your base64 encoded
+            $image = str_replace('data:image/png;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = Str::random(12) . '.png';
 
-            // Storage::disk('local')->put('images/'.$imageName, base64_decode($image));
+            Storage::disk('local')->put('images/'.$imageName, base64_decode($image));
 
-            // $client = Client::findOrFail($id);
-            // $client->singateur = $imageName;
-            // $client->save();
             $client = Client::findOrFail($id);
-            $data =        $client->toArray();
-            view()->share('data', $data);
-           // $data = $client->toArray();
-           $dateTime = now();
-             $pdf = PDF::loadView('pdf' );
-             $fileName = $client->ud . '.pdf';
-                //Save the pdf file in the public storage
-                $pdf->save( public_path('pdf/'.$fileName));
+            $client->singateur = $imageName;
+            $client->save();
             return redirect()->route('confiramtion',['id' => $client->id] )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
-dd($exception);
+
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
@@ -408,5 +399,25 @@ $sms->send($contry->phonecode.$client->phone,$accept->commenter);
     }
 
 
+    public function pdf(){
+        $clients =Client::find(1);
+        $data =        $clients->toArray();
+        view()->share('data', $data);
+       // $data = $clients->toArray();
+       $dateTime = now();
+         $pdf = PDF::loadView('pdf' );
+         $fileName = $clients->ud . '.pdf';
+            //Save the pdf file in the public storage
+            $pdf->save( public_path('pdf/'.$fileName));
 
+
+           //Get the file url
+            // $urlToDownload =  Storage::disk('public')->url($fileName);
+    //     // download PDF file with download method
+        // $path = public_path('pdf/');
+        // $fileName =  $clients->first_name . '.' . 'pdf' ;
+       // $pdf->save($path . $fileName);
+       return $pdf->download('pdf_file.pdf');
+       return view('pdf',compact('data'));
+    }
 }
