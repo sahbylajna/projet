@@ -41,13 +41,14 @@ if(auth()->guard()->check()){
 use  Barryvdh\DomPDF\Facade\Pdf as dompdf;
 Route::get('/pdfsavve', function (Request $request) {
     $clients =Client::find(1);
-    $data = $clients->toArray();
-    $pdf = dompdf::loadView('pdf',compact('data') )->output();
-    // download PDF file with download method
-    // $path = public_path('pdf/');
-    // $fileName =  $clients->first_name . '.' . 'pdf' ;
-    // $pdf->save($path . '/' . $fileName);
-   // return $pdf->download('pdf_file.pdf');
+//     $data = $clients->toArray();
+
+//     $pdf = dompdf::loadView('pdf',compact('data') )->output();
+//     // download PDF file with download method
+//     // $path = public_path('pdf/');
+//     // $fileName =  $clients->first_name . '.' . 'pdf' ;
+//     // $pdf->save($path . '/' . $fileName);
+//    return $pdf->download('pdf_file.pdf');
    return view('pdf',compact('client'));
  })->name('pdf');
 
