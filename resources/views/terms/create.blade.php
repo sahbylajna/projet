@@ -7,14 +7,10 @@
         <div class="panel-heading clearfix">
 
             <span class="pull-left">
-                <h4 class="mt-5 mb-5">{{ trans('terms.create') }}</h4>
+                <h4 class="mt-5 mb-5">{{ trans('terms.model_plural') }}</h4>
             </span>
 
-            <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('terms.term.index') }}" class="btn btn-primary" title="{{ trans('terms.show_all') }}">
-                    <span class="fa fa-th-list" aria-hidden="true"></span>
-                </a>
-            </div>
+
 
         </div>
 

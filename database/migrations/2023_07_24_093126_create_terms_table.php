@@ -16,8 +16,8 @@ class CreateTermsTable extends Migration
         {
             $table->increments('id');
             $table->timestamps();
-            $table->string('term_ar')->nullable();
-            $table->string('term_en')->nullable();
+            $table->longText('term_ar')->nullable();
+            $table->longText('term_en')->nullable();
 
         });
     }

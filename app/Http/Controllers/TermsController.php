@@ -17,8 +17,8 @@ class TermsController extends Controller
      */
     public function index()
     {
-        $terms = term::first();
-        if($terms){
+        $term = term::first();
+        if($term){
             return view('terms.edit', compact('term'));
         }else{
             return view('terms.create');
@@ -57,7 +57,7 @@ class TermsController extends Controller
             return redirect()->route('terms.term.index')
                 ->with('success_message', trans('terms.model_was_added'));
         } catch (Exception $exception) {
-
+dd($exception);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('terms.unexpected_error')]);
         }

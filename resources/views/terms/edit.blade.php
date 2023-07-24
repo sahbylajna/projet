@@ -11,13 +11,7 @@
             </div>
             <div class="btn-group btn-group-sm pull-right" role="group">
 
-                <a href="{{ route('terms.term.index') }}" class="btn btn-primary" title="{{ trans('terms.show_all') }}">
-                    <span class="fa fa-th-list" aria-hidden="true"></span>
-                </a>
 
-                <a href="{{ route('terms.term.create') }}" class="btn btn-success" title="{{ trans('terms.create') }}">
-                    <span class="fa fa-plus" aria-hidden="true"></span>
-                </a>
 
             </div>
         </div>
