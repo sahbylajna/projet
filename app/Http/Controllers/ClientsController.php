@@ -247,7 +247,6 @@ class ClientsController extends Controller
             view()->share('data', $data);
            // $data = $client->toArray();
            $dateTime = now();
-
              $pdf = PDF::loadView('pdf' );
              $fileName = $client->ud . '.pdf';
                 //Save the pdf file in the public storage
@@ -255,7 +254,7 @@ class ClientsController extends Controller
             return redirect()->route('confiramtion',['id' => $client->id] )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
-dd($exception);
+
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
