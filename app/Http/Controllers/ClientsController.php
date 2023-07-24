@@ -14,6 +14,7 @@ use App\SMS\Sms;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 class ClientsController extends Controller
 {
     use AuthenticatesUsers;

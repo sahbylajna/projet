@@ -23,6 +23,8 @@ use App\Http\Controllers\TermsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use App\Models\Client;
+use App\Models\countries;
 use App\SMS\Sms;
 Route::get('/', function () {
 
@@ -35,6 +37,20 @@ if(auth()->guard()->check()){
 
     return view('login');
 })->name('/');
+use PDF as dompdf;
+Route::get('/pdf', function (Request $request) {
+    $clients =Client::find(6);
+    $data = $clients->toArray();
+    $pdf = dompdf::loadView('pdf',compact('data') )->output();
+    // download PDF file with download method
+    // $path = public_path('pdf/');
+    // $fileName =  $clients->first_name . '.' . 'pdf' ;
+    // $pdf->save($path . '/' . $fileName);
+   // return $pdf->download('pdf_file.pdf');
+   return view('pdf',compact('client'));
+ })->name('pdf');
+
+
 
 Route::get('/term', function (Request $request) {
    $id = $request->id;
@@ -45,6 +61,7 @@ Route::get('/term', function (Request $request) {
 Route::get('/sms', function (Request $request) {
  return view('sms');
  })->name('sms');
+
 
 
  Route::post('/sendsms', function (Request $request) {
@@ -62,8 +79,7 @@ Route::get('/sms', function (Request $request) {
 
 
 
-    use App\Models\Client;
-    use App\Models\countries;
+
     Route::post('/sendsmscountries', function (Request $request) {
 
         foreach ($request->countries as $key => $countryid) {
