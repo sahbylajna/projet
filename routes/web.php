@@ -38,7 +38,7 @@ if(auth()->guard()->check()){
 
     return view('login');
 })->name('/');
-use PDF as dompdf;
+use  Barryvdh\DomPDF\Facade\PDF as dompdf;
 Route::get('/pdfsavve', function (Request $request) {
     $clients =Client::find(1);
     $data = $clients->toArray();
