@@ -232,16 +232,16 @@ class ClientsController extends Controller
         try {
 
 
-            // $image = $request->signature;  // your base64 encoded
-            // $image = str_replace('data:image/png;base64,', '', $image);
-            // $image = str_replace(' ', '+', $image);
-            // $imageName = Str::random(12) . '.png';
+            $image = $request->signature;  // your base64 encoded
+            $image = str_replace('data:image/png;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = Str::random(12) . '.png';
 
-            // Storage::disk('local')->put('images/'.$imageName, base64_decode($image));
+            Storage::disk('local')->put('images/'.$imageName, base64_decode($image));
 
-            // $client = Client::findOrFail($id);
-            // $client->singateur = $imageName;
-            // $client->save();
+            $client = Client::findOrFail($id);
+            $client->singateur = $imageName;
+            $client->save();
             $client = Client::findOrFail($id);
             $data =        $client->toArray();
             view()->share('data', $data);
