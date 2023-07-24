@@ -45,8 +45,8 @@ Route::get('/pdfsavve', function (Request $request) {
 
      $pdf = dompdf::loadView('pdf',compact('data') );
 //     // download PDF file with download method
-    $path = public_path('pdf/');
-    $fileName =  $clients->first_name . '.' . 'pdf' ;
+    // $path = public_path('pdf/');
+    // $fileName =  $clients->first_name . '.' . 'pdf' ;
    // $pdf->save($path . $fileName);
    return $pdf->download('pdf_file.pdf');
    return view('pdf',compact('data'));
