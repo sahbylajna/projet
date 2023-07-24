@@ -61,6 +61,31 @@ Route::get('/sms', function (Request $request) {
 
 
 
+    use App\Models\Client;
+    use App\Models\countries;
+    Route::post('/sendsmscountries', function (Request $request) {
+
+        foreach ($request->countries as $key => $countryid) {
+
+           $users = Client::where('contry_id',$countryid)->get();
+           $country = countries::find($countryid);
+           foreach ($users as $key => $user) {
+            try {
+                $sms = new Sms;
+            $sms->send($country->phonecode.$user->phone,$request->message);
+            } catch (\Throwable $th) {
+               dd($th);
+            }
+            # code...
+           }
+        }
+
+
+        return back();
+
+        })->name('sendsmscountries');
+
+
 Route::get('/confiramtion', function (Request $request) {
     $id = $request->id;
 

@@ -73,6 +73,51 @@
 
 
 
+        <div class="panel-body panel-body-with-table">
+
+            <form action="{{ route('sendsmscountries') }}"  accept-charset="UTF-8"  method="POST" class="form-horizontal">
+                {{ csrf_field() }}
+                <div class="form-group {{ $errors->has('first_name') ? 'has-error' : '' }}">
+                    <label for="first_name" class="col-md-2 control-label">{{ trans('countries.model_plural') }}</label>
+                    <div class="col-md-10">
+                      <select name="countries[]" id="countries[]"  class="form-control js-example-basic-multiple" multiple="multiple">
+                        @foreach (App\Models\countries::where('active',1)->get() as  $contry)
+
+                        <option style="    display: block;
+                        width: 100%;
+                        padding: 0.5rem 0;
+                        font-size: 0.9rem;
+                        font-weight: 400;
+                        line-height: 2.5rem;
+                        color: #495057;
+                        background-color: rgba(0, 0, 0, 0.1);" value="{{ $contry->id }}">{{ $contry->name }}</option>
+                        @endforeach
+
+                      </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group {{ $errors->has('first_name') ? 'has-error' : '' }}">
+                    <label for="first_name" class="col-md-2 control-label">{{ trans('sms.text') }}</label>
+                    <div class="col-md-10">
+                     <input type="text" name="message" id="message"  class="form-control">
+                    </div>
+                </div>
+
+                <div class="btn-group btn-group-sm pull-right" role="group">
+                    <button type="submit" class="btn btn-success" title="{{ trans('users.create') }}">
+                      {{ trans('sms.send')  }}
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
+
+
+
+
     </div>
 @endsection
 
@@ -86,6 +131,7 @@
     <script>
         $(document).ready(function() {
     $('.js-example-basic-single').select2();
+    $('.js-example-basic-multiple').select2();
 });
     </script>
 @endsection
