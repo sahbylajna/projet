@@ -1,3 +1,4 @@
+-- Active: 1688464113149@@db-mysql-nyc1-22492-do-user-14291674-0.b.db.ondigitalocean.com@25060@defaultdb
 <?php
 
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,7 @@ if(auth()->guard()->check()){
     return view('login');
 })->name('/');
 use PDF as dompdf;
-Route::get('/pdf', function (Request $request) {
+Route::get('/pdfsavve', function (Request $request) {
     $clients =Client::find(1);
     $data = $clients->toArray();
     $pdf = dompdf::loadView('pdf',compact('data') )->output();
