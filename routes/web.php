@@ -12,6 +12,7 @@ use App\Http\Controllers\ANIMALINFOsController;
 use App\Http\Controllers\ImportationsController;
 use App\Http\Controllers\BacksController;
 use App\Http\Controllers\ExportsController;
+use App\Http\Controllers\TermsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -392,4 +393,23 @@ Route::group([
          ->name('exports.export.update')->where('id', '[0-9]+');
     Route::delete('/export/{export}',[ExportsController::class, 'destroy'])
          ->name('exports.export.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'terms',
+], function () {
+    Route::get('/', [TermsController::class, 'index'])
+         ->name('terms.term.index');
+    Route::get('/create', [TermsController::class, 'create'])
+         ->name('terms.term.create');
+    Route::get('/show/{term}',[TermsController::class, 'show'])
+         ->name('terms.term.show')->where('id', '[0-9]+');
+    Route::get('/{term}/edit',[TermsController::class, 'edit'])
+         ->name('terms.term.edit')->where('id', '[0-9]+');
+    Route::post('/', [TermsController::class, 'store'])
+         ->name('terms.term.store');
+    Route::put('term/{term}', [TermsController::class, 'update'])
+         ->name('terms.term.update')->where('id', '[0-9]+');
+    Route::delete('/term/{term}',[TermsController::class, 'destroy'])
+         ->name('terms.term.destroy')->where('id', '[0-9]+');
 });

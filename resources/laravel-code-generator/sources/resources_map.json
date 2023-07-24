@@ -31,5 +31,9 @@
     {
         "model-name": "export",
         "resource-file": "exports.json"
+    },
+    {
+        "model-name": "term",
+        "resource-file": "terms.json"
     }
 ]
