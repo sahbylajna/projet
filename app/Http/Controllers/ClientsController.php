@@ -254,7 +254,7 @@ class ClientsController extends Controller
             return redirect()->route('confiramtion',['id' => $client->id] )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
-
+dd($exception);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
