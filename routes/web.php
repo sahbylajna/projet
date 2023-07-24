@@ -38,24 +38,10 @@ if(auth()->guard()->check()){
 
     return view('login');
 })->name('/');
-use  Barryvdh\DomPDF\Facade\Pdf as dompdf;
-Route::get('/pdfsavve', function (Request $request) {
-    $clients =Client::find(1);
-    $data = $clients->toArray();
-
-     $pdf = dompdf::loadView('pdf',compact('data') )->output();
-//     // download PDF file with download method
-    // $path = public_path('pdf/');
-    // $fileName =  $clients->first_name . '.' . 'pdf' ;
-   // $pdf->save($path . $fileName);
-   return $pdf->download('pdf_file.pdf');
-   return view('pdf',compact('data'));
- })->name('pdf');
-
 
 
 Route::get('/term', function (Request $request) {
-   $id = $request->id;
+   $id = Client::find(1);
 
   return view('term',compact('id'));
 })->name('term');
@@ -252,6 +238,10 @@ Route::group([
 ], function () {
     Route::get('/', [ClientsController::class, 'index'])
          ->name('clients.client.index');
+
+
+
+
     Route::get('/create', [ClientsController::class, 'create'])
          ->name('clients.client.create');
     Route::get('/show/{client}',[ClientsController::class, 'show'])

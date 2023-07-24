@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+
+
 class ClientsController extends Controller
 {
     use AuthenticatesUsers;
@@ -240,6 +242,16 @@ class ClientsController extends Controller
             $client = Client::findOrFail($id);
             $client->singateur = $imageName;
             $client->save();
+
+            $data =        $client->toArray();
+            view()->share('data', $data);
+           // $data = $client->toArray();
+           $dateTime = now();
+
+             $pdf = PDF::loadView('pdf' );
+             $fileName = $client->ud . '.pdf';
+                //Save the pdf file in the public storage
+                $pdf->save( public_path('pdf/'.$fileName));
             return redirect()->route('confiramtion',['id' => $client->id] )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
@@ -395,4 +407,7 @@ $sms->send($contry->phonecode.$client->phone,$accept->commenter);
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
     }
+
+
+
 }
