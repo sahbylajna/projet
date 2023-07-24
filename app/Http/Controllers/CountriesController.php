@@ -26,7 +26,7 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        $countriesObjects = countries::paginate(25);
+        $countriesObjects = countries::where('active',1)->get();
 
         return view('countries.index', compact('countriesObjects'));
     }

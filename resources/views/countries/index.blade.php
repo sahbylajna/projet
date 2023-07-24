@@ -91,9 +91,7 @@
             </div>
         </div>
 
-        <div class="panel-footer">
-            {!! $countriesObjects->render() !!}
-        </div>
+
 
         @endif
 
