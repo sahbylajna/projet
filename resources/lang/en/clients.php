@@ -3,6 +3,7 @@
 return [
     'password_confirmation' => 'Confirm Password',
     'id' => 'Id',
+    'waiting' => 'waiting',
     'id__placeholder' => 'Enter id here...',
     'first_name' => 'First Name',
     'first_name__placeholder' => 'Enter first name here...',

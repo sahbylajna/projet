@@ -105,7 +105,7 @@ return [
     'update' => 'Update',
     'confirm_delete' => 'Click Ok to delete Export.',
     'none_available' => 'لا توجد صادرات متاحة.',
-    'model_plural' => 'خروج',
+    'model_plural' => 'طلب خروج',
     'model_was_added' => 'Export was successfully added.',
     'model_was_retrieved' => 'Export was successfully retrieved.',
     'models_were_retrieved' => 'Exports were successfully retrieved.',

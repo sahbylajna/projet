@@ -102,7 +102,7 @@ return [
     'update' => 'Update',
     'confirm_delete' => 'Click Ok to delete Importation.',
     'none_available' => 'لا توجد دخول متاحة',
-    'model_plural' => 'دخول',
+    'model_plural' => 'طلب دخول',
     'model_was_added' => 'Importation was successfully added.',
     'model_was_retrieved' => 'Importation was successfully retrieved.',
     'models_were_retrieved' => 'Importations were successfully retrieved.',

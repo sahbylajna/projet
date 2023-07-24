@@ -75,6 +75,8 @@
                                 <p class="btn btn-info">{{ trans('clients.accepted') }}</p>
                                 @elseif ($client->refused == 1)
                                 <p class="btn btn-danger">  {{ trans('clients.refused') }}</p>
+                                @else
+                                <p class="btn btn-warning">  {{ trans('clients.waiting') }}</p>
                                 @endif
 
 
