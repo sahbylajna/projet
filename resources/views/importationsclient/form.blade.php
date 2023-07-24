@@ -78,7 +78,7 @@
 <div class="form-group {{ $errors->has('IMP_NAME') ? 'has-error' : '' }}">
     <label for="IMP_NAME" class="col-md-2 control-label">{{ trans('importations.IMP_NAME') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_NAME" type="text" id="IMP_NAME" value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->last_name }}" minlength="1" placeholder="{{ trans('importations.IMP_NAME__placeholder') }}">
+        <input class="form-control" name="IMP_NAME" type="text" id="IMP_NAME" minlength="1" placeholder="{{ trans('importations.IMP_NAME__placeholder') }}">
         {!! $errors->first('IMP_NAME', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -102,7 +102,7 @@
 <div class="form-group {{ $errors->has('IMP_TEL') ? 'has-error' : '' }}">
     <label for="IMP_TEL" class="col-md-2 control-label">{{ trans('importations.IMP_TEL') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="IMP_TEL" type="text" id="IMP_TEL" value="{{ auth()->guard('clientt')->user()->phone }}" minlength="1" placeholder="{{ trans('importations.IMP_TEL__placeholder') }}">
+        <input class="form-control" name="IMP_TEL" type="text" id="IMP_TEL"  minlength="1" placeholder="{{ trans('importations.IMP_TEL__placeholder') }}">
         {!! $errors->first('IMP_TEL', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -167,7 +167,7 @@ $countries =   App\Models\countries::where('active',1)->get();
 <div class="form-group {{ $errors->has('EXPECTED_ARRIVAL_DATE') ? 'has-error' : '' }}">
     <label for="EXPECTED_ARRIVAL_DATE" class="col-md-2 control-label">{{ trans('importations.EXPECTED_ARRIVAL_DATE') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="EXPECTED_ARRIVAL_DATE" type="text" id="EXPECTED_ARRIVAL_DATE" value="{{ old('EXPECTED_ARRIVAL_DATE', optional($importation)->EXPECTED_ARRIVAL_DATE) }}" placeholder="{{ trans('importations.EXPECTED_ARRIVAL_DATE__placeholder') }}">
+        <input class="form-control" name="EXPECTED_ARRIVAL_DATE" type="date" id="EXPECTED_ARRIVAL_DATE" value="{{ old('EXPECTED_ARRIVAL_DATE', optional($importation)->EXPECTED_ARRIVAL_DATE) }}" placeholder="{{ trans('importations.EXPECTED_ARRIVAL_DATE__placeholder') }}">
         {!! $errors->first('EXPECTED_ARRIVAL_DATE', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -183,7 +183,7 @@ $countries =   App\Models\countries::where('active',1)->get();
 <div class="form-group {{ $errors->has('SHIPPING_DATE') ? 'has-error' : '' }}">
     <label for="SHIPPING_DATE" class="col-md-2 control-label">{{ trans('importations.SHIPPING_DATE') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="SHIPPING_DATE" type="text" id="SHIPPING_DATE" value="{{ old('SHIPPING_DATE', optional($importation)->SHIPPING_DATE) }}" placeholder="{{ trans('importations.SHIPPING_DATE__placeholder') }}">
+        <input class="form-control" name="SHIPPING_DATE" type="date" id="SHIPPING_DATE" value="{{ old('SHIPPING_DATE', optional($importation)->SHIPPING_DATE) }}" placeholder="{{ trans('importations.SHIPPING_DATE__placeholder') }}">
         {!! $errors->first('SHIPPING_DATE', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -191,7 +191,7 @@ $countries =   App\Models\countries::where('active',1)->get();
 <div class="form-group {{ $errors->has('APPLICANT_NAME') ? 'has-error' : '' }}">
     <label for="APPLICANT_NAME" class="col-md-2 control-label">{{ trans('importations.APPLICANT_NAME') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="APPLICANT_NAME" type="text" id="APPLICANT_NAME" value="{{ old('APPLICANT_NAME', optional($importation)->APPLICANT_NAME) }}" minlength="1" placeholder="{{ trans('importations.APPLICANT_NAME__placeholder') }}">
+        <input class="form-control" name="APPLICANT_NAME" type="text" id="APPLICANT_NAME" value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->last_name }}" readonly minlength="1" placeholder="{{ trans('importations.APPLICANT_NAME__placeholder') }}">
         {!! $errors->first('APPLICANT_NAME', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -199,7 +199,7 @@ $countries =   App\Models\countries::where('active',1)->get();
 <div class="form-group {{ $errors->has('APPLICANT_TEL') ? 'has-error' : '' }}">
     <label for="APPLICANT_TEL" class="col-md-2 control-label">{{ trans('importations.APPLICANT_TEL') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="APPLICANT_TEL" type="text" id="APPLICANT_TEL" value="{{ old('APPLICANT_TEL', optional($importation)->APPLICANT_TEL) }}" minlength="1" placeholder="{{ trans('importations.APPLICANT_TEL__placeholder') }}">
+        <input class="form-control" name="APPLICANT_TEL" type="text" id="APPLICANT_TEL" value="{{ auth()->guard('clientt')->user()->phone }}" readonly minlength="1" placeholder="{{ trans('importations.APPLICANT_TEL__placeholder') }}">
         {!! $errors->first('APPLICANT_TEL', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

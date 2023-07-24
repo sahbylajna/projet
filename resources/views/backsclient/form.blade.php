@@ -159,7 +159,7 @@
 <div class="form-group {{ $errors->has('EXPECTED_ARRIVAL_DATE') ? 'has-error' : '' }}">
     <label for="EXPECTED_ARRIVAL_DATE" class="col-md-2 control-label">{{ trans('backs.EXPECTED_ARRIVAL_DATE') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="EXPECTED_ARRIVAL_DATE" type="text" id="EXPECTED_ARRIVAL_DATE" value="{{ old('EXPECTED_ARRIVAL_DATE', optional($back)->EXPECTED_ARRIVAL_DATE) }}" placeholder="{{ trans('backs.EXPECTED_ARRIVAL_DATE__placeholder') }}">
+        <input class="form-control" name="EXPECTED_ARRIVAL_DATE" type="date" id="EXPECTED_ARRIVAL_DATE" value="{{ old('EXPECTED_ARRIVAL_DATE', optional($back)->EXPECTED_ARRIVAL_DATE) }}" placeholder="{{ trans('backs.EXPECTED_ARRIVAL_DATE__placeholder') }}">
         {!! $errors->first('EXPECTED_ARRIVAL_DATE', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -175,7 +175,7 @@
 <div class="form-group {{ $errors->has('SHIPPING_DATE') ? 'has-error' : '' }}">
     <label for="SHIPPING_DATE" class="col-md-2 control-label">{{ trans('backs.SHIPPING_DATE') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="SHIPPING_DATE" type="text" id="SHIPPING_DATE" value="{{ old('SHIPPING_DATE', optional($back)->SHIPPING_DATE) }}" placeholder="{{ trans('backs.SHIPPING_DATE__placeholder') }}">
+        <input class="form-control" name="SHIPPING_DATE" type="date" id="SHIPPING_DATE" value="{{ old('SHIPPING_DATE', optional($back)->SHIPPING_DATE) }}" placeholder="{{ trans('backs.SHIPPING_DATE__placeholder') }}">
         {!! $errors->first('SHIPPING_DATE', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -183,7 +183,7 @@
 <div class="form-group {{ $errors->has('APPLICANT_NAME') ? 'has-error' : '' }}">
     <label for="APPLICANT_NAME" class="col-md-2 control-label">{{ trans('backs.APPLICANT_NAME') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="APPLICANT_NAME" type="text" id="APPLICANT_NAME" value="{{ old('APPLICANT_NAME', optional($back)->APPLICANT_NAME) }}" minlength="1" placeholder="{{ trans('backs.APPLICANT_NAME__placeholder') }}">
+        <input class="form-control" name="APPLICANT_NAME" type="text" id="APPLICANT_NAME"  value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->last_name }}" readonly minlength="1" placeholder="{{ trans('backs.APPLICANT_NAME__placeholder') }}">
         {!! $errors->first('APPLICANT_NAME', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -191,7 +191,7 @@
 <div class="form-group {{ $errors->has('APPLICANT_TEL') ? 'has-error' : '' }}">
     <label for="APPLICANT_TEL" class="col-md-2 control-label">{{ trans('backs.APPLICANT_TEL') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="APPLICANT_TEL" type="text" id="APPLICANT_TEL" value="{{ old('APPLICANT_TEL', optional($back)->APPLICANT_TEL) }}" minlength="1" placeholder="{{ trans('backs.APPLICANT_TEL__placeholder') }}">
+        <input class="form-control" name="APPLICANT_TEL" type="text" id="APPLICANT_TEL"  value="{{ auth()->guard('clientt')->user()->phone }}" readonly minlength="1" placeholder="{{ trans('backs.APPLICANT_TEL__placeholder') }}">
         {!! $errors->first('APPLICANT_TEL', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

@@ -152,7 +152,7 @@
 <div class="form-group {{ $errors->has('APPLICANT_NAME') ? 'has-error' : '' }}">
     <label for="APPLICANT_NAME" class="col-md-2 control-label">{{ trans('exports.APPLICANT_NAME') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="APPLICANT_NAME" type="text" id="APPLICANT_NAME" value="{{ old('APPLICANT_NAME', optional($export)->APPLICANT_NAME) }}" minlength="1" placeholder="{{ trans('exports.APPLICANT_NAME__placeholder') }}">
+        <input class="form-control" name="APPLICANT_NAME" type="text" id="APPLICANT_NAME"  value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->last_name }}" readonly minlength="1" placeholder="{{ trans('exports.APPLICANT_NAME__placeholder') }}">
         {!! $errors->first('APPLICANT_NAME', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -160,7 +160,7 @@
 <div class="form-group {{ $errors->has('APPLICANT_TEL') ? 'has-error' : '' }}">
     <label for="APPLICANT_TEL" class="col-md-2 control-label">{{ trans('exports.APPLICANT_TEL') }}</label>
     <div class="col-md-10">
-        <input class="form-control" name="APPLICANT_TEL" type="text" id="APPLICANT_TEL" value="{{ old('APPLICANT_TEL', optional($export)->APPLICANT_TEL) }}" minlength="1" placeholder="{{ trans('exports.APPLICANT_TEL__placeholder') }}">
+        <input class="form-control" name="APPLICANT_TEL" type="text" id="APPLICANT_TEL"  value="{{ auth()->guard('clientt')->user()->phone }}" readonly minlength="1" placeholder="{{ trans('exports.APPLICANT_TEL__placeholder') }}">
         {!! $errors->first('APPLICANT_TEL', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
