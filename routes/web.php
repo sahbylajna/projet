@@ -39,7 +39,7 @@ if(auth()->guard()->check()){
 })->name('/');
 use PDF as dompdf;
 Route::get('/pdf', function (Request $request) {
-    $clients =Client::find(6);
+    $clients =Client::find(1);
     $data = $clients->toArray();
     $pdf = dompdf::loadView('pdf',compact('data') )->output();
     // download PDF file with download method
