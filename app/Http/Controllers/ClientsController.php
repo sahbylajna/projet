@@ -244,7 +244,7 @@ class ClientsController extends Controller
             $client->save();
             $client = Client::findOrFail($id);
             $data =        $client->toArray();
-          //  view()->share('data', $data);
+            view()->share('data', $data);
            // $data = $client->toArray();
            $dateTime = now();
              $pdf = PDF::loadView('pdf' );
