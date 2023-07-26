@@ -242,14 +242,8 @@ class ClientsController extends Controller
             $client = Client::findOrFail($id);
             $client->singateur = $imageName;
             $client->save();
-            $client = Client::findOrFail($id);
-            $data =        $client->toArray();
-            view()->share('data', $data);
 
-             $pdf = PDF::loadView('pdf' );
-             $fileName = $client->ud . '.pdf';
-                //Save the pdf file in the public storage
-                $pdf->save( public_path('pdf/'.$fileName));
+
             return redirect()->route('confiramtion',['id' => $client->id] )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
