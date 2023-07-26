@@ -2,12 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
   <!-- Design by foolishdeveloper.com -->
-  <title>اللجنة المنضمة لسباق الهجن</title>
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {{-- <title>اللجنة المنضمة لسباق الهجن</title> --}}
     <style media="screen">
 
 body {
