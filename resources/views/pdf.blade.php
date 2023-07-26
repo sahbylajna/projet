@@ -10,7 +10,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     {{-- <title>اللجنة المنضمة لسباق الهجن</title> --}}
     <style media="screen">
-*{ font-family: DejaVu Sans; font-size: 12px;}
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin-ext');
+body {font-family: 'Roboto', sans-serif;}
 body {
 	background: #4d3278;
 	display: flex;
