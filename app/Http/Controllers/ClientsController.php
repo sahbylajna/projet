@@ -408,7 +408,7 @@ view()->share('data', $data);
  $pdf = PDF::loadView('pdf' );
  $fileName = $client->ud . '.pdf';
     //Save the pdf file in the public storage
-    $pdf->save( public_path('pdf/'.$fileName));
+    $pdf->save( public_path('pdf/tasareeh.pdf'));
     return $pdf->download($fileName);
 }
 
