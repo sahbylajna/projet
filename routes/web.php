@@ -1,4 +1,4 @@
--- Active: 1688464113149@@db-mysql-nyc1-22492-do-user-14291674-0.b.db.ondigitalocean.com@25060@defaultdb
+
 <?php
 
 use Illuminate\Support\Facades\Auth;
