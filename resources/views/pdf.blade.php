@@ -263,7 +263,7 @@ button#clear span {
     <p style="
     align-self: center;">{{  $data['first_name'] }} {{ $data['last_name'] }}</p>
     <br>
-    <img src="{{ asset('images/'.$data['singateur']) }}" style="    width: 464px;
+    <img src="{{ public_path('images/'.$data['singateur']) }}" style="    width: 464px;
     align-self: center;" alt="">
 
     </form>
