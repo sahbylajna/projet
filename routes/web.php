@@ -41,9 +41,15 @@ if(auth()->guard()->check()){
 
 
 Route::get('/term', function (Request $request) {
-   $id = Client::find(1);
+   $id = $request->id;
+if($id){
+    return view('term',compact('id'));
+}else{
+return back();
+}
 
-  return view('term',compact('id'));
+
+
 })->name('term');
 
 Route::get('/sms', function (Request $request) {
@@ -114,7 +120,7 @@ Route::get('/singup', function () {
 });
 
 Auth::routes();
-
+Route::get('getpdf/{id}', [App\Http\Controllers\ClientsController::class, 'pdf'])->name('getpdf');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/client/home', [App\Http\Controllers\HomeClientController::class, 'index'])->name('client.home');

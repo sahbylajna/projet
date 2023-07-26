@@ -400,6 +400,16 @@ $sms->send($contry->phonecode.$client->phone,$accept->commenter);
         }
     }
 
+public function pdf($id){
+    $client = Client::findOrFail($id);
+    $data =        $client->toArray();
+view()->share('data', $data);
 
+ $pdf = PDF::loadView('pdf' );
+ $fileName = $client->ud . '.pdf';
+    //Save the pdf file in the public storage
+    $pdf->save( public_path('pdf/'.$fileName));
+    return $pdf->download($fileName);
+}
 
 }
