@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     {{-- <title>اللجنة المنضمة لسباق الهجن</title> --}}
     <style media="screen">
-
+*{ font-family: DejaVu Sans; font-size: 12px;}
 body {
 	background: #4d3278;
 	display: flex;
