@@ -409,6 +409,7 @@ public function pdf($id){
 view()->share('data', $data);
 
 
+
   // $pdf = mb_convert_encoding(\View::make('pdf', $data), 'HTML-ENTITIES', 'UTF-8');
   //   return PDF::loadHtml($pdf)->download('invoice.pdf');
 

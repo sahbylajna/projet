@@ -193,7 +193,9 @@
 
 
                                     <div class="btn-group btn-group-xs pull-right" role="group">
-
+                                          <a href="{{ route('getpdf', $client->id ) }}" class="btn btn-info" title="{{ trans('terms.model_plural') }}">
+                                            <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
+                                        </a>
                                         <a href="{{ route('clients.client.show', $client->id ) }}" class="btn btn-info" title="{{ trans('clients.show') }}">
                                             <span class="fa fa-eye" aria-hidden="true"></span>
                                         </a>

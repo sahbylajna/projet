@@ -13,7 +13,7 @@
         <div class="shape"></div>
     </div>
 
-    <form class="form">
+    <form class="form" style="text-align: -webkit-center;">
         <h3>{{ trans('terms.model_plural') }}</h3>
 
     <p>
@@ -26,7 +26,7 @@
     <p style="
     align-self: center;">{{  $data['first_name'] }} {{ $data['last_name'] }}</p>
     <br>
-    <img src="data:image/svg+xml;base64,<?php echo base64_encode(file_get_contents(public_path('images/'.$data['singateur']))); ?>" style="    width: 464px;
+    <img src="{{asset('images/'.$data['singateur'])}}" style="    width: 464px;
     align-self: center;" alt="">
 
     </form>
