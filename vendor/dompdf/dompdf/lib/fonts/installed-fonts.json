@@ -10,5 +10,8 @@
         "300": "\/Applications\/XAMPP\/xamppfiles\/htdocs\/projet\/vendor\/dompdf\/dompdf\/lib\/fonts\/poppins_300_4a08cccbc2911e3077321a0298f4e093",
         "500": "poppins_500_6a6f5e017da7e062546fd806ab3b249c",
         "600": "\/Applications\/XAMPP\/xamppfiles\/htdocs\/projet\/vendor\/dompdf\/dompdf\/lib\/fonts\/poppins_600_272b14b77a21dc5827f4570eff556c8f"
+    },
+    "amiri": {
+        "normal": "amiri_normal_33a83e4333a8495ae4de68763b816f1f"
     }
 }
