@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->
 
-    {{-- <title>اللجنة المنضمة لسباق الهجن</title> --}}
+    {{--  --}}
     <style media="screen">
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin-ext');
 body {font-family: 'Roboto', sans-serif;}
