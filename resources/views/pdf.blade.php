@@ -251,11 +251,11 @@ button#clear span {
 
     <p>
         @php
-            $term = App\Models\term::first();
+            
 
 
         @endphp
-        {{ $term->term_ar }}
+        {{ $data['term_ar']}}
     </p>
     <br>
     <br>

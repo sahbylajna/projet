@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use PDF;
-
+use App\Models\term;
 
 class ClientsController extends Controller
 {
@@ -402,7 +402,10 @@ $sms->send($contry->phonecode.$client->phone,$accept->commenter);
 
 public function pdf($id){
     $client = Client::findOrFail($id);
+    $term = term::first();
+    $client->term_ar = $term->term_ar;
     $data =        $client->toArray();
+//dd($data);
 view()->share('data', $data);
 
  $pdf = PDF::loadView('pdf',['data' => $data] );

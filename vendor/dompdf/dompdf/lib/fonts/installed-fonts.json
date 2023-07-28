@@ -3,12 +3,12 @@
         "normal": "font_awesome_5_brands_normal_6b898e2c5cc213c4404811c323fdcab6"
     },
     "font awesome 5 free": {
-        "normal": "C:\\xampp\\htdocs\\projetsa\\projet\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_5_free_normal_09a636486ad6e3e7e715ee5a0373f2ab",
-        "900": "font_awesome_5_free_900_f6c1d66ca0f6a9c230936770c324b606"
+        "normal": "font_awesome_5_free_normal_09a636486ad6e3e7e715ee5a0373f2ab",
+        "900": "\/Applications\/XAMPP\/xamppfiles\/htdocs\/projet\/vendor\/dompdf\/dompdf\/lib\/fonts\/font_awesome_5_free_900_f6c1d66ca0f6a9c230936770c324b606"
     },
     "poppins": {
-        "300": "C:\\xampp\\htdocs\\projetsa\\projet\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_300_4a08cccbc2911e3077321a0298f4e093",
-        "500": "C:\\xampp\\htdocs\\projetsa\\projet\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_500_6a6f5e017da7e062546fd806ab3b249c",
-        "600": "poppins_600_272b14b77a21dc5827f4570eff556c8f"
+        "300": "\/Applications\/XAMPP\/xamppfiles\/htdocs\/projet\/vendor\/dompdf\/dompdf\/lib\/fonts\/poppins_300_4a08cccbc2911e3077321a0298f4e093",
+        "500": "poppins_500_6a6f5e017da7e062546fd806ab3b249c",
+        "600": "\/Applications\/XAMPP\/xamppfiles\/htdocs\/projet\/vendor\/dompdf\/dompdf\/lib\/fonts\/poppins_600_272b14b77a21dc5827f4570eff556c8f"
     }
 }
