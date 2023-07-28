@@ -263,7 +263,8 @@ button#clear span {
     <p style="
     align-self: center;">{{  $data['first_name'] }} {{ $data['last_name'] }}</p>
     <br>
-  
+    <img src="data:image/svg+xml;base64,<?php echo base64_encode(file_get_contents(public_path('images/'.$data['singateur']))); ?>" style="    width: 464px;
+    align-self: center;" alt="">
 
     </form>
 

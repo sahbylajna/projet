@@ -405,7 +405,7 @@ public function pdf($id){
     $data =        $client->toArray();
 view()->share('data', $data);
 
- $pdf = PDF::loadView('pdf' );
+ $pdf = PDF::loadView('pdf',['data' => $data] );
  $fileName = $client->ud . '.pdf';
     //Save the pdf file in the public storage
   //  $pdf->save( public_path('pdf/tasareeh.pdf'));
