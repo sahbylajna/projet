@@ -13,7 +13,7 @@
         <div class="shape"></div>
     </div>
 
-    <form class="form" style="text-align: -webkit-center;">
+    <form class="form" style="text-align: -webkit-center!important;">
         <h3>{{ trans('terms.model_plural') }}</h3>
 
     <p>
