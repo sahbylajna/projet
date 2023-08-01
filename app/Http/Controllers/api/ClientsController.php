@@ -241,7 +241,8 @@ class ClientsController extends Controller
         $term = term::first();
         return response()->json([
 
-            'term' => $term,
+            'term_ar' => $term->term_ar,
+            'term_en' => $term->term_en,
 
         ]);
     }
