@@ -8,7 +8,7 @@ use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\term;
 use Illuminate\Support\Str;
 class ClientsController extends Controller
 {
@@ -235,5 +235,14 @@ class ClientsController extends Controller
         $saved = $file->store('images',['disk' => 'public_uploads']);
 
         return  $saved;
+    }
+
+    public function term(){
+        $term = term::first();
+        return response()->json([
+
+            'term' => $term,
+
+        ]);
     }
 }

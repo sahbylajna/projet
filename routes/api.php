@@ -21,6 +21,8 @@ Route::get('/user', function() {
     return auth()->user();
 })->middleware('auth:sanctum');
 
+Route::get('/term', [ClientsController::class, 'term']);
+
 Route::post('/login', [ClientsController::class, 'create_token']);
 Route::post('/sungupp', [ClientsController::class, 'sungupp']);
 
