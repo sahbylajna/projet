@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
 use App\Models\ApiUser;
+use App\Models\acceptation_demande;
 
 class ExportsController extends Controller
 {
@@ -384,7 +385,7 @@ class ExportsController extends Controller
  $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
-
+ $data = json_encode($data);
  $ANIMALINFO = [];
 
  foreach ($export->animal as $key => $value) {
@@ -421,6 +422,14 @@ class ExportsController extends Controller
          ],
          'headers' => $headers
      ]);
+
+
+     $acceptation = new acceptation_demande();
+     $acceptation->User_id = Auth()->user()->id;
+     $acceptation->demande_id = $export->id;
+     $acceptation->type = 'importation';
+     $acceptation->commenter = 'accepter';
+     $acceptation->save();
  }catch(Exception $exception) {
  dd($exception);
  }

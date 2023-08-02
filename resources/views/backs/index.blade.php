@@ -107,17 +107,17 @@
                                 <input name="_method" value="DELETE" type="hidden">
                                 {{ csrf_field() }}
 
-                                    <div class="btn-group btn-group-xs pull-right" role="group">
-                                        <a href="{{ route('backs.back.show', $back->id ) }}" class="btn btn-info" title="{{ trans('backs.show') }}">
-                                            <span class="fa fa-eye" aria-hidden="true"></span>
-                                        </a>
-                                        <a href="{{ route('backs.back.edit', $back->id ) }}" class="btn btn-primary" title="{{ trans('backs.edit') }}">
-                                            <span class="fa fa-pencil" aria-hidden="true"></span>
-                                        </a>
+                                    <div class="btn-group btn-group-xs pull-right" role="group" style="direction: initial;">
 
                                         <button type="submit" class="btn btn-danger" title="{{ trans('backs.delete') }}" onclick="return confirm(&quot;{{ trans('backs.confirm_delete') }}&quot;)">
                                             <span class="fa fa-trash" aria-hidden="true"></span>
                                         </button>
+                                        <a href="{{ route('backs.back.show', $back->id ) }}" class="btn btn-info" title="{{ trans('backs.show') }}">
+                                            <span class="fa fa-eye" aria-hidden="true"></span>
+                                        </a>
+
+
+
                                     </div>
 
                                 </form>

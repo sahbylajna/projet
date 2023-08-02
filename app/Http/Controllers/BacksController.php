@@ -9,6 +9,7 @@ use App\Models\back;
 use App\Models\ANIMAL_INFO;
 use Illuminate\Http\Request;
 use Exception;
+use App\Models\acceptation_demande;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
 use App\Models\ApiUser;
@@ -380,7 +381,7 @@ $data['APPLICANT_NAME'] = $back->APPLICANT_NAME;
 $data['APPLICANT_TEL'] = $back->APPLICANT_TEL;
 $data['EXP_NATIONALITY'] = $back->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $back->EXP_PASSPORT_NUM;
-
+$data = json_encode($data);
 $ANIMALINFO = [];
 
 
@@ -416,6 +417,14 @@ try{
         ],
         'headers' => $headers
     ]);
+
+
+    $acceptation = new acceptation_demande();
+    $acceptation->User_id = Auth()->user()->id;
+    $acceptation->demande_id = $back->id;
+    $acceptation->type = 'importation';
+    $acceptation->commenter = 'accepter';
+    $acceptation->save();
 }catch(Exception $exception) {
 dd($exception);
 }

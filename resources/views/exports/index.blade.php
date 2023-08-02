@@ -96,7 +96,7 @@
 
 
 
-                                    <div class="btn-group btn-group-xs pull-right" role="group">
+                                    <div class="btn-group btn-group-xs pull-right" role="group" style="direction: initial;">
                                         <a href="{{ route('exports.export.show', $export->id ) }}" class="btn btn-info" title="{{ trans('exports.show') }}">
                                             <span class="fa fa-eye" aria-hidden="true"></span>
                                         </a>

@@ -107,7 +107,7 @@
                                 <input name="_method" value="DELETE" type="hidden">
                                 {{ csrf_field() }}
 
-                                    <div class="btn-group btn-group-xs pull-right" role="group">
+                                    <div class="btn-group btn-group-xs pull-right " style="direction: initial;" role="group">
                                         <a href="{{ route('importations.importation.show', $importation->id ) }}" class="btn btn-info" title="{{ trans('importations.show') }}">
                                             <span class="fa fa-eye" aria-hidden="true"></span>
                                         </a>

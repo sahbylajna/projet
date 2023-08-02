@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\importation;
 use App\Models\ANIMAL_INFO;
+use App\Models\acceptation_demande;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -358,7 +359,7 @@ dd($exception);
         $response =json_decode($response); // Using this you can access any key like below
         $access_token = $response->access_token;
       // dd($access_token);
-
+      $data = [];
 $data['CER_TYPE'] = $importation->CER_TYPE;
 $data['CER_LANG'] = $importation->CER_LANG;
 $data['COMP_ID'] = $importation->COMP_ID;
@@ -384,7 +385,7 @@ $data['APPLICANT_NAME'] = $importation->APPLICANT_NAME;
 $data['APPLICANT_TEL'] = $importation->APPLICANT_TEL;
 $data['EXP_NATIONALITY'] = $importation->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $importation->EXP_PASSPORT_NUM;
-
+$data = json_encode($data);
 $ANIMALINFO = [];
 
 foreach ($importation->animal as $key => $value) {
@@ -411,26 +412,36 @@ $headers = [
     'Accept'        => 'application/json',
 ];
 
-
+//dd($data,$ANIMALINFOj);
 
 try{
     $client2 = new ClientHTTP();
     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
+        'headers' => $headers,
         'form_params' => [
             'DATA' => $data,
             'ANIMAL_INFO' =>$ANIMALINFOj,
             'files' => $importation->files,
         ],
-        'headers' => $headers
+
     ]);
+    $acceptation = new acceptation_demande();
+    $acceptation->User_id = Auth()->user()->id;
+    $acceptation->demande_id = $importation->id;
+    $acceptation->type = 'importation';
+    $acceptation->commenter = 'accepter';
+    $acceptation->save();
 }catch(Exception $exception) {
-dd($exception);
+    dd($exception);
 }
 
-       dd($res->getBody());
+     //
+
+
+
        $response = (string) $res->getBody();
        $response =json_decode($response);
-
+       dd($res->getBody());
 
 
 
