@@ -118,3 +118,16 @@
 </div>
 
 @endsection
+@section('css')
+<style>
+    table{
+  border-collapse: collapse;
+}
+
+th, td{
+  border: 1px solid black;
+  padding: 10px;
+}
+</style>
+
+@endsection
