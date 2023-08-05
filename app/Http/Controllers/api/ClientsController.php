@@ -69,7 +69,7 @@ class ClientsController extends Controller
 
             return response()->json([
                 'id' => 0,
-                'message' => '',
+                'message' => 'الرجاء إدخال بيانات صحيحة',
                 'errors' => 'errors'
             ]);
         }else{

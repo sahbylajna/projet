@@ -81,7 +81,7 @@ Route::get('sms', function () {
                 'sms_type'=>'P',
                 'encoding'=>'T',
                 'sender_id'=>'CRC',
-                'phonenumber'=>'97450164060',
+                'phonenumber'=>'21656818880',
                 'textmessage'=>'code verification : 1452',
             ],
 
