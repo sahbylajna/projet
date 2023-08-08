@@ -3,9 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ClientsController;
-use App\Http\Controllers\Api\ImportationsController;
-use App\Http\Controllers\Api\BacksController;
-use App\Http\Controllers\Api\ExportsController;
+use App\Http\Controllers\api\ImportationsController;
+use App\Http\Controllers\api\BacksController;
+use App\Http\Controllers\api\ExportsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
