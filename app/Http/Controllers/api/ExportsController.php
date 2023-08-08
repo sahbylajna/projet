@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\Controller;
+use App\Http\Controllers\api\Controller;
 use App\Models\export;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\Controller;
+use App\Http\Controllers\api\Controller;
 use App\Models\back;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -222,9 +222,9 @@ class BacksController extends Controller
             'ORIGIN_COUNTRY' => 'string|nullable',
             'SHIPPING_PLACE' => 'string|min:1|nullable',
             'ENTERY_PORT' => 'string|min:1|nullable',
-            'EXPECTED_ARRIVAL_DATE' => 'nullable',
+            'EXPECTED_ARRIVAL_DATE' => 'string|date_format:Y-m-d',
             'TRANSPORT' => 'string|min:1|nullable',
-            'SHIPPING_DATE' => 'nullable',
+            'SHIPPING_DATE' => 'string|date_format:Y-m-d',
 
             'EXP_NATIONALITY' => 'string|min:1|nullable',
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
