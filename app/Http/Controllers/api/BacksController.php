@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\Controller;
-use App\Models\importation as importations;
+use App\Models\back;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+
 use App\Models\ANIMAL_INFO;
 
-class ImportationsController extends Controller
+class BacksController extends Controller
 {
 
     /**
@@ -19,18 +20,17 @@ class ImportationsController extends Controller
      */
     public function index()
     {
+        $backs = back::where('client_id',auth()->user()->id)->with('animal')->get();
 
-        $importationsObjects = importations::where('client_id',auth()->user()->id)->get();
-
-       $data  = $importationsObjects->transform(function ($importations) {
-            return $this->transform($importations);
+        $data = $backs->transform(function ($back) {
+            return $this->transform($back);
         });
 
         return response()->json(  $data);
     }
 
     /**
-     * Store a new importations in the storage.
+     * Store a new back in the storage.
      *
      * @param Illuminate\Http\Request $request
      *
@@ -38,7 +38,6 @@ class ImportationsController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
             $validator = $this->getValidator($request);
 
@@ -48,7 +47,7 @@ class ImportationsController extends Controller
 
             $data = $this->getData($request);
 
-            $importations = importations::create($data);
+            $back = back::create($data);
             $ANIMAL_INFO = json_decode($data['ANIMAL_INFO'], true);
 
             foreach ($ANIMAL_INFO as $key => $value) {
@@ -57,27 +56,32 @@ class ImportationsController extends Controller
                 $animal->ORIGIN_COUNTRY = $value['ORIGIN_COUNTRY'];
                 $animal->EXPORT_COUNTRY = $value['EXPORT_COUNTRY'];
                 $animal->TRANSIET_COUNTRY = $value['TRANSIET_COUNTRY'];
-                $animal->ANML_SPECIES = $value['ANML_SPECIES'];
-                $animal->ANML_SEX = $value['ANML_SEX'];
-                $animal->ANML_NUMBER = $value['ANML_NUMBER'];
-                $animal->ANML_USE = $value['ANML_USE'];
-                $animal->ANIMAL_BREED = $value['ANIMAL_BREED'];
+
                 $animal->client_id =  auth()->user()->id ;
                 $animal->save();
-                $importations->animal()->attach( $animal->id);
+                $back->animal()->attach( $animal->id);
             }
+
+
+
+
+
+
+
+
+
             return $this->successResponse(
-			    trans('importations.model_was_added'),
-			    $this->transform($importations)
+			    trans('backs.model_was_added'),
+			    $this->transform($back)
 			);
         } catch (Exception $exception) {
-            $importations->delete();
+           // $back->delete();
             return $this->errorResponse($exception->getMessage());
         }
     }
 
     /**
-     * Display the specified importations.
+     * Display the specified back.
      *
      * @param int $id
      *
@@ -85,16 +89,16 @@ class ImportationsController extends Controller
      */
     public function show($id)
     {
-        $importations = importations::with('client','comp')->findOrFail($id);
+        $back = back::with('client','comp')->findOrFail($id);
 
         return $this->successResponse(
-		    trans('importations.model_was_retrieved'),
-		    $this->transform($importations)
+		    trans('backs.model_was_retrieved'),
+		    $this->transform($back)
 		);
     }
 
     /**
-     * Update the specified importations in the storage.
+     * Update the specified back in the storage.
      *
      * @param int $id
      * @param Illuminate\Http\Request $request
@@ -112,20 +116,20 @@ class ImportationsController extends Controller
 
             $data = $this->getData($request);
 
-            $importations = importations::findOrFail($id);
-            $importations->update($data);
+            $back = back::findOrFail($id);
+            $back->update($data);
 
             return $this->successResponse(
-			    trans('importations.model_was_updated'),
-			    $this->transform($importations)
+			    trans('backs.model_was_updated'),
+			    $this->transform($back)
 			);
         } catch (Exception $exception) {
-            return $this->errorResponse(trans('importations.unexpected_error'));
+            return $this->errorResponse(trans('backs.unexpected_error'));
         }
     }
 
     /**
-     * Remove the specified importations from the storage.
+     * Remove the specified back from the storage.
      *
      * @param int $id
      *
@@ -134,15 +138,15 @@ class ImportationsController extends Controller
     public function destroy($id)
     {
         try {
-            $importations = importations::findOrFail($id);
-            $importations->delete();
+            $back = back::findOrFail($id);
+            $back->delete();
 
             return $this->successResponse(
-			    trans('importations.model_was_deleted'),
-			    $this->transform($importations)
+			    trans('backs.model_was_deleted'),
+			    $this->transform($back)
 			);
         } catch (Exception $exception) {
-            return $this->errorResponse( $exception->getMessage());
+            return $this->errorResponse(trans('backs.unexpected_error'));
         }
     }
 
@@ -164,17 +168,17 @@ class ImportationsController extends Controller
             'EXP_TEL' => 'string|min:1',
             'EXP_QID' => 'string|min:1',
             'EXP_FAX' => 'string|min:1',
-            'EXP_COUNTRY' => 'numeric',
+            'EXP_COUNTRY' => 'string',
             'IMP_NAME' => 'string|min:1',
             'IMP_ADDRESS' => 'string|min:1',
             'IMP_FAX' => 'string|min:1',
             'IMP_TEL' => 'string|min:1',
             'IMP_POBOX' => 'string|min:1',
-            'IMP_COUNTRY' => 'numeric',
-            'ORIGIN_COUNTRY' => 'numeric',
+            'IMP_COUNTRY' => 'string',
+            'ORIGIN_COUNTRY' => 'string',
             'SHIPPING_PLACE' => 'string|min:1',
             'ENTERY_PORT' => 'string|min:1',
-            'EXPECTED_ARRIVAL_DATE' => 'string|date_format:Y-m-d',
+            'EXPECTED_ARRIVAL_DATE|date_format:Y-m-d' => 'string',
             'TRANSPORT' => 'string|min:1',
             'SHIPPING_DATE' => 'string|date_format:Y-m-d',
             'APPLICANT_NAME' => 'string|min:1',
@@ -201,25 +205,26 @@ class ImportationsController extends Controller
         $rules = [
 
 
+
             'COMP_ID' => 'nullable',
             'EUSER_QID' => 'string|min:1|nullable',
             'EXP_NAME' => 'string|min:1|nullable',
             'EXP_TEL' => 'string|min:1|nullable',
             'EXP_QID' => 'string|min:1|nullable',
             'EXP_FAX' => 'string|min:1|nullable',
-            'EXP_COUNTRY' => 'numeric|nullable',
+            'EXP_COUNTRY' => 'string|nullable',
             'IMP_NAME' => 'string|min:1|nullable',
             'IMP_ADDRESS' => 'string|min:1|nullable',
             'IMP_FAX' => 'string|min:1|nullable',
             'IMP_TEL' => 'string|min:1|nullable',
             'IMP_POBOX' => 'string|min:1|nullable',
-            'IMP_COUNTRY' => 'numeric|nullable',
-            'ORIGIN_COUNTRY' => 'numeric|nullable',
+            'IMP_COUNTRY' => 'string|nullable',
+            'ORIGIN_COUNTRY' => 'string|nullable',
             'SHIPPING_PLACE' => 'string|min:1|nullable',
             'ENTERY_PORT' => 'string|min:1|nullable',
-            'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
+            'EXPECTED_ARRIVAL_DATE' => 'nullable',
             'TRANSPORT' => 'string|min:1|nullable',
-            'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
+            'SHIPPING_DATE' => 'nullable',
 
             'EXP_NATIONALITY' => 'string|min:1|nullable',
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
@@ -236,49 +241,50 @@ class ImportationsController extends Controller
         $data['APPLICANT_TEL'] = auth()->user()->phone;
 
 
-        return $data;
 
+        return $data;
     }
 
     /**
-     * Transform the giving importations to public friendly array
+     * Transform the giving back to public friendly array
      *
-     * @param App\Models\importations $importations
+     * @param App\Models\back $back
      *
      * @return array
      */
-    protected function transform(importations $importations)
+    protected function transform(back $back)
     {
+
         return [
-            'id' => $importations->id,
-            'client_id' => auth()->user()->id,
-            'CER_TYPE' => $importations->CER_TYPE,
-            'CER_LANG' => $importations->CER_LANG,
-            'COMP_ID' => $importations->COMP_ID,
-            'EUSER_QID' => $importations->EUSER_QID,
-            'EXP_NAME' => $importations->EXP_NAME,
-            'EXP_TEL' => $importations->EXP_TEL,
-            'EXP_QID' => $importations->EXP_QID,
-            'EXP_FAX' => $importations->EXP_FAX,
-            'EXP_COUNTRY' => $importations->EXP_COUNTRY,
-            'IMP_NAME' => $importations->IMP_NAME,
-            'IMP_ADDRESS' => $importations->IMP_ADDRESS,
-            'IMP_FAX' => $importations->IMP_FAX,
-            'IMP_TEL' => $importations->IMP_TEL,
-            'IMP_POBOX' => $importations->IMP_POBOX,
-            'IMP_COUNTRY' => $importations->IMP_COUNTRY,
-            'ORIGIN_COUNTRY' => $importations->ORIGIN_COUNTRY,
-            'SHIPPING_PLACE' => $importations->SHIPPING_PLACE,
-            'ENTERY_PORT' => $importations->ENTERY_PORT,
-            'EXPECTED_ARRIVAL_DATE' => $importations->EXPECTED_ARRIVAL_DATE,
-            'TRANSPORT' => $importations->TRANSPORT,
-            'SHIPPING_DATE' => $importations->SHIPPING_DATE,
-            'APPLICANT_NAME' => $importations->APPLICANT_NAME,
-            'APPLICANT_TEL' => $importations->APPLICANT_TEL,
-            'EXP_NATIONALITY' => $importations->EXP_NATIONALITY,
-            'EXP_PASSPORT_NUM' => $importations->EXP_PASSPORT_NUM,
-            'accepted' => $importations->accepted,
-            'animal' => $importations->animal,
+            'id' => $back->id,
+            'client_id' => optional($back->client)->id,
+            'CER_TYPE' => $back->CER_TYPE,
+            'CER_LANG' => $back->CER_LANG,
+            'COMP_ID' =>  $back->COMP_ID,
+            'EUSER_QID' => $back->EUSER_QID,
+            'EXP_NAME' => $back->EXP_NAME,
+            'EXP_TEL' => $back->EXP_TEL,
+            'EXP_QID' => $back->EXP_QID,
+            'EXP_FAX' => $back->EXP_FAX,
+            'EXP_COUNTRY' => $back->EXP_COUNTRY,
+            'IMP_NAME' => $back->IMP_NAME,
+            'IMP_ADDRESS' => $back->IMP_ADDRESS,
+            'IMP_FAX' => $back->IMP_FAX,
+            'IMP_TEL' => $back->IMP_TEL,
+            'IMP_POBOX' => $back->IMP_POBOX,
+            'IMP_COUNTRY' => $back->IMP_COUNTRY,
+            'ORIGIN_COUNTRY' => $back->ORIGIN_COUNTRY,
+            'SHIPPING_PLACE' => $back->SHIPPING_PLACE,
+            'ENTERY_PORT' => $back->ENTERY_PORT,
+            'EXPECTED_ARRIVAL_DATE' => $back->EXPECTED_ARRIVAL_DATE,
+            'TRANSPORT' => $back->TRANSPORT,
+            'SHIPPING_DATE' => $back->SHIPPING_DATE,
+            'APPLICANT_NAME' => $back->APPLICANT_NAME,
+            'APPLICANT_TEL' => $back->APPLICANT_TEL,
+            'EXP_NATIONALITY' => $back->EXP_NATIONALITY,
+            'EXP_PASSPORT_NUM' => $back->EXP_PASSPORT_NUM,
+            'accepted' => $back->accepted,
+            'animal' => $back->animal,
 
         ];
     }

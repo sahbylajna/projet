@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ClientsController;
+use App\Http\Controllers\Api\ImportationsController;
+use App\Http\Controllers\Api\BacksController;
+use App\Http\Controllers\Api\ExportsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,11 +18,66 @@ use App\Http\Controllers\api\ClientsController;
 */
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::group([
+        'prefix' => 'importations',
+    ], function () {
+        Route::get('/', [ImportationsController::class, 'index'])
+             ->name('api.importations.importations.index');
+        Route::get('/show/{importations}',[ImportationsController::class, 'show'])
+             ->name('api.importations.importations.show')->where('id', '[0-9]+');
+        Route::post('/', [ImportationsController::class, 'store'])
+             ->name('api.importations.importations.store');
+        Route::put('importations/{importations}', [ImportationsController::class, 'update'])
+             ->name('api.importations.importations.update')->where('id', '[0-9]+');
+        Route::delete('/importations/{importations}',[ImportationsController::class, 'destroy'])
+             ->name('api.importations.importations.destroy')->where('id', '[0-9]+');
+    });
+
+
+    Route::group([
+        'prefix' => 'exports',
+    ], function () {
+        Route::get('/', [ExportsController::class, 'index'])
+             ->name('api.exports.export.index');
+        Route::get('/show/{export}',[ExportsController::class, 'show'])
+             ->name('api.exports.export.show')->where('id', '[0-9]+');
+        Route::post('/', [ExportsController::class, 'store'])
+             ->name('api.exports.export.store');
+        Route::put('export/{export}', [ExportsController::class, 'update'])
+             ->name('api.exports.export.update')->where('id', '[0-9]+');
+        Route::delete('/export/{export}',[ExportsController::class, 'destroy'])
+             ->name('api.exports.export.destroy')->where('id', '[0-9]+');
+    });
+
+
+    Route::group([
+        'prefix' => 'backs',
+    ], function () {
+        Route::get('/', [BacksController::class, 'index'])
+             ->name('api.backs.back.index');
+        Route::get('/show/{back}',[BacksController::class, 'show'])
+             ->name('api.backs.back.show')->where('id', '[0-9]+');
+        Route::post('/', [BacksController::class, 'store'])
+             ->name('api.backs.back.store');
+        Route::put('back/{back}', [BacksController::class, 'update'])
+             ->name('api.backs.back.update')->where('id', '[0-9]+');
+        Route::delete('/back/{back}',[BacksController::class, 'destroy'])
+             ->name('api.backs.back.destroy')->where('id', '[0-9]+');
+    });
+
+
+
+
+
+
 });
 Route::get('/user', function() {
 
     return auth()->user();
 })->middleware('auth:sanctum');
+
+
+
 
 Route::get('/term', [ClientsController::class, 'term']);
 
@@ -92,5 +150,8 @@ Route::get('sms', function () {
     }
 
 });
+
+
+
 
 
