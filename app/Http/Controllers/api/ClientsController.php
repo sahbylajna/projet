@@ -5,11 +5,13 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\countries;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use App\Models\term;
 use Illuminate\Support\Str;
+use App\SMS\Sms;
 class ClientsController extends Controller
 {
     public function create_token(Request $request)
@@ -145,6 +147,19 @@ class ClientsController extends Controller
             $client = Client::findOrFail($id);
             $client->singateur = $imageName;
             $client->save();
+
+
+    $contry = countries::find($client->contry_id );
+
+    $code = mt_rand(1111,9999);
+    $client->code = $code;
+    $client->save();
+    try {
+        $sms = new Sms;
+    $sms->send($contry->phonecode.$client->phone,"Hello your code :  ".$code);
+    } catch (\Throwable $th) {
+       dd($th);
+    }
             return response()->json([
                 'id' => $client->id,
                 'message' => 'success'
