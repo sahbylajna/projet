@@ -10,6 +10,7 @@ import 'package:flutter_frent/constants.dart';
 import 'package:flutter_frent/model/contrie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 import 'model/term.dart';
 
 
@@ -115,8 +116,6 @@ Future<term?> getterm() async {
   Future<Success?> register(String first_name, String last_name, String phone, String password, String email, String ud, String contry_id, String photo_ud_frent, String photo_ud_back) async {
     try {
 
-
-
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.register);
 
       var response = await http.post(url,
@@ -147,5 +146,67 @@ Future<term?> getterm() async {
 
     }
   }
+
+
+
+
+   Future<Success?> signature(signature,id) async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.signature+ id);
+      var response = await http.post(url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'signature': signature,
+
+    }),
+    );
+      if (response.statusCode == 200) {
+        Success _model = successFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -18,6 +18,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:flutter/material.dart';
 
+import 'package:flutter_frent/model/success.dart';
+
 class TermContent extends StatefulWidget   {
 
   @override
@@ -198,7 +200,7 @@ ByteData? byteData = await signatureData.toByteData(format: ui.ImageByteFormat.p
  imageEncoded =
    "data:image/png;base64," + base64.encode(byteData!.buffer.asUint8List());
 
-print('$imageEncoded');          //   print(image.clone.toString());
+print("Encoded: $imageEncoded");          //   print(image.clone.toString());
                     //   print(_signaturePadKey.currentState.);
                     //   _handleSaveButtonPressed(context);
   Navigator.of(context, rootNavigator: true).pop();
@@ -228,12 +230,12 @@ style: ThemeHelper().buttonStyle(),
                                 ),
                                 onPressed: () async {
 
+print("Encoded: $imageEncoded");
+Success? success = (await ApiService().signature(imageEncoded,"1"));
 
+     print(success?.errors.toString());
 
-
-
-
-
+  print(success?.message.toString());
 
 
 

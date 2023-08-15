@@ -162,12 +162,16 @@ class ClientsController extends Controller
     }
             return response()->json([
                 'id' => $client->id,
-                'message' => 'success'
+                'message' => 'success',
+                'errors' => ''
             ]);
         } catch (Exception $exception) {
+            return response()->json([
+                'id' => 0,
+                'message' => 'الرجاء إدخال بيانات صحيحة',
+                'errors' => 'errors'
+            ]);
 
-            return back()->withInput()
-                ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
     }
 

@@ -7,4 +7,6 @@ class ApiConstants {
 
   static String register = '/sungupp';
  static String term = '/term';
+
+  static String signature = '/signature';
 }
