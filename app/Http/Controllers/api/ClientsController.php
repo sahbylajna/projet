@@ -190,10 +190,20 @@ class ClientsController extends Controller
     public function confiramtion($id, Request $request)
     {
         try {
-            $request->validate([
+            $rules = [
                 'code' => 'required',
+            ];
+            $validator = \Validator::make($request->all(),  $rules);
+            if ($validator->fails()) {
 
-            ]);
+                //pass validator errors as errors object for ajax response
+
+                return response()->json([
+                    'id' => 0,
+                    'message' => 'الرجاء إدخال بيانات صحيحة',
+                    'errors' => 'errors'
+                ]);
+            }
 
 
             $client = Client::findOrFail($id);
