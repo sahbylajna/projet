@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frent/api_service.dart';
+import 'package:flutter_frent/login.dart';
+import 'package:flutter_frent/model/success.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Otp extends StatefulWidget {
   const Otp({Key? key}) : super(key: key);
 
@@ -10,10 +14,37 @@ class Otp extends StatefulWidget {
 
 class _OtpState extends State<Otp> {
      TextEditingController phone = TextEditingController();
-     String code= "";
+
+show(BuildContext context){
+    Widget okButton = TextButton(
+    child: Text("حسنا"),
+    onPressed: () {
+    Navigator.of(context).pop();
 
 
-showAlertDialog(BuildContext context) async {
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("خطأ"),
+    content: Text( 'الرجاء إدخال بيانات صحيحة'),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+
+}
+
+showAlertDialog(BuildContext context,code) async {
     print('hnaaa');
     showDialog(
         // The user CANNOT close this dialog  by pressing outsite it
@@ -42,12 +73,29 @@ showAlertDialog(BuildContext context) async {
         });
 
     // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
-    await Future.delayed(const Duration(seconds: 3));
 
+  final user = await SharedPreferences.getInstance();
+Success? success = await ApiService().confiramtion(code,user.get('id'));
+   await Future.delayed(const Duration(seconds: 3));
+print(success!.errors);
+if(success!.errors.toString() == "errors"){
+
+
+
+
+
+    //Navigator.of(context).pop();
+ Navigator.of(context).pop();
+    show(context);
+
+
+}else{
+ Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+}
     // Close the dialog programmatically
     // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
     if (!mounted) return;
-    Navigator.of(context).pop();
+ //  Navigator.of(context).pop();
   }
 
 
@@ -126,41 +174,41 @@ showAlertDialog(BuildContext context) async {
   fieldStyle: FieldStyle.underline,
   onCompleted: (pin) {
     print("Completed: " + pin);
-    Future.delayed(Duration.zero, () => showAlertDialog(context));
+    Future.delayed(Duration.zero, () => showAlertDialog(context,pin));
   },
 ),
                     SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
 
 
-                            print( code);
-                        },
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blue[300]!),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(14.0),
-                          child: Text(
-                            'تحقق',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    )
+
+                    //     },
+                    //     style: ButtonStyle(
+                    //       foregroundColor:
+                    //           MaterialStateProperty.all<Color>(Colors.white),
+                    //       backgroundColor:
+                    //           MaterialStateProperty.all<Color>(Colors.blue[300]!),
+                    //       shape:
+                    //           MaterialStateProperty.all<RoundedRectangleBorder>(
+                    //         RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(24.0),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     child: Padding(
+                    //       padding: EdgeInsets.all(14.0),
+                    //       child: Text(
+                    //         'تحقق',
+                    //         style: TextStyle(fontSize: 16),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -195,40 +243,40 @@ showAlertDialog(BuildContext context) async {
     );
   }
 
-  Widget _textFieldOTP({required bool first, last}) {
-    return Container(
-      height: 50,
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: TextField(
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-              code = code+value;
-            }
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
+//   Widget _textFieldOTP({required bool first, last}) {
+//     return Container(
+//       height: 50,
+//       child: AspectRatio(
+//         aspectRatio: 1.0,
+//         child: TextField(
+//           autofocus: true,
+//           onChanged: (value) {
+//             if (value.length == 1 && last == false) {
+//               FocusScope.of(context).nextFocus();
 
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.black12),
-                borderRadius: BorderRadius.circular(12)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.purple),
-                borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-      ),
-    );
-  }
+//             }
+//             if (value.length == 0 && first == false) {
+//               FocusScope.of(context).previousFocus();
+//             }
+//           },
+//           showCursor: false,
+//           readOnly: false,
+
+//           textAlign: TextAlign.center,
+//           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+//           keyboardType: TextInputType.number,
+//           maxLength: 1,
+//           decoration: InputDecoration(
+//             counter: Offstage(),
+//             enabledBorder: OutlineInputBorder(
+//                 borderSide: BorderSide(width: 2, color: Colors.black12),
+//                 borderRadius: BorderRadius.circular(12)),
+//             focusedBorder: OutlineInputBorder(
+//                 borderSide: BorderSide(width: 2, color: Colors.purple),
+//                 borderRadius: BorderRadius.circular(12)),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
 }

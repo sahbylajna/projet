@@ -44,6 +44,34 @@ class _TermContentState extends State<TermContent>{
     _getData();
   }
 
+show(BuildContext context){
+    Widget okButton = TextButton(
+    child: Text("حسنا"),
+    onPressed: () {
+    Navigator.of(context).pop();
+
+
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("خطأ"),
+    content: Text( 'الرجاء إدخال بيانات صحيحة'),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+
+}
   GlobalKey<SfSignaturePadState> _signaturePadKey = GlobalKey();
 
    void _handleSaveButtonPressed(BuildContext context) async {
@@ -236,8 +264,12 @@ Success? success = await ApiService().signature(imageEncoded,user.get('id'));
 
   if(success?.message.toString() == 'success'){
                  Navigator.push(context, MaterialPageRoute(builder: (context) => Otp()));
+  }else{
+ show(context);
   }
-}
+}else{
+ show(context);
+  }
 
 
 

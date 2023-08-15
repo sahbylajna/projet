@@ -252,7 +252,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                     recognizer: TapGestureRecognizer()
                                         ..onTap = () async {
 
-                                         Navigator.push(context, MaterialPageRoute(builder: (context) => Otp()));
+                                         Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
                                         },),
 
                                   ]

@@ -178,7 +178,28 @@ Future<term?> getterm() async {
 
 
 
+  Future<Success?> confiramtion(code,id) async {
+    try {
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.confiramtion+ "/"+id);
+      print(url);
+      var response = await http.post(url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'code': code,
 
+    }),
+    );
+      if (response.statusCode == 200) {
+        Success _model = successFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+        print(e.toString());
+      log(e.toString());
+    }
+  }
 
 
 

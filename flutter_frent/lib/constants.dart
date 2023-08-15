@@ -9,4 +9,6 @@ class ApiConstants {
  static String term = '/term';
 
   static String signature = '/signature';
+
+  static String confiramtion = '/confiramtion';
 }

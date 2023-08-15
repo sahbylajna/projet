@@ -22,8 +22,15 @@ class ClientsController extends Controller
             'contry_id' => 'required',
         ]);
 
-        $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->where('accepted', '1')->first();
+        $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->first();
+if($user->accepted != '1'){
+    return response()->json([
 
+        'access_token' => '',
+    'error' => 'The provided credentials are incorrect.',
+    'token_type' => ''
+    ]);
+}
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return response()->json([
 
