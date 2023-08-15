@@ -27,7 +27,7 @@ if($user->accepted != '1'){
     return response()->json([
 
         'access_token' => '',
-    'error' => 'The provided credentials are incorrect.',
+    'error' => 'في إنتظار تفعيل حسابك من قبل ادمن.',
     'token_type' => ''
     ]);
 }
@@ -35,7 +35,7 @@ if($user->accepted != '1'){
             return response()->json([
 
                 'access_token' => '',
-            'error' => 'The provided credentials are incorrect.',
+            'error' => 'الرجاء إدخال بيانات صحيحة',
             'token_type' => ''
             ]);
         }
