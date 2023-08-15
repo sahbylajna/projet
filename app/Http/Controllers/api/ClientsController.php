@@ -132,10 +132,20 @@ class ClientsController extends Controller
     public function signature($id, Request $request)
     {
         try {
-            $request->validate([
+            $rules = [
                 'signature' => 'required',
+            ];
+            $validator = \Validator::make($request->all(),  $rules);
+            if ($validator->fails()) {
 
-            ]);
+                //pass validator errors as errors object for ajax response
+
+                return response()->json([
+                    'id' => 0,
+                    'message' => 'الرجاء إدخال بيانات صحيحة',
+                    'errors' => 'errors'
+                ]);
+            }
 
             $image = $request->signature;  // your base64 encoded
             $image = str_replace('data:image/png;base64,', '', $image);
