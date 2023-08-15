@@ -10,6 +10,8 @@ import 'package:flutter_frent/constants.dart';
 import 'package:flutter_frent/model/contrie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'model/term.dart';
+
 
 
 class ApiService {
@@ -85,6 +87,29 @@ class ApiService {
   }
 
 
+Future<term?> getterm() async {
+    try {
+
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.term);
+      var response = await http.get(url,
+    headers: <String, String>{
+      "Accept": "application/json",
+
+    },
+
+    );
+      if (response.statusCode == 200) {
+        term _model = termFromJson(response.body);
+
+
+
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 
 
   Future<Success?> register(String first_name, String last_name, String phone, String password, String email, String ud, String contry_id, String photo_ud_frent, String photo_ud_back) async {

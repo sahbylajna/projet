@@ -156,7 +156,7 @@ class ClientsController extends Controller
     $client->save();
     try {
         $sms = new Sms;
-    $sms->send($contry->phonecode.$client->phone,"Hello your code :  ".$code);
+  //  $sms->send($contry->phonecode.$client->phone,"Hello your code :  ".$code);
     } catch (\Throwable $th) {
        dd($th);
     }

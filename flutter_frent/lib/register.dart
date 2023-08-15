@@ -362,8 +362,7 @@ width: _screen.width * 0.45,
                              final bytes2 = File(image2!.path).readAsBytesSync();
                           String base64Image2 =  "data:image/png;base64,"+base64Encode(bytes2);
 
-print(base64Image2);
-print(base64Image1);
+
 
 
  Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),base64Image1.toString(),base64Image2.toString()))!;
