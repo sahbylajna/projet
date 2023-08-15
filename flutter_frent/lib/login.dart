@@ -54,6 +54,28 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
 
     }));
   }
+
+
+  show(BuildContext context,message){
+    Widget okButton = TextButton(
+    child: Text("حسنا"),
+    onPressed: () {
+    Navigator.of(context).pop();
+
+
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("خطأ"),
+    content: Text(message),
+    actions: [
+      okButton,
+    ],
+  );
+
+  }
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
   @override
@@ -210,6 +232,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                           context);
                                     },
                                   );
+                                  show(context,token.error);
                                     }else{
                                 //          showDialog(
                                 //     context: context,

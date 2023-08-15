@@ -35,7 +35,7 @@ if($user->accepted != '1'){
             return response()->json([
 
                 'access_token' => '',
-            'error' => 'الرجاء إدخال بيانات صحيحة',
+            'error' =>  'رقم الهاتف أو كلمة المرور غير صحيحة' ,
             'token_type' => ''
             ]);
         }
