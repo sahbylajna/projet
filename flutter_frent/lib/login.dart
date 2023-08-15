@@ -250,7 +250,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                     TextSpan(text: "ليس لديك حساب؟ ",
                                     recognizer: TapGestureRecognizer()
                                         ..onTap = (){
-                                         Navigator.push(context, MaterialPageRoute(builder: (context) => TermContent()));
+                                         Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
                                         },),
 
                                   ]
