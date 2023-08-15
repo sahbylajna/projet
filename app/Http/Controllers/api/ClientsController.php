@@ -200,15 +200,18 @@ class ClientsController extends Controller
             if($client->code == $request->code){
                 $client->virification = 1;
                 $client->save();
-            $token = $client->createToken('ios')->plainTextToken;
 
-            return response()->json([
-                'access_token' => $token,
-                'token_type' => 'Bearer'
-            ]);
+
+                return response()->json([
+                    'id' => $client->id,
+                    'message' => 'success',
+                    'errors' => ''
+                ]);
             }else{
                 return response()->json([
-                    'error' => 'The code incorrect.'
+                    'id' => 0,
+                    'message' => 'errors',
+                    'errors' => 'errors'
                 ]);
             }
 

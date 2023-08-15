@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_frent/Otp.dart';
 import 'package:flutter_frent/model/term.dart';
 import 'package:flutter_frent/widgets/header_widget.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
@@ -229,13 +230,18 @@ style: ThemeHelper().buttonStyle(),
                                   child: Text('تسجيل '.toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                                 ),
                                 onPressed: () async {
+if(!imageEncoded.isEmpty){
+         final user = await SharedPreferences.getInstance();
+Success? success = await ApiService().signature(imageEncoded,user.get('id'));
 
-print("Encoded: $imageEncoded");
-Success? success = (await ApiService().signature(imageEncoded,"1"));
+  if(success?.message.toString() == 'success'){
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => Otp()));
+  }
+}
 
-     print(success?.errors.toString());
 
-  print(success?.message.toString());
+
+
 
 
 

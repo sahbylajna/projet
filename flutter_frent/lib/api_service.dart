@@ -152,7 +152,8 @@ Future<term?> getterm() async {
 
    Future<Success?> signature(signature,id) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.signature+ id);
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.signature+ "/"+id);
+      print(url);
       var response = await http.post(url,
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -167,6 +168,7 @@ Future<term?> getterm() async {
         return _model;
       }
     } catch (e) {
+        print(e.toString());
       log(e.toString());
     }
   }

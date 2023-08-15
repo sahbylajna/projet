@@ -4,6 +4,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frent/Otp.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/model/token.dart';
 import 'package:flutter_frent/model/user.dart';
@@ -249,8 +250,9 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                   children: [
                                     TextSpan(text: "ليس لديك حساب؟ ",
                                     recognizer: TapGestureRecognizer()
-                                        ..onTap = (){
-                                         Navigator.push(context, MaterialPageRoute(builder: (context) => TermContent()));
+                                        ..onTap = () async {
+
+                                         Navigator.push(context, MaterialPageRoute(builder: (context) => Otp()));
                                         },),
 
                                   ]
