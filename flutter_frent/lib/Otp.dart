@@ -45,7 +45,7 @@ show(BuildContext context){
 }
 
 showAlertDialog(BuildContext context,code) async {
-    print('hnaaa');
+
     showDialog(
         // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
@@ -65,7 +65,7 @@ showAlertDialog(BuildContext context,code) async {
                     height: 15,
                   ),
                   // Some text
-                  Text('Loading...')
+                  Text('تحميل...')
                 ],
               ),
             ),

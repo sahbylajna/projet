@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\term;
 use Illuminate\Support\Str;
 use App\SMS\Sms;
+use App\Models\export;
+use App\Models\importation;
+use App\Models\back;
 class ClientsController extends Controller
 {
     public function create_token(Request $request)
@@ -294,5 +297,22 @@ if($user->accepted != '1'){
             'term_en' => $term->term_en,
 
         ]);
+    }
+
+
+    public function getcount(){
+        $exports = export::where('client_id',auth()->user()->id)->with('animal')->count();
+        $importations = importation::where('client_id',auth()->user()->id)->count();
+        $backs = back::where('client_id',auth()->user()->id)->with('animal')->count();
+
+        return response()->json([
+
+            'exports' => $exports,
+            'importations' => $importations,
+            'backs' => $backs,
+
+
+        ]);
+
     }
 }

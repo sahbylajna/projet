@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Color.fromARGB(200, 220, 84, 254),
+            primary: _primaryColor,
           ),
           textTheme: GoogleFonts.tajawalTextTheme(
             Theme.of(context).textTheme,

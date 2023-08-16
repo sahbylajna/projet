@@ -10,7 +10,8 @@ class OutContent extends StatefulWidget{
 
 
 class _OutContentState extends State<OutContent>{
-
+ Color _primaryColor = Color.fromARGB(220,84,254,1000);
+  Color _accentColor = Color.fromARGB(138,2,174,1000);
   @override
   Widget build(BuildContext context) {
      return Directionality(
@@ -18,7 +19,7 @@ class _OutContentState extends State<OutContent>{
         child:Scaffold(
         appBar: AppBar(
         title: const Text('اللجنة المنضمة لسباق الهجن'),
-    backgroundColor: Color.fromARGB(200, 220, 84, 254),
+    backgroundColor: _accentColor,
     actions: <Widget>[
     IconButton(
     icon: const Icon(Icons.add_alert),

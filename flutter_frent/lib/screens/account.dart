@@ -16,6 +16,8 @@ class AccountContent extends StatefulWidget {
 
 class _AccountContentState extends State<AccountContent> {
   late SharedPreferences prefs;
+   Color _primaryColor = Color.fromARGB(220,84,254,1000);
+  Color _accentColor = Color.fromARGB(138,2,174,1000);
   User?  _user;
   @override
   void initState() {
@@ -72,7 +74,7 @@ class _AccountContentState extends State<AccountContent> {
       child:Scaffold(
            appBar: AppBar(
            title: const Text('اللجنة المنضمة لسباق الهجن'),
-           backgroundColor: Color.fromARGB(200, 220, 84, 254),
+           backgroundColor: _accentColor,
     actions: <Widget>[
     IconButton(
     icon: const Icon(Icons.add_alert),
@@ -162,7 +164,7 @@ class _AccountContentState extends State<AccountContent> {
            child:Scaffold(
            appBar: AppBar(
            title: const Text('اللجنة المنضمة لسباق الهجن'),
-             backgroundColor: Color.fromARGB(200, 220, 84, 254),
+             backgroundColor: _accentColor,
     actions: <Widget>[
     IconButton(
     icon: const Icon(Icons.add_alert),

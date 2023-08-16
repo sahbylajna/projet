@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../home.dart';
-class BackContent extends StatefulWidget{
-  const BackContent({Key? key}): super(key:key);
+class BookContent extends StatefulWidget{
+  const BookContent({Key? key}): super(key:key);
 
   @override
-  _BackContentState createState() => _BackContentState();
+  _BookContentState createState() => _BookContentState();
 }
 
 
 
-class _BackContentState extends State<BackContent>{
+class _BookContentState extends State<BookContent>{
  Color _primaryColor = Color.fromARGB(220,84,254,1000);
   Color _accentColor = Color.fromARGB(138,2,174,1000);
   @override

@@ -34,13 +34,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     }
   }
 
-//   @override
-//   void initState() {
-//     reLogin();
-//     // TODO: implement initState
-//     _tabController = TabController(length: 4, vsync: this);
-//     super.initState();
-//   }
+ Color _primaryColor = Color.fromARGB(220,84,254,1000);
+  Color _accentColor = Color.fromARGB(138,2,174,1000);
 Widget? _child;
 
   @override
@@ -50,204 +45,25 @@ Widget? _child;
   }
   @override
   Widget build(BuildContext context) {
-//     return Directionality(
-//       textDirection: TextDirection.rtl,
-//       child: Scaffold(
-//         appBar: AppBar(
-//           title: Text('تصاريح'),
-//           backgroundColor: Color.fromARGB(200, 220, 84, 254),
-//           centerTitle: true,
-//           actions: [
-//             TextButton(
-//               onPressed: () {},
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 children: [
-//                   Padding(
-//                     padding: EdgeInsets.only(top: 8.0),
-
-//                   ),
-//                   Padding(
-//                     padding: EdgeInsets.all(8.0),
-//                     child: Icon(
-//                       Icons.person,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             VerticalDivider(
-//               color: Colors.white,
-//               width: 3,
-//             ),
-//             TextButton(
-//               onPressed: () {},
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 children: const [
-//                   Padding(
-//                     padding: EdgeInsets.only(top: 8.0),
-//                     child: Text(
-//                       'تسجيل الخروج ',
-//                       style: TextStyle(color: Colors.white),
-//                     ),
-//                   ),
-//                   Padding(
-//                     padding: EdgeInsets.all(8.0),
-//                     child: Icon(
-//                       Icons.logout,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//           bottom: PreferredSize(
-//             preferredSize: const Size.fromHeight(100),
-//             child: TabBar(
-//               controller: _tabController,
-//               tabs: [
-//                 Tab(
-//                   icon: Row(
-//                     children: const [
-//                       Text('في انتظار المراجعة'),
-//                       SizedBox(
-//                         width: 10,
-//                       ),
-//                       Icon(Icons.watch_later_outlined)
-//                     ],
-//                   ),
-//                 ),
-//                 Tab(
-//                   icon: Row(
-//                     children: const [
-//                       Text('قيد الإجراء'),
-//                       SizedBox(
-//                         width: 10,
-//                       ),
-//                       Icon(Icons.file_open_sharp)
-//                     ],
-//                   ),
-//                 ),
-//                 Tab(
-//                   icon: Row(
-//                     children: const [
-//                       Text('جاهز للطباعة'),
-//                       SizedBox(
-//                         width: 10,
-//                       ),
-//                       Icon(Icons.print)
-//                     ],
-//                   ),
-//                 ),
-//                 Tab(
-//                   icon: Row(
-//                     children: const [
-//                       Text('أخري'),
-//                       SizedBox(
-//                         width: 10,
-//                       ),
-//                       Icon(Icons.manage_accounts)
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//         body: TabBarView(
-//           controller: _tabController,
-//           children: [
-//             _tab_1(),
-//             Text('data'),
-//             Text('data'),
-//             Text('data'),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//    _tab_1() {
-//   return Card(
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(8.0),
-//                   child: Row(
-//                     children: [
-//                       Column(
-//                         mainAxisAlignment: MainAxisAlignment.start,
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Row(
-//                             children: [
-//                               const Text('رقم الهاتف'),
-//                               const SizedBox(
-//                                 width: 10,
-//                               ),
-//                               Text('s'),
-//                             ],
-//                           ),
-//                           const SizedBox(
-//                             height: 10,
-//                           ),
-
-//                           Row(
-//                             children: [
-//                               const Text('عدد المطايا'),
-//                               const SizedBox(
-//                                 width: 10,
-//                               ),
-//                               Text('s'),
-//                             ],
-//                           ),
-//                         ],
-//                       ),
-//                       const Spacer(),
-//                       ElevatedButton(
-//                           onPressed: () {
-//                             // Get.to(PdGen(
-//                             //   name: data['name'],
-//                             //   qid: data['qid'],
-//                             //   phone: data['phone'],
-//                             //   export_ca: data['export_ca'],
-//                             //   send_place: data['send_place'],
-//                             //   travail_date: data['travail_date'],
-//                             //   minaa: data['minaa'],
-//                             //   guess_date: data['guess_date'],
-//                             //   camels: data['camels'],
-//                             //   qidurl: data['id_photo'],
-//                             // ));
-//                           },
-//                           child: Text('إستلام الطلب')),
-//                     ],
-//                   ),
-//                 ),
-//               );
-//   }
-// }
 
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xFFEAC0DC),
+        backgroundColor:_accentColor,
         extendBody: true,
         body: _child,
         bottomNavigationBar: FluidNavBar(
           icons: [
             FluidNavBarIcon(
                 icon: Icons.home,
-                backgroundColor: Color.fromARGB(181, 137, 2, 174),
+                backgroundColor: _accentColor,
                 extras: {"label": "home"}),
             FluidNavBarIcon(
                 icon: Icons.account_circle,
-                backgroundColor: Color.fromARGB(181, 137, 2, 174),
+                backgroundColor: _accentColor,
                 extras: {"label": "account"}),
             FluidNavBarIcon(
                 icon: Icons.settings,
-                backgroundColor: Color.fromARGB(181, 137, 2, 174),
+                backgroundColor: _accentColor,
                 extras: {"label": "settings"}),
           ],
           onChange: _handleNavigationChange,
