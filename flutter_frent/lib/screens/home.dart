@@ -18,6 +18,10 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
 count? _count;
+String importations='0';
+String exports='0';
+String backs='0';
+
  Color _primaryColor = Color.fromARGB(220,84,254,1000);
   Color _accentColor = Color.fromARGB(138,2,174,1000);
    @override
@@ -35,6 +39,10 @@ count? _count;
  _count = await ApiService().getcount();
    await Future.delayed(const Duration(seconds: 3));
 print(_count?.backs);
+exports = _count!.exports;
+importations = _count!.importations;
+backs = _count!.backs;
+
    // show(context);
    print('hmaaa0');
 
@@ -98,7 +106,7 @@ _getData();
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
     Text(
-        _count?.importations as String,
+        importations ,
         style: Theme.of(context).textTheme.subtitle1,
       ),
          SizedBox(
@@ -163,7 +171,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
     Text(
-         _count!.exports as String,
+         exports ,
         style: Theme.of(context).textTheme.subtitle1,
       ),
          SizedBox(
@@ -242,7 +250,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
     Text(
-        _count!.backs as String,
+        backs,
         style: Theme.of(context).textTheme.subtitle1,
       ),
          SizedBox(
@@ -306,13 +314,7 @@ SizedBox(
             textDirection: TextDirection.rtl,
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
-    Text(
-        '0',
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
-         SizedBox(
-      width: 30, // <-- SEE HERE
-    ),
+
 Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
 
   ]),
@@ -376,7 +378,7 @@ class CustomShapeBorder extends ContinuousRectangleBorder {
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
 
-    final double innerCircleRadius = 150.0;
+    final double innerCircleRadius = 100.0;
 
     Path path = Path();
     path.lineTo(0, rect.height);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frent/screens/home.dart';
 
 import '../home.dart';
 class BackContent extends StatefulWidget{
@@ -19,26 +20,13 @@ class _BackContentState extends State<BackContent>{
         textDirection: TextDirection.rtl,
         child:Scaffold(
         appBar: AppBar(
-        title: const Text('اللجنة المنضمة لسباق الهجن'),
-    backgroundColor: _accentColor,
-    actions: <Widget>[
-    IconButton(
-    icon: const Icon(Icons.add_alert),
-    tooltip: 'Show Snackbar',
-    onPressed: () {
-    ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('This is a snackbar')));
-    },
-    ),
-    IconButton(
-    icon: const Icon(Icons.navigate_next),
-    tooltip: 'Go to the next page',
-    onPressed: () {
-     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
-    },
-    ),
-    ],
-    ),
+          backgroundColor: Colors.blue,
+          shape: CustomShapeBorder(),
+
+          actions: <Widget>[
+
+          ],
+        ),
     body:Text('In scren')
 
 

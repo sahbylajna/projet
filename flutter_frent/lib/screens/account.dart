@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/login.dart';
+import 'package:flutter_frent/screens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_service.dart';
@@ -73,40 +74,13 @@ class _AccountContentState extends State<AccountContent> {
       textDirection: TextDirection.rtl,
       child:Scaffold(
            appBar: AppBar(
-           title: const Text('اللجنة المنضمة لسباق الهجن'),
-           backgroundColor: _accentColor,
-    actions: <Widget>[
-    IconButton(
-    icon: const Icon(Icons.add_alert),
-    tooltip: 'Show Snackbar',
-    onPressed: () {
-    ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('This is a snackbar')));
-    },
-    ),
-    // IconButton(
-    // icon: const Icon(Icons.navigate_next),
-    // tooltip: 'Go to the next page',
-    // onPressed: () {
-    // Navigator.push(context, MaterialPageRoute<void>(
-    // builder: (BuildContext context) {
-    // return Scaffold(
-    // appBar: AppBar(
-    // title: const Text('Next page'),
-    // ),
-    // body: const Center(
-    // child: Text(
-    // 'This is the next page',
-    // style: TextStyle(fontSize: 24),
-    // ),
-    // ),
-    // );
-    // },
-    // ));
-    // },
-    // ),
-    ],
-    ),
+          backgroundColor: Colors.blue,
+          shape: CustomShapeBorder(),
+
+          actions: <Widget>[
+
+          ],
+        ),
     body: Directionality(
          textDirection: TextDirection.rtl,
 
