@@ -307,7 +307,7 @@ if($user->accepted != '1'){
 
         return response()->json([
 
-            'exports' => $exports,
+            'exports' => "$exports",
             'importations' => $importations,
             'backs' => $backs,
 

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:convert';
 
 
+import 'package:flutter_frent/model/count.dart';
 import 'package:flutter_frent/model/success.dart';
 import 'package:flutter_frent/model/token.dart';
 import 'package:flutter_frent/model/user.dart';
@@ -205,6 +206,25 @@ Future<term?> getterm() async {
 
 
 
+  Future<count?> getcount() async {
+    try {
+         final user = await SharedPreferences.getInstance();
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.getcount);
+      var response = await http.get(url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+       'Authorization' : 'Bearer ${user.getString('token')}',
+    });
+
+      if (response.statusCode == 200) {
+        count _model = countFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 
 
 

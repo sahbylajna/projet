@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frent/api_service.dart';
+import 'package:flutter_frent/model/count.dart';
 import 'package:flutter_frent/screens/back.dart';
 import 'package:flutter_frent/screens/book.dart';
 import 'package:flutter_frent/screens/in.dart';
@@ -15,71 +17,35 @@ class HomeContent extends StatefulWidget {
 
 
 class _HomeContentState extends State<HomeContent> {
-
+count? _count;
  Color _primaryColor = Color.fromARGB(220,84,254,1000);
   Color _accentColor = Color.fromARGB(138,2,174,1000);
    @override
   void initState() {
     super.initState();
-    _getData();
+  _getData() ;
 
   }
 
  Future<void> _getData() async {
 
-   showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
-        barrierDismissible: false,
-        context: context,
-        builder: (_) {
-          return Dialog(
-            // The background color
-            backgroundColor: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  // The loading indicator
-                  CircularProgressIndicator(),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  // Some text
-                  Text('تحميل...')
-                ],
-              ),
-            ),
-          );
-        });
 
-    // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
 
   final user = await SharedPreferences.getInstance();
-Success? success = await ApiService().confiramtion(user.get('token'));
+ _count = await ApiService().getcount();
    await Future.delayed(const Duration(seconds: 3));
-print(success!.errors);
-if(success!.errors.toString() == "errors"){
+print(_count?.backs);
+   // show(context);
+   print('hmaaa0');
 
 
-
-
-
-    //Navigator.of(context).pop();
- Navigator.of(context).pop();
-    show(context);
-
-
-}else{
- Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
-}
 
   }
 
   @override
   Widget build(context) {
     var borderRadius = BorderRadius.circular(8.0);
-
+_getData();
     return Directionality(
         textDirection: TextDirection.rtl,
         child:Scaffold(
@@ -132,7 +98,7 @@ if(success!.errors.toString() == "errors"){
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
     Text(
-        '0',
+        _count?.importations as String,
         style: Theme.of(context).textTheme.subtitle1,
       ),
          SizedBox(
@@ -197,7 +163,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
     Text(
-        '0',
+         _count!.exports as String,
         style: Theme.of(context).textTheme.subtitle1,
       ),
          SizedBox(
@@ -276,7 +242,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
     Text(
-        '0',
+        _count!.backs as String,
         style: Theme.of(context).textTheme.subtitle1,
       ),
          SizedBox(

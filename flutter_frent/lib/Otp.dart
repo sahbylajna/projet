@@ -94,7 +94,7 @@ if(success!.errors.toString() == "errors"){
 }
     // Close the dialog programmatically
     // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
-    if (!mounted) return;
+
  //  Navigator.of(context).pop();
   }
 
