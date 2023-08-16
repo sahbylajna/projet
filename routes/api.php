@@ -17,6 +17,8 @@ use App\Http\Controllers\api\ExportsController;
 |
 */
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/getcount', [ClientsController::class, 'getcount']);
+
 
     Route::group([
         'prefix' => 'importations',
