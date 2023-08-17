@@ -315,4 +315,32 @@ if($user->accepted != '1'){
         ]);
 
     }
+    public function getlist(){
+        $exports = export::where('client_id',auth()->user()->id)->with('animal')->get();
+        $importations = importation::where('client_id',auth()->user()->id)->get();
+        $backs = back::where('client_id',auth()->user()->id)->with('animal')->get();
+        $c = collect();
+
+
+foreach ($exports as $key => $value) {
+    $value->type=" طلب خروج";
+    $c->add( $value);
+}
+foreach ($importations as $key => $value) {
+    $value->type=" طلب دخول";
+    $c->add( $value);
+}
+foreach ($backs as $key => $value) {
+    $value->type=" طلب عودة  ";
+    $c->add( $value);
+}
+
+        return response()->json(
+
+            $c
+
+
+        );
+
+    }
 }

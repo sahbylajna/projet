@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:convert';
 
 
+import 'package:flutter_frent/model/Demande.dart';
 import 'package:flutter_frent/model/count.dart';
 import 'package:flutter_frent/model/success.dart';
 import 'package:flutter_frent/model/token.dart';
@@ -228,6 +229,26 @@ Future<term?> getterm() async {
 
 
 
+
+  Future<List<Demande>?> getlist() async {
+    try {
+         final user = await SharedPreferences.getInstance();
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
+      var response = await http.get(url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+       'Authorization' : 'Bearer ${user.getString('token')}',
+    });
+
+      if (response.statusCode == 200) {
+        List<Demande> _model = DemandeFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 
 
 

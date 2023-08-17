@@ -38,12 +38,13 @@ String backs='0';
   final user = await SharedPreferences.getInstance();
  _count = await ApiService().getcount();
    await Future.delayed(const Duration(seconds: 3));
-print(_count?.backs);
+
 exports = _count!.exports;
 importations = _count!.importations;
 backs = _count!.backs;
 
    // show(context);
+
    print('hmaaa0');
 
 
