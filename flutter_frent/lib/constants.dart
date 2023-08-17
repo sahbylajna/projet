@@ -14,5 +14,5 @@ class ApiConstants {
     static String getcount = '/getcount';
 
 
-     static String importations = '/importations';
+     static String getlist = '/getlist';
 }

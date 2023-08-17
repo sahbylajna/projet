@@ -324,14 +324,17 @@ if($user->accepted != '1'){
 
 foreach ($exports as $key => $value) {
     $value->type=" طلب خروج";
+    $value->COMP_ID="$value->COMP_ID";
     $c->add( $value);
 }
 foreach ($importations as $key => $value) {
     $value->type=" طلب دخول";
+    $value->COMP_ID="$value->COMP_ID";
     $c->add( $value);
 }
 foreach ($backs as $key => $value) {
     $value->type=" طلب عودة  ";
+    $value->COMP_ID="$value->COMP_ID";
     $c->add( $value);
 }
 
