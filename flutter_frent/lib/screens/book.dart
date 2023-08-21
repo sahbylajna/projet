@@ -78,37 +78,39 @@ showAlertDialog(BuildContext context) async {
 
  void _getData() async {
 
-
+// showDialog(
+//         // The user CANNOT close this dialog  by pressing outsite it
+//         barrierDismissible: false,
+//         context: context,
+//         builder: (_) {
+//           return Dialog(
+//             // The background color
+//             backgroundColor: Colors.white,
+//             child: Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 20),
+//               child: Column(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: const [
+//                   // The loading indicator
+//                   CircularProgressIndicator(),
+//                   SizedBox(
+//                     height: 15,
+//                   ),
+//                   // Some text
+//                   Text('تحميل...')
+//                 ],
+//               ),
+//             ),
+//           );
+//         });
 
       _list = (await ApiService().getlist())!;
     //    Future.delayed(Duration.zero, () => showAlertDialog(context));
 Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
-showDialog(
-        // The user CANNOT close this dialog  by pressing outsite it
-        barrierDismissible: false,
-        context: context,
-        builder: (_) {
-          return Dialog(
-            // The background color
-            backgroundColor: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  // The loading indicator
-                  CircularProgressIndicator(),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  // Some text
-                  Text('تحميل...')
-                ],
-              ),
-            ),
-          );
-        });
+
     }));
+
+
   }
 
 
@@ -155,21 +157,28 @@ showDialog(
 
 InkWell(
     child:Container(
-        height: 64,
+        height: 90,
      //   color: getCorrectColor(_list[index].accepted),
         decoration: BoxDecoration(
       border: Border.all(
-          color: Colors.black, //color of border
+          color: _accentColor, //color of border
           width: 2, //width of border
         ),
       borderRadius: BorderRadius.circular(20)
     ),
 
-        child:  Center(child:
+        child:
         Row(
-            children: [ Text(' ${_list[index].cOMPID}'),
+             textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+
+                 Text(' ${_list[index].cERTYPE}/${_list[index].cOMPID}'),
+    Image.asset('assets/in.png',height: 50,
+    width: 50,),
              Text(' ${_list[index].type}')],
-        )),
+        )
+        ,
 
 
       ),

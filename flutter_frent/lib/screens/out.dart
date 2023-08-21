@@ -19,13 +19,14 @@ class _OutContentState extends State<OutContent>{
         textDirection: TextDirection.rtl,
         child:Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
-          shape: CustomShapeBorder(),
-
-          actions: <Widget>[
-
-          ],
+      title: Center(child: Text('اللجنة المنضمة لسباق الهجن ')),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(40.0),
         ),
+      ),
+
+    ),
     body:Text('In scren')
 
 

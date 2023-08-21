@@ -30,18 +30,58 @@ String backs='0';
   _getData() ;
 
   }
+    void _fetchData(BuildContext context, [bool mounted = true]) async {
+    // show the loading dialog
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+
+    // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
+
+
+    // Close the dialog programmatically
+    // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
+    if (!mounted) return;
+ Navigator.of(context).pop(context);
+  }
 
  Future<void> _getData() async {
 
-
+//_fetchData(context);
 
   final user = await SharedPreferences.getInstance();
  _count = await ApiService().getcount();
-   await Future.delayed(const Duration(seconds: 3));
+
 
 exports = _count!.exports;
 importations = _count!.importations;
 backs = _count!.backs;
+Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
+
+    }));
+
 
    // show(context);
 
@@ -58,14 +98,15 @@ _getData();
     return Directionality(
         textDirection: TextDirection.rtl,
         child:Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          shape: CustomShapeBorder(),
-
-          actions: <Widget>[
-
-          ],
+        appBar:  AppBar(
+      title: Center(child: Text('اللجنة المنضمة لسباق الهجن ')),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(40.0),
         ),
+      ),
+
+    ),
     body:
 
     Center(

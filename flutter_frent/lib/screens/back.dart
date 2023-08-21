@@ -19,14 +19,15 @@ class _BackContentState extends State<BackContent>{
      return Directionality(
         textDirection: TextDirection.rtl,
         child:Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          shape: CustomShapeBorder(),
-
-          actions: <Widget>[
-
-          ],
+        appBar:AppBar(
+      title: Center(child: Text('اللجنة المنضمة لسباق الهجن ')),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(40.0),
         ),
+      ),
+
+    ),
     body:Text('In scren')
 
 
