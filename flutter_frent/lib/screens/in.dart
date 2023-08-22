@@ -667,10 +667,10 @@ class _InContentState extends State<InContent>{
 
     print(_tap1.text+''+_tap2.text+''+_tap2.text+''+_tap4.text+''+_tap5.text+''+_tap6.text+''+_selectedValue!.name.toString()+''+_tap17.text+''+_tap7.text+''+_tap8.text+''+_tap9.text+''+_tap10.text+''+_selectedValue1!.name.toString()+''+_selectedValue2!.name.toString()+''+_tap11.text+''+_tap12.text+''+_tap13.text+''+_tap14.text+''+_tap15.text+''+_tap16.text+''+_tap18.text+''+jsonList.toString());
 
-    Success? success =  (await ApiService().Setimportations(_tap1.text,_tap2.text,_tap2.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap7.text,_tap8.text,_tap9.text,_tap10.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap12.text,_tap13.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList.toString()));
+    Success? success =  (await ApiService().Setimportations(_tap1.text,_tap2.text,_tap2.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap7.text,_tap8.text,_tap9.text,_tap10.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap12.text,_tap13.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList));
 
 
-    print(success?.errors);
+    print(success?.message);
   }
 
 

@@ -52,6 +52,7 @@ class ImportationsController extends Controller
             $data = $this->getData($request);
 
             $importations = importations::create($data);
+
             $ANIMAL_INFO = json_decode($data['ANIMAL_INFO'], true);
 
             foreach ($ANIMAL_INFO as $key => $value) {
