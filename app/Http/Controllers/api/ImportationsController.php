@@ -165,14 +165,14 @@ class ImportationsController extends Controller
             'EXP_TEL' => 'string|min:1',
             'EXP_QID' => 'string|min:1',
             'EXP_FAX' => 'string|min:1',
-            'EXP_COUNTRY' => 'numeric',
+            'EXP_COUNTRY' => 'string',
             'IMP_NAME' => 'string|min:1',
             'IMP_ADDRESS' => 'string|min:1',
             'IMP_FAX' => 'string|min:1',
             'IMP_TEL' => 'string|min:1',
             'IMP_POBOX' => 'string|min:1',
-            'IMP_COUNTRY' => 'numeric',
-            'ORIGIN_COUNTRY' => 'numeric',
+            'IMP_COUNTRY' => 'string',
+            'ORIGIN_COUNTRY' => 'string',
             'SHIPPING_PLACE' => 'string|min:1',
             'ENTERY_PORT' => 'string|min:1',
             'EXPECTED_ARRIVAL_DATE' => 'string|date_format:Y-m-d',
@@ -202,7 +202,7 @@ class ImportationsController extends Controller
         $rules = [
 
 
-            'COMP_ID' => 'nullable',
+            'COMP_ID' => 'string|min:1',
             'EUSER_QID' => 'string|min:1|nullable',
             'EXP_NAME' => 'string|min:1|nullable',
             'EXP_TEL' => 'string|min:1|nullable',
