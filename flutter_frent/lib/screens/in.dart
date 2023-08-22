@@ -3,6 +3,7 @@ import 'package:flutter_frent/api_service.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/home.dart';
 import 'package:flutter_frent/model/contrie.dart';
+import 'package:flutter_frent/model/success.dart';
 import 'package:intl/intl.dart' as inl;
 
 
@@ -211,7 +212,16 @@ class _InContentState extends State<InContent>{
                         ),
 
 
-
+                        TextFormField(
+                          controller: _tap17,
+                          decoration: InputDecoration(
+                              errorText: _validate6 ? 'يرجي ادخال  عنوان المورد صحيح' : null,
+                              label: Text(' المورد'),
+                              border: OutlineInputBorder()),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
 
 
 
@@ -514,7 +524,7 @@ class _InContentState extends State<InContent>{
 
                         TextFormField(
                           controller: _tap16,
-                          readOnly:true,
+
 
                           decoration: InputDecoration(
                               errorText: _validate15 ? 'يرجي ادخال الجنسية المصدر صحيح' : null,
@@ -531,8 +541,8 @@ class _InContentState extends State<InContent>{
 
 
                         TextFormField(
-                          controller: _tap16,
-                          readOnly:true,
+                          controller: _tap18,
+
 
                           decoration: InputDecoration(
                               errorText: _validate15 ? 'يرجي ادخال  رقم جواز السفر صحيح' : null,
@@ -648,15 +658,19 @@ class _InContentState extends State<InContent>{
         )
     );
   }
-  void _apisend() {
+  Future<void> _apisend() async {
     List<Map<String, dynamic>> jsonList = [];
 
     for (var row in rows) {
       jsonList.add(row.toJson());
     }
+    print(jsonList.toString());
+    print(_tap1.text+''+_tap2.text+''+_tap2.text+''+_tap4.text+''+_tap5.text+''+_tap6.text+''+_selectedValue!.name.toString()+''+_tap17.text+''+_tap7.text+''+_tap8.text+''+_tap9.text+''+_tap10.text+''+_selectedValue1!.name.toString()+''+_selectedValue2!.name.toString()+''+_tap11.text+''+_tap12.text+''+_tap13.text+''+_tap14.text+''+_tap15.text+''+_tap16.text+''+_tap18.text+''+jsonList.toString());
 
-print(_tap13.text);
-    print(jsonList);
+    Success? success =  (await ApiService().Setimportations(_tap1.text,_tap2.text,_tap2.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap7.text,_tap8.text,_tap9.text,_tap10.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap12.text,_tap13.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList.toString()));
+
+
+    print(success?.errors);
   }
 
 

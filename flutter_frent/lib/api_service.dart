@@ -261,30 +261,76 @@ Future<term?> getterm() async {
 
 
 
-  Future<User?> getimportations() async {
+  Future<Success?> Setimportations(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO) async {
     try {
       final user = await SharedPreferences.getInstance();
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
-      var response = await http.get(url,
+      var response = await http.post(url,
         headers: <String, String>{
           "Accept": "application/json",
           'Authorization' : 'Bearer ${user.getString('token')}',
         },
+        body: jsonEncode(<String, String>{
+
+
+          'COMP_ID': COMP_ID,
+          'EUSER_QID': EUSER_QID,
+          'EXP_NAME': EXP_NAME,
+          'EXP_TEL': EXP_TEL,
+          'EXP_QID': EXP_QID,
+          'EXP_FAX': EXP_FAX,
+          'EXP_COUNTRY': EXP_COUNTRY,
+          'IMP_NAME': IMP_NAME,
+          'IMP_ADDRESS': IMP_ADDRESS,
+          'IMP_FAX': IMP_FAX,
+          'IMP_TEL': IMP_TEL,
+          'IMP_POBOX': IMP_POBOX,
+          'IMP_COUNTRY': IMP_COUNTRY,
+          'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
+          'SHIPPING_PLACE': SHIPPING_PLACE,
+          'ENTERY_PORT': ENTERY_PORT,
+          'EXPECTED_ARRIVAL_DATE': EXPECTED_ARRIVAL_DATE,
+          'TRANSPORT': TRANSPORT,
+          'SHIPPING_DATE': SHIPPING_DATE,
+          'EXP_NATIONALITY': EXP_NATIONALITY,
+          'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
+          'ANIMAL_INFO': ANIMAL_INFO,
+
+        }),
 
       );
+
+      print(COMP_ID);
+      print(EUSER_QID);
+      print(EXP_NAME);
+      print(EXP_TEL);
+      print(EXP_QID);
+      print(EXP_FAX);
+      print(EXP_COUNTRY);
+      print(IMP_NAME);
+      print(IMP_ADDRESS);
+      print(IMP_FAX);
+      print(IMP_TEL);
+      print(IMP_POBOX);
+      print(IMP_COUNTRY);
+      print(ORIGIN_COUNTRY);
+      print(SHIPPING_PLACE);
+      print(ENTERY_PORT);
+      print(EXPECTED_ARRIVAL_DATE);
+      print(TRANSPORT);
+      print(SHIPPING_DATE);
+      print(EXP_NATIONALITY);
+      print(EXP_PASSPORT_NUM);
+      print(ANIMAL_INFO);
+
+      print('hnaaaaaaaaaaaaaaaaaaaaaa');
+      print(response.body.toString());
       if (response.statusCode == 200) {
-        User model = userFromJson(response.body);
-        user.setString('phone',model.phone);
-        user.setString('first_name',model.firstName);
-        user.setString('last_name',model.lastName);
-        user.setString('email',model.email);
-        user.setString('ud',model.ud);
 
-        user.setInt('contry_id',model.contryId);
-
-
+        Success model = successFromJson(response.body);
         return model;
       }
+
     } catch (e) {
       log(e.toString());
     }

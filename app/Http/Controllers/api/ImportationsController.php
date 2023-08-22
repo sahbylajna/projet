@@ -227,7 +227,17 @@ class ImportationsController extends Controller
             'ANIMAL_INFO' => 'required'
 
         ];
+        $validator = \Validator::make($request->all(),  $rules);
+        if ($validator->fails()) {
 
+            //pass validator errors as errors object for ajax response
+
+            return response()->json([
+                'id' => 0,
+                'message' => $validator,
+                'errors' => 'errors'
+            ]);
+        }
 
         $data = $request->validate($rules);
         $data['CER_TYPE'] ='IMPLC';
