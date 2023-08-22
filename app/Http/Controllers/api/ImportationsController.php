@@ -41,7 +41,7 @@ class ImportationsController extends Controller
     {
 
         try {
-            Log($request->all());
+            Log::info($request->all());
             $validator = $this->getValidator($request);
 
             if ($validator->fails()) {
