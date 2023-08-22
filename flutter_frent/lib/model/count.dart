@@ -18,10 +18,10 @@ class count {
     backs : json['backs'],
       );
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['exports'] = this.exports;
-    data['importations'] = this.importations;
-    data['backs'] = this.backs;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['exports'] = exports;
+    data['importations'] = importations;
+    data['backs'] = backs;
     return data;
   }
 }

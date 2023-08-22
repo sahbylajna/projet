@@ -1,17 +1,12 @@
 
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/Otp.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/model/token.dart';
 import 'package:flutter_frent/model/user.dart';
 import 'package:flutter_frent/register.dart';
-import 'package:flutter_frent/term.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_frent/constants.dart';
 import 'package:flutter_frent/api_service.dart';
 import 'package:flutter_frent/model/contrie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,15 +45,13 @@ class _LoginPageState extends State<LoginPage>{
         MaterialPageRoute(builder: (context) => MyHomePage()), (route) => false);
     }
       _contrie = (await ApiService().getcontries())!;
-Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
 
-    }));
   }
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final _screen =  MediaQuery.of(context).size;
+    final screen =  MediaQuery.of(context).size;
     return Directionality(
       textDirection: TextDirection.rtl,
       child:Scaffold(
@@ -66,7 +59,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: _headerHeight,
               child: HeaderWidget(_headerHeight, true, Icons.login_rounded), //let's create a common header widget
             ),
@@ -96,16 +89,15 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                           children: [
 
 
-                            Container(
-                                width: _screen.width * 0.45,
+                            SizedBox(
+                                width: screen.width * 0.45,
 
                                 child:Container(
+                                  decoration: ThemeHelper().inputBoxDecorationShaddow(),
                                   child: TextField(
                                     controller: phone,
                                     decoration: ThemeHelper().textInputDecoration('الهاتف', 'أدخل رقم هاتفك'),
                                     keyboardType: TextInputType.number,),
-
-                                  decoration: ThemeHelper().inputBoxDecorationShaddow(),
 
                                 )),
                             Directionality(
@@ -144,7 +136,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                     _contrie.map<DropdownMenuItem<Contries>>((Contries value) {
                                       return DropdownMenuItem<Contries>(
                                         value:  value ,
-                                        child: Text('+'+ value.phonecode.toString() ),
+                                        child: Text('+${value.phonecode}' ),
                                       );
                                     }).toList(),
                                   ),
@@ -161,12 +153,12 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                             Directionality(
       textDirection: TextDirection.rtl,
       child:Container(
+                              decoration: ThemeHelper().inputBoxDecorationShaddow(),
                               child: TextField(
                                 obscureText: true,
                                 controller: password,
                                 decoration: ThemeHelper().textInputDecoration('كلمة المرور', 'ادخل رقمك السري'),
                               ),
-                              decoration: ThemeHelper().inputBoxDecorationShaddow(),
                             )),
                             SizedBox(height: 15.0),
                             // Container(
@@ -201,7 +193,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                     }
 
                                     Token token = (await ApiService().login(phone.text,password.text,_selectedValue!.id.toString()))!;
-                                    if(!token.error.isEmpty){
+                                    if(token.error.isNotEmpty){
                                            showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -222,14 +214,14 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                   final user = await SharedPreferences.getInstance();
                                     user.setString('phone',phone.text);
                                     user.setString('token',token.accessToken);
-                                    User  _user = (await ApiService().getuser())!;
-                                    user.setString('phone',_user.phone);
-         user.setString('first_name',_user.firstName);
-         user.setString('last_name',_user.lastName);
-         user.setString('email',_user.email);
-         user.setString('ud',_user.ud);
+                                    User  user0 = (await ApiService().getuser())!;
+                                    user.setString('phone',user0.phone);
+         user.setString('first_name',user0.firstName);
+         user.setString('last_name',user0.lastName);
+         user.setString('email',user0.email);
+         user.setString('ud',user0.ud);
 
-         user.setInt('contry_id',_user.contryId);
+         user.setInt('contry_id',user0.contryId);
      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
 
 

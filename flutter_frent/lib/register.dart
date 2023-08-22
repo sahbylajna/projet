@@ -1,21 +1,16 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/model/success.dart';
-import 'package:flutter_frent/model/token.dart';
 import 'package:flutter_frent/term.dart';
 import 'package:flutter_frent/widgets/header_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'api_service.dart';
-import 'login.dart';
 import 'model/contrie.dart';
 
 class RegistrationPage extends  StatefulWidget{
@@ -63,7 +58,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
 
   @override
   Widget build(BuildContext context) {
-    final _screen =  MediaQuery.of(context).size;
+    final screen =  MediaQuery.of(context).size;
     return Directionality(
       textDirection: TextDirection.rtl,
       child:Scaffold(
@@ -71,7 +66,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               height: 150,
               child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
             ),
@@ -89,6 +84,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                         SizedBox(height: 30,),
                         Container(
                             padding: EdgeInsets.only(top: 50.0),
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration('الاسم الأول', 'أدخل اسمك الأول'),
                              controller: fistname,
@@ -96,13 +92,14 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                               if( (val!.isEmpty)){
                                 return "أدخل  اسمك الأول ";
                               }
+                              return null;
 
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 30,),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration('اسم العائلة', 'أدخل اسم العائلة الخاص بك'),
                              controller: lastname,
@@ -110,28 +107,30 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                               if( (val!.isEmpty)){
                                 return "أدخل  اسمك العائلة ";
                               }
+                              return null;
 
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 20.0),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                              controller: email,
                             decoration: ThemeHelper().textInputDecoration("بريد إلكتروني", "أدخل بريدك الإلكتروني"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)  || (val!.isEmpty)){
+                              if(!(val!.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)  || (val.isEmpty)){
                                 return "أدخل عنوان بريد إلكتروني صحيحًا";
                               }
+                              return null;
 
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 20.0),
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
                                 " رقم ال id",
@@ -139,13 +138,13 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                                 controller: ud,
                             keyboardType: TextInputType.number,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)  || (val!.isEmpty)){
+                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)  || (val.isEmpty)){
                                 return "أدخل رقم id صحيحًا";
                               }
+                              return null;
 
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
 
 SizedBox(height: 20.0),
@@ -154,7 +153,8 @@ SizedBox(height: 20.0),
                         children:[
                         // SizedBox(height: 20.0),
                         Container(
-width: _screen.width * 0.45,
+width: screen.width * 0.45,
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
                                 "رقم الهاتف",
@@ -162,13 +162,13 @@ width: _screen.width * 0.45,
                                 controller: phone,
                             keyboardType: TextInputType.phone,
                             validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val) || (val!.isEmpty)){
+                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val) || (val.isEmpty)){
                                 return "أدخل رقم هاتف صحيحًا";
                               }
+                              return null;
 
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                          Container(
 
@@ -205,7 +205,7 @@ width: _screen.width * 0.45,
                   _contrie.map<DropdownMenuItem<Contries>>((Contries value) {
                 return DropdownMenuItem<Contries>(
                   value:  value ,
-                  child: Text('+'+ value.phonecode.toString() ),
+                  child: Text('+${value.phonecode}' ),
                 );
               }).toList(),
             ),
@@ -288,6 +288,7 @@ width: _screen.width * 0.45,
 
 
                         Container(
+                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
@@ -297,10 +298,10 @@ width: _screen.width * 0.45,
                               if (val!.isEmpty) {
                                 return "من فضلك أدخل رقمك السري";
                               }
+                              return null;
 
                             },
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 15.0),
                         FormField<bool>(
@@ -325,7 +326,7 @@ width: _screen.width * 0.45,
                                   child: Text(
                                     state.errorText ?? '',
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(color: Theme.of(context).errorColor,fontSize: 12,),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.error,fontSize: 12,),
                                   ),
                                 )
                               ],
@@ -337,6 +338,7 @@ width: _screen.width * 0.45,
                             } else {
 
                             }
+                            return null;
                           },
                         ),
                         SizedBox(height: 20.0),
@@ -358,9 +360,9 @@ width: _screen.width * 0.45,
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                  final bytes = File(image!.path).readAsBytesSync();
-                          String base64Image1 =  "data:image/png;base64,"+base64Encode(bytes);
+                          String base64Image1 =  "data:image/png;base64,${base64Encode(bytes)}";
                              final bytes2 = File(image2!.path).readAsBytesSync();
-                          String base64Image2 =  "data:image/png;base64,"+base64Encode(bytes2);
+                          String base64Image2 =  "data:image/png;base64,${base64Encode(bytes2)}";
 
 
 
@@ -368,7 +370,7 @@ width: _screen.width * 0.45,
  Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),base64Image1.toString(),base64Image2.toString()))!;
 
 
- if(!success.errors!.isEmpty){
+ if(success.errors!.isNotEmpty){
                                            showDialog(
                                     context: context,
                                     builder: (BuildContext context) {

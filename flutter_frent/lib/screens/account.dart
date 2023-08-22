@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frent/common/theme_helper.dart';
 import 'package:flutter_frent/login.dart';
-import 'package:flutter_frent/screens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_service.dart';
@@ -47,7 +46,7 @@ class _AccountContentState extends State<AccountContent> {
   }
   showAlertDialog(BuildContext context){
     AlertDialog alert=AlertDialog(
-      content: new Row(
+      content: Row(
         children: [
           CircularProgressIndicator(),
           Container(margin: EdgeInsets.only(left: 2),child:Text("Loading" )),

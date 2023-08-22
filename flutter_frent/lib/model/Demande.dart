@@ -98,43 +98,43 @@ class Demande {
     if (json['animal'] != null) {
       animal = <Animal>[];
       json['animal'].forEach((v) {
-        animal!.add(new Animal.fromJson(v));
+        animal!.add(Animal.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['client_id'] = this.clientId;
-    data['CER_TYPE'] = this.cERTYPE;
-    data['CER_LANG'] = this.cERLANG;
-    data['COMP_ID'] = this.cOMPID;
-    data['EUSER_QID'] = this.eUSERQID;
-    data['EXP_NAME'] = this.eXPNAME;
-    data['EXP_TEL'] = this.eXPTEL;
-    data['EXP_FAX'] = this.eXPFAX;
-    data['EXP_COUNTRY'] = this.eXPCOUNTRY;
-    data['IMP_NAME'] = this.iMPNAME;
-    data['IMP_QID'] = this.iMPQID;
-    data['IMP_FAX'] = this.iMPFAX;
-    data['IMP_TEL'] = this.iMPTEL;
-    data['IMP_COUNTRY'] = this.iMPCOUNTRY;
-    data['ORIGIN_COUNTRY'] = this.oRIGINCOUNTRY;
-    data['SHIPPING_PLACE'] = this.sHIPPINGPLACE;
-    data['TRANSPORT'] = this.tRANSPORT;
-    data['SHIPPING_DATE'] = this.sHIPPINGDATE;
-    data['APPLICANT_NAME'] = this.aPPLICANTNAME;
-    data['APPLICANT_TEL'] = this.aPPLICANTTEL;
-    data['EXP_NATIONALITY'] = this.eXPNATIONALITY;
-    data['EXP_PASSPORT_NUM'] = this.eXPPASSPORTNUM;
-    data['accepted'] = this.accepted;
-    data['reson'] = this.reson;
-    data['type'] = this.type;
-    if (this.animal != null) {
-      data['animal'] = this.animal!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['client_id'] = clientId;
+    data['CER_TYPE'] = cERTYPE;
+    data['CER_LANG'] = cERLANG;
+    data['COMP_ID'] = cOMPID;
+    data['EUSER_QID'] = eUSERQID;
+    data['EXP_NAME'] = eXPNAME;
+    data['EXP_TEL'] = eXPTEL;
+    data['EXP_FAX'] = eXPFAX;
+    data['EXP_COUNTRY'] = eXPCOUNTRY;
+    data['IMP_NAME'] = iMPNAME;
+    data['IMP_QID'] = iMPQID;
+    data['IMP_FAX'] = iMPFAX;
+    data['IMP_TEL'] = iMPTEL;
+    data['IMP_COUNTRY'] = iMPCOUNTRY;
+    data['ORIGIN_COUNTRY'] = oRIGINCOUNTRY;
+    data['SHIPPING_PLACE'] = sHIPPINGPLACE;
+    data['TRANSPORT'] = tRANSPORT;
+    data['SHIPPING_DATE'] = sHIPPINGDATE;
+    data['APPLICANT_NAME'] = aPPLICANTNAME;
+    data['APPLICANT_TEL'] = aPPLICANTTEL;
+    data['EXP_NATIONALITY'] = eXPNATIONALITY;
+    data['EXP_PASSPORT_NUM'] = eXPPASSPORTNUM;
+    data['accepted'] = accepted;
+    data['reson'] = reson;
+    data['type'] = type;
+    if (animal != null) {
+      data['animal'] = animal!.map((v) => v.toJson()).toList();
     }
     return data;
   }

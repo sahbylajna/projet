@@ -21,12 +21,15 @@ class ApiService {
   get context => null;
 
   Future<List<Contries>?> getcontries() async {
+
     try {
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.contries);
       var response = await http.get(url);
+
       if (response.statusCode == 200) {
-        List<Contries> _model = contriesFromJson(response.body);
-        return _model;
+        List<Contries> model = contriesFromJson(response.body);
+        print('dd');
+        return model;
       }
     } catch (e) {
       log(e.toString());
@@ -50,12 +53,13 @@ class ApiService {
     }),
     );
       if (response.statusCode == 200) {
-        Token _model = tokenFromJson(response.body);
-        return _model;
+        Token model = tokenFromJson(response.body);
+        return model;
       }
     } catch (e) {
       log(e.toString());
     }
+    return null;
   }
 
 
@@ -71,17 +75,17 @@ class ApiService {
 
     );
       if (response.statusCode == 200) {
-        User _model = userFromJson(response.body);
-         user.setString('phone',_model.phone);
-         user.setString('first_name',_model.firstName);
-         user.setString('last_name',_model.lastName);
-         user.setString('email',_model.email);
-         user.setString('ud',_model.ud);
+        User model = userFromJson(response.body);
+         user.setString('phone',model.phone);
+         user.setString('first_name',model.firstName);
+         user.setString('last_name',model.lastName);
+         user.setString('email',model.email);
+         user.setString('ud',model.ud);
 
-         user.setInt('contry_id',_model.contryId);
+         user.setInt('contry_id',model.contryId);
 
 
-        return _model;
+        return model;
       }
     } catch (e) {
       log(e.toString());
@@ -102,11 +106,11 @@ Future<term?> getterm() async {
 
     );
       if (response.statusCode == 200) {
-        term _model = termFromJson(response.body);
+        term model = termFromJson(response.body);
 
 
 
-        return _model;
+        return model;
       }
     } catch (e) {
       log(e.toString());
@@ -115,7 +119,7 @@ Future<term?> getterm() async {
   }
 
 
-  Future<Success?> register(String first_name, String last_name, String phone, String password, String email, String ud, String contry_id, String photo_ud_frent, String photo_ud_back) async {
+  Future<Success?> register(String firstName, String lastName, String phone, String password, String email, String ud, String contryId, String photoUdFrent, String photoUdBack) async {
     try {
 
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.register);
@@ -125,28 +129,29 @@ Future<term?> getterm() async {
       'Content-Type': 'application/json',
     },
     body: jsonEncode( <String, String>{
-      'first_name': first_name,
-      'last_name': last_name,
+      'first_name': firstName,
+      'last_name': lastName,
       'phone': phone,
       'password': password,
       'email':email,
       'ud': ud,
-      'contry_id': contry_id,
-      'photo_ud_frent': photo_ud_frent,
-      'photo_ud_back': photo_ud_back.toString(),
+      'contry_id': contryId,
+      'photo_ud_frent': photoUdFrent,
+      'photo_ud_back': photoUdBack.toString(),
     }),
     );
 
       if (response.statusCode == 200) {
-        Success _model = successFromJson(response.body);
-        log(_model.toString());
-        return _model;
+        Success model = successFromJson(response.body);
+        log(model.toString());
+        return model;
       }
        log('e.toString()1h');
     } catch (e) {
         print(e);
 
     }
+    return null;
   }
 
 
@@ -154,7 +159,7 @@ Future<term?> getterm() async {
 
    Future<Success?> signature(signature,id) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.signature+ "/"+id);
+      var url = Uri.parse("${ApiConstants.baseUrl}${ApiConstants.signature}/"+id);
       print(url);
       var response = await http.post(url,
     headers: <String, String>{
@@ -166,13 +171,14 @@ Future<term?> getterm() async {
     }),
     );
       if (response.statusCode == 200) {
-        Success _model = successFromJson(response.body);
-        return _model;
+        Success model = successFromJson(response.body);
+        return model;
       }
     } catch (e) {
         print(e.toString());
       log(e.toString());
     }
+    return null;
   }
 
 
@@ -182,7 +188,7 @@ Future<term?> getterm() async {
 
   Future<Success?> confiramtion(code,id) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.confiramtion+ "/"+id);
+      var url = Uri.parse("${ApiConstants.baseUrl}${ApiConstants.confiramtion}/"+id);
       print(url);
       var response = await http.post(url,
     headers: <String, String>{
@@ -194,13 +200,14 @@ Future<term?> getterm() async {
     }),
     );
       if (response.statusCode == 200) {
-        Success _model = successFromJson(response.body);
-        return _model;
+        Success model = successFromJson(response.body);
+        return model;
       }
     } catch (e) {
         print(e.toString());
       log(e.toString());
     }
+    return null;
   }
 
 
@@ -218,8 +225,9 @@ Future<term?> getterm() async {
     });
 
       if (response.statusCode == 200) {
-        count _model = countFromJson(response.body);
-        return _model;
+        count model = countFromJson(response.body);
+        print(model.importations);
+        return model;
       }
     } catch (e) {
       log(e.toString());
@@ -241,8 +249,8 @@ Future<term?> getterm() async {
     });
 
       if (response.statusCode == 200) {
-        List<Demande> _model = DemandeFromJson(response.body);
-        return _model;
+        List<Demande> model = DemandeFromJson(response.body);
+        return model;
       }
     } catch (e) {
       log(e.toString());
@@ -253,7 +261,35 @@ Future<term?> getterm() async {
 
 
 
+  Future<User?> getimportations() async {
+    try {
+      final user = await SharedPreferences.getInstance();
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
+      var response = await http.get(url,
+        headers: <String, String>{
+          "Accept": "application/json",
+          'Authorization' : 'Bearer ${user.getString('token')}',
+        },
 
+      );
+      if (response.statusCode == 200) {
+        User model = userFromJson(response.body);
+        user.setString('phone',model.phone);
+        user.setString('first_name',model.firstName);
+        user.setString('last_name',model.lastName);
+        user.setString('email',model.email);
+        user.setString('ud',model.ud);
+
+        user.setInt('contry_id',model.contryId);
+
+
+        return model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 
 
 

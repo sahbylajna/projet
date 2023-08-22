@@ -66,10 +66,11 @@ class ImportationsController extends Controller
                 $animal->save();
                 $importations->animal()->attach( $animal->id);
             }
-            return $this->successResponse(
-			    trans('importations.model_was_added'),
-			    $this->transform($importations)
-			);
+            return response()->json([
+
+                'message' => 'success',
+                'errors' => ''
+            ]);
         } catch (Exception $exception) {
             $importations->delete();
             return $this->errorResponse($exception->getMessage());
@@ -207,14 +208,14 @@ class ImportationsController extends Controller
             'EXP_TEL' => 'string|min:1|nullable',
             'EXP_QID' => 'string|min:1|nullable',
             'EXP_FAX' => 'string|min:1|nullable',
-            'EXP_COUNTRY' => 'numeric|nullable',
+            'EXP_COUNTRY' => 'string|nullable',
             'IMP_NAME' => 'string|min:1|nullable',
             'IMP_ADDRESS' => 'string|min:1|nullable',
             'IMP_FAX' => 'string|min:1|nullable',
             'IMP_TEL' => 'string|min:1|nullable',
             'IMP_POBOX' => 'string|min:1|nullable',
-            'IMP_COUNTRY' => 'numeric|nullable',
-            'ORIGIN_COUNTRY' => 'numeric|nullable',
+            'IMP_COUNTRY' => 'string|nullable',
+            'ORIGIN_COUNTRY' => 'string|nullable',
             'SHIPPING_PLACE' => 'string|min:1|nullable',
             'ENTERY_PORT' => 'string|min:1|nullable',
             'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',

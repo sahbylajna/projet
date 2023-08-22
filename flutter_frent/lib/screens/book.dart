@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frent/api_service.dart';
 import 'package:flutter_frent/model/Demande.dart';
-import 'package:flutter_frent/screens/home.dart';
 
 import '../home.dart';
 class BookContent extends StatefulWidget{
@@ -131,31 +130,37 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
         textDirection: TextDirection.rtl,
         child:Scaffold(
         appBar: AppBar(
-      title: Center(child: Text('اللجنة المنضمة لسباق الهجن ')),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(40.0),
+          title: Center(child: Text('اللجنة المنضمة لسباق الهجن')),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(40.0),
+            ),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => MyHomePage()),
+                    (route) => false),
+          ),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40.0),
+                bottomRight: Radius.circular(40.0),
+              ),
+              gradient: LinearGradient(
+                colors: [_primaryColor, _accentColor], // Start and end colors
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+          ),
         ),
-      ),
-    leading: IconButton(
-    icon: Icon(Icons.arrow_back, color: Colors.black),
-    onPressed: () =>
-        Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MyHomePage()), (route) => false),
-  ),
-
-    ),
     body:ListView.separated(
     padding: const EdgeInsets.all(10),
     itemCount: _list.length,
     itemBuilder: (BuildContext context, int index) {
-      return
-
-
-
-
-
-InkWell(
+      return InkWell(
     child:Container(
         height: 90,
      //   color: getCorrectColor(_list[index].accepted),
@@ -168,6 +173,7 @@ InkWell(
     ),
 
         child:
+
         Row(
              textDirection: TextDirection.rtl,
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

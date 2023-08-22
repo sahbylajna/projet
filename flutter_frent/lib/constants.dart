@@ -12,7 +12,7 @@ class ApiConstants {
 
   static String confiramtion = '/confiramtion';
     static String getcount = '/getcount';
+  static String getlist = '/getlist';
 
-
-     static String getlist = '/getlist';
+     static String importations = '/importations';
 }

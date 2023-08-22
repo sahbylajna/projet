@@ -18,14 +18,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _SplashScreenState(){
 
-    new Timer(const Duration(milliseconds: 2000), (){
+    Timer(const Duration(milliseconds: 2000), (){
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
       });
     });
 
-    new Timer(
+    Timer(
       Duration(milliseconds: 10),(){
         setState(() {
           _isVisible = true; // Now it is showing fade effect and navigating to Login page
@@ -39,9 +39,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
 
     return Container(
-      decoration: new BoxDecoration(
-        gradient: new LinearGradient(
-          colors: [Color(0x8A02AE), Theme.of(context).primaryColor],
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color.fromARGB(138,2,174,1000), Theme.of(context).primaryColor],
           begin: const FractionalOffset(0, 0),
           end: const FractionalOffset(1.0, 0.0),
           stops: [0.0, 1.0],

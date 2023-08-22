@@ -14,9 +14,9 @@ class term {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['term_ar'] = this.termAr;
-    data['term_en'] = this.termEn;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['term_ar'] = termAr;
+    data['term_en'] = termEn;
     return data;
   }
 }

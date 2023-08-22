@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frent/Otp.dart';
 import 'package:flutter_frent/model/term.dart';
 import 'package:flutter_frent/widgets/header_widget.dart';
-import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
@@ -17,7 +16,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'package:flutter/material.dart';
 
 import 'package:flutter_frent/model/success.dart';
 
@@ -97,7 +95,7 @@ show(BuildContext context){
 
 showAlertDialog(BuildContext context){
     AlertDialog alert=AlertDialog(
-      content: new Row(
+      content: Row(
         children: [
           CircularProgressIndicator(),
           Container(margin: EdgeInsets.only(left: 2),child:Text("Loading" )),
@@ -128,7 +126,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
   Widget build( context) {
   bool isLoading = false;
 
-  final _screen =  MediaQuery.of(context).size;
+  final screen =  MediaQuery.of(context).size;
     if(_term == null ){
     return Scaffold(
       backgroundColor: Colors.blueGrey,
@@ -161,7 +159,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: _headerHeight,
               child: HeaderWidget(_headerHeight, true, Icons.login_rounded), //let's create a common header widget
             ),
@@ -227,7 +225,7 @@ ElevatedButton(                     // FlatButton widget is used to make a text 
 
 ByteData? byteData = await signatureData.toByteData(format: ui.ImageByteFormat.png);
  imageEncoded =
-   "data:image/png;base64," + base64.encode(byteData!.buffer.asUint8List());
+   "data:image/png;base64,${base64.encode(byteData!.buffer.asUint8List())}";
 
 print("Encoded: $imageEncoded");          //   print(image.clone.toString());
                     //   print(_signaturePadKey.currentState.);
@@ -241,10 +239,10 @@ print("Encoded: $imageEncoded");          //   print(image.clone.toString());
             },
           );
         },
+style: ThemeHelper().buttonStyle(),
        child: Padding(
                                   padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                                   child: Text('إمضاء'),),
-style: ThemeHelper().buttonStyle(),
       ),
 ),
 
@@ -258,7 +256,7 @@ style: ThemeHelper().buttonStyle(),
                                   child: Text('تسجيل '.toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                                 ),
                                 onPressed: () async {
-if(!imageEncoded.isEmpty){
+if(imageEncoded.isNotEmpty){
          final user = await SharedPreferences.getInstance();
 Success? success = await ApiService().signature(imageEncoded,user.get('id'));
 

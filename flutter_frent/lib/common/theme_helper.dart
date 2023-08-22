@@ -75,15 +75,15 @@ class ThemeHelper{
       content: Text(content),
       actions: [
         TextButton(
-          child: Text(
-            "تمام",
-            style: TextStyle(color: Colors.white),
-          ),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.black38)),
           onPressed: () {
             Navigator.of(context).pop();
           },
+          child: Text(
+            "تمام",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ],
     );

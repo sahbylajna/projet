@@ -78,7 +78,7 @@ showAlertDialog(BuildContext context,code) async {
 Success? success = await ApiService().confiramtion(code,user.get('id'));
    await Future.delayed(const Duration(seconds: 3));
 print(success!.errors);
-if(success!.errors.toString() == "errors"){
+if(success.errors.toString() == "errors"){
 
 
 
@@ -173,7 +173,7 @@ if(success!.errors.toString() == "errors"){
   textFieldAlignment: MainAxisAlignment.spaceAround,
   fieldStyle: FieldStyle.underline,
   onCompleted: (pin) {
-    print("Completed: " + pin);
+    print("Completed: $pin");
     Future.delayed(Duration.zero, () => showAlertDialog(context,pin));
   },
 ),

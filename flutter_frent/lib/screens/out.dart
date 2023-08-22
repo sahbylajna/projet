@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/home.dart';
-import 'package:flutter_frent/screens/home.dart';
 class OutContent extends StatefulWidget{
   const OutContent({Key? key}): super(key:key);
 

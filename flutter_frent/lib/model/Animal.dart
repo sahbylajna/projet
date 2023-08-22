@@ -19,7 +19,7 @@ class Animal {
   String? aNMLMICROCHIP;
   Pivot? pivot;
 
-  Animal(
+  Animal(String name, int age,
       {this.id,
       this.eXPORTCOUNTRY,
       this.oRIGINCOUNTRY,
@@ -49,26 +49,26 @@ class Animal {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     aNMLMICROCHIP = json['ANML_MICROCHIP'];
-    pivot = json['pivot'] != null ? new Pivot.fromJson(json['pivot']) : null;
+    pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['EXPORT_COUNTRY'] = this.eXPORTCOUNTRY;
-    data['ORIGIN_COUNTRY'] = this.oRIGINCOUNTRY;
-    data['TRANSIET_COUNTRY'] = this.tRANSIETCOUNTRY;
-    data['ANML_SPECIES'] = this.aNMLSPECIES;
-    data['ANML_SEX'] = this.aNMLSEX;
-    data['ANML_NUMBER'] = this.aNMLNUMBER;
-    data['ANML_USE'] = this.aNMLUSE;
-    data['ANIMAL_BREED'] = this.aNIMALBREED;
-    data['client_id'] = this.clientId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['ANML_MICROCHIP'] = this.aNMLMICROCHIP;
-    if (this.pivot != null) {
-      data['pivot'] = this.pivot!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['EXPORT_COUNTRY'] = eXPORTCOUNTRY;
+    data['ORIGIN_COUNTRY'] = oRIGINCOUNTRY;
+    data['TRANSIET_COUNTRY'] = tRANSIETCOUNTRY;
+    data['ANML_SPECIES'] = aNMLSPECIES;
+    data['ANML_SEX'] = aNMLSEX;
+    data['ANML_NUMBER'] = aNMLNUMBER;
+    data['ANML_USE'] = aNMLUSE;
+    data['ANIMAL_BREED'] = aNIMALBREED;
+    data['client_id'] = clientId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['ANML_MICROCHIP'] = aNMLMICROCHIP;
+    if (pivot != null) {
+      data['pivot'] = pivot!.toJson();
     }
     return data;
   }
@@ -86,9 +86,9 @@ class Pivot {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['importation_id'] = this.importationId;
-    data['a_n_i_m_a_l__i_n_f_os_id'] = this.aNIMALINFOsId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['importation_id'] = importationId;
+    data['a_n_i_m_a_l__i_n_f_os_id'] = aNIMALINFOsId;
     return data;
   }
 }
