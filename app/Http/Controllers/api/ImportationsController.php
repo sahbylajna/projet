@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
 use App\Models\ANIMAL_INFO;
+use Illuminate\Support\Facades\Log;
 
 class ImportationsController extends Controller
 {
@@ -40,6 +41,7 @@ class ImportationsController extends Controller
     {
 
         try {
+            Log($request->all());
             $validator = $this->getValidator($request);
 
             if ($validator->fails()) {
