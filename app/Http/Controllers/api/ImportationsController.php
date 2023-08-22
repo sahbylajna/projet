@@ -157,8 +157,7 @@ class ImportationsController extends Controller
     protected function getValidator(Request $request)
     {
         $rules = [
-            'CER_TYPE' => 'string|min:1',
-            'CER_LANG' => 'string|min:1',
+
             'COMP_ID' => 'string',
             'EUSER_QID' => 'string|min:1',
             'EXP_NAME' => 'string|min:1',
@@ -224,7 +223,7 @@ class ImportationsController extends Controller
 
             'EXP_NATIONALITY' => 'string|min:1|nullable',
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
-            'ANIMAL_INFO' => 'nullable'
+            'ANIMAL_INFO' => 'required'
 
         ];
         $validator = \Validator::make($request->all(),  $rules);
