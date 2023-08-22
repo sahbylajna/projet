@@ -46,6 +46,7 @@ class ImportationsController extends Controller
                 'message' => $request->all(),
                 'errors' => $request
             ]);
+            Log::info($request->all());
             Log::info($request);
             $validator = $this->getValidator($request);
 
