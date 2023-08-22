@@ -41,7 +41,12 @@ class ImportationsController extends Controller
     {
 
         try {
-            Log::info($request->all());
+            return response()->json([
+
+                'message' => $request->all(),
+                'errors' => $request
+            ]);
+            Log::info($request);
             $validator = $this->getValidator($request);
 
             if ($validator->fails()) {

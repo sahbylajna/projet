@@ -294,7 +294,6 @@ Future<term?> getterm() async {
           'SHIPPING_DATE': SHIPPING_DATE,
           'EXP_NATIONALITY': EXP_NATIONALITY,
           'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-          'ANIMAL_INFO': ANIMAL_INFO,
 
         }),
 
