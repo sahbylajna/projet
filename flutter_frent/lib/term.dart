@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/Otp.dart';
-import 'package:flutter_frent/model/term.dart';
-import 'package:flutter_frent/widgets/header_widget.dart';
+import 'package:tasareeh/Otp.dart';
+import 'package:tasareeh/model/term.dart';
+import 'package:tasareeh/widgets/header_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
@@ -17,7 +17,7 @@ import 'dart:ui' as ui;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
-import 'package:flutter_frent/model/success.dart';
+import 'package:tasareeh/model/success.dart';
 
 class TermContent extends StatefulWidget   {
 

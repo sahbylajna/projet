@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/api_service.dart';
-import 'package:flutter_frent/common/theme_helper.dart';
-import 'package:flutter_frent/home.dart';
-import 'package:flutter_frent/model/contrie.dart';
-import 'package:flutter_frent/model/success.dart';
+import 'package:tasareeh/api_service.dart';
+import 'package:tasareeh/common/theme_helper.dart';
+import 'package:tasareeh/home.dart';
+import 'package:tasareeh/model/contrie.dart';
+import 'package:tasareeh/model/success.dart';
 import 'package:intl/intl.dart' as inl;
 
 
@@ -25,12 +25,42 @@ class _InContentState extends State<InContent>{
   @override
   void initState() {
     super.initState();
-    _getData();
+
+    Future.delayed(Duration.zero, () {
+      _getData(context);
+    });
   }
-  void _getData() async {
 
+  void _getData(BuildContext context) async {
 
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/loding.gif'),
+                SizedBox(height: 15),
+                Text('...تحميل'),
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
     _contrie = (await ApiService().getcontries())!;
+    if(_contrie != null){
+      if (Navigator.of(context, rootNavigator: true).canPop()) {
+        Navigator.of(context, rootNavigator: true).pop();
+        // Close the dialog
+      }
+    }
   }
 
   TextEditingController _tap1 = TextEditingController();
@@ -120,6 +150,7 @@ class _InContentState extends State<InContent>{
 
                         TextFormField(
                           controller: _tap1,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               errorText: _validate ? 'يرجي ادخال اسم صحيح' : null,
                               label: Text('COMP_ID'),
@@ -150,6 +181,7 @@ class _InContentState extends State<InContent>{
                         ),
                         TextFormField(
                           controller: _tap4,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               errorText: _validate3 ? 'يرجي ادخال هاتف صحيح' : null,
                               label: Text('هاتف المصدر'),
@@ -241,6 +273,7 @@ class _InContentState extends State<InContent>{
 
                         TextFormField(
                           controller: _tap8,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               errorText: _validate7 ? 'يرجي ادخال فاكس  الموارد صحيح' : null,
                               label: Text('فاكس  الموارد '),
@@ -253,7 +286,7 @@ class _InContentState extends State<InContent>{
 
                         TextFormField(
                           controller: _tap9,
-
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               errorText: _validate10 ? 'يرجي ادخال هاتف المورد صحيح' : null,
                               label: Text('هاتف المورد'),
@@ -542,7 +575,7 @@ class _InContentState extends State<InContent>{
 
                         TextFormField(
                           controller: _tap18,
-
+                          keyboardType: TextInputType.number,
 
                           decoration: InputDecoration(
                               errorText: _validate15 ? 'يرجي ادخال  رقم جواز السفر صحيح' : null,
@@ -664,13 +697,166 @@ class _InContentState extends State<InContent>{
     for (var row in rows) {
       jsonList.add(row.toJson());
     }
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/loding.gif'),
+                SizedBox(height: 15),
+                Text('...تحميل'),
 
-    print(_tap1.text+''+_tap2.text+''+_tap2.text+''+_tap4.text+''+_tap5.text+''+_tap6.text+''+_selectedValue!.name.toString()+''+_tap17.text+''+_tap7.text+''+_tap8.text+''+_tap9.text+''+_tap10.text+''+_selectedValue1!.name.toString()+''+_selectedValue2!.name.toString()+''+_tap11.text+''+_tap12.text+''+_tap13.text+''+_tap14.text+''+_tap15.text+''+_tap16.text+''+_tap18.text+''+jsonList.toString());
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    List<String> variables = [
+      _tap1.text,
+      _tap2.text,
+      _tap3.text,
+      _tap4.text,
+      _tap5.text,
+      _tap6.text,
+      _selectedValue != null ? _selectedValue!.name.toString() : '',
+      _tap17.text,
+      _tap7.text,
+      _tap8.text,
+      _tap9.text,
+      _tap10.text,
+      _selectedValue1 != null ? _selectedValue1!.name.toString() : '',
+      _selectedValue2 != null ? _selectedValue2!.name.toString() : '',
+      _tap11.text,
+      _tap12.text,
+      _tap13.text,
+      _tap14.text,
+      _tap15.text,
+      _tap16.text,
+      _tap18.text,
+      jsonList.toString(),
+    ];
+
+    bool hasEmptyVariable = false;
+
+    for (var variable in variables) {
+      if (variable.isEmpty) {
+        hasEmptyVariable = true;
+        break;
+      }
+    }
+
+    if (hasEmptyVariable) {
+      Navigator.of(context, rootNavigator: true).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+
+                  SizedBox(height: 15),
+                  Text('الرجاء إدخال بيانات صحيحة')
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+      Future.delayed(Duration(seconds: 2), () {
+        if (Navigator.of(context, rootNavigator: true).canPop()) {
+          Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+        }
+      });
+    } else {
+      // All variables have values, you can proceed with your logic
+
 
     Success? success =  (await ApiService().Setimportations(_tap1.text,_tap2.text,_tap2.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap7.text,_tap8.text,_tap9.text,_tap10.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap12.text,_tap13.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList));
 
+    if(success?.message =="success"){
+  if (Navigator.of(context, rootNavigator: true).canPop()) {
+    Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+  }
 
-    print(success?.message);
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) {
+      return Dialog(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+
+              SizedBox(height: 15),
+              Text('تم إرسال طلبك بنجاح')
+            ],
+          ),
+        ),
+      );
+    },
+  );
+
+  Future.delayed(Duration(seconds: 2), () {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+            (route) => false);
+  });
+
+
+
+}else{
+  if (Navigator.of(context, rootNavigator: true).canPop()) {
+    Navigator.of(context, rootNavigator: true).pop();
+    // Close the dialog
+  }
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) {
+      return Dialog(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+
+              SizedBox(height: 15),
+              Text('الرجاء إدخال بيانات صحيحة')
+            ],
+          ),
+        ),
+      );
+    },
+  );
+
+  Future.delayed(Duration(seconds: 2), () {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+  });
+}
+    }
+
   }
 
 
@@ -689,8 +875,8 @@ class _InContentState extends State<InContent>{
         context: context,
         builder: (context) {
           return  StatefulBuilder(
-            key: _statefulBuilderKey,
-            builder: (BuildContext context, StateSetter setStateInsideDialog) {
+
+            builder: (BuildContext context,  setStateInsideDialog) {
               return AlertDialog(
                 title: Text('أضف حيوان'),
               content: SingleChildScrollView(
@@ -714,7 +900,7 @@ class _InContentState extends State<InContent>{
                               }).toList(),
                               onChanged: (newValue) {
 
-                                setState(() {
+                                setStateInsideDialog(() {
                                   _EXPORT_COUNTRY = newValue; // Update the selected value
                                   EXPORT_COUNTRY = newValue!.name; // Update the string value
                                   print("selected2 " + EXPORT_COUNTRY);
@@ -742,7 +928,7 @@ class _InContentState extends State<InContent>{
                                 );
                               }).toList(),
                               onChanged: (newValue) {
-                                setState(() {
+                                setStateInsideDialog(() {
                                   _ORIGIN_COUNTRY = newValue; // Update the selected value
                                   ORIGIN_COUNTRY = newValue!.name; // Update the string value
                                   print("ORIGIN_COUNTRY " + ORIGIN_COUNTRY);
@@ -770,7 +956,7 @@ class _InContentState extends State<InContent>{
                                 );
                               }).toList(),
                               onChanged: (newValue) {
-                                setState(() {
+                                setStateInsideDialog(() {
                                   _TRANSIET_COUNTRY = newValue; // Update the selected value
                                   TRANSIET_COUNTRY = newValue!.name; // Update the string value
                                   print("TRANSIET_COUNTRY " + TRANSIET_COUNTRY);
@@ -792,6 +978,7 @@ class _InContentState extends State<InContent>{
                     TextField(
                       decoration: InputDecoration(labelText: 'جنس الحيوان'),
                       // keyboardType: TextInputType.number,
+                      textDirection: TextDirection.rtl,
                       onChanged: (value) {
                         ANML_SEX = value;
                       },
@@ -800,6 +987,7 @@ class _InContentState extends State<InContent>{
                     TextField(
                       decoration: InputDecoration(labelText: 'رقم  الحيوان'),
                       keyboardType: TextInputType.number,
+                      textDirection: TextDirection.rtl,
                       onChanged: (value) {
                         ANML_NUMBER = value;
                       },
@@ -808,13 +996,15 @@ class _InContentState extends State<InContent>{
                     TextField(
                       decoration: InputDecoration(labelText: 'استخدام  الحيوان'),
                       //  keyboardType: TextInputType.number,
+                      textDirection: TextDirection.rtl,
                       onChanged: (value) {
                         ANML_USE = value;
                       },
                     ),
                     TextField(
-                      decoration: InputDecoration(labelText: 'سلالة    الحيوان'),
+                      decoration: InputDecoration(labelText: 'سلالة الحيوان'),
                       // keyboardType: TextInputType.number,
+                      textDirection: TextDirection.rtl,
                       onChanged: (value) {
                         ANIMAL_BREED = value;
                       },
@@ -828,18 +1018,38 @@ class _InContentState extends State<InContent>{
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Cancel'),
+                    child: Text('إلغاء'),
                   ),
                   TextButton(
                     onPressed: () {
                       setState(() {
                         print(rows.length);
-                        rows.add(RowModel(EXPORT_COUNTRY,ORIGIN_COUNTRY,TRANSIET_COUNTRY,ANML_SPECIES,ANML_SEX,ANML_NUMBER,ANML_USE,ANIMAL_BREED));
+                        if (EXPORT_COUNTRY != '' &&
+                            ORIGIN_COUNTRY != '' &&
+                            TRANSIET_COUNTRY != '' &&
+                            ANML_SPECIES != '' &&
+                            ANML_SEX != '' &&
+                            ANML_NUMBER != '' &&
+                            ANML_USE != '' &&
+                            ANIMAL_BREED != '') {
+                          rows.add(RowModel(
+                            EXPORT_COUNTRY,
+                            ORIGIN_COUNTRY,
+                            TRANSIET_COUNTRY,
+                            ANML_SPECIES,
+                            ANML_SEX,
+                            ANML_NUMBER,
+                            ANML_USE,
+                            ANIMAL_BREED,
+                          ));
+                          Navigator.of(context).pop();
+                        }
+
                       });
 
-                      Navigator.of(context).pop();
+
                     },
-                    child: Text('Add'),
+                    child: Text('أضاف'),
                   ),
                 ],
               );

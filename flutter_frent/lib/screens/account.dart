@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/common/theme_helper.dart';
-import 'package:flutter_frent/login.dart';
+import 'package:tasareeh/common/theme_helper.dart';
+import 'package:tasareeh/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_service.dart';
@@ -22,15 +22,47 @@ class _AccountContentState extends State<AccountContent> {
   @override
   void initState() {
     super.initState();
-    _getData();
 
+    Future.delayed(Duration.zero, () {
+      _getData(context);
+
+    });
   }
 
-    Future<void> _getData() async {
+    Future<void> _getData(BuildContext context) async {
+
+
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('assets/loding.gif'),
+                  SizedBox(height: 15),
+                  Text('...تحميل'),
+
+                ],
+              ),
+            ),
+          );
+        },
+      );
       Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
       }));
     _user = (await ApiService().getuser());
-
+      if(_user != null){
+        Future.delayed(Duration(seconds: 2), () {
+          if (Navigator.of(context, rootNavigator: true).canPop()) {
+            Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+          }
+        });
+      }
 
   }
 
@@ -73,14 +105,27 @@ class _AccountContentState extends State<AccountContent> {
       textDirection: TextDirection.rtl,
       child:Scaffold(
            appBar:AppBar(
-      title: Center(child: Text('اللجنة المنضمة لسباق الهجن ')),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(40.0),
-        ),
-      ),
+             title: Center(child: Text('اللجنة المنضمة لسباق الهجن')),
+             shape: RoundedRectangleBorder(
+               borderRadius: BorderRadius.vertical(
+                 bottom: Radius.circular(40.0),
+               ),
+             ),
 
-    ),
+             flexibleSpace: Container(
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.only(
+                   bottomLeft: Radius.circular(40.0),
+                   bottomRight: Radius.circular(40.0),
+                 ),
+                 gradient: LinearGradient(
+                   colors: [_primaryColor, _accentColor], // Start and end colors
+                   begin: Alignment.centerLeft,
+                   end: Alignment.centerRight,
+                 ),
+               ),
+             ),
+           ),
     body: Directionality(
          textDirection: TextDirection.rtl,
 
@@ -137,40 +182,27 @@ class _AccountContentState extends State<AccountContent> {
            textDirection: TextDirection.rtl,
            child:Scaffold(
            appBar: AppBar(
-           title: const Text('اللجنة المنضمة لسباق الهجن'),
-             backgroundColor: _accentColor,
-    actions: <Widget>[
-    IconButton(
-    icon: const Icon(Icons.add_alert),
-    tooltip: 'Show Snackbar',
-    onPressed: () {
-    ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('This is a snackbar')));
-    },
-    ),
-    // IconButton(
-    // icon: const Icon(Icons.navigate_next),
-    // tooltip: 'Go to the next page',
-    // onPressed: () {
-    // Navigator.push(context, MaterialPageRoute<void>(
-    // builder: (BuildContext context) {
-    // return Scaffold(
-    // appBar: AppBar(
-    // title: const Text('Next page'),
-    // ),
-    // body: const Center(
-    // child: Text(
-    // 'This is the next page',
-    // style: TextStyle(fontSize: 24),
-    // ),
-    // ),
-    // );
-    // },
-    // ));
-    // },
-    // ),
-    ],
-    ),
+             title: Center(child: Text('اللجنة المنضمة لسباق الهجن')),
+             shape: RoundedRectangleBorder(
+               borderRadius: BorderRadius.vertical(
+                 bottom: Radius.circular(40.0),
+               ),
+             ),
+
+             flexibleSpace: Container(
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.only(
+                   bottomLeft: Radius.circular(40.0),
+                   bottomRight: Radius.circular(40.0),
+                 ),
+                 gradient: LinearGradient(
+                   colors: [_primaryColor, _accentColor], // Start and end colors
+                   begin: Alignment.centerLeft,
+                   end: Alignment.centerRight,
+                 ),
+               ),
+             ),
+           ),
     body:Directionality(
          textDirection: TextDirection.rtl,
 
@@ -190,8 +222,16 @@ class _AccountContentState extends State<AccountContent> {
                          ...ListTile.divideTiles(
                            color: Colors.grey,
                            tiles: [
-
-
+                             ListTile(
+                               leading: Icon(Icons.person),
+                               title: Text(" الاسم"),
+                               subtitle: Text(_user!.firstName),
+                             ),
+                             ListTile(
+                               leading: Icon(Icons.person),
+                               title: Text(" اللقب"),
+                               subtitle: Text(_user!.lastName),
+                             ),
                              ListTile(
                                leading: Icon(Icons.email),
                                title: Text("بريد إلكتروني"),

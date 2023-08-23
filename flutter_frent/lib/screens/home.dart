@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/api_service.dart';
-import 'package:flutter_frent/model/count.dart';
-import 'package:flutter_frent/screens/back.dart';
-import 'package:flutter_frent/screens/book.dart';
-import 'package:flutter_frent/screens/in.dart';
-import 'package:flutter_frent/screens/out.dart';
+import 'package:tasareeh/api_service.dart';
+import 'package:tasareeh/model/count.dart';
+import 'package:tasareeh/screens/back.dart';
+import 'package:tasareeh/screens/book.dart';
+import 'package:tasareeh/screens/in.dart';
+import 'package:tasareeh/screens/out.dart';
+
 
 class HomeContent extends StatefulWidget {
 
@@ -41,16 +42,18 @@ void _fetchData(BuildContext context) async {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              CircularProgressIndicator(),
+            children: [
+              Image.asset('assets/loding.gif'),
               SizedBox(height: 15),
-              Text('Loading...')
+              Text('...تحميل'),
+
             ],
           ),
         ),
       );
     },
   );
+
 
   try {
     _count = await ApiService().getcount();
@@ -85,27 +88,29 @@ void _fetchData(BuildContext context) async {
     return Directionality(
         textDirection: TextDirection.rtl,
         child:Scaffold(
-        appBar:  AppBar(
-          title: Center(child: Text('اللجنة المنضمة لسباق الهجن')),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(40.0),
-            ),
-          ),
-
+        appBar:    AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40.0),
-                bottomRight: Radius.circular(40.0),
-              ),
               gradient: LinearGradient(
-                colors: [_primaryColor, _accentColor], // Start and end colors
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
+                colors: [_accentColor, _primaryColor], // Add your colors here
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
           ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'assets/logo.png',
+                width: 80,
+                height: 80,
+              ),
+              Text('اللجنة المنضمة لسباق الهجن', style: TextStyle(fontSize: 20)),
+              SizedBox(width: 80, height: 40), // Empty SizedBox for spacing
+            ],
+          ),
+          toolbarHeight: 150, // Set the height of the AppBar
         ),
     body:
 
@@ -120,7 +125,10 @@ void _fetchData(BuildContext context) async {
   children: [
       OutlinedButton(
         onPressed: () {
-             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InContent()));
+
+             Navigator.of(context).pushAndRemoveUntil(
+                 MaterialPageRoute(builder: (context) => InContent()),
+                     (route) => true);
         },
 
    style: OutlinedButton.styleFrom(
@@ -166,7 +174,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب دخول",style: TextStyle(color: Colors.black)),
+      Text(" طلب دخول",style: TextStyle(color: _accentColor)),
 
       SizedBox(
       width: 50, // <-- SEE HERE
@@ -191,7 +199,7 @@ SizedBox(
    style: OutlinedButton.styleFrom(
 
       foregroundColor: Colors.white,
-      side:BorderSide(color: Colors.blue),
+      side:BorderSide(color: _primaryColor),
       shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(18),
@@ -231,7 +239,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب خروج",style: TextStyle(color: Colors.black)),
+      Text(" طلب خروج",style: TextStyle(color: _accentColor)),
 
       SizedBox(
       width: 50, // <-- SEE HERE
@@ -270,7 +278,7 @@ SizedBox(
    style: OutlinedButton.styleFrom(
 
       foregroundColor: Colors.white,
-      side:BorderSide(color: Colors.blue),
+     side:BorderSide(color: _primaryColor),
       shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(18),
@@ -310,7 +318,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب عوده",style: TextStyle(color: Colors.black)),
+      Text(" طلب عوده",style: TextStyle(color: _accentColor)),
 
       SizedBox(
       width: 50, // <-- SEE HERE
@@ -335,7 +343,7 @@ SizedBox(
    style: OutlinedButton.styleFrom(
 
       foregroundColor: Colors.white,
-      side:BorderSide(color: Colors.blue),
+     side:BorderSide(color: _primaryColor),
       shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(18),
@@ -368,7 +376,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب خروج",style: TextStyle(color: Colors.black)),
+      Text(" طلب خروج",style: TextStyle(color: _accentColor)),
 
       SizedBox(
       width: 50, // <-- SEE HERE

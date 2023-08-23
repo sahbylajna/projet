@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/api_service.dart';
-import 'package:flutter_frent/model/Demande.dart';
+import 'package:tasareeh/api_service.dart';
+import 'package:tasareeh/model/Demande.dart';
+import 'package:tasareeh/screens/show.dart';
 
 import '../home.dart';
 class BookContent extends StatefulWidget{
@@ -19,7 +20,9 @@ class _BookContentState extends State<BookContent>{
 @override
   void initState() {
     super.initState();
-    _getData();
+    Future.delayed(Duration.zero, () {
+      _getData(context);
+    });
   //  showAlertDialog(context);
   }
 
@@ -75,39 +78,43 @@ showAlertDialog(BuildContext context) async {
 
 
 
- void _getData() async {
+ void _getData(BuildContext context) async {
 
-// showDialog(
-//         // The user CANNOT close this dialog  by pressing outsite it
-//         barrierDismissible: false,
-//         context: context,
-//         builder: (_) {
-//           return Dialog(
-//             // The background color
-//             backgroundColor: Colors.white,
-//             child: Padding(
-//               padding: const EdgeInsets.symmetric(vertical: 20),
-//               child: Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: const [
-//                   // The loading indicator
-//                   CircularProgressIndicator(),
-//                   SizedBox(
-//                     height: 15,
-//                   ),
-//                   // Some text
-//                   Text('تحميل...')
-//                 ],
-//               ),
-//             ),
-//           );
-//         });
+   showDialog(
+     barrierDismissible: false,
+     context: context,
+     builder: (_) {
+       return Dialog(
+         backgroundColor: Colors.white,
+         child: Padding(
+           padding: const EdgeInsets.symmetric(vertical: 20),
+           child: Column(
+             mainAxisSize: MainAxisSize.min,
+             children: [
+               Image.asset('assets/loding.gif'),
+               SizedBox(height: 15),
+               Text('...تحميل'),
 
+             ],
+           ),
+         ),
+       );
+     },
+   );
       _list = (await ApiService().getlist())!;
     //    Future.delayed(Duration.zero, () => showAlertDialog(context));
 Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
 
     }));
+
+   if(_list != null){
+     Future.delayed(Duration(seconds: 2), () {
+       if (Navigator.of(context, rootNavigator: true).canPop()) {
+         Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+       }
+     });
+   }
+
 
 
   }
@@ -189,6 +196,12 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
 
       ),
     onTap: () {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => showContent(paramValue: 'Hello'), // Pass the parameter
+        ),
+            (route) => false,
+      );
         print("Click event on Container");
     },
 )

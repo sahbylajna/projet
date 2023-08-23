@@ -6,16 +6,17 @@ import 'package:tasareeh/model/contrie.dart';
 import 'package:tasareeh/model/success.dart';
 import 'package:intl/intl.dart' as inl;
 
-class OutContent extends StatefulWidget{
-  const OutContent({Key? key}): super(key:key);
+
+class showContent extends StatefulWidget{
+  const showContent({Key? key, required String paramValue}): super(key:key);
 
   @override
-  _OutContentState createState() => _OutContentState();
+  _showContentState createState() => _showContentState();
 }
 
 
 
-class _OutContentState extends State<OutContent>{
+class _showContentState extends State<showContent>{
   Color _primaryColor = Color.fromARGB(220,84,254,1000);
   Color _accentColor = Color.fromARGB(138,2,174,1000);
   late List<Contries> _contrie = [];
@@ -1019,37 +1020,6 @@ class _OutContentState extends State<OutContent>{
                     },
                     child: Text('إلغاء'),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        print(rows.length);
-                        if (EXPORT_COUNTRY != '' &&
-                            ORIGIN_COUNTRY != '' &&
-                            TRANSIET_COUNTRY != '' &&
-                            ANML_SPECIES != '' &&
-                            ANML_SEX != '' &&
-                            ANML_NUMBER != '' &&
-                            ANML_USE != '' &&
-                            ANIMAL_BREED != '') {
-                          rows.add(RowModel(
-                            EXPORT_COUNTRY,
-                            ORIGIN_COUNTRY,
-                            TRANSIET_COUNTRY,
-                            ANML_SPECIES,
-                            ANML_SEX,
-                            ANML_NUMBER,
-                            ANML_USE,
-                            ANIMAL_BREED,
-                          ));
-                          Navigator.of(context).pop();
-                        }
-
-                      });
-
-
-                    },
-                    child: Text('أضاف'),
-                  ),
                 ],
               );
 
@@ -1065,26 +1035,16 @@ class _OutContentState extends State<OutContent>{
 
 
 class RowModel {
-  final String EXPORT_COUNTRY;
+  final String EXPORT_COUNTRY ;
+  final String ORIGIN_COUNTRY ;
+  final String TRANSIET_COUNTRY ;
+  final String ANML_SPECIES ;
+  final String ANML_SEX ;
+  final String ANML_NUMBER ;
+  final String ANML_USE ;
+  final String ANIMAL_BREED ;
 
-  final String ORIGIN_COUNTRY;
-
-  final String TRANSIET_COUNTRY;
-
-  final String ANML_SPECIES;
-
-  final String ANML_SEX;
-
-  final String ANML_NUMBER;
-
-  final String ANML_USE;
-
-  final String ANIMAL_BREED;
-
-  RowModel(this.EXPORT_COUNTRY, this.ORIGIN_COUNTRY, this.TRANSIET_COUNTRY,
-      this.ANML_SPECIES, this.ANML_SEX, this.ANML_NUMBER, this.ANML_USE,
-      this.ANIMAL_BREED);
-
+  RowModel(this.EXPORT_COUNTRY, this.ORIGIN_COUNTRY,this.TRANSIET_COUNTRY,this.ANML_SPECIES,this.ANML_SEX,this.ANML_NUMBER,this.ANML_USE,this.ANIMAL_BREED);
   Map<String, dynamic> toJson() {
     return {
       'EXPORT_COUNTRY': EXPORT_COUNTRY,
@@ -1097,5 +1057,6 @@ class RowModel {
       'ANIMAL_BREED': ANIMAL_BREED,
     };
   }
+
 
 }

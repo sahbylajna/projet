@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/api_service.dart';
-import 'package:flutter_frent/login.dart';
-import 'package:flutter_frent/model/success.dart';
+import 'package:tasareeh/api_service.dart';
+import 'package:tasareeh/login.dart';
+import 'package:tasareeh/model/success.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';

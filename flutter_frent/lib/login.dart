@@ -3,12 +3,12 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/common/theme_helper.dart';
-import 'package:flutter_frent/model/token.dart';
-import 'package:flutter_frent/model/user.dart';
-import 'package:flutter_frent/register.dart';
-import 'package:flutter_frent/api_service.dart';
-import 'package:flutter_frent/model/contrie.dart';
+import 'package:tasareeh/common/theme_helper.dart';
+import 'package:tasareeh/model/token.dart';
+import 'package:tasareeh/model/user.dart';
+import 'package:tasareeh/register.dart';
+import 'package:tasareeh/api_service.dart';
+import 'package:tasareeh/model/contrie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 import 'widgets/header_widget.dart';
@@ -30,11 +30,13 @@ class _LoginPageState extends State<LoginPage>{
 @override
   void initState() {
     super.initState();
-    _getData();
+    Future.delayed(Duration.zero, () {
+      _getData(context);
+    });
   }
   double _headerHeight = 250;
   Key _formKey = GlobalKey<FormState>();
-  void _getData() async {
+  void _getData(BuildContext context) async {
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -44,7 +46,34 @@ class _LoginPageState extends State<LoginPage>{
         Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => MyHomePage()), (route) => false);
     }
-      _contrie = (await ApiService().getcontries())!;
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/loding.gif'),
+                SizedBox(height: 15),
+                Text('...تحميل'),
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    _contrie = (await ApiService().getcontries())!;
+    if(_contrie != null){
+      if (Navigator.of(context, rootNavigator: true).canPop()) {
+        Navigator.of(context, rootNavigator: true).pop();
+        // Close the dialog
+      }
+    }
 
   }
   TextEditingController phone = TextEditingController();

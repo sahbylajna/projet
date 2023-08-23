@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/common/theme_helper.dart';
-import 'package:flutter_frent/model/success.dart';
-import 'package:flutter_frent/term.dart';
-import 'package:flutter_frent/widgets/header_widget.dart';
+import 'package:tasareeh/common/theme_helper.dart';
+import 'package:tasareeh/model/success.dart';
+import 'package:tasareeh/term.dart';
+import 'package:tasareeh/widgets/header_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -81,9 +81,9 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
                     child: Column(
                       children: [
 
-                        SizedBox(height: 30,),
+                        SizedBox(height: 50,),
                         Container(
-                            padding: EdgeInsets.only(top: 50.0),
+
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration('الاسم الأول', 'أدخل اسمك الأول'),
@@ -215,7 +215,7 @@ width: screen.width * 0.45,
                        Row(
                         children: [
  Container(
-
+   decoration: ThemeHelper().buttonBoxDecoration(context),
                           child:ElevatedButton(
                   onPressed: () async {
                       image = await picker.pickImage(source: ImageSource.gallery);
@@ -242,7 +242,7 @@ width: screen.width * 0.45,
                        Row(
                         children: [
  Container(
-
+   decoration: ThemeHelper().buttonBoxDecoration(context),
                           child:ElevatedButton(
                   onPressed: () async {
                       image2 = await picker2.pickImage(source: ImageSource.gallery);

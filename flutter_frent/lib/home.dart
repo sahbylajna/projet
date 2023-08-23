@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_frent/screens/home.dart';
-import 'package:flutter_frent/screens/account.dart';
+import 'package:tasareeh/screens/home.dart';
+import 'package:tasareeh/screens/account.dart';
 
-import 'package:flutter_frent/screens/settings.dart';
-import 'package:flutter_frent/login.dart';
+import 'package:tasareeh/screens/settings.dart';
+import 'package:tasareeh/login.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';

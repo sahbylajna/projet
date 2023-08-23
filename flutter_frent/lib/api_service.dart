@@ -2,14 +2,14 @@ import 'dart:developer';
 import 'dart:convert';
 
 
-import 'package:flutter_frent/model/Demande.dart';
-import 'package:flutter_frent/model/count.dart';
-import 'package:flutter_frent/model/success.dart';
-import 'package:flutter_frent/model/token.dart';
-import 'package:flutter_frent/model/user.dart';
+import 'package:tasareeh/model/Demande.dart';
+import 'package:tasareeh/model/count.dart';
+import 'package:tasareeh/model/success.dart';
+import 'package:tasareeh/model/token.dart';
+import 'package:tasareeh/model/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_frent/constants.dart';
-import 'package:flutter_frent/model/contrie.dart';
+import 'package:tasareeh/constants.dart';
+import 'package:tasareeh/model/contrie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -287,7 +287,7 @@ Future<term?> getterm() async {
         'SHIPPING_DATE': SHIPPING_DATE,
         'EXP_NATIONALITY': EXP_NATIONALITY,
         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-        'ANIMAL_INFO': ANIMAL_INFO,
+        'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
       };
 
       var response = await http.post(url,

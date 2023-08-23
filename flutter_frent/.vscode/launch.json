@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flutter_frent",
+            "name": "tasareeh",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "flutter_frent (profile mode)",
+            "name": "tasareeh (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "flutter_frent (release mode)",
+            "name": "tasareeh (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
