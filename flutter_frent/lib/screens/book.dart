@@ -196,9 +196,10 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
 
       ),
     onTap: () {
+      print(_list[index].animal?.length.toString());
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => showContent(paramValue: 'Hello'), // Pass the parameter
+          builder: (context) => showContent(paramValue: _list[index]), // Pass the parameter
         ),
             (route) => false,
       );

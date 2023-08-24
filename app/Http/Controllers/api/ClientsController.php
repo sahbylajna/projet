@@ -317,7 +317,7 @@ if($user->accepted != '1'){
     }
     public function getlist(){
         $exports = export::where('client_id',auth()->user()->id)->with('animal')->get();
-        $importations = importation::where('client_id',auth()->user()->id)->get();
+        $importations = importation::where('client_id',auth()->user()->id)->with('animal')->get();
         $backs = back::where('client_id',auth()->user()->id)->with('animal')->get();
         $c = collect();
 

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/home.dart';
 import 'package:tasareeh/model/contrie.dart';
 import 'package:tasareeh/model/success.dart';
 import 'package:intl/intl.dart' as inl;
+import 'package:tasareeh/screens/book.dart';
+
+import '../model/Demande.dart';
 
 
 class showContent extends StatefulWidget{
-  const showContent({Key? key, required String paramValue}): super(key:key);
+  final Demande paramValue;
+  const showContent({Key? key, required this.paramValue}): super(key:key);
 
   @override
   _showContentState createState() => _showContentState();
@@ -32,7 +37,7 @@ class _showContentState extends State<showContent>{
   }
 
   void _getData(BuildContext context) async {
-
+print(widget.paramValue.animal.toString());
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -55,11 +60,11 @@ class _showContentState extends State<showContent>{
       },
     );
     _contrie = (await ApiService().getcontries())!;
-    if(_contrie != null){
+   // if(_contrie != null){
       if (Navigator.of(context, rootNavigator: true).canPop()) {
         Navigator.of(context, rootNavigator: true).pop();
         // Close the dialog
-      }
+     // }
     }
   }
 
@@ -121,7 +126,7 @@ class _showContentState extends State<showContent>{
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => MyHomePage()),
+                    MaterialPageRoute(builder: (context) => BookContent()),
                         (route) => false),
               ),
               flexibleSpace: Container(
