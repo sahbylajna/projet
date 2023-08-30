@@ -185,8 +185,7 @@ class BacksController extends Controller
             'APPLICANT_TEL' => 'string|min:1',
             'EXP_NATIONALITY' => 'string|min:1',
             'EXP_PASSPORT_NUM' => 'string|min:1',
-
-            'ANIMAL_INFO' => 'required'
+            'animal' => 'string',
 
         ];
 
@@ -228,7 +227,7 @@ class BacksController extends Controller
 
             'EXP_NATIONALITY' => 'string|min:1|nullable',
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
-            'ANIMAL_INFO' => 'required'
+            'animal' => 'string',
 
         ];
 

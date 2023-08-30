@@ -51,6 +51,7 @@ class export extends Model
                   'EXP_NATIONALITY',
                   'EXP_PASSPORT_NUM',
                   'accepted',
+                  'animal',
                   'reson',
                   'files'
               ];

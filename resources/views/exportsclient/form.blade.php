@@ -195,3 +195,11 @@
 <br><br><br><br>
 
 
+<div class="form-group {{ $errors->has('EXP_PASSPORT_NUM') ? 'has-error' : '' }}">
+    <label for="EXP_PASSPORT_NUM" class="col-md-2 control-label">{{ trans('importations.animal') }}</label>
+    <div class="col-md-10">
+        <input class="form-control" name="animal" type="number" id="animal" value="{{ old('animal', optional($export)->animal) }}" minlength="1" placeholder="" required>
+        {!! $errors->first('EXP_PASSPORT_NUM', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+

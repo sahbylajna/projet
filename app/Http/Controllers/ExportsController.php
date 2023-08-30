@@ -178,6 +178,8 @@ class ExportsController extends Controller
             'EXP_PASSPORT_NUM' => 'string|min:1',
             'accepted' => 'string|min:1',
             'reson' => 'string|min:1',
+
+'animal' => 'nullable',
         ];
 
         $data = $request->validate($rules);
@@ -386,23 +388,7 @@ class ExportsController extends Controller
  $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
- $data = json_encode($data);
- $ANIMALINFO = [];
-
- foreach ($export->animal as $key => $value) {
-
-
-     $data1['ANML_SPECIES'] = $value->EUSER_QID;
-     $data1['ANML_SEX'] = $value->ANML_SEX;
-     $data1['ANML_MICROCHIP'] = $value->ANML_MICROCHIP;
-     $data1['ANML_USE'] = $value->ANML_USE;
-
-     $ANIMALINFO[$key] = $data1;
-
-
- }
-
- $ANIMALINFOj = json_encode($ANIMALINFO);
+ $data['animal'] = $export->animal;
 
  $token ='Bearer '.$access_token;
 

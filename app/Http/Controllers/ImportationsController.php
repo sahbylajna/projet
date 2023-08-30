@@ -385,25 +385,8 @@ $data['APPLICANT_NAME'] = $importation->APPLICANT_NAME;
 $data['APPLICANT_TEL'] = $importation->APPLICANT_TEL;
 $data['EXP_NATIONALITY'] = $importation->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $importation->EXP_PASSPORT_NUM;
-$data = json_encode($data);
-$ANIMALINFO = [];
+$data['animal'] = $importation->animal;
 
-foreach ($importation->animal as $key => $value) {
-
-    $data1['EXPORT_COUNTRY'] = $value->EXPORT_COUNTRY;
-    $data1['ORIGIN_COUNTRY'] = $value->ORIGIN_COUNTRY;
-    $data1['TRANSIET_COUNTRY'] = $value->TRANSIET_COUNTRY;
-    $data1['ANML_SPECIES'] = $value->ANML_SPECIES;
-    $data1['ANML_SEX'] = $value->ANML_SEX;
-    $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
-    $data1['ANML_USE'] = $value->ANML_USE;
-    $data1['ANIMAL_BREED'] = $value->ANIMAL_BREED;
-    $ANIMALINFO[$key] = $data1;
-
-
-}
-
-$ANIMALINFOj = json_encode($ANIMALINFO);
 
 $token ='Bearer '.$access_token;
 
@@ -420,7 +403,7 @@ try{
         'headers' => $headers,
         'form_params' => [
             'DATA' => $data,
-            'ANIMAL_INFO' =>$ANIMALINFOj,
+
             'files' => $importation->files,
         ],
 

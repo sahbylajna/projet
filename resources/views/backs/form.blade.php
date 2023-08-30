@@ -10,7 +10,7 @@
 			    </option>
 			@endforeach
         </select>
-        
+
         {!! $errors->first('client_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -42,7 +42,7 @@
 			    </option>
 			@endforeach
         </select>
-        
+
         {!! $errors->first('COMP_ID', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -236,6 +236,15 @@
     <div class="col-md-10">
         <input class="form-control" name="reson" type="text" id="reson" value="{{ old('reson', optional($back)->reson) }}" minlength="1" placeholder="{{ trans('backs.reson__placeholder') }}">
         {!! $errors->first('reson', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+
+<div class="form-group {{ $errors->has('EXP_PASSPORT_NUM') ? 'has-error' : '' }}">
+    <label for="EXP_PASSPORT_NUM" class="col-md-2 control-label">{{ trans('importations.animal') }}</label>
+    <div class="col-md-10">
+        <input class="form-control" name="animal" type="number" id="animal" value="{{ old('animal', optional($back)->animal) }}" minlength="1" placeholder="" required>
+        {!! $errors->first('EXP_PASSPORT_NUM', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 

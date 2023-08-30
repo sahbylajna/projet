@@ -36,24 +36,8 @@
 
 
 
-<input type="button" class="btn btn-primary" value=" {{ trans('importations.add') }} "  onclick="addRow()" >
-<div  class="form-group">
-
-<table id="tableau" class=" table-striped ">
-    <thead>
-        <tr>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.EXPORT_COUNTRY') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ORIGIN_COUNTRY') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.TRANSIET_COUNTRY') }}</th>
 
 
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-</div>
-<br><br><br><br>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -69,74 +53,7 @@
 
     <!-- The Modal -->
 
-    <div class="modal w-lg fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" >
-        <div class="modal-dialog " role="document">
-            <div class="modal-content card shade">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
 
-            <div class="form-group {{ $errors->has('EXPORT_COUNTRY') ? 'has-error' : '' }}">
-                <label for="EXPORT_COUNTRY" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.EXPORT_COUNTRY') }}</label>
-                <div class="col-md-10">
-                    @php
-                    $countries =   App\Models\countries::where('active',1)->get();
-
-                    @endphp
-                            <select name="EXPORT_COUNTRY" id="EXPORT_COUNTRY"  class="form-control">
-                                @foreach ($countries as $countrie)
-                                <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
-                                @endforeach
-                            </select>
-
-                    {!! $errors->first('EXPORT_COUNTRY', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
-            <div class="form-group {{ $errors->has('ORIGIN_COUNTRY') ? 'has-error' : '' }}">
-                <label for="ORIGIN_COUNTRY" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ORIGIN_COUNTRY') }}</label>
-                <div class="col-md-10">
-
-                            <select name="ORIGIN_COUNTRYa" id="ORIGIN_COUNTRYa"  class="form-control">
-                                @foreach ($countries as $countrie)
-                                <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
-                                @endforeach
-                            </select>
-                    {!! $errors->first('ORIGIN_COUNTRY', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
-            <div class="form-group {{ $errors->has('TRANSIET_COUNTRY') ? 'has-error' : '' }}">
-                <label for="TRANSIET_COUNTRY" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.TRANSIET_COUNTRY') }}</label>
-                <div class="col-md-10">
-
-                            <select name="TRANSIET_COUNTRY" id="TRANSIET_COUNTRY"  class="form-control">
-                                @foreach ($countries as $countrie)
-                                <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
-                                @endforeach
-                            </select>
-                    {!! $errors->first('TRANSIET_COUNTRY', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
-
-
-
-        </div>
-        <div class="modal-footer">
-
-
-            <input type="hidden" name="client_id" id="client_id" value="{{ auth()->guard('clientt')->user()->id }}" >
-
-<input type="button" class="btn outlined f-main" value=" {{ trans('importations.add') }} "  onclick="addRowto()" >
-        </div>
-    </div>
-</div>
-</div>
 
     @endsection
 

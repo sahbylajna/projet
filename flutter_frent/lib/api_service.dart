@@ -321,6 +321,123 @@ Future<term?> getterm() async {
 
 
 
+  Future<Success?> Setbacks(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO) async {
+    try {
+      final user = await SharedPreferences.getInstance();
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.backs);
+      final Map<String, dynamic> requestData = {
+        'COMP_ID': COMP_ID,
+        'EUSER_QID': EUSER_QID,
+        'EXP_NAME': EXP_NAME,
+        'EXP_TEL': EXP_TEL,
+        'EXP_QID': EXP_QID,
+        'EXP_FAX': EXP_FAX,
+        'EXP_COUNTRY': EXP_COUNTRY,
+        'IMP_NAME': IMP_NAME,
+        'IMP_ADDRESS': IMP_ADDRESS,
+        'IMP_FAX': IMP_FAX,
+        'IMP_TEL': IMP_TEL,
+        'IMP_POBOX': IMP_POBOX,
+        'IMP_COUNTRY': IMP_COUNTRY,
+        'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
+        'SHIPPING_PLACE': SHIPPING_PLACE,
+        'ENTERY_PORT': ENTERY_PORT,
+        'EXPECTED_ARRIVAL_DATE': EXPECTED_ARRIVAL_DATE,
+        'TRANSPORT': TRANSPORT,
+        'SHIPPING_DATE': SHIPPING_DATE,
+        'EXP_NATIONALITY': EXP_NATIONALITY,
+        'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
+        'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+      };
+
+      var response = await http.post(url,
+        headers: <String, String>{
+          "Accept": "application/json",
+          'Authorization' : 'Bearer ${user.getString('token')}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+
+      );
+
+      print(requestData);
+
+      print('hnaaaaaaaaaaaaaaaaaaaaaa');
+      print(response.body.toString());
+      if (response.statusCode == 200) {
+
+        Success model = successFromJson(response.body);
+        return model;
+      }
+
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+
+
+  Future<Success?> Setexports(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_FAX,IMP_TEL,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO) async {
+    try {
+      final user = await SharedPreferences.getInstance();
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.exports);
+      final Map<String, dynamic> requestData = {
+        'COMP_ID': COMP_ID,
+        'EUSER_QID': EUSER_QID,
+        'EXP_NAME': EXP_NAME,
+        'EXP_TEL': EXP_TEL,
+        'IMP_QID': EXP_QID,
+        'EXP_FAX': EXP_FAX,
+        'EXP_COUNTRY': EXP_COUNTRY,
+        'IMP_NAME': IMP_NAME,
+
+        'IMP_FAX': IMP_FAX,
+        'IMP_TEL': IMP_TEL,
+
+        'IMP_COUNTRY': IMP_COUNTRY,
+        'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
+        'SHIPPING_PLACE': SHIPPING_PLACE,
+
+
+        'TRANSPORT': TRANSPORT,
+        'SHIPPING_DATE': SHIPPING_DATE,
+        'EXP_NATIONALITY': EXP_NATIONALITY,
+        'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
+        'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+      };
+
+      var response = await http.post(url,
+        headers: <String, String>{
+          "Accept": "application/json",
+          'Authorization' : 'Bearer ${user.getString('token')}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+
+      );
+
+      print(requestData);
+
+
+      print(response.body.toString());
+      if (response.statusCode == 200) {
+
+        Success model = successFromJson(response.body);
+        return model;
+      }
+
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+
+
+
+
+
 
 
 

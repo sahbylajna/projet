@@ -15,4 +15,6 @@ class ApiConstants {
   static String getlist = '/getlist';
 
      static String importations = '/importations';
+  static String backs = '/backs';
+  static String exports = '/exports';
 }

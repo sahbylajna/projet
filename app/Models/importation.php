@@ -56,6 +56,7 @@ class importation extends Model
                   'EXP_PASSPORT_NUM',
                   'accepted',
                   'reson',
+                  'animal',
                   'files'
               ];
 

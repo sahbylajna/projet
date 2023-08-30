@@ -18,7 +18,7 @@ class ExportsController extends Controller
      */
     public function index()
     {
-        $exports = export::where('client_id',auth()->user()->id)->with('animal')->get();
+        $exports = export::where('client_id',auth()->user()->id)->get();
 
         $data = $exports->transform(function ($export) {
             return $this->transform($export);

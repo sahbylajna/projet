@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/model/count.dart';
 import 'package:tasareeh/screens/back.dart';
@@ -31,6 +32,8 @@ class _HomeContentState extends State<HomeContent> {
       _fetchData(context);
     });
   }
+
+  bool isLoading = true;
 void _fetchData(BuildContext context) async {
   showDialog(
     barrierDismissible: false,
@@ -60,14 +63,17 @@ void _fetchData(BuildContext context) async {
     exports = _count!.exports;
     importations = _count!.importations;
     backs = _count!.backs;
-
+    isLoading = false;
     // Close the dialog after a 2-second delay
   if(_count != null){
       Future.delayed(Duration(seconds: 2), () {
       if (Navigator.of(context, rootNavigator: true).canPop()) {
         Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+        print(_count.toString());
+
       }
     });
+      isLoading = false;
   }
   } catch (e) {
     print('Error: $e');
@@ -76,6 +82,7 @@ void _fetchData(BuildContext context) async {
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
+
 }
 
 
@@ -107,14 +114,13 @@ void _fetchData(BuildContext context) async {
                 height: 80,
               ),
               Text('اللجنة المنضمة لسباق الهجن', style: TextStyle(fontSize: 20)),
-              SizedBox(width: 80, height: 40), // Empty SizedBox for spacing
+              SizedBox(width: 40, height: 40), // Empty SizedBox for spacing
             ],
           ),
           toolbarHeight: 150, // Set the height of the AppBar
         ),
-    body:
-
-    Center(
+    body:  isLoading ?Text('اللجنة المنضمة لسباق الهجن', style: TextStyle(fontSize: 20)):
+      Center(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[

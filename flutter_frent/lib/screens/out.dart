@@ -71,16 +71,15 @@ class _OutContentState extends State<OutContent>{
   TextEditingController _tap7 = TextEditingController();
   TextEditingController _tap8 = TextEditingController();
   TextEditingController _tap9 = TextEditingController();
-  TextEditingController _tap10 = TextEditingController();
+
   TextEditingController _tap11 = TextEditingController();
-  TextEditingController _tap12 = TextEditingController();
-  TextEditingController _tap13 = TextEditingController();
+
   TextEditingController _tap14 = TextEditingController();
   TextEditingController _tap15 = TextEditingController();
   TextEditingController _tap16 = TextEditingController();
   TextEditingController _tap17 = TextEditingController();
   TextEditingController _tap18 = TextEditingController();
-  TextEditingController _tap19 = TextEditingController();
+
   bool _validate = false;
   bool _validate1 = false;
   bool _validate2 = false;
@@ -89,18 +88,13 @@ class _OutContentState extends State<OutContent>{
   bool _validate5 = false;
   bool _validate6 = false;
   bool _validate7 = false;
-  bool _validate8 = false;
-  bool _validate9 = false;
+
   bool _validate10 = false;
-  bool _validate11 = false;
+
   bool _validate12 = false;
-  bool _validate13 = false;
-  bool _validate14 = false;
+
   bool _validate15 = false;
-  bool _validate16 = false;
-  bool _validate17 = false;
-  bool _validate18 = false;
-  bool _validate19 = false;
+
   final GlobalKey<State> _statefulBuilderKey = GlobalKey<State>();
   DateTime dateTime0 = DateTime.now();
   DateTime dateTime1 = DateTime.now();
@@ -193,7 +187,7 @@ class _OutContentState extends State<OutContent>{
                           controller: _tap5,
                           decoration: InputDecoration(
                               errorText: _validate4 ? 'يرجي ادخال اسم صحيح' : null,
-                              label: Text('QID المصدر'),
+                              label: Text('QID الموارد'),
                               border: OutlineInputBorder()),
                         ),
                         const SizedBox(
@@ -256,16 +250,6 @@ class _OutContentState extends State<OutContent>{
 
 
 
-                        TextFormField(
-                          controller: _tap7,
-                          decoration: InputDecoration(
-                              errorText: _validate6 ? 'يرجي ادخال  عنوان المورد صحيح' : null,
-                              label: Text('عنوان المورد'),
-                              border: OutlineInputBorder()),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
 
 
 
@@ -298,18 +282,7 @@ class _OutContentState extends State<OutContent>{
 
 
 
-                        TextFormField(
-                          controller: _tap10,
-                          decoration: InputDecoration(
-                              errorText: _validate11 ? 'يرجي ادخال المورد  POBOX صحيح' : null,
-                              label: Text('المورد  POBOX'),
-                              border: OutlineInputBorder()),
-                        ),
 
-
-                        const SizedBox(
-                          height: 10,
-                        ),
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: Center(
@@ -398,79 +371,7 @@ class _OutContentState extends State<OutContent>{
 
 
 
-                        TextFormField(
-                          controller: _tap12,
-                          decoration: InputDecoration(
-                              errorText: _validate13 ? 'يرجي ادخال منفذ الدخول صحيح' : null,
-                              label: Text('منفذ الدخول'),
-                              border: OutlineInputBorder()),
-                        ),
 
-
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-
-
-
-
-                        InkWell(
-                          onTap: () async {
-                            DateTime? newDate = await showDatePicker(
-                                builder: (context, child) {
-                                  return Theme(
-                                    data: Theme.of(context).copyWith(
-                                      colorScheme: const ColorScheme.light(
-                                          primary: Colors.blueAccent,
-                                          //      .MainColor, // header background color
-                                          onPrimary:
-                                          Colors.white, // header text color
-                                          onSurface: Colors.blueAccent
-                                        //    .AccentColor, // body text color
-                                      ),
-                                      textButtonTheme: TextButtonThemeData(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: Colors.red, // button text color
-                                        ),
-                                      ),
-                                    ),
-                                    child: child!,
-                                  );
-                                },
-                                context: context,
-                                initialDate: dateTime0,
-                                firstDate:
-                                DateTime.now().subtract(const Duration(days: 0)),
-                                lastDate: DateTime(dateTime0.year + 2));
-                            if (newDate == null) return;
-                            final newDateTime = DateTime(
-                              newDate.year,
-                              newDate.month,
-                              newDate.day,
-                            );
-
-                            setState(() {
-                              dateTime0 = newDateTime;
-                              _tap13.text = inl.DateFormat(
-                                'yyyy-MM-dd',
-                              ).format(dateTime0);
-                              print(dateTime0);
-                            });
-                          },
-
-
-                          child: TextFormField(
-                            controller: _tap13,
-                            enabled: false,
-                            decoration: const InputDecoration(
-                                label: Text('تاريخ الوصول المتوقع'),
-                                border: OutlineInputBorder()),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
 
 
 
@@ -637,7 +538,7 @@ class _OutContentState extends State<OutContent>{
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: ListTile(
-                                      title: Text('رقم الحيوان: ${rows[index].ANML_NUMBER}'),
+                                      title: Text('رقم الحيوان: ${rows[index].ANML_MICROCHIP}'),
                                     ),
                                   ),
                                 );
@@ -729,12 +630,11 @@ class _OutContentState extends State<OutContent>{
       _tap7.text,
       _tap8.text,
       _tap9.text,
-      _tap10.text,
+
       _selectedValue1 != null ? _selectedValue1!.name.toString() : '',
       _selectedValue2 != null ? _selectedValue2!.name.toString() : '',
       _tap11.text,
-      _tap12.text,
-      _tap13.text,
+
       _tap14.text,
       _tap15.text,
       _tap16.text,
@@ -783,7 +683,7 @@ class _OutContentState extends State<OutContent>{
       // All variables have values, you can proceed with your logic
 
 
-      Success? success =  (await ApiService().Setimportations(_tap1.text,_tap2.text,_tap2.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap7.text,_tap8.text,_tap9.text,_tap10.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap12.text,_tap13.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList));
+      Success? success =  (await ApiService().Setexports(_tap1.text,_tap2.text,_tap3.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap8.text,_tap9.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList));
 
       if(success?.message =="success"){
         if (Navigator.of(context, rootNavigator: true).canPop()) {
@@ -861,14 +761,12 @@ class _OutContentState extends State<OutContent>{
 
   void _showAddRowDialog() {
 
-    String EXPORT_COUNTRY = '';
-    String ORIGIN_COUNTRY = '';
-    String TRANSIET_COUNTRY = '';
+
     String ANML_SPECIES = '';
     String ANML_SEX = '';
-    String ANML_NUMBER = '';
+    String ANML_MICROCHIP = '';
     String ANML_USE = '';
-    String ANIMAL_BREED = '';
+
 
     showDialog(
         context: context,
@@ -882,91 +780,7 @@ class _OutContentState extends State<OutContent>{
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Center(
-                          child: Row(
-                            children: [
-                              //    Text('البلد التصدير '),
 
-                              DropdownButton<Contries>(
-                                hint: Text('بلد التصدير'),
-                                items:_contrie.map<DropdownMenuItem<Contries>>((Contries value) {
-                                  return DropdownMenuItem<Contries>(
-                                    value:  value ,
-                                    child: Text( value.name ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-
-                                  setStateInsideDialog(() {
-                                    _EXPORT_COUNTRY = newValue; // Update the selected value
-                                    EXPORT_COUNTRY = newValue!.name; // Update the string value
-                                    print("selected2 " + EXPORT_COUNTRY);
-                                  });
-                                },
-                                value: _EXPORT_COUNTRY,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Center(
-                          child: Row(
-                            children: [
-                              //    Text('البلد الأصلي '),
-
-                              DropdownButton<Contries>(
-                                hint: Text('بلد الأصلي'),
-                                items:_contrie.map<DropdownMenuItem<Contries>>((Contries value) {
-                                  return DropdownMenuItem<Contries>(
-                                    value:  value ,
-                                    child: Text( value.name ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setStateInsideDialog(() {
-                                    _ORIGIN_COUNTRY = newValue; // Update the selected value
-                                    ORIGIN_COUNTRY = newValue!.name; // Update the string value
-                                    print("ORIGIN_COUNTRY " + ORIGIN_COUNTRY);
-                                  });
-                                },
-                                value: _ORIGIN_COUNTRY,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Center(
-                          child: Row(
-                            children: [
-                              //       Text('البلد العبور '),
-
-                              DropdownButton<Contries>(
-                                hint: Text('بلد العبور'),
-                                items:_contrie.map<DropdownMenuItem<Contries>>((Contries value) {
-                                  return DropdownMenuItem<Contries>(
-                                    value:  value ,
-                                    child: Text( value.name ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setStateInsideDialog(() {
-                                    _TRANSIET_COUNTRY = newValue; // Update the selected value
-                                    TRANSIET_COUNTRY = newValue!.name; // Update the string value
-                                    print("TRANSIET_COUNTRY " + TRANSIET_COUNTRY);
-                                  });
-                                },
-                                value: _TRANSIET_COUNTRY,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                       TextField(
                         decoration: InputDecoration(labelText: 'نوع  الحيوان'),
                         textDirection: TextDirection.rtl,
@@ -988,7 +802,7 @@ class _OutContentState extends State<OutContent>{
                         keyboardType: TextInputType.number,
                         textDirection: TextDirection.rtl,
                         onChanged: (value) {
-                          ANML_NUMBER = value;
+                          ANML_MICROCHIP = value;
                         },
                       ),
 
@@ -1000,14 +814,7 @@ class _OutContentState extends State<OutContent>{
                           ANML_USE = value;
                         },
                       ),
-                      TextField(
-                        decoration: InputDecoration(labelText: 'سلالة الحيوان'),
-                        // keyboardType: TextInputType.number,
-                        textDirection: TextDirection.rtl,
-                        onChanged: (value) {
-                          ANIMAL_BREED = value;
-                        },
-                      ),
+
 
                     ],
                   ),
@@ -1023,23 +830,18 @@ class _OutContentState extends State<OutContent>{
                     onPressed: () {
                       setState(() {
                         print(rows.length);
-                        if (EXPORT_COUNTRY != '' &&
-                            ORIGIN_COUNTRY != '' &&
-                            TRANSIET_COUNTRY != '' &&
+                        if (
                             ANML_SPECIES != '' &&
                             ANML_SEX != '' &&
-                            ANML_NUMBER != '' &&
-                            ANML_USE != '' &&
-                            ANIMAL_BREED != '') {
+                            ANML_MICROCHIP != '' &&
+                            ANML_USE != '') {
                           rows.add(RowModel(
-                            EXPORT_COUNTRY,
-                            ORIGIN_COUNTRY,
-                            TRANSIET_COUNTRY,
+
                             ANML_SPECIES,
                             ANML_SEX,
-                            ANML_NUMBER,
+                            ANML_MICROCHIP,
                             ANML_USE,
-                            ANIMAL_BREED,
+
                           ));
                           Navigator.of(context).pop();
                         }
@@ -1065,36 +867,29 @@ class _OutContentState extends State<OutContent>{
 
 
 class RowModel {
-  final String EXPORT_COUNTRY;
 
-  final String ORIGIN_COUNTRY;
-
-  final String TRANSIET_COUNTRY;
 
   final String ANML_SPECIES;
 
   final String ANML_SEX;
 
-  final String ANML_NUMBER;
+  final String ANML_MICROCHIP;
 
   final String ANML_USE;
 
-  final String ANIMAL_BREED;
 
-  RowModel(this.EXPORT_COUNTRY, this.ORIGIN_COUNTRY, this.TRANSIET_COUNTRY,
-      this.ANML_SPECIES, this.ANML_SEX, this.ANML_NUMBER, this.ANML_USE,
-      this.ANIMAL_BREED);
+  RowModel(
+      this.ANML_SPECIES, this.ANML_SEX, this.ANML_MICROCHIP, this.ANML_USE,
+     );
 
   Map<String, dynamic> toJson() {
     return {
-      'EXPORT_COUNTRY': EXPORT_COUNTRY,
-      'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
-      'TRANSIET_COUNTRY': TRANSIET_COUNTRY,
+
       'ANML_SPECIES': ANML_SPECIES,
       'ANML_SEX': ANML_SEX,
-      'ANML_NUMBER': ANML_NUMBER,
+      'ANML_MICROCHIP': ANML_MICROCHIP,
       'ANML_USE': ANML_USE,
-      'ANIMAL_BREED': ANIMAL_BREED,
+
     };
   }
 

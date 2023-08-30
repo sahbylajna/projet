@@ -34,27 +34,8 @@
                                         'importation' => null,
                                       ])
 
-<input type="button" class="btn btn-primary" value=" {{ trans('importations.add') }} "  onclick="addRow()" >
-<div  class="form-group">
 
-<table id="tableau" class=" table-striped ">
-    <thead>
-        <tr>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.EXPORT_COUNTRY') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ORIGIN_COUNTRY') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.TRANSIET_COUNTRY') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SPECIES') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SEX') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_NUMBER') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_USE') }}</th>
-            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANIMAL_BREED') }}</th>
 
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-</div>
 <br><br><br><br>
 
                 <div class="form-group">
@@ -72,110 +53,7 @@
 
 
 
-    <div class="modal w-lg fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" >
-        <div class="modal-dialog " role="document">
-            <div class="modal-content card shade">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group {{ $errors->has('EXPORT_COUNTRY') ? 'has-error' : '' }}">
-                        <label for="EXPORT_COUNTRY" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.EXPORT_COUNTRY') }}</label>
-                        <div class="col-md-10">
-                            @php
-                            $countries =   App\Models\countries::where('active',1)->get();
 
-                            @endphp
-                                    <select name="EXPORT_COUNTRY" id="EXPORT_COUNTRY"  class="form-control">
-                                        @foreach ($countries as $countrie)
-                                        <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                            {!! $errors->first('EXPORT_COUNTRY', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group {{ $errors->has('ORIGIN_COUNTRY') ? 'has-error' : '' }}">
-                        <label for="ORIGIN_COUNTRY" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ORIGIN_COUNTRY') }}</label>
-                        <div class="col-md-10">
-
-                                    <select name="ORIGIN_COUNTRYa" id="ORIGIN_COUNTRYa"  class="form-control">
-                                        @foreach ($countries as $countrie)
-                                        <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
-                                        @endforeach
-                                    </select>
-                            {!! $errors->first('ORIGIN_COUNTRY', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group {{ $errors->has('TRANSIET_COUNTRY') ? 'has-error' : '' }}">
-                        <label for="TRANSIET_COUNTRY" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.TRANSIET_COUNTRY') }}</label>
-                        <div class="col-md-10">
-
-                                    <select name="TRANSIET_COUNTRY" id="TRANSIET_COUNTRY"  class="form-control">
-                                        @foreach ($countries as $countrie)
-                                        <option value="{{ $countrie->name }}">{{ $countrie->name }}</option>
-                                        @endforeach
-                                    </select>
-                            {!! $errors->first('TRANSIET_COUNTRY', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group {{ $errors->has('ANML_SPECIES') ? 'has-error' : '' }}">
-                        <label for="ANML_SPECIES" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SPECIES') }}</label>
-                        <div class="col-md-10">
-                            <input class="form-control" name="ANML_SPECIES" type="text" id="ANML_SPECIES" minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SPECIES__placeholdera') }}">
-                            {!! $errors->first('ANML_SPECIES', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group {{ $errors->has('ANML_SEX') ? 'has-error' : '' }}">
-                        <label for="ANML_SEX" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SEX') }}</label>
-                        <div class="col-md-10">
-                            <input class="form-control" name="ANML_SEX" type="text" id="ANML_SEX"  minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SEX__placeholdera') }}">
-                            {!! $errors->first('ANML_SEX', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group {{ $errors->has('ANML_NUMBER') ? 'has-error' : '' }}">
-                        <label for="ANML_NUMBER" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_NUMBER') }}</label>
-                        <div class="col-md-10">
-                            <input class="form-control" name="ANML_NUMBER" type="number" id="ANML_NUMBER" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_NUMBER__placeholdera') }}">
-                            {!! $errors->first('ANML_NUMBER', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group {{ $errors->has('ANML_USE') ? 'has-error' : '' }}">
-                        <label for="ANML_USE" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_USE') }}</label>
-                        <div class="col-md-10">
-                            <input class="form-control" name="ANML_USE" type="text" id="ANML_USE"  minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_USE__placeholdera') }}">
-                            {!! $errors->first('ANML_USE', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group {{ $errors->has('ANIMAL_BREED') ? 'has-error' : '' }}">
-                        <label for="ANIMAL_BREED" class="col-md-2 control-label">{{ trans('a_n_i_m_a_l__i_n_f_os.ANIMAL_BREED') }}</label>
-                        <div class="col-md-10">
-                            <input class="form-control" name="ANIMAL_BREED" type="text" id="ANIMAL_BREED" minlength="1" placeholdera="{{ trans('a_n_i_m_a_l__i_n_f_os.ANIMAL_BREED__placeholdera') }}">
-                            {!! $errors->first('ANIMAL_BREED', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-
-
-                    <input type="hidden" name="client_id" id="client_id" value="{{ auth()->guard('clientt')->user()->id }}" >
-
-        <input type="button" class="btn outlined f-main" value=" {{ trans('importations.add') }} "  onclick="addRowto()" >
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 {{--
