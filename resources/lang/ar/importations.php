@@ -2,6 +2,7 @@
 
 return [
     'id' => 'Id',
+    'animal' => 'الحيوانات',
     'id__placeholder' => 'Enter id here...',
     'client_id' => 'عميل',
     'client_id__placeholder' => 'Select client',

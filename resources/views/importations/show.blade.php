@@ -79,40 +79,10 @@
             <dd>{{ $importation->EXP_NATIONALITY }}</dd>
             <dt>{{ trans('importations.EXP_PASSPORT_NUM') }}</dt>
             <dd>{{ $importation->EXP_PASSPORT_NUM }}</dd>
+            <dt>{{ trans('importations.animal') }}</dt>
+            <dd>{{ $importation->animal }}</dd>
 
-            <div  class="form-group">
 
-                <table id="tableau" class=" table-striped ">
-                    <thead>
-                        <tr>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.EXPORT_COUNTRY') }}</th>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ORIGIN_COUNTRY') }}</th>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.TRANSIET_COUNTRY') }}</th>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SPECIES') }}</th>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SEX') }}</th>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_NUMBER') }}</th>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_USE') }}</th>
-                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANIMAL_BREED') }}</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ( $importation->animal as $value )
-                            <tr>
-                                <td> {{ $value->EXPORT_COUNTRY }}</td>
-                                <td> {{ $value->ORIGIN_COUNTRY }}</td>
-                                <td> {{ $value->TRANSIET_COUNTRY }}</td>
-                                <td> {{ $value->ANML_SPECIES }}</td>
-                                <td> {{ $value->ANML_SEX }}</td>
-                                <td> {{ $value->ANML_NUMBER }}</td>
-                                <td> {{ $value->ANML_USE }}</td>
-                                <td> {{ $value->ANIMAL_BREED }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                </div>
-                <br>
 
                 @if ($importation->accepted == null)
                 {{-- <form method="POST" action="{!! route('clients.client.refused', $client->id) !!}" accept-charset="UTF-8"> --}}
