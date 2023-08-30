@@ -287,7 +287,7 @@ Future<term?> getterm() async {
         'SHIPPING_DATE': SHIPPING_DATE,
         'EXP_NATIONALITY': EXP_NATIONALITY,
         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-        'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+        'animal': ANIMAL_INFO,
       };
 
       var response = await http.post(url,
@@ -347,7 +347,7 @@ Future<term?> getterm() async {
         'SHIPPING_DATE': SHIPPING_DATE,
         'EXP_NATIONALITY': EXP_NATIONALITY,
         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-        'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+        'animal': ANIMAL_INFO,
       };
 
       var response = await http.post(url,
@@ -404,7 +404,7 @@ Future<term?> getterm() async {
         'SHIPPING_DATE': SHIPPING_DATE,
         'EXP_NATIONALITY': EXP_NATIONALITY,
         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-        'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+        'animal': ANIMAL_INFO,
       };
 
       var response = await http.post(url,

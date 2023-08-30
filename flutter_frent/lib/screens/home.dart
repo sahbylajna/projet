@@ -64,17 +64,16 @@ void _fetchData(BuildContext context) async {
     importations = _count!.importations;
     backs = _count!.backs;
     isLoading = false;
+
     // Close the dialog after a 2-second delay
-  if(_count != null){
-      Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 2), () {
       if (Navigator.of(context, rootNavigator: true).canPop()) {
         Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
         print(_count.toString());
 
       }
     });
-      isLoading = false;
-  }
+    print(_count);
   } catch (e) {
     print('Error: $e');
     // Dismiss the dialog using the original context
@@ -119,7 +118,7 @@ void _fetchData(BuildContext context) async {
           ),
           toolbarHeight: 150, // Set the height of the AppBar
         ),
-    body:  isLoading ?Text('اللجنة المنضمة لسباق الهجن', style: TextStyle(fontSize: 20)):
+    body:
       Center(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

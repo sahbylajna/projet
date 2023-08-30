@@ -79,6 +79,7 @@ class _OutContentState extends State<OutContent>{
   TextEditingController _tap16 = TextEditingController();
   TextEditingController _tap17 = TextEditingController();
   TextEditingController _tap18 = TextEditingController();
+    TextEditingController jsonList = TextEditingController();
 
   bool _validate = false;
   bool _validate1 = false;
@@ -489,31 +490,15 @@ class _OutContentState extends State<OutContent>{
                           height: 10,
                         ),
 
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [_primaryColor, _accentColor], // Start and end colors
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(30), // Rounded corners
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Open a dialog to add a new row
-                              _showAddRowDialog();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.transparent, // Transparent background
-                              onPrimary: Colors.white, // Text color
-                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                              elevation: 0, // No shadow
-                            ),
-                            child: Text(
-                              'إضافة حيوان'.toUpperCase(),
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                       TextFormField(
+                          controller: jsonList,
+
+
+                          decoration: InputDecoration(
+                              errorText: _validate15 ? 'يرجي ادخال الجنسية المصدر صحيح' : null,
+                              label: Text('عدد الحيوانات'),
+                              border: OutlineInputBorder()),
+
                         ),
 
                         const SizedBox(
@@ -592,11 +577,7 @@ class _OutContentState extends State<OutContent>{
     );
   }
   Future<void> _apisend() async {
-    List<Map<String, dynamic>> jsonList = [];
 
-    for (var row in rows) {
-      jsonList.add(row.toJson());
-    }
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -639,7 +620,7 @@ class _OutContentState extends State<OutContent>{
       _tap15.text,
       _tap16.text,
       _tap18.text,
-      jsonList.toString(),
+      jsonList.text,
     ];
 
     bool hasEmptyVariable = false;
