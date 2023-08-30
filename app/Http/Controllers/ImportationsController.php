@@ -193,21 +193,6 @@ class ImportationsController extends Controller
 
           $importation =  importation::create($data);
 
-          foreach ($request->ORIGIN_COUNTRYa as $key => $animale) {
-            $animal = new ANIMAL_INFO();
-            $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa[$key];
-            $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRY[$key];
-            $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRY[$key];
-            $animal->ANML_SPECIES = $request->ANML_SPECIES[$key];
-            $animal->ANML_SEX = $request->ANML_SEX[$key];
-            $animal->ANML_NUMBER = $request->ANML_NUMBER[$key];
-            $animal->ANML_USE = $request->ANML_USE[$key];
-            $animal->ANIMAL_BREED = $request->ANIMAL_BREED[$key];
-            $animal->client_id =  auth()->guard('clientt')->user()->id ;
-            $animal->save();
-            $importation->animal()->attach( $animal->id);
-
-          }
 
 
 
@@ -328,6 +313,7 @@ dd($exception);
             'APPLICANT_TEL' => 'nullable',
             'EXP_NATIONALITY' => 'nullable',
             'EXP_PASSPORT_NUM' => 'nullable',
+            'animal' => 'nullable',
 
 
         ];
