@@ -337,6 +337,7 @@ foreach ($exports as $key => $value) {
         $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
     $d->type=" طلب خروج";
     $d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+    $d->created_at = Carbon::parse($d->created_at)->format('d-m-Y');
     $c->add( $d);
     }
 
@@ -347,6 +348,7 @@ foreach($dd as $d){
     $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
     $d->type=" طلب دخول";
 $d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+$d->created_at = Carbon::parse($d->created_at)->format('d-m-Y');
 $c->add( $d);
 }
 }
@@ -356,7 +358,7 @@ foreach($dd as $d){
     $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
     $d->type=" طلب عودة";
 $d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
-$d->createdat = Carbon::parse($d->created_at)->format('d-m-Y');
+$d->created_at = Carbon::parse($d->created_at)->format('d-m-Y');
 $c->add( $d);
 }
 }
