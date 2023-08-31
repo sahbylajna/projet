@@ -186,7 +186,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
     Text(' ${_list[index].name}'),
     Text(' ${_list[index].type}') ,
     Text(' ${_list[index].message}'),
-    Text(' ${_list[index].createdAt}'),
+    Text(' ${_list[index].date}'),
     // ...
   ],
 ),

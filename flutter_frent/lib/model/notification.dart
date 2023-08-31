@@ -16,6 +16,7 @@ class notification {
   String? updatedAt;
   String? name;
   String? message;
+  String? date;
 
   notification(
       {this.id,
@@ -26,7 +27,8 @@ class notification {
       this.createdAt,
       this.updatedAt,
       this.name,
-      this.message});
+      this.message,
+      this.date});
 
   notification.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,6 +40,7 @@ class notification {
     updatedAt = json['updated_at'];
     name = json['name'];
     message = json['message'];
+    date = json['date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +54,7 @@ class notification {
     data['updated_at'] = this.updatedAt;
     data['name'] = this.name;
     data['message'] = this.message;
+    data['date'] = this.date;
     return data;
   }
 }
