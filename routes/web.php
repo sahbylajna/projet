@@ -14,6 +14,7 @@ use App\Http\Controllers\ImportationsController;
 use App\Http\Controllers\BacksController;
 use App\Http\Controllers\ExportsController;
 use App\Http\Controllers\TermsController;
+use App\Http\Controllers\NotificationsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -485,4 +486,5 @@ Route::group([
     Route::post('/login', [ClientsController::class, 'login'])
          ->name('clients.client.login');
 });
+
 

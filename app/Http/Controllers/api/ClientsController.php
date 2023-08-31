@@ -15,6 +15,7 @@ use App\SMS\Sms;
 use App\Models\export;
 use App\Models\importation;
 use App\Models\back;
+use App\Models\acceptation_demande;
 class ClientsController extends Controller
 {
     public function create_token(Request $request)
@@ -26,13 +27,15 @@ class ClientsController extends Controller
         ]);
 
         $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->first();
-if($user->accepted != '1'){
-    return response()->json([
+if($user){
+    if($user->accepted != '1'){
+        return response()->json([
 
-        'access_token' => '',
-    'error' => 'في إنتظار تفعيل حسابك من قبل ادمن.',
-    'token_type' => ''
-    ]);
+            'access_token' => '',
+        'error' => 'في إنتظار تفعيل حسابك من قبل ادمن.',
+        'token_type' => ''
+        ]);
+    }
 }
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return response()->json([
@@ -315,6 +318,69 @@ if($user->accepted != '1'){
         ]);
 
     }
+
+
+
+public function getnotife(){
+
+    $exports = export::where('client_id',auth()->user()->id)->get();
+    $importations = importation::where('client_id',auth()->user()->id)->get();
+    $backs = back::where('client_id',auth()->user()->id)->get();
+    $c = collect();
+
+
+foreach ($exports as $key => $value) {
+    $dd = acceptation_demande::where('demande_id', $value->id)->get();
+    foreach($dd as $d){
+        $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
+    $d->type=" طلب خروج";
+    $d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+    $c->add( $d);
+    }
+
+}
+foreach ($importations as $key => $value) {
+    $dd = acceptation_demande::where('demande_id', $value->id)->get();
+foreach($dd as $d){
+    $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
+    $d->type=" طلب دخول";
+$d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+$c->add( $d);
+}
+}
+foreach ($backs as $key => $value) {
+    $dd = acceptation_demande::where('demande_id', $value->id)->get();
+foreach($dd as $d){
+    $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
+    $d->type=" طلب عودة";
+$d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+$c->add( $d);
+}
+}
+
+return response()->json(
+
+    $c
+
+
+);
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
     public function getlist(){
         $exports = export::where('client_id',auth()->user()->id)->get();
         $importations = importation::where('client_id',auth()->user()->id)->get();
@@ -346,4 +412,5 @@ foreach ($backs as $key => $value) {
         );
 
     }
+
 }

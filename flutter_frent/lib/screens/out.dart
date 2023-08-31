@@ -99,7 +99,7 @@ class _OutContentState extends State<OutContent>{
   final GlobalKey<State> _statefulBuilderKey = GlobalKey<State>();
   DateTime dateTime0 = DateTime.now();
   DateTime dateTime1 = DateTime.now();
-  List<RowModel> rows = [];
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -505,31 +505,7 @@ class _OutContentState extends State<OutContent>{
                           height: 2,
                         ),
 
-                        Padding(
-                            padding: EdgeInsets.only(left: 40.0, right: 40.0,top: 2.0,bottom: 2.0), // Adjust the padding values as needed
-                            child:
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: rows.length,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  elevation: 4, // You can adjust the elevation for the shadow effect
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0), // Radius of 5 for rounded corners
-                                  ),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      // color: Colors.blue, // Blue background color
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    child: ListTile(
-                                      title: Text('رقم الحيوان: ${rows[index].ANML_MICROCHIP}'),
-                                    ),
-                                  ),
-                                );
-                              },
-                            )
-                        ),
+
                         const SizedBox(
                           height: 10,
                         ),
@@ -740,138 +716,11 @@ class _OutContentState extends State<OutContent>{
   }
 
 
-  void _showAddRowDialog() {
-
-
-    String ANML_SPECIES = '';
-    String ANML_SEX = '';
-    String ANML_MICROCHIP = '';
-    String ANML_USE = '';
-
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return  StatefulBuilder(
-
-            builder: (BuildContext context,  setStateInsideDialog) {
-              return AlertDialog(
-                title: Text('أضف حيوان'),
-                content: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-
-                      TextField(
-                        decoration: InputDecoration(labelText: 'نوع  الحيوان'),
-                        textDirection: TextDirection.rtl,
-                        onChanged: (value) {
-                          ANML_SPECIES = value;
-                        },
-                      ),
-                      TextField(
-                        decoration: InputDecoration(labelText: 'جنس الحيوان'),
-                        // keyboardType: TextInputType.number,
-                        textDirection: TextDirection.rtl,
-                        onChanged: (value) {
-                          ANML_SEX = value;
-                        },
-                      ),
-
-                      TextField(
-                        decoration: InputDecoration(labelText: 'رقم  الحيوان'),
-                        keyboardType: TextInputType.number,
-                        textDirection: TextDirection.rtl,
-                        onChanged: (value) {
-                          ANML_MICROCHIP = value;
-                        },
-                      ),
-
-                      TextField(
-                        decoration: InputDecoration(labelText: 'استخدام  الحيوان'),
-                        //  keyboardType: TextInputType.number,
-                        textDirection: TextDirection.rtl,
-                        onChanged: (value) {
-                          ANML_USE = value;
-                        },
-                      ),
-
-
-                    ],
-                  ),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('إلغاء'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        print(rows.length);
-                        if (
-                            ANML_SPECIES != '' &&
-                            ANML_SEX != '' &&
-                            ANML_MICROCHIP != '' &&
-                            ANML_USE != '') {
-                          rows.add(RowModel(
-
-                            ANML_SPECIES,
-                            ANML_SEX,
-                            ANML_MICROCHIP,
-                            ANML_USE,
-
-                          ));
-                          Navigator.of(context).pop();
-                        }
-
-                      });
-
-
-                    },
-                    child: Text('أضاف'),
-                  ),
-                ],
-              );
-
-            },
-          );}
-    );
-
-  }
-}
-
-
-
-
-
-class RowModel {
-
-
-  final String ANML_SPECIES;
-
-  final String ANML_SEX;
-
-  final String ANML_MICROCHIP;
-
-  final String ANML_USE;
-
-
-  RowModel(
-      this.ANML_SPECIES, this.ANML_SEX, this.ANML_MICROCHIP, this.ANML_USE,
-     );
-
-  Map<String, dynamic> toJson() {
-    return {
-
-      'ANML_SPECIES': ANML_SPECIES,
-      'ANML_SEX': ANML_SEX,
-      'ANML_MICROCHIP': ANML_MICROCHIP,
-      'ANML_USE': ANML_USE,
-
-    };
-  }
 
 }
+
+
+
+
+
+

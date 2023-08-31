@@ -381,36 +381,44 @@ $headers = [
     'Accept'        => 'application/json',
 ];
 
-//dd($data,$ANIMALINFOj);
 
-try{
-    $client2 = new ClientHTTP();
-    $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
-        'headers' => $headers,
-        'form_params' => [
-            'DATA' => $data,
+$acceptation = new acceptation_demande();
+$acceptation->User_id = Auth()->user()->id;
+$acceptation->demande_id = $importation->id;
+$acceptation->type = 'importation';
+$acceptation->commenter = 'accepter';
+$acceptation->save();
 
-            'files' => $importation->files,
-        ],
+// try{
+//     // $client2 = new ClientHTTP();
+//     // $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
+//     //     'headers' => $headers,
+//     //     'form_params' => [
+//     //         'DATA' => $data,
 
-    ]);
-    $acceptation = new acceptation_demande();
-    $acceptation->User_id = Auth()->user()->id;
-    $acceptation->demande_id = $importation->id;
-    $acceptation->type = 'importation';
-    $acceptation->commenter = 'accepter';
-    $acceptation->save();
-}catch(Exception $exception) {
-    dd($exception);
-}
+//     //         'files' => $importation->files,
+//     //     ],
+
+//     // ]);
+//     $acceptation = new acceptation_demande();
+//     $acceptation->User_id = Auth()->user()->id;
+//     $acceptation->demande_id = $importation->id;
+//     $acceptation->type = 'importation';
+//     $acceptation->commenter = 'accepter';
+//     $acceptation->save();
+
+
+// }catch(Exception $exception) {
+//     dd($exception);
+// }
 
      //
 
 
 
-       $response = (string) $res->getBody();
-       $response =json_decode($response);
-       dd($res->getBody());
+    //    $response = (string) $res->getBody();
+    //    $response =json_decode($response);
+    //    dd($res->getBody());
 
 
 

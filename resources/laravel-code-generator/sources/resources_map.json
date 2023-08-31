@@ -35,5 +35,9 @@
     {
         "model-name": "term",
         "resource-file": "terms.json"
+    },
+    {
+        "model-name": "notification",
+        "resource-file": "notifications.json"
     }
 ]
