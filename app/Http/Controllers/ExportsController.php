@@ -400,15 +400,15 @@ class ExportsController extends Controller
 
 
  try{
-     $client2 = new ClientHTTP();
-     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHCC_SUBMIT', [
-         'form_params' => [
-             'DATA' => $data,
-             'ANIMAL_INFO' =>$ANIMALINFOj,
-             'files' => $export->files,
-         ],
-         'headers' => $headers
-     ]);
+    //  $client2 = new ClientHTTP();
+    //  $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHCC_SUBMIT', [
+    //      'form_params' => [
+    //          'DATA' => $data,
+
+    //          'files' => $export->files,
+    //      ],
+    //      'headers' => $headers
+    //  ]);
 
 
      $acceptation = new acceptation_demande();

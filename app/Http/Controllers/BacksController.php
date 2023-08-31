@@ -399,15 +399,15 @@ $headers = [
 
 
 try{
-    $client2 = new ClientHTTP();
-    $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT_AFTER_RACING', [
-        'form_params' => [
-            'DATA' => $data,
+    // $client2 = new ClientHTTP();
+    // $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT_AFTER_RACING', [
+    //     'form_params' => [
+    //         'DATA' => $data,
 
-            'files' => $back->files,
-        ],
-        'headers' => $headers
-    ]);
+    //         'files' => $back->files,
+    //     ],
+    //     'headers' => $headers
+    // ]);
 
 
     $acceptation = new acceptation_demande();
