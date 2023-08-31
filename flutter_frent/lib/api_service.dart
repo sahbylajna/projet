@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:tasareeh/model/Demande.dart';
 import 'package:tasareeh/model/count.dart';
+import 'package:tasareeh/model/notification.dart';
 import 'package:tasareeh/model/success.dart';
 import 'package:tasareeh/model/token.dart';
 import 'package:tasareeh/model/user.dart';
@@ -258,6 +259,26 @@ Future<term?> getterm() async {
     return null;
   }
 
+
+  Future<List<notification>?> getnotification() async {
+    try {
+         final user = await SharedPreferences.getInstance();
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.getnotification);
+      var response = await http.get(url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+       'Authorization' : 'Bearer ${user.getString('token')}',
+    });
+
+      if (response.statusCode == 200) {
+        List<notification> model = notificationFromJson(response.body);
+        return model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 
 
 

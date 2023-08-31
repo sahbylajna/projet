@@ -13,8 +13,9 @@ class ApiConstants {
   static String confiramtion = '/confiramtion';
     static String getcount = '/getcount';
   static String getlist = '/getlist';
-
+  static String getnotification = '/getnotife';
      static String importations = '/importations';
   static String backs = '/backs';
   static String exports = '/exports';
+
 }

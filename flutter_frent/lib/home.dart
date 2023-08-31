@@ -62,9 +62,9 @@ Widget? _child;
                 backgroundColor: _accentColor,
                 extras: {"label": "account"}),
             FluidNavBarIcon(
-                icon: Icons.settings,
+                icon: Icons.notifications,
                 backgroundColor: _accentColor,
-                extras: {"label": "settings"}),
+                extras: {"label": "notifications"}),
           ],
           onChange: _handleNavigationChange,
           style: FluidNavBarStyle(
