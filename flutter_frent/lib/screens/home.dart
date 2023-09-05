@@ -18,7 +18,7 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   count? _count;
-  String importations = '0';
+  String importations = '-1';
   String exports = '0';
   String backs = '0';
   // Remove the GlobalKey
@@ -73,7 +73,13 @@ void _fetchData(BuildContext context) async {
 
       }
     });
-    print(_count);
+    print(importations);
+       print(  "here");
+         if (Navigator.of(context, rootNavigator: true).canPop()) {
+        Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+        print(_count.toString());
+
+      }
   } catch (e) {
     print('Error: $e');
     // Dismiss the dialog using the original context
@@ -118,7 +124,16 @@ void _fetchData(BuildContext context) async {
           ),
           toolbarHeight: 150, // Set the height of the AppBar
         ),
-    body:
+    body:importations == "-1"?
+Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+
+            ],
+          )
+
+    :
       Center(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
