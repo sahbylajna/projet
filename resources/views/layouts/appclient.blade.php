@@ -56,9 +56,9 @@
         <header class="bmd-layout-header ">
             <div class="navbar navbar-light bg-faded animate__animated animate__fadeInDown">
 
-                {{-- <li class="side a-collapse short m-2 pr-1 pl-1 ">
+                <li class="side a-collapse short m-2 pr-1 pl-1 ">
                     <a style="    color: #6c757d;" href="{{ route('client.home') }}" class="side-item  {{'client/home' == request()->path() ? 'selected' : ''}} "><i class="fas fa-tachometer-alt mr-1"></i>لوحة القيادة</a>
-                </li> --}}
+                </li>
                 <li class="side a-collapse short m-2 pr-1 pl-1 ">
                     <a style="    color: #6c757d;" href="{{ route('importations.client.index') }}" class="side-item {{'client/importations/create' == request()->path() ? 'selected' : ''}} {{'client/importations' == request()->path() ? 'selected' : ''}}"><i class="fas fa-language  mr-1"></i> {{ trans('importations.model_plural') }}</a>
                 </li>
