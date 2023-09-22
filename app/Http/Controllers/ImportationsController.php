@@ -470,7 +470,7 @@ try{
 
 $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
     'headers' => $headers, // Add your headers
-    'multipart' => [
+    'form_params' => [
         [
             'name' => 'DATA',
             'contents' => $data,
