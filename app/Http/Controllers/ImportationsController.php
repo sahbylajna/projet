@@ -449,7 +449,7 @@ $headers = [
 // $acceptation->type = 'importation';
 // $acceptation->commenter = 'accepter';
 // $acceptation->save();
-dd(Storage::get($importation->files));
+//dd(Storage::get($importation->files));
 $file = file_get_contents(asset($importation->files));
 //dd($ANIMALINFOj,$data,asset($importation->files),$file);
 try{
@@ -459,7 +459,7 @@ try{
         'form_params' => [
             'DATA' => $data,
             'ANIMAL_INFO' =>$ANIMALINFOj,
-            'files' => $file,
+            'files' => Storage::get($importation->files),
         ],
 
     ]);
