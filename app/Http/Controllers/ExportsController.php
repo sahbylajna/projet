@@ -376,19 +376,16 @@ class ExportsController extends Controller
  $data['EUSER_QID'] = $export->EUSER_QID;
  $data['EXP_NAME'] = $export->EXP_NAME;
  $data['EXP_TEL'] = $export->EXP_TEL;
- $data['EXP_QID'] = $export->EXP_QID;
  $data['EXP_FAX'] = $export->EXP_FAX;
  $data['EXP_COUNTRY'] = $export->EXP_COUNTRY;
  $data['IMP_NAME'] = $export->IMP_NAME;
- $data['IMP_ADDRESS'] = $export->IMP_ADDRESS;
  $data['IMP_FAX'] = $export->IMP_FAX;
  $data['IMP_TEL'] = $export->IMP_TEL;
- $data['IMP_POBOX'] = $export->IMP_POBOX;
  $data['IMP_COUNTRY'] = $export->IMP_COUNTRY;
  $data['ORIGIN_COUNTRY'] = $export->ORIGIN_COUNTRY;
  $data['SHIPPING_PLACE'] = $export->SHIPPING_PLACE;
- $data['ENTERY_PORT'] = $export->ENTERY_PORT;
- $data['EXPECTED_ARRIVAL_DATE'] = $export->EXPECTED_ARRIVAL_DATE;
+ $data['TRANSPORT'] = $export->TRANSPORT;
+
 
  $data['SHIPPING_DATE'] = $export->SHIPPING_DATE;
  $data['APPLICANT_NAME'] = $export->APPLICANT_NAME;
@@ -396,6 +393,7 @@ class ExportsController extends Controller
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
  $data = json_encode($data);
+
  $ANIMALINFO = [];
 
  foreach ($export->animal as $key => $value) {
@@ -425,6 +423,8 @@ class ExportsController extends Controller
 
  try{
     $pdfContents = file_get_contents(asset($export->files));
+
+    dd($data,$ANIMALINFOj);
      $client2 = new ClientHTTP();
      $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT', [
 
