@@ -180,7 +180,8 @@ class BacksController extends Controller
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
             'accepted' => 'string|min:1|nullable',
             'reson' => 'string|min:1|nullable',
-            'ANIMAL_INFO' => 'required'
+            'ANIMAL_INFO' => 'required',
+            'files' => 'required',
 
         ];
 
