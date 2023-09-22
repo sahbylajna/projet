@@ -448,7 +448,7 @@ $headers = [
 // $acceptation->commenter = 'accepter';
 // $acceptation->save();
 $file = fopen(asset($importation->files), 'r');
-dd($file );
+
 try{
     $client2 = new ClientHTTP();
     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
@@ -466,12 +466,12 @@ try{
     $acceptation->type = 'importation';
     $acceptation->commenter = '1accepter';
     $acceptation->save();
-dd(asset($importation->files) );
+
 
 }catch(Exception $exception) {
     dd($exception);
 }
-dd(asset($importation->files) );
+
      //
 
 
