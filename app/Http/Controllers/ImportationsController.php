@@ -488,8 +488,10 @@ $response = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/a
 ]);
 
 $responseBody = $response->getBody()->getContents();
+      $response = (string) $res->getBody();
+       $response =json_decode($response);
 
-dd($responseBody );
+$importation->CER_SERIAL = $response['CER_SERIAL'];
     $acceptation = new acceptation_demande();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
@@ -497,6 +499,7 @@ dd($responseBody );
     $acceptation->commenter = '1accepter';
     $acceptation->save();
 
+    dd($response);
 
 }catch(Exception $exception) {
     dd(asset($importation->files),$exception);
@@ -506,9 +509,7 @@ dd($responseBody );
 
 
 
-    //    $response = (string) $res->getBody();
-    //    $response =json_decode($response);
-       dd($res->getBody());
+
 
 
 
