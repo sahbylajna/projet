@@ -344,7 +344,7 @@ class ImportationsController extends Controller
             'APPLICANT_TEL' => 'nullable',
             'EXP_NATIONALITY' => 'nullable',
             'EXP_PASSPORT_NUM' => 'nullable',
-            'files' => 'nullable',
+            'files' => 'required',
 
 
         ];
@@ -450,9 +450,9 @@ $headers = [
 // $acceptation->commenter = 'accepter';
 // $acceptation->save();
 //dd(Storage::get($importation->files));
-$file = fopen(asset($importation->files),'r');
 
-$filePath = public_path($importation->files); // Adjust the file path
+
+// Adjust the file path
 $pdfContents = file_get_contents(asset($importation->files));
 //dd($ANIMALINFOj,$data,asset($importation->files),$file);
 try{
