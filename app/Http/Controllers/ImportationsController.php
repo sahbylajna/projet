@@ -356,7 +356,7 @@ class ImportationsController extends Controller
         }
 
 
-        dd( $data);
+       // dd( $data);
 
         return $data;
     }
@@ -366,8 +366,7 @@ class ImportationsController extends Controller
 
         $path = config('laravel-code-generator.files_upload_path', 'uploads');
         $saved = $file->store('pdf',['disk' => 'public_uploads']);
-        $imageName = Str::random(12) . '.pdf';
-        $saveda =  Storage::disk('local')->put('pdf/'.$imageName, $file);
+
         return  $saved;
     }
     public function accept($id)
