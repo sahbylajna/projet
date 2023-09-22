@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
 use App\Models\ApiUser;
+use Illuminate\Support\Facades\Storage;
 class ImportationsController extends Controller
 {
 
@@ -360,17 +361,13 @@ class ImportationsController extends Controller
     }
     protected function moveFile($file)
     {
-try {
-    //code...
-    $path = config('laravel-code-generator.files_upload_path', 'uploads');
-    $saved = $file->store('pdf',['disk' => 'public_uploads']);
-} catch (\Throwable $th) {
-    //throw $th;
-    dd( $th);
-}
 
 
-
+        $path = config('laravel-code-generator.files_upload_path', 'uploads');
+        $saved = $file->store('pdf',['disk' => 'public_uploads']);
+        $imageName = Str::random(12) . '.pdf';
+        $saveda =  Storage::disk('local')->put('images/'.$imageName, $file);
+dd( $saveda);
         return  $saved;
     }
     public function accept($id)
