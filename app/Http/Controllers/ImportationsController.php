@@ -492,7 +492,7 @@ $resp = json_decode($responseBody);
 
 
 $importation->CER_SERIAL = $resp->CER_SERIAL;
-$importation->accepted = '1';
+$importation->accepted = 1;
 $importation->save();
     $acceptation = new acceptation_demande();
     $acceptation->User_id = Auth()->user()->id;
