@@ -468,7 +468,7 @@ try{
     // ]);
     $client2 = new ClientHTTP();
 
-$response = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
+$re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
     'headers' => $headers, // Add your headers
     'multipart' => [
         [
@@ -487,11 +487,10 @@ $response = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/a
     ],
 ]);
 
-$responseBody = $response->getBody()->getContents();
-      $response = (string) $res->getBody();
-       $response =json_decode($response);
+$responseBody = $re->getBody()->getContents();
 
-       dd($response);
+
+       dd(json_decode($responseBody));
 $importation->CER_SERIAL = $response['CER_SERIAL'];
     $acceptation = new acceptation_demande();
     $acceptation->User_id = Auth()->user()->id;
