@@ -450,7 +450,7 @@ $headers = [
 // $acceptation->commenter = 'accepter';
 // $acceptation->save();
 $file = file_get_contents(asset($importation->files));
-dd($ANIMALINFOj,$data,asset($importation->files),$file);
+//dd($ANIMALINFOj,$data,asset($importation->files),$file);
 try{
     $client2 = new ClientHTTP();
     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
