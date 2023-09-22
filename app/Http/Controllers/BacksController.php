@@ -361,7 +361,7 @@ dd($exception);
 
 $data['CER_TYPE'] = $back->CER_TYPE;
 $data['CER_LANG'] = $back->CER_LANG;
-$data['COMP_ID'] = $back->COMP_ID;
+$data['COMP_ID'] =(string) $back->COMP_ID;
 $data['EUSER_QID'] = $back->EUSER_QID;
 $data['EXP_NAME'] = $back->EXP_NAME;
 $data['EXP_TEL'] = $back->EXP_TEL;

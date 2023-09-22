@@ -379,6 +379,7 @@ class ExportsController extends Controller
  $data['EXP_FAX'] = $export->EXP_FAX;
  $data['EXP_COUNTRY'] = $export->EXP_COUNTRY;
  $data['IMP_NAME'] = $export->IMP_NAME;
+ $data['IMP_QID'] = $export->IMP_QID;
  $data['IMP_FAX'] = $export->IMP_FAX;
  $data['IMP_TEL'] = $export->IMP_TEL;
  $data['IMP_COUNTRY'] = $export->IMP_COUNTRY;
@@ -424,7 +425,7 @@ class ExportsController extends Controller
  try{
     $pdfContents = file_get_contents(asset($export->files));
 
-    dd($data,$ANIMALINFOj);
+
      $client2 = new ClientHTTP();
      $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT', [
 
