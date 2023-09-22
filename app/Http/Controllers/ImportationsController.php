@@ -451,7 +451,7 @@ $file = fopen(asset($importation->files), 'r');
 
 try{
     $client2 = new ClientHTTP();
-    $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
+    $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
         'headers' => $headers,
         'form_params' => [
             'DATA' => $data,
