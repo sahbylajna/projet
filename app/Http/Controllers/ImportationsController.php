@@ -489,7 +489,7 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
 
 $responseBody = $re->getBody()->getContents();
 $resp = json_decode($responseBody);
-dd($resp );
+
 
 $importation->CER_SERIAL = $resp->CER_SERIAL;
 $importation->accepted = 1;
