@@ -450,7 +450,7 @@ $headers = [
 // $acceptation->commenter = 'accepter';
 // $acceptation->save();
 //dd(Storage::get($importation->files));
-$file = file_get_contents(asset($importation->files));
+$file = fopen(asset($importation->files),'r');
 //dd($ANIMALINFOj,$data,asset($importation->files),$file);
 try{
     $client2 = new ClientHTTP();
@@ -459,7 +459,7 @@ try{
         'form_params' => [
             'DATA' => $data,
             'ANIMAL_INFO' =>$ANIMALINFOj,
-            'files' => Storage::get($importation->files),
+            'files' => $file ,
         ],
 
     ]);
