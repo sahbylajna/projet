@@ -356,6 +356,7 @@ class ImportationsController extends Controller
         }
 
 
+        dd( $data);
 
         return $data;
     }
@@ -367,7 +368,6 @@ class ImportationsController extends Controller
         $saved = $file->store('pdf',['disk' => 'public_uploads']);
         $imageName = Str::random(12) . '.pdf';
         $saveda =  Storage::disk('local')->put('pdf/'.$imageName, $file);
-dd( $saveda);
         return  $saved;
     }
     public function accept($id)
