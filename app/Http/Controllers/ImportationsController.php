@@ -451,18 +451,45 @@ $headers = [
 // $acceptation->save();
 //dd(Storage::get($importation->files));
 $file = fopen(asset($importation->files),'r');
+
+$filePath = public_path($importation->files); // Adjust the file path
+$pdfContents = file_get_contents(asset($importation->files));
 //dd($ANIMALINFOj,$data,asset($importation->files),$file);
 try{
-    $client2 = new ClientHTTP();
-    $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
-        'headers' => $headers,
-        'form_params' => [
-            'DATA' => $data,
-            'ANIMAL_INFO' =>$ANIMALINFOj,
-            'files' => $file ,
-        ],
+    // $client2 = new ClientHTTP();
+    // $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
+    //     'headers' => $headers,
+    //     'form_params' => [
+    //         'DATA' => $data,
+    //         'ANIMAL_INFO' =>$ANIMALINFOj,
+    //         'files' => $file ,
+    //     ],
 
-    ]);
+    // ]);
+    $client = new Client();
+
+$response = $client->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
+    'headers' => $headers, // Add your headers
+    'multipart' => [
+        [
+            'name' => 'DATA',
+            'contents' => $data,
+        ],
+        [
+            'name' => 'ANIMAL_INFO',
+            'contents' => $ANIMALINFOj,
+        ],
+        [
+            'name' => 'files',
+            'contents' => $pdfContents, // PDF file contents
+            'filename' => 'test.pdf', // Adjust the filename
+        ],
+    ],
+]);
+
+$responseBody = $response->getBody()->getContents();
+
+dd($responseBody );
     $acceptation = new acceptation_demande();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
@@ -479,8 +506,8 @@ try{
 
 
 
-       $response = (string) $res->getBody();
-       $response =json_decode($response);
+    //    $response = (string) $res->getBody();
+    //    $response =json_decode($response);
        dd($res->getBody());
 
 
