@@ -20,7 +20,7 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>{{ trans('exports.client_id') }}</dt>
-            <dd>{{ optional($export->client)->created_at }}</dd>
+            <dd>{{ optional($export->client)->name }}</dd>
             <dt>{{ trans('exports.CER_TYPE') }}</dt>
             <dd>{{ $export->CER_TYPE }}</dd>
             <dt>{{ trans('exports.CER_LANG') }}</dt>
