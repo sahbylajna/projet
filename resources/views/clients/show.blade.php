@@ -49,6 +49,7 @@
             <dd>{{ $client->email }}</dd>
             <dt>{{ trans('clients.ud') }}</dt>
             <dd>{{ $client->ud }}</dd>
+            <dd>{{ $client->code }}</dd>
             <dt>{{ trans('clients.photo_ud_frent') }}</dt>
             <dd> <img style="    width: 300px;" src="{{ asset($client->photo_ud_frent) }}" alt=""> </dd>
             <dt>{{ trans('clients.photo_ud_back') }}</dt>

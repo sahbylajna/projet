@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('SET SESSION sql_require_primary_key=0');
+      //  DB::statement('SET SESSION sql_require_primary_key=0');
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
-        DB::statement('SET SESSION sql_require_primary_key=1');
+      //  DB::statement('SET SESSION sql_require_primary_key=1');
     }
 
     /**
