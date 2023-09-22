@@ -175,11 +175,10 @@ class ExportsController extends Controller
             'APPLICANT_NAME' => 'string|min:1',
             'APPLICANT_TEL' => 'string|min:1',
             'EXP_NATIONALITY' => 'string|min:1',
-            'EXP_PASSPORT_NUM' => 'string|min:1',
-            'accepted' => 'string|min:1',
-            'reson' => 'string|min:1',
+            'EXP_PASSPORT_NUM' => 'nullable|string|min:1',
+            'files' => 'required',
 
-            'ANIMAL_INFO' => 'required'
+
         ];
 
         $data = $request->validate($rules);
@@ -192,7 +191,15 @@ class ExportsController extends Controller
 
         return $data;
     }
+    protected function moveFile($file)
+    {
 
+
+        $path = config('laravel-code-generator.files_upload_path', 'uploads');
+        $saved = $file->store('pdf',['disk' => 'public_uploads']);
+
+        return  $saved;
+    }
     /**
      * Get the request's data from the request.
      *
@@ -246,9 +253,9 @@ class ExportsController extends Controller
 
              $animal->ANML_SPECIES = $request->ANML_SPECIES[$key];
              $animal->ANML_SEX = $request->ANML_SEX[$key];
-             $animal->ANML_NUMBER = $request->ANML_MICROCHIP[$key];
+             $animal->ANML_NUMBER = $request->ANML_NUMBER[$key];
              $animal->ANML_USE = $request->ANML_USE[$key];
-
+             $animal->ANIMAL_BREED = $request->ANML_MICROCHIP[$key];
              $animal->client_id =  auth()->guard('clientt')->user()->id ;
              $animal->save();
              $export->animal()->attach( $animal->id);
@@ -394,10 +401,11 @@ class ExportsController extends Controller
  foreach ($export->animal as $key => $value) {
 
 
-     $data1['ANML_SPECIES'] = $value->EUSER_QID;
-     $data1['ANML_SEX'] = $value->ANML_SEX;
-     $data1['ANML_MICROCHIP'] = $value->ANML_MICROCHIP;
-     $data1['ANML_USE'] = $value->ANML_USE;
+    $data1['ANML_SPECIES'] = $value->ANML_SPECIES;
+    $data1['ANML_SEX'] = $value->ANML_SEX;
+    $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
+    $data1['ANML_USE'] = $value->ANML_USE;
+    $data1['ANML_MICROCHIP'] = $value->ANIMAL_BREED;
 
      $ANIMALINFO[$key] = $data1;
 
@@ -416,31 +424,44 @@ class ExportsController extends Controller
 
 
  try{
+    $pdfContents = file_get_contents(asset($export->files));
      $client2 = new ClientHTTP();
-     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHCC_SUBMIT', [
-         'form_params' => [
-             'DATA' => $data,
-             'ANIMAL_INFO' =>$ANIMALINFOj,
+     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT_AFTER_RACING', [
 
-             'files' => $export->files,
-         ],
-         'headers' => $headers
+         'headers' => $headers,
+         'multipart' => [
+            [
+                'name' => 'DATA',
+                'contents' => $data,
+            ],
+            [
+                'name' => 'ANIMAL_INFO',
+                'contents' => $ANIMALINFOj,
+            ],
+            [
+                'name' => 'files',
+                'contents' => $pdfContents, // PDF file contents
+                'filename' => 'test.pdf', // Adjust the filename
+            ],
+        ],
      ]);
+     $responseBody = $res->getBody()->getContents();
+     $resp = json_decode($responseBody);
 
+     $export->CER_SERIAL = $resp->CER_SERIAL;
+     $export->accepted = 1;
+     $export->save();
 
      $acceptation = new acceptation_demande();
      $acceptation->User_id = Auth()->user()->id;
      $acceptation->demande_id = $export->id;
-     $acceptation->type = 'importation';
+     $acceptation->type = 'export';
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
  dd($exception);
  }
 
-        dd($res->getBody());
-        $response = (string) $res->getBody();
-        $response =json_decode($response);
 
 
 

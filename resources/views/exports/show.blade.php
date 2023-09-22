@@ -64,7 +64,34 @@
             <dt>{{ trans('exports.EXP_PASSPORT_NUM') }}</dt>
             <dd>{{ $export->EXP_PASSPORT_NUM }}</dd>
             <dt>{{ trans('importations.animal') }}</dt>
-            <dd>{{ $export->animal }}</dd>
+            <div  class="form-group">
+
+                <table id="tableau" class=" table-striped ">
+                    <thead>
+                        <tr>
+
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SPECIES') }}</th>
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_SEX') }}</th>
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_NUMBER') }}</th>
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANML_USE') }}</th>
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ANIMAL_BREED') }}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ( $export->animal as $value )
+                            <tr>
+
+                                <td> {{ $value->ANML_SPECIES }}</td>
+                                <td> {{ $value->ANML_SEX }}</td>
+                                <td> {{ $value->ANML_NUMBER }}</td>
+                                <td> {{ $value->ANML_USE }}</td>
+                                <td> {{ $value->ANIMAL_BREED }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
 
                 @if ($export->accepted == null)
                 {{-- <form method="POST" action="{!! route('clients.client.refused', $client->id) !!}" accept-charset="UTF-8"> --}}

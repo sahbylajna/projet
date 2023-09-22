@@ -15,7 +15,7 @@ return [
     'ANML_NUMBER__placeholder' => 'أدخل رقم الحيوان هنا ...',
     'ANML_USE' => 'الحيوان USE',
     'ANML_USE__placeholder' => 'Enter الحيوان u s e here...',
-    'ANIMAL_BREED' => 'مربي الحيوان',
+    'ANIMAL_BREED' => 'رقاقة الحيوان',
     'ANIMAL_BREED__placeholder' => 'مربي الحيوان',
     'client_id' => 'Client',
     'client_id__placeholder' => 'Select client',
