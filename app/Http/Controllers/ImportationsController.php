@@ -466,9 +466,9 @@ try{
     //     ],
 
     // ]);
-    $client = new Client();
+    $client2 = new ClientHTTP();
 
-$response = $client->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
+$response = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
     'headers' => $headers, // Add your headers
     'multipart' => [
         [
