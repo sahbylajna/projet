@@ -424,7 +424,7 @@ foreach ($importation->animal as $key => $value) {
     $data1['ANML_SEX'] = $value->ANML_SEX;
     $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
     $data1['ANML_USE'] = $value->ANML_USE;
-    $data1['ANIMAL_BREED'] = $value->ANIMAL_BREED;
+    $data1['ANML_MICROCHIP'] = $value->ANIMAL_BREED;
     $ANIMALINFO[$key] = $data1;
 
 
