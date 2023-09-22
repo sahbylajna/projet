@@ -491,6 +491,7 @@ $responseBody = $response->getBody()->getContents();
       $response = (string) $res->getBody();
        $response =json_decode($response);
 
+       dd($response);
 $importation->CER_SERIAL = $response['CER_SERIAL'];
     $acceptation = new acceptation_demande();
     $acceptation->User_id = Auth()->user()->id;
@@ -499,7 +500,6 @@ $importation->CER_SERIAL = $response['CER_SERIAL'];
     $acceptation->commenter = '1accepter';
     $acceptation->save();
 
-    dd($response);
 
 }catch(Exception $exception) {
     dd(asset($importation->files),$exception);
