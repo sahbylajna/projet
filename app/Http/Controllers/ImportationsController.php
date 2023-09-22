@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Str;
 use App\Models\Client;
 use App\Models\importation;
 use App\Models\ANIMAL_INFO;
