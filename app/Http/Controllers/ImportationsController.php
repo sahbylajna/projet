@@ -488,9 +488,9 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
 ]);
 
 $responseBody = $re->getBody()->getContents();
+$resp = json_decode($responseBody);
 
-
-       dd(json_decode($responseBody));
+       dd($resp->CER_SERIAL);
 $importation->CER_SERIAL = $response['CER_SERIAL'];
     $acceptation = new acceptation_demande();
     $acceptation->User_id = Auth()->user()->id;
