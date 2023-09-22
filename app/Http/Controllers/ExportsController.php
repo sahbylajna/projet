@@ -426,7 +426,7 @@ class ExportsController extends Controller
  try{
     $pdfContents = file_get_contents(asset($export->files));
      $client2 = new ClientHTTP();
-     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT_AFTER_RACING', [
+     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT', [
 
          'headers' => $headers,
          'multipart' => [
