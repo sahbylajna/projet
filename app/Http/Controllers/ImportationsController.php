@@ -472,7 +472,7 @@ try{
 
 
 }catch(Exception $exception) {
-    dd($exception);
+    dd(asset($importation->files),$exception);
 }
 
      //
