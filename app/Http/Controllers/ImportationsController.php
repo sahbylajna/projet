@@ -360,13 +360,11 @@ class ImportationsController extends Controller
     }
     protected function moveFile($file)
     {
-        if (!$file->isValid()) {
-            return '';
-        }
+
 
         $path = config('laravel-code-generator.files_upload_path', 'uploads');
         $saved = $file->store('pdf',['disk' => 'public_uploads']);
-
+dd($saved);
         return  $saved;
     }
     public function accept($id)
