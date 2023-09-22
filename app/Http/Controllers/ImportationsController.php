@@ -470,7 +470,7 @@ try{
 
 $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
     'headers' => $headers, // Add your headers
-    'form_params' => [
+    'multipart' => [
         [
             'name' => 'DATA',
             'contents' => $data,
@@ -503,7 +503,7 @@ $importation->save();
 
 
 }catch(Exception $exception) {
-    dd(asset($importation->files),$exception);
+    dd($exception->getMessage());
 }
 
      //
