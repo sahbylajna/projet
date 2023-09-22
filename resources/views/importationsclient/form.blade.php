@@ -1,7 +1,7 @@
 
 <input type="hidden" name="client_id" value="{{ auth()->guard('clientt')->user()->id }}">
 
-<input type="hidden" name="CER_TYPE" value="IMPLC">
+<input type="hidden" name="CER_TYPE" value="IMPRC">
 <input type="hidden" name="CER_LANG" value="A">
 
 
