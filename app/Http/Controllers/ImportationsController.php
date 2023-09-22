@@ -52,7 +52,7 @@ class ImportationsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+      //  dd($request);
         try {
 
             $data = $this->getData($request);
