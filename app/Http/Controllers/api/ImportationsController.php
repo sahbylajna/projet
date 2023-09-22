@@ -53,7 +53,23 @@ class ImportationsController extends Controller
 
             $importations = importations::create($data);
 
+            $ANIMAL_INFO = json_decode($data['ANIMAL_INFO'], true);
 
+            foreach ($ANIMAL_INFO as $key => $value) {
+
+                $animal = new ANIMAL_INFO();
+                $animal->ORIGIN_COUNTRY = $value['ORIGIN_COUNTRY'];
+                $animal->EXPORT_COUNTRY = $value['EXPORT_COUNTRY'];
+                $animal->TRANSIET_COUNTRY = $value['TRANSIET_COUNTRY'];
+                $animal->ANML_SPECIES = $value['ANML_SPECIES'];
+                $animal->ANML_SEX = $value['ANML_SEX'];
+                $animal->ANML_NUMBER = $value['ANML_NUMBER'];
+                $animal->ANML_USE = $value['ANML_USE'];
+                $animal->ANIMAL_BREED = $value['ANIMAL_BREED'];
+                $animal->client_id =  auth()->user()->id ;
+                $animal->save();
+                $importations->animal()->attach( $animal->id);
+            }
             return response()->json([
 
                 'message' => 'success',
@@ -210,7 +226,7 @@ class ImportationsController extends Controller
 
             'EXP_NATIONALITY' => 'string|min:1|nullable',
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
-            'animal' => 'string'
+            'ANIMAL_INFO' => 'required'
 
         ];
         $validator = \Validator::make($request->all(),  $rules);

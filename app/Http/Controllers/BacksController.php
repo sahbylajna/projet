@@ -180,7 +180,8 @@ class BacksController extends Controller
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
             'accepted' => 'string|min:1|nullable',
             'reson' => 'string|min:1|nullable',
-            'animal' => 'nullable',
+            'ANIMAL_INFO' => 'required'
+
         ];
 
 
@@ -382,9 +383,21 @@ $data['APPLICANT_NAME'] = $back->APPLICANT_NAME;
 $data['APPLICANT_TEL'] = $back->APPLICANT_TEL;
 $data['EXP_NATIONALITY'] = $back->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $back->EXP_PASSPORT_NUM;
-$data['animal'] = $back->animal;
+$data = json_encode($data);
+$ANIMALINFO = [];
+
+foreach ($back->animal as $key => $value) {
+
+    $data1['EXPORT_COUNTRY'] = $value->EXPORT_COUNTRY;
+    $data1['ORIGIN_COUNTRY'] = $value->ORIGIN_COUNTRY;
+    $data1['TRANSIET_COUNTRY'] = $value->TRANSIET_COUNTRY;
+
+    $ANIMALINFO[$key] = $data1;
 
 
+}
+
+$ANIMALINFOj = json_encode($ANIMALINFO);
 
 
 
@@ -399,15 +412,15 @@ $headers = [
 
 
 try{
-    // $client2 = new ClientHTTP();
-    // $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT_AFTER_RACING', [
-    //     'form_params' => [
-    //         'DATA' => $data,
-
-    //         'files' => $back->files,
-    //     ],
-    //     'headers' => $headers
-    // ]);
+    $client2 = new ClientHTTP();
+    $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT_AFTER_RACING', [
+        'form_params' => [
+            'DATA' => $data,
+            'ANIMAL_INFO' =>$ANIMALINFOj,
+            'files' => $back->files,
+        ],
+        'headers' => $headers
+    ]);
 
 
     $acceptation = new acceptation_demande();

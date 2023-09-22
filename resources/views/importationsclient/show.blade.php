@@ -96,6 +96,7 @@
             <dt>{{ trans('importations.reson') }}</dt>
             <dd>{{ $importation->reson }}</dd>
 
+
         </dl>
 
     </div>

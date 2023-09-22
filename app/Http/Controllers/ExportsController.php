@@ -179,7 +179,7 @@ class ExportsController extends Controller
             'accepted' => 'string|min:1',
             'reson' => 'string|min:1',
 
-'animal' => 'nullable',
+            'ANIMAL_INFO' => 'required'
         ];
 
         $data = $request->validate($rules);
@@ -388,7 +388,23 @@ class ExportsController extends Controller
  $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
- $data['animal'] = $export->animal;
+ $data = json_encode($data);
+ $ANIMALINFO = [];
+
+ foreach ($export->animal as $key => $value) {
+
+
+     $data1['ANML_SPECIES'] = $value->EUSER_QID;
+     $data1['ANML_SEX'] = $value->ANML_SEX;
+     $data1['ANML_MICROCHIP'] = $value->ANML_MICROCHIP;
+     $data1['ANML_USE'] = $value->ANML_USE;
+
+     $ANIMALINFO[$key] = $data1;
+
+
+ }
+
+ $ANIMALINFOj = json_encode($ANIMALINFO);
 
  $token ='Bearer '.$access_token;
 
@@ -400,15 +416,16 @@ class ExportsController extends Controller
 
 
  try{
-    //  $client2 = new ClientHTTP();
-    //  $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHCC_SUBMIT', [
-    //      'form_params' => [
-    //          'DATA' => $data,
+     $client2 = new ClientHTTP();
+     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHCC_SUBMIT', [
+         'form_params' => [
+             'DATA' => $data,
+             'ANIMAL_INFO' =>$ANIMALINFOj,
 
-    //          'files' => $export->files,
-    //      ],
-    //      'headers' => $headers
-    //  ]);
+             'files' => $export->files,
+         ],
+         'headers' => $headers
+     ]);
 
 
      $acceptation = new acceptation_demande();

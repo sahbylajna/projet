@@ -51,12 +51,29 @@ class ImportationsController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         try {
 
             $data = $this->getData($request);
 
-            importation::create($data);
+            $importations =     importation::create($data);
+            $ANIMAL_INFO = json_decode($data['ANIMAL_INFO'], true);
 
+            foreach ($ANIMAL_INFO as $key => $value) {
+
+                $animal = new ANIMAL_INFO();
+                $animal->ORIGIN_COUNTRY = $value['ORIGIN_COUNTRY'];
+                $animal->EXPORT_COUNTRY = $value['EXPORT_COUNTRY'];
+                $animal->TRANSIET_COUNTRY = $value['TRANSIET_COUNTRY'];
+                $animal->ANML_SPECIES = $value['ANML_SPECIES'];
+                $animal->ANML_SEX = $value['ANML_SEX'];
+                $animal->ANML_NUMBER = $value['ANML_NUMBER'];
+                $animal->ANML_USE = $value['ANML_USE'];
+                $animal->ANIMAL_BREED = $value['ANIMAL_BREED'];
+                $animal->client_id =  auth()->user()->id ;
+                $animal->save();
+                $importations->animal()->attach( $animal->id);
+            }
             return redirect()->route('importations.importation.index')
                 ->with('success_message', trans('importations.model_was_added'));
         } catch (Exception $exception) {
@@ -75,8 +92,7 @@ class ImportationsController extends Controller
      */
     public function show($id)
     {
-        $importation = importation::with('client')->findOrFail($id);
-
+        $importation = importation::with('client')->with('animal')->findOrFail($id);
         return view('importations.show', compact('importation'));
     }
 
@@ -185,6 +201,8 @@ class ImportationsController extends Controller
      */
     public function storeclient(Request $request)
     {
+
+
         try {
 
             $data = $this->getData($request);
@@ -195,14 +213,26 @@ class ImportationsController extends Controller
 
 
 
+          $animal = new ANIMAL_INFO();
+          $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRY;
+          $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRY;
+          $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRY;
+          $animal->ANML_SPECIES = $request->ANML_SPECIES;
+          $animal->ANML_SEX = $request->ANML_SEX;
+          $animal->ANML_NUMBER = $request->ANML_NUMBER;
+          $animal->ANML_USE = $request->ANML_USE;
+          $animal->ANIMAL_BREED = $request->ANIMAL_BREED;
+          $animal->client_id = auth()->guard('clientt')->user()->id ;
+          $animal->save();
+          $importation->animal()->attach( $animal->id);
 
 
             return redirect()->route('importations.client.index')
                 ->with('success_message', trans('importations.model_was_added'));
         } catch (Exception $exception) {
-dd($exception);
+//dd($exception);
             return back()->withInput()
-                ->withErrors(['unexpected_error' => trans('importations.unexpected_error')]);
+                ->withErrors(['unexpected_error' => $exception->getMessage()]);
         }
     }
 
@@ -313,7 +343,7 @@ dd($exception);
             'APPLICANT_TEL' => 'nullable',
             'EXP_NATIONALITY' => 'nullable',
             'EXP_PASSPORT_NUM' => 'nullable',
-            'animal' => 'nullable',
+            'file' => 'nullable',
 
 
         ];
@@ -328,7 +358,17 @@ dd($exception);
 
         return $data;
     }
+    protected function moveFile($file)
+    {
+        if (!$file->isValid()) {
+            return '';
+        }
 
+        $path = config('laravel-code-generator.files_upload_path', 'uploads');
+        $saved = $file->store('pdf',['disk' => 'public_uploads']);
+
+        return  $saved;
+    }
     public function accept($id)
     {
         $importation = importation::findOrFail($id);
@@ -371,7 +411,26 @@ $data['APPLICANT_NAME'] = $importation->APPLICANT_NAME;
 $data['APPLICANT_TEL'] = $importation->APPLICANT_TEL;
 $data['EXP_NATIONALITY'] = $importation->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $importation->EXP_PASSPORT_NUM;
-$data['animal'] = $importation->animal;
+$data = json_encode($data);
+$ANIMALINFO = [];
+
+
+foreach ($importation->animal as $key => $value) {
+
+    $data1['EXPORT_COUNTRY'] = $value->EXPORT_COUNTRY;
+    $data1['ORIGIN_COUNTRY'] = $value->ORIGIN_COUNTRY;
+    $data1['TRANSIET_COUNTRY'] = $value->TRANSIET_COUNTRY;
+    $data1['ANML_SPECIES'] = $value->ANML_SPECIES;
+    $data1['ANML_SEX'] = $value->ANML_SEX;
+    $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
+    $data1['ANML_USE'] = $value->ANML_USE;
+    $data1['ANIMAL_BREED'] = $value->ANIMAL_BREED;
+    $ANIMALINFO[$key] = $data1;
+
+
+}
+
+$ANIMALINFOj = json_encode($ANIMALINFO);
 
 
 $token ='Bearer '.$access_token;
@@ -382,43 +441,44 @@ $headers = [
 ];
 
 
-$acceptation = new acceptation_demande();
-$acceptation->User_id = Auth()->user()->id;
-$acceptation->demande_id = $importation->id;
-$acceptation->type = 'importation';
-$acceptation->commenter = 'accepter';
-$acceptation->save();
+// $acceptation = new acceptation_demande();
+// $acceptation->User_id = Auth()->user()->id;
+// $acceptation->demande_id = $importation->id;
+// $acceptation->type = 'importation';
+// $acceptation->commenter = 'accepter';
+// $acceptation->save();
+$file = fopen(asset($importation->files), 'r');
+//d(asset($importation->files) );
+try{
+    $client2 = new ClientHTTP();
+    $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
+        'headers' => $headers,
+        'form_params' => [
+            'DATA' => $data,
+            'ANIMAL_INFO' =>$ANIMALINFOj,
+            'files' => $file,
+        ],
 
-// try{
-//     // $client2 = new ClientHTTP();
-//     // $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPLC_SUBMIT', [
-//     //     'headers' => $headers,
-//     //     'form_params' => [
-//     //         'DATA' => $data,
+    ]);
+    $acceptation = new acceptation_demande();
+    $acceptation->User_id = Auth()->user()->id;
+    $acceptation->demande_id = $importation->id;
+    $acceptation->type = 'importation';
+    $acceptation->commenter = 'accepter';
+    $acceptation->save();
+dd(asset($importation->files) );
 
-//     //         'files' => $importation->files,
-//     //     ],
-
-//     // ]);
-//     $acceptation = new acceptation_demande();
-//     $acceptation->User_id = Auth()->user()->id;
-//     $acceptation->demande_id = $importation->id;
-//     $acceptation->type = 'importation';
-//     $acceptation->commenter = 'accepter';
-//     $acceptation->save();
-
-
-// }catch(Exception $exception) {
-//     dd($exception);
-// }
-
+}catch(Exception $exception) {
+    dd($exception);
+}
+d(asset($importation->files) );
      //
 
 
 
-    //    $response = (string) $res->getBody();
-    //    $response =json_decode($response);
-    //    dd($res->getBody());
+       $response = (string) $res->getBody();
+       $response =json_decode($response);
+       dd($res->getBody());
 
 
 

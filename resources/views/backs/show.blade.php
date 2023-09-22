@@ -72,7 +72,31 @@
             <dt>{{ trans('backs.EXP_PASSPORT_NUM') }}</dt>
             <dd>{{ $back->EXP_PASSPORT_NUM }}</dd>
             <dt>{{ trans('importations.animal') }}</dt>
-            <dd>{{ $back->animal }}</dd>
+            <div  class="form-group">
+
+                <table id="tableau" class=" table-striped ">
+                    <thead>
+                        <tr>
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.EXPORT_COUNTRY') }}</th>
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ORIGIN_COUNTRY') }}</th>
+                            <th>{{ trans('a_n_i_m_a_l__i_n_f_os.TRANSIET_COUNTRY') }}</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ( $back->animal as $value )
+                            <tr>
+                                <td> {{ $value->EXPORT_COUNTRY }}</td>
+                                <td> {{ $value->ORIGIN_COUNTRY }}</td>
+                                <td> {{ $value->TRANSIET_COUNTRY }}</td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
+                <br>
 
 
                 @if ($back->accepted == null)
