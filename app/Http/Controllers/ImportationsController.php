@@ -343,7 +343,7 @@ class ImportationsController extends Controller
             'APPLICANT_TEL' => 'nullable',
             'EXP_NATIONALITY' => 'nullable',
             'EXP_PASSPORT_NUM' => 'nullable',
-            'file' => 'nullable',
+            'files' => 'nullable',
 
 
         ];
@@ -464,14 +464,14 @@ try{
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
-    $acceptation->commenter = 'accepter';
+    $acceptation->commenter = '1accepter';
     $acceptation->save();
 dd(asset($importation->files) );
 
 }catch(Exception $exception) {
     dd($exception);
 }
-d(asset($importation->files) );
+dd(asset($importation->files) );
      //
 
 
