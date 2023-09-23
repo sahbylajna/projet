@@ -104,7 +104,7 @@ class _BackContentState extends State<BackContent>{
   final GlobalKey<State> _statefulBuilderKey = GlobalKey<State>();
   DateTime dateTime0 = DateTime.now();
   DateTime dateTime1 = DateTime.now();
-
+  List<RowModel> rows = [];
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -477,16 +477,31 @@ class _BackContentState extends State<BackContent>{
 
 
 
-
-                        TextFormField(
-                          controller: _tap14,
-                          decoration: InputDecoration(
-                              errorText: _validate12 ? 'يرجي ادخال الناقل صحيح' : null,
-                              label: Text('الناقل'),
-                              border: OutlineInputBorder()),
-                        ),
-
-
+   Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              _showAddRowDialog();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                              'إضافة حيوان'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),),
                         const SizedBox(
                           height: 10,
                         ),
@@ -646,7 +661,11 @@ class _BackContentState extends State<BackContent>{
     );
   }
   Future<void> _apisend() async {
+   List<Map<String, dynamic>> jsonList = [];
 
+    for (var row in rows) {
+      jsonList.add(row.toJson());
+    }
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -690,7 +709,7 @@ class _BackContentState extends State<BackContent>{
       _tap15.text,
       _tap16.text,
       _tap18.text,
-      jsonList.text,
+ jsonList.toString(),
     ];
 
     bool hasEmptyVariable = false;
@@ -810,7 +829,210 @@ class _BackContentState extends State<BackContent>{
   }
 
 
+void _showAddRowDialog() {
 
+    String EXPORT_COUNTRY = '';
+    String ORIGIN_COUNTRY = '';
+    String TRANSIET_COUNTRY = '';
+    String ANML_SPECIES = '';
+    String ANML_SEX = '';
+    String ANML_NUMBER = '';
+    String ANML_USE = '';
+    String ANIMAL_BREED = '';
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return  StatefulBuilder(
+            key: _statefulBuilderKey,
+            builder: (BuildContext context, StateSetter setStateInsideDialog) {
+              return AlertDialog(
+                title: Text('أضف حيوان'),
+              content: SingleChildScrollView(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Center(
+                        child: Row(
+                          children: [
+                        //    Text('البلد التصدير '),
+
+                            DropdownButton<Contries>(
+                              hint: Text('بلد التصدير'),
+                              items:_contrie.map<DropdownMenuItem<Contries>>((Contries value) {
+                                return DropdownMenuItem<Contries>(
+                                  value:  value ,
+                                  child: Text( value.name ),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+
+                                setState(() {
+                                  _EXPORT_COUNTRY = newValue; // Update the selected value
+                                  EXPORT_COUNTRY = newValue!.name; // Update the string value
+                                  print("selected2 " + EXPORT_COUNTRY);
+                                });
+                              },
+                              value: _EXPORT_COUNTRY,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Center(
+                        child: Row(
+                          children: [
+                        //    Text('البلد الأصلي '),
+
+                            DropdownButton<Contries>(
+                              hint: Text('بلد الأصلي'),
+                              items:_contrie.map<DropdownMenuItem<Contries>>((Contries value) {
+                                return DropdownMenuItem<Contries>(
+                                  value:  value ,
+                                  child: Text( value.name ),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _ORIGIN_COUNTRY = newValue; // Update the selected value
+                                  ORIGIN_COUNTRY = newValue!.name; // Update the string value
+                                  print("ORIGIN_COUNTRY " + ORIGIN_COUNTRY);
+                                });
+                              },
+                              value: _ORIGIN_COUNTRY,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Center(
+                        child: Row(
+                          children: [
+                     //       Text('البلد العبور '),
+
+                            DropdownButton<Contries>(
+                              hint: Text('بلد العبور'),
+                              items:_contrie.map<DropdownMenuItem<Contries>>((Contries value) {
+                                return DropdownMenuItem<Contries>(
+                                  value:  value ,
+                                  child: Text( value.name ),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _TRANSIET_COUNTRY = newValue; // Update the selected value
+                                  TRANSIET_COUNTRY = newValue!.name; // Update the string value
+                                  print("TRANSIET_COUNTRY " + TRANSIET_COUNTRY);
+                                });
+                              },
+                              value: _TRANSIET_COUNTRY,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'نوع  الحيوان'),
+                      textDirection: TextDirection.rtl,
+                      onChanged: (value) {
+                        ANML_SPECIES = value;
+                      },
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'جنس الحيوان'),
+                      // keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANML_SEX = value;
+                      },
+                    ),
+
+                    TextField(
+                      decoration: InputDecoration(labelText: 'رقم  الحيوان'),
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANML_NUMBER = value;
+                      },
+                    ),
+
+                    TextField(
+                      decoration: InputDecoration(labelText: 'استخدام  الحيوان'),
+                      //  keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANML_USE = value;
+                      },
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'سلالة    الحيوان'),
+                      // keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANIMAL_BREED = value;
+                      },
+                    ),
+
+                  ],
+                ),
+              ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        print(rows.length);
+                        rows.add(RowModel(EXPORT_COUNTRY,ORIGIN_COUNTRY,TRANSIET_COUNTRY,ANML_SPECIES,ANML_SEX,ANML_NUMBER,ANML_USE,ANIMAL_BREED));
+                      });
+
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Add'),
+                  ),
+                ],
+              );
+
+            },
+          );}
+    );
+
+  }
+}
+
+
+
+
+
+class RowModel {
+  final String EXPORT_COUNTRY ;
+  final String ORIGIN_COUNTRY ;
+  final String TRANSIET_COUNTRY ;
+  final String ANML_SPECIES ;
+  final String ANML_SEX ;
+  final String ANML_NUMBER ;
+  final String ANML_USE ;
+  final String ANIMAL_BREED ;
+
+  RowModel(this.EXPORT_COUNTRY, this.ORIGIN_COUNTRY,this.TRANSIET_COUNTRY,this.ANML_SPECIES,this.ANML_SEX,this.ANML_NUMBER,this.ANML_USE,this.ANIMAL_BREED);
+  Map<String, dynamic> toJson() {
+    return {
+      'EXPORT_COUNTRY': EXPORT_COUNTRY,
+      'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
+      'TRANSIET_COUNTRY': TRANSIET_COUNTRY,
+      'ANML_SPECIES': ANML_SPECIES,
+      'ANML_SEX': ANML_SEX,
+      'ANML_NUMBER': ANML_NUMBER,
+      'ANML_USE': ANML_USE,
+      'ANIMAL_BREED': ANIMAL_BREED,
+    };
+  }
 
 
 

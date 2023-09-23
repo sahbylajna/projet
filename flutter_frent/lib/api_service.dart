@@ -282,7 +282,7 @@ Future<term?> getterm() async {
 
 
 
-  Future<Success?> Setimportations(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO) async {
+  Future<Success?> Setimportations(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO,filePath) async {
     try {
       final user = await SharedPreferences.getInstance();
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
@@ -308,7 +308,8 @@ Future<term?> getterm() async {
         'SHIPPING_DATE': SHIPPING_DATE,
         'EXP_NATIONALITY': EXP_NATIONALITY,
         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-        'animal': ANIMAL_INFO,
+          'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+          'files':filePath
       };
 
       var response = await http.post(url,
@@ -368,7 +369,7 @@ Future<term?> getterm() async {
         'SHIPPING_DATE': SHIPPING_DATE,
         'EXP_NATIONALITY': EXP_NATIONALITY,
         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-        'animal': ANIMAL_INFO,
+          'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
       };
 
       var response = await http.post(url,
@@ -425,7 +426,7 @@ Future<term?> getterm() async {
         'SHIPPING_DATE': SHIPPING_DATE,
         'EXP_NATIONALITY': EXP_NATIONALITY,
         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-        'animal': ANIMAL_INFO,
+          'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
       };
 
       var response = await http.post(url,

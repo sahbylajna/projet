@@ -185,7 +185,6 @@ class ImportationsController extends Controller
             'APPLICANT_TEL' => 'string|min:1',
             'EXP_NATIONALITY' => 'string|min:1',
             'EXP_PASSPORT_NUM' => 'string|min:1',
-            'animal' => 'string',
 
         ];
 
@@ -247,12 +246,23 @@ class ImportationsController extends Controller
         $data['client_id'] = auth()->user()->id;
         $data['APPLICANT_NAME'] = auth()->user()->first_name .' '.  auth()->user()->last_name;
         $data['APPLICANT_TEL'] = auth()->user()->phone;
+        if ($request->hasFile('files')) {
+            $data['files'] = $this->moveFile($request->file('files'));
+        }
 
 
         return $data;
 
     }
+    protected function moveFile($file)
+    {
 
+
+      //  $path = config('laravel-code-generator.files_upload_path', 'uploads');
+        $saved = $file->store('pdf',['disk' => 'public_uploads']);
+
+        return  $saved;
+    }
     /**
      * Transform the giving importations to public friendly array
      *
