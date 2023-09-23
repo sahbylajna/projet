@@ -28,6 +28,22 @@ use App\Http\Controllers\NotificationsController;
 use App\Models\Client;
 use App\Models\countries;
 use App\SMS\Sms;
+
+use App\Http\Controllers\LogController;
+// Show log content
+Route::get('/logs', [LogController::class, 'showLogs'])->name('logs.show');
+
+// Delete log files
+Route::delete('/logs', [LogController::class, 'deleteLogs'])->name('logs.delete');
+
+
+
+
+
+
+
+
+
 Route::get('/', function () {
 
 if(auth()->guard('clientt')->check()){
