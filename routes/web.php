@@ -31,10 +31,10 @@ use App\SMS\Sms;
 
 use App\Http\Controllers\LogController;
 // Show log content
-Route::get('/logs', [LogController::class, 'showLogs'])->name('logs.show');
+Route::get('/log', [LogController::class, 'showLogs'])->name('logs.show');
 
 // Delete log files
-Route::delete('/logs', [LogController::class, 'deleteLogs'])->name('logs.delete');
+Route::delete('/log', [LogController::class, 'deleteLogs'])->name('logs.delete');
 
 
 
