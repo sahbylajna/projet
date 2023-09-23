@@ -231,7 +231,10 @@ class ImportationsController extends Controller
 
             'EXP_NATIONALITY' => 'string|min:1|nullable',
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
-            'ANIMAL_INFO' => 'required'
+            'ANIMAL_INFO' => 'required',
+            'files' => 'required',
+
+
 
         ];
         $validator = \Validator::make($request->all(),  $rules);
