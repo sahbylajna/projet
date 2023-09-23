@@ -250,7 +250,7 @@ class ImportationsController extends Controller
         }
 
         $data = $request->validate($rules);
-        $data['CER_TYPE'] ='IMPLC';
+        $data['CER_TYPE'] ='IMPRC';
         $data['CER_LANG'] ='A';
         $data['client_id'] = auth()->user()->id;
         $data['APPLICANT_NAME'] = auth()->user()->first_name .' '.  auth()->user()->last_name;

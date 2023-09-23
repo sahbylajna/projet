@@ -282,61 +282,156 @@ Future<term?> getterm() async {
 
 
 
-  Future<Success?> Setimportations(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO,filePath) async {
-    try {
-      final user = await SharedPreferences.getInstance();
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
-      final Map<String, dynamic> requestData = {
-        'COMP_ID': COMP_ID,
-        'EUSER_QID': EUSER_QID,
-        'EXP_NAME': EXP_NAME,
-        'EXP_TEL': EXP_TEL,
-        'EXP_QID': EXP_QID,
-        'EXP_FAX': EXP_FAX,
-        'EXP_COUNTRY': EXP_COUNTRY,
-        'IMP_NAME': IMP_NAME,
-        'IMP_ADDRESS': IMP_ADDRESS,
-        'IMP_FAX': IMP_FAX,
-        'IMP_TEL': IMP_TEL,
-        'IMP_POBOX': IMP_POBOX,
-        'IMP_COUNTRY': IMP_COUNTRY,
-        'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
-        'SHIPPING_PLACE': SHIPPING_PLACE,
-        'ENTERY_PORT': ENTERY_PORT,
-        'EXPECTED_ARRIVAL_DATE': EXPECTED_ARRIVAL_DATE,
-        'TRANSPORT': TRANSPORT,
-        'SHIPPING_DATE': SHIPPING_DATE,
-        'EXP_NATIONALITY': EXP_NATIONALITY,
-        'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-          'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
-          'files':filePath
-      };
+//   Future<Success?> Setimportations(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO,filePath) async {
+//     try {
+//       final user = await SharedPreferences.getInstance();
+//       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
+//       final Map<String, dynamic> requestData = {
+//         'COMP_ID': COMP_ID,
+//         'EUSER_QID': EUSER_QID,
+//         'EXP_NAME': EXP_NAME,
+//         'EXP_TEL': EXP_TEL,
+//         'EXP_QID': EXP_QID,
+//         'EXP_FAX': EXP_FAX,
+//         'EXP_COUNTRY': EXP_COUNTRY,
+//         'IMP_NAME': IMP_NAME,
+//         'IMP_ADDRESS': IMP_ADDRESS,
+//         'IMP_FAX': IMP_FAX,
+//         'IMP_TEL': IMP_TEL,
+//         'IMP_POBOX': IMP_POBOX,
+//         'IMP_COUNTRY': IMP_COUNTRY,
+//         'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
+//         'SHIPPING_PLACE': SHIPPING_PLACE,
+//         'ENTERY_PORT': ENTERY_PORT,
+//         'EXPECTED_ARRIVAL_DATE': EXPECTED_ARRIVAL_DATE,
+//         'TRANSPORT': TRANSPORT,
+//         'SHIPPING_DATE': SHIPPING_DATE,
+//         'EXP_NATIONALITY': EXP_NATIONALITY,
+//         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
+//           'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+//           'files':filePath
+//       };
 
-      var response = await http.post(url,
-        headers: <String, String>{
-          "Accept": "application/json",
-          'Authorization' : 'Bearer ${user.getString('token')}',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestData),
+//       var response = await http.post(url,
+//         headers: <String, String>{
+//           "Accept": "application/json",
+//           'Authorization' : 'Bearer ${user.getString('token')}',
+//           'Content-Type': 'application/json',
+//         },
+//         body: jsonEncode(requestData),
 
-      );
+//       );
 
-      print(requestData);
+//       print(requestData);
 
-      print('hnaaaaaaaaaaaaaaaaaaaaaa');
-      print(response.body.toString());
-      if (response.statusCode == 200) {
+//       print('hnaaaaaaaaaaaaaaaaaaaaaa');
+//       print(response.body.toString());
+//       if (response.statusCode == 200) {
 
-        Success model = successFromJson(response.body);
-        return model;
-      }
+//         Success model = successFromJson(response.body);
+//         return model;
+//       }
 
-    } catch (e) {
-      log(e.toString());
+//     } catch (e) {
+//       log(e.toString());
+//     }
+//     return null;
+//   }
+
+
+
+
+
+
+Future<Success?> Setimportations(
+    COMP_ID,
+    EUSER_QID,
+    EXP_NAME,
+    EXP_TEL,
+    EXP_QID,
+    EXP_FAX,
+    EXP_COUNTRY,
+    IMP_NAME,
+    IMP_ADDRESS,
+    IMP_FAX,
+    IMP_TEL,
+    IMP_POBOX,
+    IMP_COUNTRY,
+    ORIGIN_COUNTRY,
+    SHIPPING_PLACE,
+    ENTERY_PORT,
+    EXPECTED_ARRIVAL_DATE,
+    TRANSPORT,
+    SHIPPING_DATE,
+    EXP_NATIONALITY,
+    EXP_PASSPORT_NUM,
+    ANIMAL_INFO,
+    filePath) async {
+  try {
+    final user = await SharedPreferences.getInstance();
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
+    var request = http.MultipartRequest('POST', url);
+
+    request.headers['Authorization'] = 'Bearer ${user.getString('token')}';
+
+    // Add your other form data fields
+    request.fields['COMP_ID'] = COMP_ID;
+    request.fields['EUSER_QID'] = EUSER_QID;
+    request.fields['EXP_NAME'] = EXP_NAME;
+    request.fields['EXP_QID'] = EXP_QID;
+    request.fields['EXP_TEL'] = EXP_TEL;
+    request.fields['EXP_FAX'] = EXP_FAX;
+    request.fields['EXP_COUNTRY'] = EXP_COUNTRY;
+    request.fields['IMP_NAME'] = IMP_NAME;
+    request.fields['IMP_ADDRESS'] = IMP_ADDRESS;
+    request.fields['IMP_FAX'] = IMP_FAX;
+    request.fields['IMP_TEL'] = IMP_TEL;
+    request.fields['IMP_POBOX'] = IMP_POBOX;
+    request.fields['IMP_COUNTRY'] = IMP_COUNTRY;
+    request.fields['ORIGIN_COUNTRY'] = ORIGIN_COUNTRY;
+    request.fields['SHIPPING_PLACE'] = SHIPPING_PLACE;
+    request.fields['ENTERY_PORT'] = ENTERY_PORT;
+    request.fields['EXPECTED_ARRIVAL_DATE'] = EXPECTED_ARRIVAL_DATE;
+    request.fields['TRANSPORT'] = TRANSPORT;
+    request.fields['SHIPPING_DATE'] = SHIPPING_DATE;
+    request.fields['EXP_NATIONALITY'] = EXP_NATIONALITY;
+    request.fields['EXP_PASSPORT_NUM'] = EXP_PASSPORT_NUM;
+    request.fields['ANIMAL_INFO'] = jsonEncode(ANIMAL_INFO);
+
+
+
+    // Add the PDF file
+    var pdfFile = await http.MultipartFile.fromPath('files', filePath);
+    request.files.add(pdfFile);
+
+    // Send the request
+    var response = await request.send();
+
+    print('hnaaaaaaaaaaaaaaaaaaaaaa');
+    print(await response.stream.bytesToString());
+
+    if (response.statusCode == 200) {
+      // Handle a successful response here if needed
+      // Success model = successFromJson(await response.stream.bytesToString());
+      // return model;
     }
-    return null;
+  } catch (e) {
+    print(e.toString());
   }
+  return null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

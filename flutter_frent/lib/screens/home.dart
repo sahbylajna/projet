@@ -125,16 +125,304 @@ void _fetchData(BuildContext context) async {
           toolbarHeight: 150, // Set the height of the AppBar
         ),
     body:
-//     importations == "-1"?
-// Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
+    importations == "-1"?
+   Center(
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
 
 
-//             ],
-//           )
+       Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+      OutlinedButton(
+        onPressed: () {
 
-//     :
+             Navigator.of(context).pushAndRemoveUntil(
+                 MaterialPageRoute(builder: (context) => InContent()),
+                     (route) => true);
+        },
+
+   style: OutlinedButton.styleFrom(
+
+      foregroundColor: Colors.white,
+      side:BorderSide(color: _primaryColor),
+      shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(18),
+              ),
+            ),
+
+ backgroundColor: Colors.white,
+      elevation: 20,
+       fixedSize: Size(150,200),
+    ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+        SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
+          Row(
+            textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+         SizedBox(
+      width: 30, // <-- SEE HERE
+    ),
+ Image.asset('assets/in.png',height: 50,
+    width: 50,)
+
+  ]),
+SizedBox(
+      height: 100, // <-- SEE HERE
+    ),
+
+    Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+      Text(" طلب دخول",style: TextStyle(color: _accentColor)),
+
+      SizedBox(
+      width: 50, // <-- SEE HERE
+    ),
+  ]),
+
+    ],
+
+  ),
+    ),
+
+
+
+
+
+
+ OutlinedButton(
+        onPressed: () {
+             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OutContent()));
+        },
+
+   style: OutlinedButton.styleFrom(
+
+      foregroundColor: Colors.white,
+      side:BorderSide(color: _primaryColor),
+      shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(18),
+              ),
+            ),
+
+ backgroundColor: Colors.white,
+      elevation: 20,
+       fixedSize: Size(150,200),
+    ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+        SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
+          Row(
+            textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+         SizedBox(
+      width: 30, // <-- SEE HERE
+    ),
+ Image.asset('assets/out.png',height: 50,
+    width: 50,)
+
+  ]),
+SizedBox(
+      height: 100, // <-- SEE HERE
+    ),
+
+    Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+      Text(" طلب خروج",style: TextStyle(color: _accentColor)),
+
+      SizedBox(
+      width: 50, // <-- SEE HERE
+    ),
+  ]),
+
+    ],
+
+  ),
+    ),
+
+
+
+  ],
+),
+
+
+
+
+
+
+
+
+
+
+
+
+       Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+      OutlinedButton(
+        onPressed: () {
+             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BackContent()));
+        },
+
+   style: OutlinedButton.styleFrom(
+
+      foregroundColor: Colors.white,
+     side:BorderSide(color: _primaryColor),
+      shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(18),
+              ),
+            ),
+
+ backgroundColor: Colors.white,
+      elevation: 20,
+       fixedSize: Size(150,200),
+    ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+        SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
+          Row(
+            textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+         SizedBox(
+      width: 30, // <-- SEE HERE
+    ),
+ Image.asset('assets/back.png',height: 50,
+    width: 50,)
+
+  ]),
+SizedBox(
+      height: 100, // <-- SEE HERE
+    ),
+
+    Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+      Text(" طلب عوده",style: TextStyle(color: _accentColor)),
+
+      SizedBox(
+      width: 50, // <-- SEE HERE
+    ),
+  ]),
+
+    ],
+
+  ),
+    ),
+
+
+
+
+
+
+ OutlinedButton(
+        onPressed: () {
+             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookContent()));
+        },
+
+   style: OutlinedButton.styleFrom(
+
+      foregroundColor: Colors.white,
+     side:BorderSide(color: _primaryColor),
+      shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(18),
+              ),
+            ),
+
+ backgroundColor: Colors.white,
+      elevation: 20,
+       fixedSize: Size(150,200),
+    ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+        SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
+          Row(
+            textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
+
+  ]),
+SizedBox(
+      height: 100, // <-- SEE HERE
+    ),
+
+    Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+      Text(" طلب خروج",style: TextStyle(color: _accentColor)),
+
+      SizedBox(
+      width: 50, // <-- SEE HERE
+    ),
+  ]),
+
+    ],
+
+  ),
+    ),
+
+
+
+  ],
+),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ],)
+      )
+
+    :
       Center(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
