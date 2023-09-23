@@ -123,6 +123,8 @@
                 <a href="{{ route('importation.accept', $importation->id) }}" class="btn btn-primary">{{ trans('clients.accepted') }}</a>
 
 
+                <a href="{{ route('importation.accept', $importation->id) }}" class="btn btn-danger">{{ trans('clients.refused') }}</a>
+
 
 
                </div>

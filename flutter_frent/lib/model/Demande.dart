@@ -110,7 +110,7 @@ class Demande {
     aPPLICANTTEL = json['APPLICANT_TEL'];
     eXPNATIONALITY = json['EXP_NATIONALITY'];
     eXPPASSPORTNUM = json['EXP_PASSPORT_NUM'];
-    accepted = json['accepted'];
+
     reson = json['reson'];
     type = json['type'];
     if (json['animal'] != null) {

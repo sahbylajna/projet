@@ -345,28 +345,29 @@ Future<term?> getterm() async {
 
 Future<Success?> Setimportations(
     COMP_ID,
-    EUSER_QID,
-    EXP_NAME,
-    EXP_TEL,
-    EXP_QID,
-    EXP_FAX,
-    EXP_COUNTRY,
-    IMP_NAME,
-    IMP_ADDRESS,
-    IMP_FAX,
-    IMP_TEL,
-    IMP_POBOX,
-    IMP_COUNTRY,
-    ORIGIN_COUNTRY,
-    SHIPPING_PLACE,
-    ENTERY_PORT,
-    EXPECTED_ARRIVAL_DATE,
-    TRANSPORT,
-    SHIPPING_DATE,
-    EXP_NATIONALITY,
-    EXP_PASSPORT_NUM,
-    ANIMAL_INFO,
-    filePath) async {
+  EUSER_QID,
+  EXP_NAME,
+  EXP_TEL,
+  EXP_QID,
+  EXP_FAX,
+  EXP_COUNTRY,
+  IMP_NAME,
+  IMP_ADDRESS,
+  IMP_FAX,
+  IMP_TEL,
+  IMP_POBOX,
+  IMP_COUNTRY,
+  ORIGIN_COUNTRY,
+  SHIPPING_PLACE,
+  ENTERY_PORT,
+  EXPECTED_ARRIVAL_DATE,
+  TRANSPORT,
+  SHIPPING_DATE,
+  EXP_NATIONALITY,
+  EXP_PASSPORT_NUM,
+  ANIMAL_INFO,
+  filePath,
+) async {
   try {
     final user = await SharedPreferences.getInstance();
     var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
@@ -398,8 +399,6 @@ Future<Success?> Setimportations(
     request.fields['EXP_PASSPORT_NUM'] = EXP_PASSPORT_NUM;
     request.fields['ANIMAL_INFO'] = jsonEncode(ANIMAL_INFO);
 
-
-
     // Add the PDF file
     var pdfFile = await http.MultipartFile.fromPath('files', filePath);
     request.files.add(pdfFile);
@@ -408,12 +407,13 @@ Future<Success?> Setimportations(
     var response = await request.send();
 
     print('hnaaaaaaaaaaaaaaaaaaaaaa');
-    print(await response.stream.bytesToString());
+    final responseString = await response.stream.bytesToString();
+    print(responseString);
 
     if (response.statusCode == 200) {
       // Handle a successful response here if needed
-      // Success model = successFromJson(await response.stream.bytesToString());
-      // return model;
+      Success model = successFromJson(responseString);
+      return model;
     }
   } catch (e) {
     print(e.toString());

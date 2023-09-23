@@ -379,7 +379,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب خروج",style: TextStyle(color: _accentColor)),
+      Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
 
       SizedBox(
       width: 50, // <-- SEE HERE
@@ -685,7 +685,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب خروج",style: TextStyle(color: _accentColor)),
+      Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
 
       SizedBox(
       width: 50, // <-- SEE HERE
