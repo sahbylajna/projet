@@ -196,7 +196,7 @@ class ExportsController extends Controller
             'IMP_QID' => 'string|min:1|nullable',
             'IMP_FAX' => 'string|min:1|nullable',
             'IMP_TEL' => 'string|min:1|nullable',
-            'IMP_COUNTRY' => 'numeric|nullable',
+            'IMP_COUNTRY' => 'string|nullable',
             'ORIGIN_COUNTRY' => 'string|nullable',
             'SHIPPING_PLACE' => 'string|min:1|nullable',
             'TRANSPORT' => 'string|min:1|nullable',
