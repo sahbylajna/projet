@@ -123,7 +123,7 @@
                 <a href="{{ route('importation.accept', $importation->id) }}" class="btn btn-primary">{{ trans('clients.accepted') }}</a>
 
 
-                <a href="{{ route('importation.accept', $importation->id) }}" class="btn btn-danger">{{ trans('clients.refused') }}</a>
+                <a  onclick="addRow()"  class="btn btn-danger">{{ trans('clients.refused') }}</a>
 
 
 
@@ -133,13 +133,76 @@
             @elseif ($importation->accepted == 1)
             <p class="btn btn-info">{{ trans('clients.accepted') }}</p>
             @elseif ($importation->accepted == 0)
-            <p class="btn btn-danger">  {{ trans('clients.refused') }} {{ $importation->reson }} </p>
+            <p class="btn btn-danger">  {{ trans('importations.reson') }} : {{ $importation->reson }} </p>
             @endif
                 <br><br><br>
         </dl>
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal w-lg fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" >
+    <div class="modal-dialog " role="document">
+        <div class="modal-content card shade">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('importation.refuse', $importation->id) }}" id="edit_importation_form" name="edit_importation_form" accept-charset="UTF-8" class="form-horizontal">
+                {{ csrf_field() }}
+
+
+
+            <div class="modal-body">
+
+
+                <div class="form-group {{ $errors->has('commenter') ? 'has-error' : '' }}">
+                    <label for="commenter" class="col-md-2 control-label">{{ trans('importations.reson') }}</label>
+                    <div class="col-md-10">
+                        <input class="form-control" name="commenter" type="text" id="commenter" minlength="1" placeholdera="{{ trans('importations.reson') }}">
+                        {!! $errors->first('commenter', '<p class="help-block">:message</p>') !!}
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+
+<button type="submit" class="btn btn-primary">{{ trans('importations.add') }} </button>
+
+
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+
+
 
 @endsection
 @section('css')
@@ -156,3 +219,16 @@ th, td{
 
 @endsection
 
+@section('js')
+    <script>
+ var modal = document.getElementById("myModal");
+function addRow() {
+    modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+    </script>
+@endsection

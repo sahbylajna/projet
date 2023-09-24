@@ -312,6 +312,10 @@ Route::group([
          ->name('importations.importation.edit')->where('id', '[0-9]+');
          Route::get('/{importation}/accept',[ImportationsController::class, 'accept'])
          ->name('importation.accept')->where('id', '[0-9]+');
+         Route::post('/{importation}/refuse',[ImportationsController::class, 'refuse'])
+         ->name('importation.refuse')->where('id', '[0-9]+');
+
+
 
 
     Route::post('/', [ImportationsController::class, 'store'])
@@ -337,7 +341,8 @@ Route::group([
          Route::get('/{back}/accept',[BacksController::class, 'accept'])
          ->name('back.accept')->where('id', '[0-9]+');
 
-
+         Route::post('/{back}/refuse',[BacksController::class, 'refuse'])
+         ->name('back.refuse')->where('id', '[0-9]+');
 
     Route::post('/', [BacksController::class, 'store'])
          ->name('backs.back.store');
@@ -353,7 +358,8 @@ Route::group([
     Route::get('/', [ExportsController::class, 'index'])
          ->name('exports.export.index');
 
-
+         Route::post('/{export}/refuse',[ExportsController::class, 'refuse'])
+         ->name('export.refuse')->where('id', '[0-9]+');
          Route::get('/{export}/accept',[ExportsController::class, 'accept'])
          ->name('exports.accept')->where('id', '[0-9]+');
     Route::get('/create', [ExportsController::class, 'create'])

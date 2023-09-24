@@ -495,54 +495,53 @@ Future<Success?> Setimportations(
 
 
 
-  Future<Success?> Setexports(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_FAX,IMP_TEL,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO) async {
+  Future<Success?> Setexports(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_FAX,IMP_TEL,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO,filePath) async {
     try {
       final user = await SharedPreferences.getInstance();
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.exports);
-      final Map<String, dynamic> requestData = {
-        'COMP_ID': COMP_ID,
-        'EUSER_QID': EUSER_QID,
-        'EXP_NAME': EXP_NAME,
-        'EXP_TEL': EXP_TEL,
-        'IMP_QID': EXP_QID,
-        'EXP_FAX': EXP_FAX,
-        'EXP_COUNTRY': EXP_COUNTRY,
-        'IMP_NAME': IMP_NAME,
+         var request = http.MultipartRequest('POST', url);
+          request.headers['Authorization'] = 'Bearer ${user.getString('token')}';
 
-        'IMP_FAX': IMP_FAX,
-        'IMP_TEL': IMP_TEL,
+         // Add your other form data fields
+    request.fields['COMP_ID'] = COMP_ID;
+    request.fields['EUSER_QID'] = EUSER_QID;
+    request.fields['EXP_NAME'] = EXP_NAME;
+    request.fields['IMP_QID'] = EXP_QID;
+    request.fields['EXP_TEL'] = EXP_TEL;
+    request.fields['EXP_FAX'] = EXP_FAX;
+    request.fields['EXP_COUNTRY'] = EXP_COUNTRY;
+    request.fields['IMP_NAME'] = IMP_NAME;
+    request.fields['IMP_FAX'] = IMP_FAX;
+    request.fields['IMP_TEL'] = IMP_TEL;
+    request.fields['IMP_COUNTRY'] = IMP_COUNTRY;
+    request.fields['ORIGIN_COUNTRY'] = ORIGIN_COUNTRY;
+    request.fields['SHIPPING_PLACE'] = SHIPPING_PLACE;
+    request.fields['TRANSPORT'] = TRANSPORT;
+    request.fields['SHIPPING_DATE'] = SHIPPING_DATE;
+    request.fields['EXP_NATIONALITY'] = EXP_NATIONALITY;
+    request.fields['EXP_PASSPORT_NUM'] = EXP_PASSPORT_NUM;
+    request.fields['ANIMAL_INFO'] = jsonEncode(ANIMAL_INFO);
 
-        'IMP_COUNTRY': IMP_COUNTRY,
-        'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
-        'SHIPPING_PLACE': SHIPPING_PLACE,
+    // Add the PDF file
+    var pdfFile = await http.MultipartFile.fromPath('files', filePath);
+    request.files.add(pdfFile);
+
+ var response = await request.send();
+
+    print('hnaaaaaaaaaaaaaaaaaaaaaa');
+    final responseString = await response.stream.bytesToString();
+    print(responseString);
+
+    if (response.statusCode == 200) {
+      // Handle a successful response here if needed
+      Success model = successFromJson(responseString);
+      return model;
+    }
 
 
-        'TRANSPORT': TRANSPORT,
-        'SHIPPING_DATE': SHIPPING_DATE,
-        'EXP_NATIONALITY': EXP_NATIONALITY,
-        'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-          'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
-      };
-
-      var response = await http.post(url,
-        headers: <String, String>{
-          "Accept": "application/json",
-          'Authorization' : 'Bearer ${user.getString('token')}',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestData),
-
-      );
-
-      print(requestData);
 
 
-      print(response.body.toString());
-      if (response.statusCode == 200) {
 
-        Success model = successFromJson(response.body);
-        return model;
-      }
 
     } catch (e) {
       log(e.toString());

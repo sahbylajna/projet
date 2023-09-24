@@ -61,7 +61,7 @@ return [
     'EXP_PASSPORT_NUM__placeholder' => 'Enter رقم جواز السفر here...',
     'accepted' => 'Accepted',
     'accepted__placeholder' => 'Enter accepted here...',
-    'reson' => 'Reson',
+    'reson' => 'سبب الرفض',
     'reson__placeholder' => 'Enter reson here...',
     'access_token_with_bearer' => 'The access token prefixed with the "Bearer " key word.',
     'index_route_description' => 'Retrieve existing exports.',

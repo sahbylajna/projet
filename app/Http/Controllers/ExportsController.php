@@ -472,4 +472,19 @@ class ExportsController extends Controller
 
          return view('exports.edit', compact('export','clients'));
      }
+
+     public function refuse($id,Request $request){
+        $export = export::findOrFail($id);
+        $export->accepted = 0;
+        $export->reson = $request->commenter;
+$export->save();
+    $acceptation = new acceptation_demande();
+    $acceptation->User_id = Auth()->user()->id;
+    $acceptation->demande_id = $export->id;
+    $acceptation->type = 'export';
+    $acceptation->commenter = 'refuse';
+    $acceptation->save();
+        return back();
+    }
+
 }

@@ -657,8 +657,22 @@ class _InContentState extends State<InContent>{
 
  ElevatedButton(
               onPressed: _pickPDF,
-              child: Text('Pick PDF'),
+              child: Text('إختار وثيقة '),
             ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             SizedBox(height: 20),
@@ -1093,6 +1107,9 @@ void _showAddRowDialog() {
                     onPressed: () {
                       setState(() {
                         print(rows.length);
+                        if(rows.length > 1){
+                            rows.clear();
+                        }
                         rows.add(RowModel(EXPORT_COUNTRY,ORIGIN_COUNTRY,TRANSIET_COUNTRY,ANML_SPECIES,ANML_SEX,ANML_NUMBER,ANML_USE,ANIMAL_BREED));
                       });
 

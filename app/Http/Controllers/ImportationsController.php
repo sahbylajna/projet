@@ -443,29 +443,12 @@ $headers = [
 
 
 
-// $acceptation = new acceptation_demande();
-// $acceptation->User_id = Auth()->user()->id;
-// $acceptation->demande_id = $importation->id;
-// $acceptation->type = 'importation';
-// $acceptation->commenter = 'accepter';
-// $acceptation->save();
-//dd(Storage::get($importation->files));
 
 
-// Adjust the file path
+
 $pdfContents = file_get_contents(asset($importation->files));
-//dd($ANIMALINFOj,$data,asset($importation->files),$file);
 try{
-    // $client2 = new ClientHTTP();
-    // $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
-    //     'headers' => $headers,
-    //     'form_params' => [
-    //         'DATA' => $data,
-    //         'ANIMAL_INFO' =>$ANIMALINFOj,
-    //         'files' => $file ,
-    //     ],
 
-    // ]);
     $client2 = new ClientHTTP();
 
 $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
@@ -519,5 +502,20 @@ $importation->save();
 
 
         return view('importations.edit', compact('importation','clients'));
+    }
+
+
+    public function refuse($id,Request $request){
+        $importation = importation::findOrFail($id);
+        $importation->accepted = 0;
+        $importation->reson = $request->commenter;
+$importation->save();
+    $acceptation = new acceptation_demande();
+    $acceptation->User_id = Auth()->user()->id;
+    $acceptation->demande_id = $importation->id;
+    $acceptation->type = 'importation';
+    $acceptation->commenter = 'refuse';
+    $acceptation->save();
+        return back();
     }
 }

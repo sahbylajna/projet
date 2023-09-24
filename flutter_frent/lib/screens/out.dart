@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/common/theme_helper.dart';
@@ -31,7 +32,7 @@ class _OutContentState extends State<OutContent>{
   }
 
   void _getData(BuildContext context) async {
-
+ _contrie = (await ApiService().getcontries())!;
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -53,7 +54,7 @@ class _OutContentState extends State<OutContent>{
         );
       },
     );
-    _contrie = (await ApiService().getcontries())!;
+
     if(_contrie != null){
       if (Navigator.of(context, rootNavigator: true).canPop()) {
         Navigator.of(context, rootNavigator: true).pop();
@@ -61,6 +62,25 @@ class _OutContentState extends State<OutContent>{
       }
     }
   }
+
+
+
+ String? filePath;
+
+
+ Future<void> _pickPDF() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+      setState(() {
+        filePath = result.files.single.path;
+      });
+    }
+  }
+
 
   TextEditingController _tap1 = TextEditingController();
   TextEditingController _tap2 = TextEditingController();
@@ -99,6 +119,13 @@ class _OutContentState extends State<OutContent>{
   final GlobalKey<State> _statefulBuilderKey = GlobalKey<State>();
   DateTime dateTime0 = DateTime.now();
   DateTime dateTime1 = DateTime.now();
+
+
+
+  List<RowModel> rows = [];
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -472,9 +499,7 @@ class _OutContentState extends State<OutContent>{
                           height: 10,
                         ),
 
-
-
-                        TextFormField(
+                             TextFormField(
                           controller: _tap18,
                           keyboardType: TextInputType.number,
 
@@ -486,20 +511,106 @@ class _OutContentState extends State<OutContent>{
                         ),
 
 
+
+    SizedBox(height: 20),
+ ElevatedButton(
+              onPressed: _pickPDF,
+              child: Text('إختار وثيقة '),
+            ),
+
+
+
+                       Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              _showAddRowDialog();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                             'إضافة حيوان'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+ ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+  Padding(
+                      padding: EdgeInsets.only(left: 40.0, right: 40.0,top: 2.0,bottom: 2.0), // Adjust the padding values as needed
+                      child:
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: rows.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 4, // You can adjust the elevation for the shadow effect
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0), // Radius of 5 for rounded corners
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                               // color: Colors.blue, // Blue background color
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: ListTile(
+                                title: Text('رقم الحيوان: ${rows[index].ANML_NUMBER}'),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                  ),
+
+
+
+
                         const SizedBox(
                           height: 10,
                         ),
 
-                       TextFormField(
-                          controller: jsonList,
 
 
-                          decoration: InputDecoration(
-                              errorText: _validate15 ? 'يرجي ادخال الجنسية المصدر صحيح' : null,
-                              label: Text('عدد الحيوانات'),
-                              border: OutlineInputBorder()),
 
-                        ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         const SizedBox(
                           height: 2,
@@ -553,6 +664,11 @@ class _OutContentState extends State<OutContent>{
     );
   }
   Future<void> _apisend() async {
+List<Map<String, dynamic>> jsonList = [];
+
+    for (var row in rows) {
+      jsonList.add(row.toJson());
+    }
 
     showDialog(
       barrierDismissible: false,
@@ -596,7 +712,7 @@ class _OutContentState extends State<OutContent>{
       _tap15.text,
       _tap16.text,
       _tap18.text,
-      jsonList.text,
+        jsonList.toString(),
     ];
 
     bool hasEmptyVariable = false;
@@ -640,7 +756,7 @@ class _OutContentState extends State<OutContent>{
       // All variables have values, you can proceed with your logic
 
 
-      Success? success =  (await ApiService().Setexports(_tap1.text,_tap2.text,_tap3.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap8.text,_tap9.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList));
+      Success? success =  (await ApiService().Setexports(_tap1.text,_tap2.text,_tap3.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap8.text,_tap9.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList,filePath));
 
       if(success?.message =="success"){
         if (Navigator.of(context, rootNavigator: true).canPop()) {
@@ -715,6 +831,124 @@ class _OutContentState extends State<OutContent>{
 
   }
 
+
+void _showAddRowDialog() {
+
+
+    String ANML_SPECIES = '';
+    String ANML_SEX = '';
+    String ANML_NUMBER = '';
+    String ANML_USE = '';
+    String ANIMAL_BREED = '';
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return  StatefulBuilder(
+            key: _statefulBuilderKey,
+            builder: (BuildContext context, StateSetter setStateInsideDialog) {
+              return AlertDialog(
+                title: Text('أضف حيوان'),
+              content: SingleChildScrollView(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+
+                    TextField(
+                      decoration: InputDecoration(labelText: 'نوع  الحيوان'),
+                      textDirection: TextDirection.rtl,
+                      onChanged: (value) {
+                        ANML_SPECIES = value;
+                      },
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'جنس الحيوان'),
+                      // keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANML_SEX = value;
+                      },
+                    ),
+
+                    TextField(
+                      decoration: InputDecoration(labelText: 'رقم  الحيوان'),
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANML_NUMBER = value;
+                      },
+                    ),
+
+                    TextField(
+                      decoration: InputDecoration(labelText: 'استخدام  الحيوان'),
+                      //  keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANML_USE = value;
+                      },
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'سلالة    الحيوان'),
+                      // keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ANIMAL_BREED = value;
+                      },
+                    ),
+
+                  ],
+                ),
+              ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        print(rows.length);
+                        if(rows.length > 1){
+                            rows.clear();
+                        }
+                        rows.add(RowModel(ANML_SPECIES,ANML_SEX,ANML_NUMBER,ANML_USE,ANIMAL_BREED));
+                      });
+
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Add'),
+                  ),
+                ],
+              );
+
+            },
+          );}
+    );
+
+  }
+}
+
+
+
+
+
+class RowModel {
+
+  final String ANML_SPECIES ;
+  final String ANML_SEX ;
+  final String ANML_NUMBER ;
+  final String ANML_USE ;
+  final String ANIMAL_BREED ;
+
+  RowModel(this.ANML_SPECIES,this.ANML_SEX,this.ANML_NUMBER,this.ANML_USE,this.ANIMAL_BREED);
+  Map<String, dynamic> toJson() {
+    return {
+
+      'ANML_SPECIES': ANML_SPECIES,
+      'ANML_SEX': ANML_SEX,
+      'ANML_NUMBER': ANML_NUMBER,
+      'ANML_USE': ANML_USE,
+      'ANIMAL_BREED': ANIMAL_BREED,
+    };
+  }
 
 
 }
