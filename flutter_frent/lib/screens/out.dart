@@ -719,27 +719,7 @@ List<Map<String, dynamic>> jsonList = [];
     ];
 
     bool hasEmptyVariable = false;
-print(_tap1.text);
-      print(_tap2.text);
-      print(_tap3.text);
-      print(_tap4.text);
-      print(_tap5.text);
-      print(_tap6.text);
-      print(_selectedValue!.name.toString() );
-      print(_tap17.text);
-     print(_tap7.text);
-      print(_tap8.text);
-      print(_tap9.text);
 
- print(_selectedValue1!.name.toString() );
-       print(_selectedValue2!.name.toString() );
-      print(_tap11.text);
-
-      print(_tap14.text);
-      print(_tap15.text);
-      print(_tap16.text);
-      print(_tap18.text);
-      print( jsonList.toString());
     for (var variable in variables) {
       if (variable.isEmpty) {
         hasEmptyVariable = true;
