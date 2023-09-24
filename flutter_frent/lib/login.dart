@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage>{
         // Close the dialog
       }
     }
-    }
+
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage>{
         );
       },
     );
-
+}
 
   }
   TextEditingController phone = TextEditingController();

@@ -115,6 +115,7 @@
                 <br>
 
 
+                <dd> <a href="{{ asset($importation->files) }}">مشاهدة المرفقات</a> </dd>
 
                 @if ($importation->accepted == null)
                 {{-- <form method="POST" action="{!! route('clients.client.refused', $client->id) !!}" accept-charset="UTF-8"> --}}
