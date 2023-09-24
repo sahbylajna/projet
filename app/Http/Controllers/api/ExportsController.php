@@ -36,12 +36,6 @@ class ExportsController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('Request:', [
-            'url' => $request->fullUrl(),
-            'method' => $request->method(),
-            'headers' => $request->headers->all(),
-            'body' => $request->all(),
-        ]);
 
         try {
             $validator = $this->getValidator($request);

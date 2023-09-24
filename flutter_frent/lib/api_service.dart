@@ -545,6 +545,7 @@ Future<Success?> Setimportations(
 
     } catch (e) {
       log(e.toString());
+          print(e.toString());
     }
     return null;
   }
