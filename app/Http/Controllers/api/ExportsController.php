@@ -231,7 +231,15 @@ class ExportsController extends Controller
 
         return $data;
     }
+    protected function moveFile($file)
+    {
 
+
+      //  $path = config('laravel-code-generator.files_upload_path', 'uploads');
+        $saved = $file->store('pdf',['disk' => 'public_uploads']);
+
+        return  $saved;
+    }
     /**
      * Transform the giving export to public friendly array
      *
