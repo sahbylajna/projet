@@ -155,7 +155,7 @@ class ExportsController extends Controller
             'EXP_NAME' => 'string|min:1|nullable',
             'EXP_TEL' => 'string|min:1|nullable',
             'EXP_FAX' => 'string|min:1|nullable',
-            'EXP_COUNTRY' => 'numeric|nullable',
+            'EXP_COUNTRY' => 'string|nullable',
             'IMP_NAME' => 'string|min:1|nullable',
             'IMP_QID' => 'string|min:1|nullable',
             'IMP_FAX' => 'string|min:1|nullable',
