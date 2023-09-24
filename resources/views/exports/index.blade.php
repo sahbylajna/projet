@@ -37,17 +37,17 @@
                     <thead>
                         <tr>
                             <th>{{ trans('exports.client_id') }}</th>
-                            <th>{{ trans('exports.CER_TYPE') }}</th>
+
 
                             <th>{{ trans('exports.COMP_ID') }}</th>
                             <th>{{ trans('exports.EUSER_QID') }}</th>
                             <th>{{ trans('exports.EXP_NAME') }}</th>
                             <th>{{ trans('exports.EXP_TEL') }}</th>
-                            <th>{{ trans('exports.EXP_FAX') }}</th>
+
 
                             <th>{{ trans('exports.IMP_NAME') }}</th>
                             <th>{{ trans('exports.IMP_QID') }}</th>
-                            <th>{{ trans('exports.IMP_FAX') }}</th>
+
                             <th>{{ trans('exports.IMP_TEL') }}</th>
 
                             <th>{{ trans('exports.accepted') }}</th>
@@ -60,17 +60,17 @@
                     @foreach($exports as $export)
                         <tr>
                             <td>{{ optional($export->client)->ud }}</td>
-                            <td>{{ $export->CER_TYPE }}</td>
+
 
                             <td>{{ $export->COMP_ID }}</td>
                             <td>{{ $export->EUSER_QID }}</td>
                             <td>{{ $export->EXP_NAME }}</td>
                             <td>{{ $export->EXP_TEL }}</td>
-                            <td>{{ $export->EXP_FAX }}</td>
+
 
                             <td>{{ $export->IMP_NAME }}</td>
                             <td>{{ $export->IMP_QID }}</td>
-                            <td>{{ $export->IMP_FAX }}</td>
+
                             <td>{{ $export->IMP_TEL }}</td>
 
                             <td>{{ $export->accepted }}</td>
