@@ -55,6 +55,7 @@ class ExportsController extends Controller
                 $animal->ANML_USE = $value['ANML_USE'];
                 $animal->ANML_SEX = $value['ANML_SEX'];
                 $animal->ANIMAL_BREED = $value['ANIMAL_BREED'];
+                $animal->ANML_NUMBER = $value['ANML_NUMBER'];
                 $animal->ANML_SPECIES = $value['ANML_SPECIES'];
                 $animal->client_id =  auth()->user()->id ;
                 $animal->save();
