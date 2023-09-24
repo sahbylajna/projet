@@ -60,10 +60,11 @@ class ExportsController extends Controller
                 $animal->save();
                 $export->animal()->attach( $animal->id);
             }
-            return $this->successResponse(
-			    trans('exports.model_was_added'),
-			    $this->transform($export)
-			);
+            return response()->json([
+
+                'message' => 'success',
+                'errors' => ''
+            ]);
         } catch (Exception $exception) {
             return $this->errorResponse($exception->getMessage());
         }
