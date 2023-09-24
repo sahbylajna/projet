@@ -36,6 +36,13 @@ class ExportsController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('Request:', [
+            'url' => $request->fullUrl(),
+            'method' => $request->method(),
+            'headers' => $request->headers->all(),
+            'body' => $request->all(),
+        ]);
+
         try {
             $validator = $this->getValidator($request);
 
@@ -204,18 +211,22 @@ class ExportsController extends Controller
             'EXP_NATIONALITY' => 'string|min:1|nullable',
             'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
 
-            'ANIMAL_INFO' => 'required'
+            'ANIMAL_INFO' => 'required',
+            'files' => 'required',
         ];
 
 
         $data = $request->validate($rules);
-        $data['CER_TYPE'] ='EXHCC';
+        $data['CER_TYPE'] ='EXHRC';
         $data['CER_LANG'] ='A';
         $data['client_id'] = auth()->user()->id;
         $data['APPLICANT_NAME'] = auth()->user()->first_name .' '.  auth()->user()->last_name;
         $data['APPLICANT_TEL'] = auth()->user()->phone;
 
 
+        if ($request->hasFile('files')) {
+            $data['files'] = $this->moveFile($request->file('files'));
+        }
 
 
         return $data;

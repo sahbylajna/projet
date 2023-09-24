@@ -532,7 +532,10 @@ class _OutContentState extends State<OutContent>{
                           child: ElevatedButton(
                             onPressed: () {
                               // Open a dialog to add a new row
-                              _showAddRowDialog();
+                              if(rows.isEmpty){
+     _showAddRowDialog();
+                              }
+
                             },
                             style: ElevatedButton.styleFrom(
                               primary: Colors.transparent, // Transparent background
