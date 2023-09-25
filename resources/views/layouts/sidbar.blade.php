@@ -13,7 +13,7 @@
 
 
         <li class="nav-item">
-          <a class="nav-link " href="{{ route('home') }}">
+          <a class="nav-link active " href="{{ route('home') }}">
             <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
               <i class="material-icons-round opacity-10">dashboard</i>
             </div>
@@ -40,6 +40,17 @@
               <span class="nav-link-text me-1">{{ trans('api_users.model_plural') }}</span>
             </a>
           </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link " href="{{ route('settings.setting.index') }}">
+              <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
+                <span class="material-icons">settings</span>
+              </div>
+              <span class="nav-link-text me-1">{{ trans('settings.model_plural') }}</span>
+            </a>
+          </li>
+
 
 
 
@@ -95,7 +106,7 @@
           <li class="nav-item">
             <a class="nav-link " href="{{ route('importations.importation.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons-round opacity-10">dashboard</i>
+                <i class="material-icons opacity-10">login</i>
               </div>
               <span class="nav-link-text me-1">{{ trans('importations.model_plural') }} </span>
             </a>
@@ -105,7 +116,7 @@
           <li class="nav-item">
             <a class="nav-link " href="{{ route('backs.back.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons-round opacity-10">dashboard</i>
+                <i class="material-icons opacity-10">cached</i>
               </div>
               <span class="nav-link-text me-1">{{ trans('backs.model_plural') }} </span>
             </a>
@@ -113,7 +124,7 @@
           <li class="nav-item">
             <a class="nav-link " href="{{ route('exports.export.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons-round opacity-10">dashboard</i>
+                <i class="material-icons opacity-10">logout</i>
               </div>
               <span class="nav-link-text me-1">{{ trans('exports.model_plural') }} </span>
             </a>
