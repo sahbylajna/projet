@@ -71,6 +71,11 @@
     padding: 6px;
     margin: -10px;
 }
+.navbar-vertical .navbar-nav > .nav-item .nav-link.active {
+
+    border-radius: 1.75rem 1.75rem 1.75rem 1.75rem!important;
+    background-image: linear-gradient(195deg, #EC407A 0%, #D81B60 100%)!important;
+}
 
 </style>
 
@@ -125,7 +130,8 @@
                     }
 
                 });
-} );
+}
+);
 
   </script>
   <script>

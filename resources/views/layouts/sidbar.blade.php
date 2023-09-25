@@ -2,7 +2,7 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute start-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="" target="_blank">
-        <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="{{ asset('images/logo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
         <span class="me-1 font-weight-bold text-white">P S </span>
       </a>
     </div>
@@ -13,7 +13,7 @@
 
 
         <li class="nav-item">
-          <a class="nav-link active " href="{{ route('home') }}">
+          <a class="nav-link  {{'home' == request()->path() ? 'active' : ''}} " href="{{ route('home') }}">
             <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
               <i class="material-icons-round opacity-10">dashboard</i>
             </div>
@@ -24,7 +24,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('users.users.index') }}">
+            <a class="nav-link {{'users' == request()->path() ? 'active' : ''}}{{'users/create' == request()->path() ? 'active' : ''}} " href="{{ route('users.users.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons-round opacity-10">manage_accounts</i>
               </div>
@@ -33,7 +33,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('api_users.api_user.index') }}">
+            <a class="nav-link {{'api_users' == request()->path() ? 'active' : ''}}{{'api_users/create' == request()->path() ? 'active' : ''}} " href="{{ route('api_users.api_user.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons-round opacity-10">manage_accounts</i>
               </div>
@@ -43,7 +43,7 @@
 
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('settings.setting.index') }}">
+            <a class="nav-link {{'settings' == request()->path() ? 'active' : ''}}{{'settings/create' == request()->path() ? 'active' : ''}} " href="{{ route('settings.setting.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <span class="material-icons">settings</span>
               </div>
@@ -55,7 +55,7 @@
 
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('countries.countries.index') }}">
+            <a class="nav-link {{'countries' == request()->path() ? 'active' : ''}}{{'countries/create' == request()->path() ? 'active' : ''}}" href="{{ route('countries.countries.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons-round opacity-10">flag</i>
               </div>
@@ -64,7 +64,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('sms') }}">
+            <a class="nav-link {{'sms' == request()->path() ? 'active' : ''}}{{'sms/create' == request()->path() ? 'active' : ''}}" href="{{ route('sms') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons-round opacity-10">flag</i>
               </div>
@@ -73,7 +73,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('acceptation_clients.acceptation_client.index') }}">
+            <a class="nav-link {{'acceptation_clients' == request()->path() ? 'active' : ''}}{{'acceptation_clients/create' == request()->path() ? 'active' : ''}}" href="{{ route('acceptation_clients.acceptation_client.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons-round opacity-10">history</i>
               </div>
@@ -83,7 +83,7 @@
 
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('terms.term.index') }}">
+            <a class="nav-link {{'terms' == request()->path() ? 'active' : ''}}{{'terms/create' == request()->path() ? 'active' : ''}}" href="{{ route('terms.term.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons-round opacity-10">history</i>
               </div>
@@ -95,7 +95,7 @@
           @endif
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('clients.client.index') }}">
+            <a class="nav-link {{'clients' == request()->path() ? 'active' : ''}}{{'clients/create' == request()->path() ? 'active' : ''}}" href="{{ route('clients.client.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons-round opacity-10">group</i>
               </div>
@@ -104,7 +104,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('importations.importation.index') }}">
+            <a class="nav-link {{'importations' == request()->path() ? 'active' : ''}}{{'importations/create' == request()->path() ? 'active' : ''}}" href="{{ route('importations.importation.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons opacity-10">login</i>
               </div>
@@ -114,7 +114,7 @@
 
 
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('backs.back.index') }}">
+            <a class="nav-link {{'backs' == request()->path() ? 'active' : ''}}{{'backs/create' == request()->path() ? 'active' : ''}}" href="{{ route('backs.back.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons opacity-10">cached</i>
               </div>
@@ -122,7 +122,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('exports.export.index') }}">
+            <a class="nav-link {{'exports' == request()->path() ? 'active' : ''}}{{'exports/create' == request()->path() ? 'active' : ''}}" href="{{ route('exports.export.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons opacity-10">logout</i>
               </div>
