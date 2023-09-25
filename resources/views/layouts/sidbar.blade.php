@@ -1,7 +1,7 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-end me-3 rotate-caret  bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute start-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="" target="_blank">
+      <a class="navbar-brand m-0" href="{{ url('home') }}">
         <img src="{{ asset('images/logo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
         <span class="me-1 font-weight-bold text-white">P S </span>
       </a>
@@ -35,7 +35,9 @@
           <li class="nav-item">
             <a class="nav-link {{'api_users' == request()->path() ? 'active' : ''}}{{'api_users/create' == request()->path() ? 'active' : ''}} " href="{{ route('api_users.api_user.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons-round opacity-10">manage_accounts</i>
+                <span class="material-icons">
+                    vpn_key
+                    </span>
               </div>
               <span class="nav-link-text me-1">{{ trans('api_users.model_plural') }}</span>
             </a>
@@ -66,7 +68,7 @@
           <li class="nav-item">
             <a class="nav-link {{'sms' == request()->path() ? 'active' : ''}}{{'sms/create' == request()->path() ? 'active' : ''}}" href="{{ route('sms') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons-round opacity-10">flag</i>
+                <span class="material-icons">mail</span>
               </div>
               <span class="nav-link-text me-1">SMS</span>
             </a>
@@ -85,7 +87,9 @@
           <li class="nav-item">
             <a class="nav-link {{'terms' == request()->path() ? 'active' : ''}}{{'terms/create' == request()->path() ? 'active' : ''}}" href="{{ route('terms.term.index') }}">
               <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons-round opacity-10">history</i>
+                <span class="material-icons">
+                    gavel
+                    </span>
               </div>
               <span class="nav-link-text me-1">{{ trans('terms.model_plural') }}</span>
             </a>
