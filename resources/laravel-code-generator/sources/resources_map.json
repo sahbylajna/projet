@@ -39,5 +39,9 @@
     {
         "model-name": "notification",
         "resource-file": "notifications.json"
+    },
+    {
+        "model-name": "Setting",
+        "resource-file": "settings.json"
     }
 ]

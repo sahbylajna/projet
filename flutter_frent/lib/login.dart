@@ -47,12 +47,6 @@ class _LoginPageState extends State<LoginPage>{
         MaterialPageRoute(builder: (context) => MyHomePage()), (route) => false);
     }else{
          _contrie = (await ApiService().getcontries())!;
-    if(_contrie != null){
-      if (Navigator.of(context, rootNavigator: true).canPop()) {
-        Navigator.of(context, rootNavigator: true).pop();
-        // Close the dialog
-      }
-    }
 
     showDialog(
       barrierDismissible: false,
@@ -75,6 +69,13 @@ class _LoginPageState extends State<LoginPage>{
         );
       },
     );
+      if(_contrie != null){
+      if (Navigator.of(context, rootNavigator: true).canPop()) {
+        Navigator.of(context, rootNavigator: true).pop();
+        // Close the dialog
+      }
+    }
+
 }
 
   }

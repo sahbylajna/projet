@@ -15,6 +15,7 @@ use App\Http\Controllers\BacksController;
 use App\Http\Controllers\ExportsController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\SettingsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -458,6 +459,25 @@ Route::group([
          ->name('clients.client.destroy')->where('id', '[0-9]+');
 });
 
+
+Route::group([
+    'prefix' => 'settings',
+], function () {
+    Route::get('/', [SettingsController::class, 'index'])
+         ->name('settings.setting.index');
+    Route::get('/create', [SettingsController::class, 'create'])
+         ->name('settings.setting.create');
+    Route::get('/show/{setting}',[SettingsController::class, 'show'])
+         ->name('settings.setting.show')->where('id', '[0-9]+');
+    Route::get('/{setting}/edit',[SettingsController::class, 'edit'])
+         ->name('settings.setting.edit')->where('id', '[0-9]+');
+    Route::post('/', [SettingsController::class, 'store'])
+         ->name('settings.setting.store');
+    Route::put('setting/{setting}', [SettingsController::class, 'update'])
+         ->name('settings.setting.update')->where('id', '[0-9]+');
+    Route::delete('/setting/{setting}',[SettingsController::class, 'destroy'])
+         ->name('settings.setting.destroy')->where('id', '[0-9]+');
+});
 
 
 

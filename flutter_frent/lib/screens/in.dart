@@ -212,7 +212,35 @@ class _InContentState extends State<InContent>{
                         SizedBox(
                           height: 10, // <-- SEE HERE
                         ),
-
+                       Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              _showAddRowDialog();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                             'اضافة  الهجن'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+ ),
+                        const SizedBox(
+                          height: 2,
+                        ),
                         TextFormField(
                           controller: _tap1,
                           keyboardType: TextInputType.number,
@@ -676,35 +704,7 @@ class _InContentState extends State<InContent>{
 
 
             SizedBox(height: 20),
-                       Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [_primaryColor, _accentColor], // Start and end colors
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(30), // Rounded corners
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Open a dialog to add a new row
-                              _showAddRowDialog();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.transparent, // Transparent background
-                              onPrimary: Colors.white, // Text color
-                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                              elevation: 0, // No shadow
-                            ),
-                            child: Text(
-                             'إضافة حيوان'.toUpperCase(),
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
- ),
-                        const SizedBox(
-                          height: 2,
-                        ),
+
   Padding(
                       padding: EdgeInsets.only(left: 40.0, right: 40.0,top: 2.0,bottom: 2.0), // Adjust the padding values as needed
                       child:
@@ -723,7 +723,7 @@ class _InContentState extends State<InContent>{
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
                               child: ListTile(
-                                title: Text('رقم الحيوان: ${rows[index].ANML_NUMBER}'),
+                                title: Text(' عدد الهجن: ${rows[index].ANML_NUMBER}'),
                               ),
                             ),
                           );
@@ -1056,14 +1056,14 @@ void _showAddRowDialog() {
                       ),
                     ),
                     TextField(
-                      decoration: InputDecoration(labelText: 'نوع  الحيوان'),
+                      decoration: InputDecoration(labelText: 'نوع  هجن'),
                       textDirection: TextDirection.rtl,
                       onChanged: (value) {
                         ANML_SPECIES = value;
                       },
                     ),
                     TextField(
-                      decoration: InputDecoration(labelText: 'جنس الحيوان'),
+                      decoration: InputDecoration(labelText: 'جنس هجن'),
                       // keyboardType: TextInputType.number,
                       onChanged: (value) {
                         ANML_SEX = value;
@@ -1071,7 +1071,7 @@ void _showAddRowDialog() {
                     ),
 
                     TextField(
-                      decoration: InputDecoration(labelText: 'رقم  الحيوان'),
+                      decoration: InputDecoration(labelText: 'عدد هجن'),
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         ANML_NUMBER = value;
@@ -1079,14 +1079,14 @@ void _showAddRowDialog() {
                     ),
 
                     TextField(
-                      decoration: InputDecoration(labelText: 'استخدام  الحيوان'),
+                      decoration: InputDecoration(labelText: 'استخدام  هجن'),
                       //  keyboardType: TextInputType.number,
                       onChanged: (value) {
                         ANML_USE = value;
                       },
                     ),
                     TextField(
-                      decoration: InputDecoration(labelText: 'سلالة    الحيوان'),
+                      decoration: InputDecoration(labelText: 'سلالة    هجن'),
                       // keyboardType: TextInputType.number,
                       onChanged: (value) {
                         ANIMAL_BREED = value;
@@ -1101,7 +1101,7 @@ void _showAddRowDialog() {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Cancel'),
+                    child: Text('إلغاء'),
                   ),
                   TextButton(
                     onPressed: () {
@@ -1115,7 +1115,7 @@ void _showAddRowDialog() {
 
                       Navigator.of(context).pop();
                     },
-                    child: Text('Add'),
+                    child: Text('أضاف'),
                   ),
                 ],
               );

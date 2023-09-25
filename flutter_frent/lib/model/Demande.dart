@@ -39,7 +39,7 @@ class Demande {
   String? eXPNATIONALITY;
   String? eXPPASSPORTNUM;
   Null? accepted;
-  Null? reson;
+
   String? type;
   List<Animal>? animal;
 
@@ -75,7 +75,7 @@ class Demande {
         this.eXPNATIONALITY,
         this.eXPPASSPORTNUM,
         this.accepted,
-        this.reson,
+
         this.type,
         this.animal});
 
@@ -111,7 +111,7 @@ class Demande {
     eXPNATIONALITY = json['EXP_NATIONALITY'];
     eXPPASSPORTNUM = json['EXP_PASSPORT_NUM'];
 
-    reson = json['reson'];
+
     type = json['type'];
     if (json['animal'] != null) {
       animal = <Animal>[];
@@ -154,7 +154,7 @@ class Demande {
     data['EXP_NATIONALITY'] = this.eXPNATIONALITY;
     data['EXP_PASSPORT_NUM'] = this.eXPPASSPORTNUM;
     data['accepted'] = this.accepted;
-    data['reson'] = this.reson;
+
     data['type'] = this.type;
     if (this.animal != null) {
       data['animal'] = this.animal!.map((v) => v.toJson()).toList();
