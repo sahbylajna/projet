@@ -120,7 +120,19 @@ Future<term?> getterm() async {
   }
 
 
-  Future<Success?> register(String firstName, String lastName, String phone, String password, String email, String ud, String contryId,String contry, String photoUdFrent, String photoUdBack) async {
+  Future<Success?> register(String firstName, String lastName, String phone, String password, String email, String ud, String contryId,String contry, String photoUdFrent, String photoUdBack,String adresse,String fax,String POBOX) async {
+    log('e.toString()1h');
+     log(firstName);
+     log(lastName);
+     log(phone);
+     log(password);
+     log(email);
+     log(ud);
+     log(contry);
+     log(contryId);
+     log(photoUdFrent);
+     log(photoUdBack);
+
     try {
 
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.register);
@@ -138,17 +150,20 @@ Future<term?> getterm() async {
       'ud': ud,
       'contry_id': contryId,
       'contry': contry,
-      'photo_ud_frent': photoUdFrent,
+      'adresse': adresse,
+      'fax': fax,
+      'POBOX': POBOX,
+      'photo_ud_frent': photoUdFrent.toString(),
       'photo_ud_back': photoUdBack.toString(),
     }),
     );
 
       if (response.statusCode == 200) {
         Success model = successFromJson(response.body);
-        log(model.toString());
+      //  log(model.message.toString());
         return model;
       }
-       log('e.toString()1h');
+       log(contry);
     } catch (e) {
         print(e);
 

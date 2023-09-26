@@ -75,6 +75,9 @@ if($user){
             'password' => 'required',
             'contry_id' => 'required',
             'contry' => 'required',
+            'adresse' => 'required',
+            'POBOX' => 'required',
+            'fax' => 'required',
 
         ];
 
@@ -119,6 +122,9 @@ if($user){
          $client->phone = $request->phone ;
          $client->ud = $request->ud ;
          $client->email = $request->email ;
+         $client->adresse = $request->adresse ;
+         $client->fax = $request->fax ;
+         $client->POBOX = $request->POBOX ;
 
 
          $client->password = Hash::make($request->password)  ;
@@ -135,7 +141,7 @@ if($user){
             return response()->json([
                 'id' => 0,
                 'message' => '',
-                'errors' => ''
+                'errors' => $exception->getMessage()
             ]);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);

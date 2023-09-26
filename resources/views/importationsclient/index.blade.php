@@ -41,32 +41,16 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            {{-- <th>{{ trans('importations.client_id') }}</th>
-                            <th>{{ trans('importations.CER_TYPE') }}</th>
-                            <th>{{ trans('importations.CER_LANG') }}</th> --}}
-                            <th>{{ trans('importations.COMP_ID') }}</th>
-                            <th>{{ trans('importations.EUSER_QID') }}</th>
-                            <th>{{ trans('importations.EXP_NAME') }}</th>
-                            <th>{{ trans('importations.EXP_TEL') }}</th>
-                            <th>{{ trans('importations.EXP_QID') }}</th>
-                            <th>{{ trans('importations.EXP_FAX') }}</th>
+
                             <th>{{ trans('importations.EXP_COUNTRY') }}</th>
-                            <th>{{ trans('importations.IMP_NAME') }}</th>
-                            <th>{{ trans('importations.IMP_ADDRESS') }}</th>
-                            <th>{{ trans('importations.IMP_FAX') }}</th>
-                            <th>{{ trans('importations.IMP_TEL') }}</th>
-                            <th>{{ trans('importations.IMP_POBOX') }}</th>
-                            <th>{{ trans('importations.IMP_COUNTRY') }}</th>
+
                             <th>{{ trans('importations.ORIGIN_COUNTRY') }}</th>
-                            <th>{{ trans('importations.SHIPPING_PLACE') }}</th>
+
                             <th>{{ trans('importations.ENTERY_PORT') }}</th>
                             <th>{{ trans('importations.EXPECTED_ARRIVAL_DATE') }}</th>
-                            <th>{{ trans('importations.TRANSPORT') }}</th>
+
                             <th>{{ trans('importations.SHIPPING_DATE') }}</th>
-                            <th>{{ trans('importations.APPLICANT_NAME') }}</th>
-                            <th>{{ trans('importations.APPLICANT_TEL') }}</th>
-                            <th>{{ trans('importations.EXP_NATIONALITY') }}</th>
-                            <th>{{ trans('importations.EXP_PASSPORT_NUM') }}</th>
+
                             {{-- <th>{{ trans('importations.accepted') }}</th>
                             <th>{{ trans('importations.reson') }}</th> --}}
 
@@ -79,29 +63,15 @@
                             {{-- <td>{{ optional($importation->client)->created_at }}</td>
                             <td>{{ $importation->CER_TYPE }}</td>
                             <td>{{ $importation->CER_LANG }}</td> --}}
-                            <td>{{ $importation->COMP_ID }}</td>
-                            <td>{{ $importation->EUSER_QID }}</td>
-                            <td>{{ $importation->EXP_NAME }}</td>
-                            <td>{{ $importation->EXP_TEL }}</td>
-                            <td>{{ $importation->EXP_QID }}</td>
-                            <td>{{ $importation->EXP_FAX }}</td>
+
                             <td>{{ $importation->EXP_COUNTRY }}</td>
-                            <td>{{ $importation->IMP_NAME }}</td>
-                            <td>{{ $importation->IMP_ADDRESS }}</td>
-                            <td>{{ $importation->IMP_FAX }}</td>
-                            <td>{{ $importation->IMP_TEL }}</td>
-                            <td>{{ $importation->IMP_POBOX }}</td>
-                            <td>{{ $importation->IMP_COUNTRY }}</td>
+
                             <td>{{ $importation->ORIGIN_COUNTRY }}</td>
-                            <td>{{ $importation->SHIPPING_PLACE }}</td>
+
                             <td>{{ $importation->ENTERY_PORT }}</td>
                             <td>{{ $importation->EXPECTED_ARRIVAL_DATE }}</td>
-                            <td>{{ $importation->TRANSPORT }}</td>
+
                             <td>{{ $importation->SHIPPING_DATE }}</td>
-                            <td>{{ $importation->APPLICANT_NAME }}</td>
-                            <td>{{ $importation->APPLICANT_TEL }}</td>
-                            <td>{{ $importation->EXP_NATIONALITY }}</td>
-                            <td>{{ $importation->EXP_PASSPORT_NUM }}</td>
 
 
                             <td>

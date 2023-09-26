@@ -33,7 +33,7 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clients = Client::with('contry')->get();
+        $clients = Client::with('contrys')->get();
 
         return view('clients.index', compact('clients'));
     }
@@ -83,7 +83,7 @@ class ClientsController extends Controller
      */
     public function show($id)
     {
-        $client = Client::with('contry')->findOrFail($id);
+        $client = Client::with('contrys')->findOrFail($id);
 
         return view('clients.show', compact('client'));
     }
@@ -172,6 +172,9 @@ class ClientsController extends Controller
             'password' => 'confirmed',
             'contry_id' => 'required',
             'contry' => 'required',
+            'adresse' => 'required',
+            'fax' => 'required',
+            'POBOX' => 'required',
             'accepted' => 'string|min:1|nullable',
             'refused' => 'string|min:1|nullable',
         ];

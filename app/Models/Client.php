@@ -38,6 +38,8 @@ class Client  extends Authenticatable
                   'phone',
                   'email',
                   'ud',
+                  'adresse',
+                  'fax',
                   'photo_ud_frent',
                   'photo_ud_back',
                   'password',
@@ -45,6 +47,7 @@ class Client  extends Authenticatable
                   'accepted',
                   'singateur',
                   'contry',
+                  'POBOX',
                   'refused'
               ];
 
@@ -67,11 +70,15 @@ class Client  extends Authenticatable
      *
      * @return App\Models\Contry
      */
-    public function contry()
+    public function contrys()
     {
         return $this->belongsTo('App\Models\countries','contry_id');
     }
 
+    public function contr()
+    {
+        return $this->belongsTo('App\Models\countries','contry');
+    }
 
 
 }
