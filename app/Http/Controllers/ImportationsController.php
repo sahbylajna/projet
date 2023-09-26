@@ -345,6 +345,7 @@ class ImportationsController extends Controller
             'EXP_NATIONALITY' => 'nullable',
             'EXP_PASSPORT_NUM' => 'nullable',
             'files' => 'required',
+            'Pledge' => 'required',
 
 
         ];

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Exception;
 use App\Models\ANIMAL_INFO;
 use Illuminate\Support\Facades\Log;
+use  App\Models\Setting;
+use  App\Models\countries;
 
 class ImportationsController extends Controller
 {
@@ -45,7 +47,7 @@ class ImportationsController extends Controller
             'headers' => $request->headers->all(),
             'body' => $request->all(),
         ]);
-
+dd($request);
         try {
 
 
@@ -67,11 +69,11 @@ class ImportationsController extends Controller
                 $animal->ORIGIN_COUNTRY = $value['ORIGIN_COUNTRY'];
                 $animal->EXPORT_COUNTRY = $value['EXPORT_COUNTRY'];
                 $animal->TRANSIET_COUNTRY = $value['TRANSIET_COUNTRY'];
-                $animal->ANML_SPECIES = $value['ANML_SPECIES'];
-                $animal->ANML_SEX = $value['ANML_SEX'];
+                $animal->ANML_SPECIES = "ابل هجن";
+                $animal->ANML_SEX = 'هجين';
                 $animal->ANML_NUMBER = $value['ANML_NUMBER'];
-                $animal->ANML_USE = $value['ANML_USE'];
-                $animal->ANIMAL_BREED = $value['ANIMAL_BREED'];
+                $animal->ANML_USE = 'مشاركة';
+                $animal->ANIMAL_BREED = "حسب الكشف المرفق";
                 $animal->client_id =  auth()->user()->id ;
                 $animal->save();
                 $importations->animal()->attach( $animal->id);
@@ -206,33 +208,17 @@ class ImportationsController extends Controller
      */
     protected function getData(Request $request)
     {
+
         $rules = [
 
-
-            'COMP_ID' => 'string|min:1',
-            'EUSER_QID' => 'string|min:1|nullable',
-            'EXP_NAME' => 'string|min:1|nullable',
-            'EXP_TEL' => 'string|min:1|nullable',
-            'EXP_QID' => 'string|min:1|nullable',
-            'EXP_FAX' => 'string|min:1|nullable',
             'EXP_COUNTRY' => 'string|nullable',
-            'IMP_NAME' => 'string|min:1|nullable',
-            'IMP_ADDRESS' => 'string|min:1|nullable',
-            'IMP_FAX' => 'string|min:1|nullable',
-            'IMP_TEL' => 'string|min:1|nullable',
-            'IMP_POBOX' => 'string|min:1|nullable',
-            'IMP_COUNTRY' => 'string|nullable',
             'ORIGIN_COUNTRY' => 'string|nullable',
-            'SHIPPING_PLACE' => 'string|min:1|nullable',
             'ENTERY_PORT' => 'string|min:1|nullable',
             'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
-            'TRANSPORT' => 'string|min:1|nullable',
             'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
-
-            'EXP_NATIONALITY' => 'string|min:1|nullable',
-            'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
             'ANIMAL_INFO' => 'required',
             'files' => 'required',
+            'Pledge' => 'required',
 
 
 
@@ -250,14 +236,47 @@ class ImportationsController extends Controller
         }
 
         $data = $request->validate($rules);
+
+        $setting =  Setting::first();
+        $contry =  countries::find(auth()->guard('clientt')->user()->contry);
+
+        $data['COMP_ID'] =$setting->being_established;
+        $data['EUSER_QID'] ='';
+        $data['EXP_NAME'] ='Hijin';
+        $data['EXP_TEL'] =$setting->phone;
+        $data['EXP_QID'] =$setting->commercial_register;
+        $data['EXP_FAX'] =$setting->fax;
+
+        $data['IMP_NAME'] =auth()->user()->first_name + auth()->user()->last_name;
+        $data['IMP_ADDRESS'] =auth()->user()->adresse;
+        $data['IMP_FAX'] =auth()->user()->fax;
+        $data['IMP_TEL'] =auth()->user()->phone;
+        $data['IMP_POBOX'] =auth()->user()->POBOX;
+        $data['IMP_COUNTRY'] = $contry->name;
+
+        $data['SHIPPING_PLACE'] ="منفذ ابو سمرة";
+        $data['APPLICANT_NAME'] ='';
+        $data['APPLICANT_TEL'] =$setting->phone;
+        $data['TRANSPORT'] ='';
+        $data['EXP_NATIONALITY'] ='';
+        $data['EXP_PASSPORT_NUM'] ='';
+
+
+
+
         $data['CER_TYPE'] ='IMPRC';
         $data['CER_LANG'] ='A';
         $data['client_id'] = auth()->user()->id;
-        $data['APPLICANT_NAME'] = auth()->user()->first_name .' '.  auth()->user()->last_name;
-        $data['APPLICANT_TEL'] = auth()->user()->phone;
+        $data['APPLICANT_NAME'] = '';
+        $data['APPLICANT_TEL'] = '';
         if ($request->hasFile('files')) {
             $data['files'] = $this->moveFile($request->file('files'));
         }
+
+        if ($request->hasFile('Pledge')) {
+            $data['Pledge'] = $this->moveFile($request->file('Pledge'));
+        }
+
 
 
         return $data;

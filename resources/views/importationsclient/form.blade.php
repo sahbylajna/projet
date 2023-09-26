@@ -16,7 +16,7 @@
 
 
 
-<input type="hidden" name="IMP_NAME" value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->first_name }} ">
+<input type="hidden" name="IMP_NAME" value="{{ auth()->guard('clientt')->user()->first_name }} {{ auth()->guard('clientt')->user()->last_name }} ">
 <input type="hidden" name="IMP_ADDRESS" value="{{ auth()->guard('clientt')->user()->adresse }}">
 <input type="hidden" name="IMP_FAX" value="{{ auth()->guard('clientt')->user()->fax }}">
 <input type="hidden" name="IMP_TEL" value="{{ auth()->guard('clientt')->user()->phone }}">
@@ -116,6 +116,16 @@ $countries =   App\Models\countries::where('active',1)->get();
     <label for="EXP_PASSPORT_NUM" class="col-md-2 control-label">{{ trans('importations.files') }}</label>
     <div class="col-md-10">
         <input class="form-control" name="files" type="file" id="files" value="{{ old('files', optional($importation)->files) }}" minlength="1" placeholder="{{ trans('importations.files') }}">
+        {!! $errors->first('EXP_PASSPORT_NUM', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+
+
+<div class="form-group {{ $errors->has('EXP_PASSPORT_NUM') ? 'has-error' : '' }}">
+    <label for="EXP_PASSPORT_NUM" class="col-md-2 control-label">{{ trans('importations.Pledge') }}</label>
+    <div class="col-md-10">
+        <input class="form-control" name="Pledge" type="file" id="Pledge" value="{{ old('Pledge', optional($importation)->Pledge) }}" minlength="1" placeholder="{{ trans('importations.files') }}">
         {!! $errors->first('EXP_PASSPORT_NUM', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

@@ -59,6 +59,7 @@ return [
     'accepted' => 'Accepted',
     'accepted__placeholder' => 'Enter accepted here...',
     'reson' => 'Reson',
+    'Pledge' => 'Pledge',
     'reson__placeholder' => 'Enter reson here...',
     'access_token_with_bearer' => 'The access token prefixed with the "Bearer " key word.',
     'index_route_description' => 'Retrieve existing importations.',

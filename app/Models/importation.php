@@ -57,6 +57,7 @@ class importation extends Model
                   'accepted',
                   'reson',
                   'CER_SERIAL',
+                  'Pledge',
                   'files'
               ];
 
