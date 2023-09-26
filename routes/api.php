@@ -76,8 +76,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 Route::get('/user', function() {
-
-    return auth()->user();
+    $contry =  App\Models\countries::find(auth()->user()->contry);
+    $user =auth()->user();
+    $user->contry = $contry->name;
+    return $user;
 })->middleware('auth:sanctum');
 
 
