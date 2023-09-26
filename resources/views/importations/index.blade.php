@@ -39,11 +39,7 @@
                         <tr>
                             <th>{{ trans('importations.client_id') }}</th>
 
-                            <th>{{ trans('importations.COMP_ID') }}</th>
-                            <th>{{ trans('importations.EUSER_QID') }}</th>
-                            <th>{{ trans('importations.EXP_NAME') }}</th>
-                            <th>{{ trans('importations.EXP_TEL') }}</th>
-                            <th>{{ trans('importations.EXP_QID') }}</th>
+
 
 
                             <th>{{ trans('importations.IMP_NAME') }}</th>
@@ -63,11 +59,7 @@
                         <tr>
                             <td>{{ optional($importation->client)->ud }}</td>
 
-                            <td>{{ $importation->COMP_ID }}</td>
-                            <td>{{ $importation->EUSER_QID }}</td>
-                            <td>{{ $importation->EXP_NAME }}</td>
-                            <td>{{ $importation->EXP_TEL }}</td>
-                            <td>{{ $importation->EXP_QID }}</td>
+
 
 
                             <td>{{ $importation->IMP_NAME }}</td>
