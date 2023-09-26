@@ -171,6 +171,7 @@ class ClientsController extends Controller
             'photo_ud_back' => 'file|required',
             'password' => 'confirmed',
             'contry_id' => 'required',
+            'contry' => 'required',
             'accepted' => 'string|min:1|nullable',
             'refused' => 'string|min:1|nullable',
         ];

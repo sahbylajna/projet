@@ -22,6 +22,7 @@ class RegistrationPage extends  StatefulWidget{
 
 class _RegistrationPageState extends State<RegistrationPage>{
  Contries? _selectedValue;
+  Contries? _selectedValue1;
    late List<Contries> _contrie = [];
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
@@ -212,6 +213,65 @@ width: screen.width * 0.45,
           ),]),
 
                         SizedBox(height: 20.0),
+
+
+
+
+
+      Container(
+
+                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            border: Border.all(
+                color: Colors.deepPurple.shade300, style: BorderStyle.solid, width: 0.8),
+          ),
+            child: DropdownButton<Contries>(
+
+              //isDense: true,
+              hint: Text('اختر دولتك'),
+//isDense: true,
+                //    isExpanded: true,
+              value: _selectedValue1,
+
+              icon: Icon(Icons.check_circle_outline),
+              iconSize: 24,
+              elevation: 16,
+               //style: ThemeHelper().buttonStyle(),
+              style: TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.blue[300],
+              ),
+              onChanged:( newValue1) {
+                setState(() {
+                _selectedValue1 = newValue1;
+                //  contry_id =_contrie.indexOf();
+                });
+              },
+              items:
+                  _contrie.map<DropdownMenuItem<Contries>>((Contries value) {
+                return DropdownMenuItem<Contries>(
+                  value:  value ,
+                  child: Text('+${value.name}' ),
+                );
+              }).toList(),
+            ),
+          ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                        Row(
                         children: [
  Container(
@@ -367,7 +427,7 @@ width: screen.width * 0.45,
 
 
 
- Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),base64Image1.toString(),base64Image2.toString()))!;
+ Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),_selectedValue1!.id.toString(),base64Image1.toString(),base64Image2.toString()))!;
 
 
  if(success.errors!.isNotEmpty){

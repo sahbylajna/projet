@@ -5,7 +5,7 @@ return [
     'password_confirmation' => 'اعلدة الرقم السري',
     'id' => 'Id',
     'waiting' => 'منتظر',
-
+    'contry' => 'دولة',
     'id__placeholder' => 'Enter id here...',
     'first_name' => 'الاسم الاول ',
     'first_name__placeholder' => 'الاسم الاول ',

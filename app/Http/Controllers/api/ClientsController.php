@@ -74,6 +74,7 @@ if($user){
             'photo_ud_back' => 'nullable',
             'password' => 'required',
             'contry_id' => 'required',
+            'contry' => 'required',
 
         ];
 
@@ -122,6 +123,7 @@ if($user){
 
          $client->password = Hash::make($request->password)  ;
          $client->contry_id = $request->contry_id ;
+         $client->contry = $request->contry ;
          $client->save();
          return response()->json([
             'id' =>$client->id,

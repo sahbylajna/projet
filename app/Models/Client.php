@@ -44,6 +44,7 @@ class Client  extends Authenticatable
                   'contry_id',
                   'accepted',
                   'singateur',
+                  'contry',
                   'refused'
               ];
 

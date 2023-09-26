@@ -120,7 +120,7 @@ Future<term?> getterm() async {
   }
 
 
-  Future<Success?> register(String firstName, String lastName, String phone, String password, String email, String ud, String contryId, String photoUdFrent, String photoUdBack) async {
+  Future<Success?> register(String firstName, String lastName, String phone, String password, String email, String ud, String contryId,String contry, String photoUdFrent, String photoUdBack) async {
     try {
 
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.register);
@@ -137,6 +137,7 @@ Future<term?> getterm() async {
       'email':email,
       'ud': ud,
       'contry_id': contryId,
+      'contry': contry,
       'photo_ud_frent': photoUdFrent,
       'photo_ud_back': photoUdBack.toString(),
     }),

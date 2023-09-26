@@ -218,7 +218,7 @@ button{
     $countries =   App\Models\countries::where('active',1)->get();
 
   @endphp
-    <form  method="POST" action="{{ route('clients.client.sungupp') }}" enctype="multipart/form-data" accept-charset="UTF-8" id="create_client_form" name="create_client_form" class="form">
+    <form  method="POST" action="{{ route('clients.client.sungupp') }}" enctype="multipart/form-data" accept-charset="UTF-8" id="create_client_form" name="create_client_form" class="form" style="margin-top: 234px;">
         {{ csrf_field() }}
 
 
@@ -277,6 +277,22 @@ button{
                 <input required class="form-control" name="email" type="email" id="email" value="" placeholder="{{ trans('clients.email__placeholder') }}">
                 {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
             </div>
+        </div>
+
+        <div id="right" class="form-group {{ $errors->has('phone') ? 'has-error' : '' }} ">
+            <label for="phone" class="col-md-2 control-label">{{ trans('clients.contry') }}</label>
+
+                <select class="form-control select-css " id="contry" name="contry">
+                        <option value="" style="display: none;" disabled selected>{{ trans('clients.contry_id__placeholder') }}</option>
+                    @foreach ($countries as  $contry)
+                        <option value="{{ $contry->id }}" >
+                            {{ $contry->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                {!! $errors->first('contry_id', '<p class="help-block">:message</p>') !!}
+
         </div>
 
         <div id="right" class="form-group {{ $errors->has('ud') ? 'has-error' : '' }}">
