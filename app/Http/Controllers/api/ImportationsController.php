@@ -247,7 +247,7 @@ class ImportationsController extends Controller
         $data['EXP_QID'] =$setting->commercial_register;
         $data['EXP_FAX'] =$setting->fax;
 
-        $data['IMP_NAME'] =auth()->user()->first_name + auth()->user()->last_name;
+        $data['IMP_NAME'] =auth()->user()->first_name .' '. auth()->user()->last_name;
         $data['IMP_ADDRESS'] =auth()->user()->adresse;
         $data['IMP_FAX'] =auth()->user()->fax;
         $data['IMP_TEL'] =auth()->user()->phone;
