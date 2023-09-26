@@ -47,7 +47,7 @@ class ImportationsController extends Controller
             'headers' => $request->headers->all(),
             'body' => $request->all(),
         ]);
-dd($request);
+
         try {
 
 
