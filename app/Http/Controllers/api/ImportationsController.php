@@ -238,7 +238,7 @@ class ImportationsController extends Controller
         $data = $request->validate($rules);
 
         $setting =  Setting::first();
-        $contry =  countries::find(auth()->guard('clientt')->user()->contry);
+        $contry =  countries::find(auth()->user()->contry);
 
         $data['COMP_ID'] =$setting->being_established;
         $data['EUSER_QID'] ='';
