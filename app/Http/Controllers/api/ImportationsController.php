@@ -84,7 +84,7 @@ class ImportationsController extends Controller
                 'errors' => ''
             ]);
         } catch (Exception $exception) {
-            $importations->delete();
+
             return $this->errorResponse($exception->getMessage());
         }
     }
