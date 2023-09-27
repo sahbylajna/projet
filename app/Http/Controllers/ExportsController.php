@@ -535,7 +535,7 @@ class ExportsController extends Controller
  $data['IMP_CER_SERIAL'] = $export->IMP_CER_SERIAL;
  $data['SHIPPING_DATE'] = $export->SHIPPING_DATE;
  $data['APPLICANT_NAME'] = $export->APPLICANT_NAME;
- $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
+ $data['APPLICANT_TEL'] = 0;
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
  $data = json_encode($data);
