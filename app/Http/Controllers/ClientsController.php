@@ -300,8 +300,8 @@ class ClientsController extends Controller
             $accept->save();
             $sms = new Sms;
             $message = "تم قبولك في منصة تصاريح
-            يمكنك الأن تسجيل الدخول و تقديم طلبك على موقعنا tasareeh.qa
-            او حمل التطبيق من هنا tasareeh.qa/apk";
+            يمكنك الأن تسجيل الدخول و تقديم طلبك على موقعنا https://tasareeh.qa
+            او حمل التطبيق من هنا https://tasareeh.qa/apk";
 $contry = Contry::find($client->contry_id );
 $sms->send($contry->phonecode.$client->phone,$message );
 

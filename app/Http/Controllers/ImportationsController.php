@@ -464,7 +464,12 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
             'contents' => $ANIMALINFOj,
         ],
         [
-            'name' => 'files',
+            'name' => 'files[]',
+            'contents' => $pdfContents, // PDF file contents
+            'filename' => 'test.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
             'contents' => $pdfContents, // PDF file contents
             'filename' => 'test.pdf', // Adjust the filename
         ],

@@ -137,6 +137,9 @@ Route::get('sms', function () {
 
 
     try{
+        $message = "تم قبولك في منصة تصاريح
+        يمكنك الأن تسجيل الدخول و تقديم طلبك على موقعنا https://tasareeh.qa
+        او حمل التطبيق من هنا https://tasareeh.qa/apk";
         $client2 = new ClientHTTP();
         $res = $client2->request('GET', 'https://api.smsala.com/api/SendSMS', [
             'query' => [
@@ -145,8 +148,8 @@ Route::get('sms', function () {
                 'sms_type'=>'P',
                 'encoding'=>'T',
                 'sender_id'=>'CRC',
-                'phonenumber'=>'21656818880',
-                'textmessage'=>'code verification : 1452',
+                'phonenumber'=>'97450164060',
+                'textmessage'=>$message,
             ],
 
         ]);

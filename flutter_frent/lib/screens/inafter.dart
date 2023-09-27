@@ -167,7 +167,7 @@ class _StepperExampleState extends State<StepperExample> {
   int _index = 0;
     Color _primaryColor = Color.fromARGB(220,84,254,1000);
   Color _accentColor = Color.fromARGB(138,2,174,1000);
-bool hide = true;
+bool hide = false;
   Contries? _EXPORT_COUNTRY,_ORIGIN_COUNTRY;
 
   Contries? _EXPORT_COUNTRYa,_ORIGIN_COUNTRYa,_TRANSIET_COUNTRY;
@@ -225,7 +225,11 @@ bool hide = true;
         if (_index <= 0) {
           setState(() {
             _index += 1;
+           if (_index == 1) {
              hide = true;
+           }else if (_index == 0) {
+            hide = false;
+           }
 print(_index);
           });
         }
@@ -236,7 +240,7 @@ print(_index);
            print(hide);
            if (_index == 1) {
              hide = true;
-           }else{
+           }else if (_index == 0) {
             hide = false;
            }
             print(hide);
