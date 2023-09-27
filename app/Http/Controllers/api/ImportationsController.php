@@ -61,18 +61,18 @@ class ImportationsController extends Controller
 
 
 
-                $animal = new ANIMAL_INFO();
-                $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa;
-                $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRYa;
-                $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRYa;
-                $animal->ANML_SPECIES = "ابل هجن";
-                $animal->ANML_SEX = 'هجين';
-                $animal->ANML_NUMBER = $request->ANML_NUMBER;
-                $animal->ANML_USE = 'مشاركة';
-                $animal->ANIMAL_BREED = "حسب الكشف المرفق";
-                $animal->client_id =  auth()->user()->id ;
-                $animal->save();
-                $importations->animal()->attach( $animal->id);
+                // $animal = new ANIMAL_INFO();
+                // $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa;
+                // $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRYa;
+                // $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRYa;
+                // $animal->ANML_SPECIES = "ابل هجن";
+                // $animal->ANML_SEX = 'هجين';
+                // $animal->ANML_NUMBER = $request->ANML_NUMBER;
+                // $animal->ANML_USE = 'مشاركة';
+                // $animal->ANIMAL_BREED = "حسب الكشف المرفق";
+                // $animal->client_id =  auth()->user()->id ;
+                // $animal->save();
+                // $importations->animal()->attach( $animal->id);
 
             return response()->json([
 
