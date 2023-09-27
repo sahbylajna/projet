@@ -137,6 +137,69 @@ void _fetchData(BuildContext context) async {
        Row(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
+
+
+ OutlinedButton(
+        onPressed: () {
+             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookContent()));
+        },
+
+   style: OutlinedButton.styleFrom(
+
+      foregroundColor: Colors.white,
+     side:BorderSide(color: _primaryColor),
+      shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(18),
+              ),
+            ),
+
+ backgroundColor: Colors.white,
+      elevation: 10,
+       fixedSize: Size(300,70),
+    ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+        SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
+          Row(
+            textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
+
+  ]),
+SizedBox(
+      height: 2, // <-- SEE HERE
+    ),
+
+    Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+      Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
+
+
+  ]),
+
+    ],
+
+  ),
+    ),
+
+
+
+  ],
+),
+
+
+
+       Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
       OutlinedButton(
         onPressed: () {
 
@@ -278,69 +341,6 @@ SizedBox(
 
 
 
-
-
-
-       Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-
-
- OutlinedButton(
-        onPressed: () {
-             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookContent()));
-        },
-
-   style: OutlinedButton.styleFrom(
-
-      foregroundColor: Colors.white,
-     side:BorderSide(color: _primaryColor),
-      shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(18),
-              ),
-            ),
-
- backgroundColor: Colors.white,
-      elevation: 10,
-       fixedSize: Size(300,70),
-    ),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-        SizedBox(
-      height: 10, // <-- SEE HERE
-    ),
-          Row(
-            textDirection: TextDirection.rtl,
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-
-Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
-
-  ]),
-SizedBox(
-      height: 2, // <-- SEE HERE
-    ),
-
-    Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-
-      Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
-
-
-  ]),
-
-    ],
-
-  ),
-    ),
-
-
-
-  ],
-),
 
 
 
