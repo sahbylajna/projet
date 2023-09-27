@@ -184,7 +184,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب دخول",style: TextStyle(color: _accentColor)),
+      Text("الدخول للمشاركة",style: TextStyle(color: _accentColor)),
 
       SizedBox(
       width: 50, // <-- SEE HERE

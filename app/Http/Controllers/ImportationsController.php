@@ -448,6 +448,7 @@ $headers = [
 
 
 $pdfContents = file_get_contents(asset($importation->files));
+$pdfContents2 = file_get_contents(asset($importation->Pledge));
 try{
 
     $client2 = new ClientHTTP();
@@ -470,7 +471,7 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
         ],
         [
             'name' => 'files[]',
-            'contents' => $pdfContents, // PDF file contents
+            'contents' => $pdfContents2, // PDF file contents
             'filename' => 'test.pdf', // Adjust the filename
         ],
     ],

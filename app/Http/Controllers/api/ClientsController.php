@@ -315,7 +315,7 @@ if($user){
 
     public function getcount(){
         $exports = export::where('client_id',auth()->user()->id)->with('animal')->count();
-        $importations = importation::where('client_id',auth()->user()->id)->count();
+        $importations = importation::where('client_id',auth()->user()->id)->where('EXP_CER_SERIAL',null)->count();
         $backs = back::where('client_id',auth()->user()->id)->with('animal')->count();
 
         return response()->json([

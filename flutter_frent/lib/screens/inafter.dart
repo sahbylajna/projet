@@ -146,7 +146,7 @@ class _StepperExampleState extends State<StepperExample> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-
+ Image.asset('assets/loding.gif'),
                 SizedBox(height: 15),
                 Text('...تحميل'),
 
