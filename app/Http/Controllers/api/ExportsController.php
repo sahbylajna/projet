@@ -146,25 +146,16 @@ class ExportsController extends Controller
     {
         $rules = [
 
-            'COMP_ID' => 'nullable',
-            'EUSER_QID' => 'string|min:1|nullable',
-            'EXP_NAME' => 'string|min:1|nullable',
-            'EXP_TEL' => 'string|min:1|nullable',
-            'EXP_FAX' => 'string|min:1|nullable',
-            'EXP_COUNTRY' => 'string|nullable',
-            'IMP_NAME' => 'string|min:1|nullable',
-            'IMP_QID' => 'string|min:1|nullable',
-            'IMP_FAX' => 'string|min:1|nullable',
-            'IMP_TEL' => 'string|min:1|nullable',
-            'IMP_COUNTRY' => 'string|nullable',
-            'ORIGIN_COUNTRY' => 'string|nullable',
-            'SHIPPING_PLACE' => 'string|min:1|nullable',
-            'TRANSPORT' => 'string|min:1|nullable',
-            'SHIPPING_DATE' => 'string',
 
-            'EXP_NATIONALITY' => 'string|min:1|nullable',
-            'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
-            'ANIMAL_INFO' => 'required'
+            'EXP_COUNTRY' => 'string|nullable',
+            'ORIGIN_COUNTRY' => 'string|nullable',
+            'ENTERY_PORT' => 'string|min:1|nullable',
+            'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
+            'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
+            'IMP_CER_SERIAL' => 'string|nullable',
+            'files' => 'required',
+            'Pledge' => 'required',
+
         ];
 
         return Validator::make($request->all(), $rules);
