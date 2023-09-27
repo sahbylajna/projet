@@ -541,7 +541,7 @@ class ExportsController extends Controller
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
  $data = json_encode($data);
 
- $ANIMALINFO = [];
+
 
  foreach ($export->animal as $key => $value) {
 
@@ -556,7 +556,6 @@ class ExportsController extends Controller
 
  }
 
- $ANIMALINFOj = json_encode($ANIMALINFO);
 
  $token ='Bearer '.$access_token;
 
@@ -572,11 +571,11 @@ class ExportsController extends Controller
 
 
 
- Log::info('Request:', [
-    'token' => $token,
-    'ANIMAL_INFO' => $data1,
-    'data' => $data
-]);
+//  Log::info('Request:', [
+//     'token' => $token,
+//     'ANIMAL_INFO' => $data1,
+//     'data' => $data
+// ]);
 
 
 
