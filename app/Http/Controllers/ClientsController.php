@@ -251,7 +251,7 @@ class ClientsController extends Controller
             return redirect()->route('confiramtion',['id' => $client->id] )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
-dd($exception);
+//dd($exception);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
@@ -299,8 +299,11 @@ dd($exception);
             $accept->commenter = "accepted";
             $accept->save();
             $sms = new Sms;
+            $message = "تم قبولك في منصة تصاريح
+            يمكنك الأن تسجيل الدخول و تقديم طلبك على موقعنا tasareeh.qa
+            او حمل التطبيق من هنا tasareeh.qa/apk";
 $contry = Contry::find($client->contry_id );
-$sms->send($contry->phonecode.$client->phone,$accept->commenter);
+$sms->send($contry->phonecode.$client->phone,$message );
 
             return redirect()->route('clients.client.index')
                 ->with('success_message', trans('clients.model_was_updated'));

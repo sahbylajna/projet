@@ -332,7 +332,7 @@ Pledge) async {
 
 
 
-
+ request.fields['EXPECTED_ARRIVAL_DATE'] = EXPECTED_ARRIVAL_DATE;
     request.fields['EXP_COUNTRY'] = _EXPORT_COUNTRY;
 
     request.fields['ORIGIN_COUNTRY'] = _ORIGIN_COUNTRY;
