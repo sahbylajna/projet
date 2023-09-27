@@ -545,11 +545,10 @@ class ExportsController extends Controller
  foreach ($export->animal as $key => $value) {
 
 
-    $data1['ANML_SPECIES'] = $value->ANML_SPECIES;
-    $data1['ANML_SEX'] = $value->ANML_SEX;
+
     $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
-    $data1['ANML_USE'] = $value->ANML_USE;
-    $data1['ANML_MICROCHIP'] = $value->ANIMAL_BREED;
+    $data1['ANML_USE'] = "بعد مشاركه";
+
 
      $ANIMALINFO[$key] = $data1;
 
@@ -595,12 +594,12 @@ class ExportsController extends Controller
                 'contents' => $ANIMALINFOj,
             ],
             [
-                'name' => 'files[]',
+                'name' => 'files',
                 'contents' => $pdfContents, // PDF file contents
                 'filename' => 'files.pdf', // Adjust the filename
             ],
             [
-                'name' => 'files[]',
+                'name' => 'files',
                 'contents' => $pdfContents2, // PDF file contents
                 'filename' => 'files2.pdf', // Adjust the filename
             ],
