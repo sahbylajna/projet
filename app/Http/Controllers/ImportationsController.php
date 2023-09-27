@@ -702,7 +702,7 @@ $importation->save();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
-    $acceptation->commenter = 'refuse';
+    $acceptation->commenter = $request->commenter;
    // $acceptation->save();
     $sms = new Sms;
     $client = Client::find($importation->client_id);

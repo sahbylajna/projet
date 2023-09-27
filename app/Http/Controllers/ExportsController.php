@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
+use App\SMS\Sms;
 use App\Models\ApiUser;
+use App\Models\countries as Contry;
 use App\Models\acceptation_demande;
 
 class ExportsController extends Controller
@@ -623,6 +625,7 @@ class ExportsController extends Controller
 
 
      public function refuse($id,Request $request){
+        $message = "تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب : ".$request->commenter;
         $export = export::findOrFail($id);
         $export->accepted = 0;
         $export->reson = $request->commenter;
@@ -631,8 +634,13 @@ $export->save();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $export->id;
     $acceptation->type = 'export';
-    $acceptation->commenter = 'refuse';
+    $acceptation->commenter =  $message ;
     $acceptation->save();
+    $sms = new Sms;
+    $client = Client::find($export->client_id);
+
+$contry = Contry::find($client->contry_id );
+$sms->send($contry->phonecode.$client->phone,$message );
         return back();
     }
 
