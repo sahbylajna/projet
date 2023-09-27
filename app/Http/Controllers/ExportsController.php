@@ -612,12 +612,12 @@ class ExportsController extends Controller
     'responseBody' => $responseBody,
 
 ]);
-     $resp = json_decode($responseBody);
+    //  $resp = json_decode($responseBody);
 
 
-     $export->CER_SERIAL = $resp->CER_SERIAL;
-     $export->accepted = 1;
-     $export->save();
+    //  $export->CER_SERIAL = $resp->CER_SERIAL;
+    //  $export->accepted = 1;
+    //  $export->save();
 
      $acceptation = new acceptation_demande();
      $acceptation->User_id = Auth()->user()->id;
