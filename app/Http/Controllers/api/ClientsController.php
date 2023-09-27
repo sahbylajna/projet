@@ -373,7 +373,9 @@ $c->add( $d);
 
 $repence = collect();
 foreach($c->sortByDesc('created_at') as $it){
-
+if ($it->accepted == null) {
+    $it->accepted = "null";
+}
     $repence->add( $it);
 }
 return response()->json(

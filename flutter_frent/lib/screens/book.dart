@@ -184,17 +184,13 @@ Column(
             children: [
 
                  Text(' ${_list[index].cERTYPE}/${_list[index].cOMPID}'),
-    Image.asset('assets/in.png',height: 50,
-    width: 50,),
+
              Text(' ${_list[index].type}')],
         )
         ,
-                SizedBox(
-      height: 10, // <-- SEE HERE
-    ),
 
 
-       Text(_list[index].accepted == 0 ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${_list[index].reson}' : '' ),
+       Text(_list[index].accepted == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${_list[index].reson}' : '${_list[index].accepted}' ),
 
 
 

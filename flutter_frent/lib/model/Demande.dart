@@ -38,7 +38,7 @@ class Demande {
   String? aPPLICANTTEL;
   String? eXPNATIONALITY;
   String? eXPPASSPORTNUM;
-  Null? accepted;
+  String? accepted;
 
   String? type;
   String? reson;
@@ -114,12 +114,7 @@ this.reson,
 
  reson = json['reson'];
     type = json['type'];
-    if (json['animal'] != null) {
-      animal = <Animal>[];
-      json['animal'].forEach((v) {
-        animal!.add(new Animal.fromJson(v));
-      });
-    }
+
   }
 
   Map<String, dynamic> toJson() {
@@ -157,9 +152,7 @@ this.reson,
     data['accepted'] = this.accepted;
 data['reson'] = this.reson;
     data['type'] = this.type;
-    if (this.animal != null) {
-      data['animal'] = this.animal!.map((v) => v.toJson()).toList();
-    }
+
     return data;
   }
 }
