@@ -18,6 +18,13 @@
     </div>
 
     <div class="panel-body">
+        @if ($errors->any())
+        <ul class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
         <dl class="dl-horizontal">
             <dt>{{ trans('exports.client_id') }}</dt>
             <dd>{{ optional($export->client)->name }}</dd>

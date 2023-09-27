@@ -480,6 +480,8 @@ class ExportsController extends Controller
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
+    return back()->withInput()
+    ->withErrors(['unexpected_error' => $exception->getMessage()]);
     return back()->withErrors($exception->getMessage());
  }
 
@@ -608,6 +610,8 @@ class ExportsController extends Controller
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
+    return back()->withInput()
+                 ->withErrors(['unexpected_error' => $exception->getMessage()]);
     return back()->withErrors($exception->getMessage());
  }
 
