@@ -413,10 +413,13 @@ foreach ($importations as $key => $value) {
     $c->add( $value);
 }
 
-
+$repence = collect();
+foreach($c->sortByDesc('created_at') as $it){
+    $repence->add( $it);
+}
         return response()->json(
 
-            $c->sortByDesc('created_at')
+            $repence
 
 
         );
