@@ -512,6 +512,166 @@ $importation->save();
     }
 
 
+
+
+
+    public function acceptafter($id)
+    {
+        $importation = importation::findOrFail($id);
+        $apiUser = ApiUser::first();
+        $client = new ClientHTTP();
+        $res = $client->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/token', [
+            'form_params' => [
+                'Username' => $apiUser->Username,
+                'Password' => $apiUser->Password,
+                'grant_type' => 'password',
+            ]
+        ]);
+        $response = (string) $res->getBody();
+        $response =json_decode($response); // Using this you can access any key like below
+        $access_token = $response->access_token;
+      // dd($access_token);
+      $data = [];
+$data['CER_TYPE'] = $importation->CER_TYPE;
+$data['CER_LANG'] = $importation->CER_LANG;
+$data['COMP_ID'] = $importation->COMP_ID;
+$data['EUSER_QID'] = $importation->EUSER_QID;
+$data['EXP_NAME'] = $importation->EXP_NAME;
+$data['EXP_TEL'] = $importation->EXP_TEL;
+$data['EXP_QID'] = $importation->EXP_QID;
+$data['EXP_FAX'] = $importation->EXP_FAX;
+$data['EXP_COUNTRY'] = $importation->EXP_COUNTRY;
+$data['IMP_NAME'] = $importation->IMP_NAME;
+$data['IMP_ADDRESS'] = $importation->IMP_ADDRESS;
+$data['IMP_FAX'] = $importation->IMP_FAX;
+$data['IMP_TEL'] = $importation->IMP_TEL;
+$data['IMP_POBOX'] = $importation->IMP_POBOX;
+$data['IMP_COUNTRY'] = $importation->IMP_COUNTRY;
+$data['ORIGIN_COUNTRY'] = $importation->ORIGIN_COUNTRY;
+$data['SHIPPING_PLACE'] = $importation->SHIPPING_PLACE;
+$data['ENTERY_PORT'] = $importation->ENTERY_PORT;
+$data['EXPECTED_ARRIVAL_DATE'] = $importation->EXPECTED_ARRIVAL_DATE;
+$data['TRANSPORT'] = $importation->TRANSPORT;
+$data['SHIPPING_DATE'] = $importation->SHIPPING_DATE;
+$data['APPLICANT_NAME'] = $importation->APPLICANT_NAME;
+$data['APPLICANT_TEL'] = $importation->APPLICANT_TEL;
+$data['EXP_NATIONALITY'] = $importation->EXP_NATIONALITY;
+$data['EXP_PASSPORT_NUM'] = $importation->EXP_PASSPORT_NUM;
+$data['EXP_CER_SERIAL'] = $importation->EXP_CER_SERIAL;
+$data = json_encode($data);
+$ANIMALINFO = [];
+
+
+foreach ($importation->animal as $key => $value) {
+
+    $data1['EXPORT_COUNTRY'] = $value->EXPORT_COUNTRY;
+    $data1['ORIGIN_COUNTRY'] = $value->ORIGIN_COUNTRY;
+    $data1['TRANSIET_COUNTRY'] = $value->TRANSIET_COUNTRY;
+    $data1['ANML_SPECIES'] = $value->ANML_SPECIES;
+    $data1['ANML_SEX'] = $value->ANML_SEX;
+    $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
+    $data1['ANML_USE'] = $value->ANML_USE;
+    $data1['ANML_MICROCHIP'] = $value->ANIMAL_BREED;
+    $ANIMALINFO[$key] = $data1;
+
+
+}
+
+$ANIMALINFOj = json_encode($ANIMALINFO);
+
+
+$token ='Bearer '.$access_token;
+
+$headers = [
+    'Authorization' => $token,
+    'Accept'        => 'application/json',
+];
+
+
+
+
+
+
+
+$pdfContents = file_get_contents(asset($importation->files));
+$pdfContents2 = file_get_contents(asset($importation->Pledge));
+try{
+
+    $client2 = new ClientHTTP();
+
+$re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT_AFTER_RACING', [
+    'headers' => $headers, // Add your headers
+    'multipart' => [
+        [
+            'name' => 'DATA',
+            'contents' => $data,
+        ],
+        [
+            'name' => 'ANIMAL_INFO',
+            'contents' => $ANIMALINFOj,
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents, // PDF file contents
+            'filename' => 'files.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents2, // PDF file contents
+            'filename' => 'files2.pdf', // Adjust the filename
+        ],
+    ],
+]);
+
+$responseBody = $re->getBody()->getContents();
+$resp = json_decode($responseBody);
+
+
+$importation->CER_SERIAL = $resp->CER_SERIAL;
+$importation->accepted = 1;
+$importation->save();
+    $acceptation = new acceptation_demande();
+    $acceptation->User_id = Auth()->user()->id;
+    $acceptation->demande_id = $importation->id;
+    $acceptation->type = 'importation';
+    $acceptation->commenter = 'accepter';
+    $acceptation->save();
+
+
+}catch(Exception $exception) {
+    dd($exception->getMessage());
+}
+
+     //
+
+
+
+
+
+
+
+       return back();
+
+
+
+        return view('importations.edit', compact('importation','clients'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function refuse($id,Request $request){
         $importation = importation::findOrFail($id);
         $importation->accepted = 0;

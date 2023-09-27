@@ -313,6 +313,11 @@ Route::group([
          ->name('importations.importation.edit')->where('id', '[0-9]+');
          Route::get('/{importation}/accept',[ImportationsController::class, 'accept'])
          ->name('importation.accept')->where('id', '[0-9]+');
+
+         Route::get('/{importation}/acceptafter',[ImportationsController::class, 'acceptafter'])
+         ->name('importation.acceptafter')->where('id', '[0-9]+');
+
+
          Route::post('/{importation}/refuse',[ImportationsController::class, 'refuse'])
          ->name('importation.refuse')->where('id', '[0-9]+');
 
