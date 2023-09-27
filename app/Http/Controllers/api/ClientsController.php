@@ -371,11 +371,15 @@ $c->add( $d);
 }
 }
 
-$col =   $c->orderBy('created_at','desc');
+$repence = collect();
+foreach($c->sortByDesc('created_at') as $it){
+
+    $repence->add( $it);
+}
 return response()->json(
 
 
-    $col
+    $repence
 
 );
 
@@ -415,6 +419,7 @@ foreach ($importations as $key => $value) {
 
 $repence = collect();
 foreach($c->sortByDesc('created_at') as $it){
+
     $repence->add( $it);
 }
         return response()->json(

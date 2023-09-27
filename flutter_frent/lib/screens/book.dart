@@ -175,7 +175,9 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
     ),
 
         child:
-
+Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
         Row(
              textDirection: TextDirection.rtl,
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -187,8 +189,18 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
              Text(' ${_list[index].type}')],
         )
         ,
+                SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
 
 
+       Text(_list[index].accepted == 0 ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${_list[index].reson}' : '' ),
+
+
+
+],
+        )
+        ,
       ),
     onTap: () {
       print(_list[index].animal?.length.toString());
