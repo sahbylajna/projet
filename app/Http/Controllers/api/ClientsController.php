@@ -333,14 +333,14 @@ if($user){
 
 public function getnotife(){
 
-    $exports = export::where('client_id',auth()->user()->id)->orderBy('created_at')->get();
-    $importations = importation::where('client_id',auth()->user()->id)->orderBy('created_at')->get();
-    $backs = back::where('client_id',auth()->user()->id)->orderBy('created_at')->get();
+    $exports = export::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+    $importations = importation::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+    $backs = back::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
     $c = collect();
 
 
 foreach ($exports as $key => $value) {
-    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at')->get();
+    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at','desc')->get();
     foreach($dd as $d){
         $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
     $d->type=" طلب خروج";
@@ -351,7 +351,7 @@ foreach ($exports as $key => $value) {
 
 }
 foreach ($importations as $key => $value) {
-    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at')->get();
+    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at','desc')->get();
 foreach($dd as $d){
     $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
     $d->type=" طلب دخول";
@@ -361,7 +361,7 @@ $c->add( $d);
 }
 }
 foreach ($backs as $key => $value) {
-    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at')->get();
+    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at','desc')->get();
 foreach($dd as $d){
     $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
     $d->type=" طلب عودة";
@@ -396,9 +396,9 @@ return response()->json(
 
 
     public function getlist(){
-        $exports = export::where('client_id',auth()->user()->id)->orderBy('created_at')->get();
-        $importations = importation::where('client_id',auth()->user()->id)->orderBy('created_at')->get();
-        $backs = back::where('client_id',auth()->user()->id)->orderBy('created_at')->get();
+        $exports = export::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+        $importations = importation::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+        $backs = back::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
         $c = collect();
 
 
