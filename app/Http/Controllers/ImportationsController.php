@@ -12,8 +12,10 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
+
+use App\SMS\Sms;
 use App\Models\ApiUser;
-use Illuminate\Support\Facades\Storage;
+use App\Models\countries as Contry;
 class ImportationsController extends Controller
 {
 
@@ -688,6 +690,10 @@ $importation->save();
 
 
     public function refuse($id,Request $request){
+
+        $message = "تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب : "+$request->commenter;
+
+
         $importation = importation::findOrFail($id);
         $importation->accepted = 0;
         $importation->reson = $request->commenter;
@@ -697,7 +703,12 @@ $importation->save();
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
     $acceptation->commenter = 'refuse';
-    $acceptation->save();
+   // $acceptation->save();
+    $sms = new Sms;
+    $client = Client::find($importation->client_id);
+
+$contry = Contry::find($client->contry_id );
+$sms->send($contry->phonecode.$client->phone,$message );
         return back();
     }
 
