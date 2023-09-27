@@ -607,17 +607,12 @@ class ExportsController extends Controller
      ]);
      $responseBody = $res->getBody()->getContents();
 
- Log::info('Request:', [
-
-    'responseBody' => $responseBody,
-
-]);
-    //  $resp = json_decode($responseBody);
+     $resp = json_decode($responseBody);
 
 
-    //  $export->CER_SERIAL = $resp->CER_SERIAL;
-    //  $export->accepted = 1;
-    //  $export->save();
+     $export->CER_SERIAL = $resp->CER_SERIAL;
+     $export->accepted = 1;
+     $export->save();
 
      $acceptation = new acceptation_demande();
      $acceptation->User_id = Auth()->user()->id;
@@ -626,7 +621,7 @@ class ExportsController extends Controller
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
-    dd($exception);
+   // dd($exception);
     return back()->withInput()
                  ->withErrors(['unexpected_error' => $exception->getMessage()]);
     return back()->withErrors($exception->getMessage());
