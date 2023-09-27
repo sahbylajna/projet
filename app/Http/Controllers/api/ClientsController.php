@@ -412,15 +412,11 @@ foreach ($importations as $key => $value) {
     $value->COMP_ID="$value->COMP_ID";
     $c->add( $value);
 }
-foreach ($backs as $key => $value) {
-    $value->type=" طلب عودة  ";
-    $value->COMP_ID="$value->COMP_ID";
-    $c->add( $value);
-}
+
 
         return response()->json(
 
-            $c->orderBy('created_at','desc')
+            $c->sortByDesc('created_at')
 
 
         );
