@@ -574,10 +574,8 @@ class ExportsController extends Controller
 
  Log::info('Request:', [
     'token' => $token,
-    'ANIMALINFOj' => $ANIMALINFOj,
-    'data' => [
-
-    ]
+    'ANIMAL_INFO' => $ANIMALINFOj,
+    'data' => $data
 ]);
 
 
