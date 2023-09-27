@@ -213,7 +213,7 @@ class ImportationsController extends Controller
             'ENTERY_PORT' => 'string|min:1|nullable',
             'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
             'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
-
+            'EXP_CER_SERIAL' => 'string|nullable',
             'files' => 'required',
             'Pledge' => 'required',
 

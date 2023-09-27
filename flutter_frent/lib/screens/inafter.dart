@@ -743,7 +743,7 @@ print(_index);
       // All variables have values, you can proceed with your logic
 
 
-    Success? success =  (await ApiService().Setimportations(_EXPORT_COUNTRY!.name.toString(),_ORIGIN_COUNTRY!.name.toString(),_EXPORT_COUNTRYa!.name.toString(),_ORIGIN_COUNTRYa!.name.toString(),_TRANSIET_COUNTRY!.name.toString(),ENTERY_PORT.text,EXPECTED_ARRIVAL_DATE.text,SHIPPING_DATE.text,ANML_NUMBER,files,Pledge));
+    Success? success =  (await ApiService().Setimportations(_EXPORT_COUNTRY!.name.toString(),_ORIGIN_COUNTRY!.name.toString(),_EXPORT_COUNTRYa!.name.toString(),_ORIGIN_COUNTRYa!.name.toString(),_TRANSIET_COUNTRY!.name.toString(),ENTERY_PORT.text,EXPECTED_ARRIVAL_DATE.text,SHIPPING_DATE.text,ANML_NUMBER,files,Pledge,''));
 
     if(success?.message =="success"){
   if (Navigator.of(context, rootNavigator: true).canPop()) {

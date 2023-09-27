@@ -184,11 +184,9 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text("الدخول للمشاركة",style: TextStyle(color: _accentColor)),
+      Text("دخول للمشاركة",style: TextStyle(color: _accentColor)),
 
-      SizedBox(
-      width: 50, // <-- SEE HERE
-    ),
+
   ]),
 
     ],
@@ -198,12 +196,12 @@ SizedBox(
 
 
 
-
-
-
- OutlinedButton(
+   OutlinedButton(
         onPressed: () {
-             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OutContent()));
+
+             Navigator.of(context).pushAndRemoveUntil(
+                 MaterialPageRoute(builder: (context) => InContent()),
+                     (route) => true);
         },
 
    style: OutlinedButton.styleFrom(
@@ -234,7 +232,7 @@ SizedBox(
          SizedBox(
       width: 30, // <-- SEE HERE
     ),
- Image.asset('assets/out.png',height: 50,
+ Image.asset('assets/in.png',height: 50,
     width: 50,)
 
   ]),
@@ -246,17 +244,82 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب خروج",style: TextStyle(color: _accentColor)),
+      Text("دخول بعد المشاركة",style: TextStyle(color: _accentColor)),
 
-      SizedBox(
-      width: 50, // <-- SEE HERE
-    ),
+
   ]),
 
     ],
 
   ),
     ),
+
+
+
+
+
+
+
+
+
+
+
+//  OutlinedButton(
+//         onPressed: () {
+//              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OutContent()));
+//         },
+
+//    style: OutlinedButton.styleFrom(
+
+//       foregroundColor: Colors.white,
+//       side:BorderSide(color: _primaryColor),
+//       shape: const RoundedRectangleBorder(
+//               borderRadius: BorderRadius.all(
+//                 Radius.circular(18),
+//               ),
+//             ),
+
+//  backgroundColor: Colors.white,
+//       elevation: 20,
+//        fixedSize: Size(150,200),
+//     ),
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//         SizedBox(
+//       height: 10, // <-- SEE HERE
+//     ),
+//           Row(
+//             textDirection: TextDirection.rtl,
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   children: [
+
+//          SizedBox(
+//       width: 30, // <-- SEE HERE
+//     ),
+//  Image.asset('assets/out.png',height: 50,
+//     width: 50,)
+
+//   ]),
+// SizedBox(
+//       height: 100, // <-- SEE HERE
+//     ),
+
+//     Row(
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   children: [
+
+//       Text(" طلب خروج",style: TextStyle(color: _accentColor)),
+
+//       SizedBox(
+//       width: 50, // <-- SEE HERE
+//     ),
+//   ]),
+
+//     ],
+
+//   ),
+//     ),
 
 
 

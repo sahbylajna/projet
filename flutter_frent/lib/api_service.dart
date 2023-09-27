@@ -309,7 +309,7 @@ EXPECTED_ARRIVAL_DATE,
 SHIPPING_DATE,
 ANML_NUMBER,
 files,
-Pledge) async {
+Pledge,EXP_CER_SERIAL) async {
 
 
   try {
@@ -336,7 +336,7 @@ Pledge) async {
     request.fields['EXP_COUNTRY'] = _EXPORT_COUNTRY;
 
     request.fields['ORIGIN_COUNTRY'] = _ORIGIN_COUNTRY;
-
+request.fields['EXP_CER_SERIAL'] = EXP_CER_SERIAL;
     request.fields['ENTERY_PORT'] = ENTERY_PORT;
 
     request.fields['SHIPPING_DATE'] = SHIPPING_DATE;
