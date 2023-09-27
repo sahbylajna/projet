@@ -607,6 +607,7 @@ class ExportsController extends Controller
      ]);
      $responseBody = $res->getBody()->getContents();
      $resp = json_decode($responseBody);
+     dd($responseBody);
 
      $export->CER_SERIAL = $resp->CER_SERIAL;
      $export->accepted = 1;
