@@ -691,7 +691,7 @@ $importation->save();
 
     public function refuse($id,Request $request){
 
-        $message = "تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب : "+$request->commenter;
+        $message = "تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب : ".$request->commenter;
 
 
         $importation = importation::findOrFail($id);
