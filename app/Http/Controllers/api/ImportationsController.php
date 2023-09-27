@@ -41,17 +41,15 @@ class ImportationsController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('Request:', [
-            'url' => $request->fullUrl(),
-            'method' => $request->method(),
-            'headers' => $request->headers->all(),
-            'body' => $request->all(),
-        ]);
 
         try {
 
 
             $validator = $this->getValidator($request);
+            Log::info('Request:', [
+                'val' => $validator->errors()->all(),
+                'body' => $request->all(),
+            ]);
 
             if ($validator->fails()) {
                 return $this->errorResponse($validator->errors()->all());
