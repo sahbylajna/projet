@@ -371,11 +371,11 @@ $c->add( $d);
 }
 }
 
-
+$col =   $c->sortByDesc('id');
 return response()->json(
 
-    $c->sortByDesc('id')
 
+    $col
 
 );
 

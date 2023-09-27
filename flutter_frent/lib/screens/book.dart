@@ -57,7 +57,6 @@ showAlertDialog(BuildContext context) async {
           );
         });
 
-    // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
 
 
 
@@ -70,10 +69,6 @@ showAlertDialog(BuildContext context) async {
 
 
 
-    // Close the dialog programmatically
-    // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
-
-//   Navigator.of(context).pop();
   }
 
 
