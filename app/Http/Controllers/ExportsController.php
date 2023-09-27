@@ -591,7 +591,7 @@ class ExportsController extends Controller
             ],
             [
                 'name' => 'ANIMAL_INFO',
-                'contents' => $data1,
+                'contents' => json_encode($data1),
             ],
             [
                 'name' => 'files[]',
