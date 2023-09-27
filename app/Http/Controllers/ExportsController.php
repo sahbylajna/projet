@@ -606,6 +606,12 @@ class ExportsController extends Controller
         ],
      ]);
      $responseBody = $res->getBody()->getContents();
+
+ Log::info('Request:', [
+
+    'responseBody' => $responseBody,
+
+]);
      $resp = json_decode($responseBody);
 
 
