@@ -371,7 +371,7 @@ $c->add( $d);
 }
 }
 
-$col =   $c->sortBy('created_at');
+$col =   $c->orderBy('created_at','desc');
 return response()->json(
 
 
