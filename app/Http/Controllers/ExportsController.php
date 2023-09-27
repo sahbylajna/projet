@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\ANIMAL_INFO;
 use App\Models\Client;
@@ -567,6 +568,15 @@ class ExportsController extends Controller
 
  $pdfContents = file_get_contents(asset($export->files));
  $pdfContents2 = file_get_contents(asset($export->files));
+
+
+
+
+ Log::info('Request:', [
+    'token' => $token,
+    'ANIMALINFOj' => $ANIMALINFOj,
+    'data' => $data
+]);
  try{
 
 
