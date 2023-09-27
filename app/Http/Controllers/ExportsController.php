@@ -551,7 +551,7 @@ class ExportsController extends Controller
     $data1['ANML_USE'] = "بعد مشاركه";
 
 
-     $ANIMALINFO[$key] = $data1;
+
 
 
  }
@@ -574,7 +574,7 @@ class ExportsController extends Controller
 
  Log::info('Request:', [
     'token' => $token,
-    'ANIMAL_INFO' => $ANIMALINFOj,
+    'ANIMAL_INFO' => $data1,
     'data' => $data
 ]);
 
