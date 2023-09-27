@@ -872,77 +872,77 @@ List<Map<String, dynamic>> jsonList = [];
       // All variables have values, you can proceed with your logic
 
 
-    Success? success =  (await ApiService().Setimportations(_tap1.text,_tap2.text,_tap3.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap7.text,_tap8.text,_tap9.text,_tap10.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap12.text,_tap13.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList,filePath));
+//     Success? success =  (await ApiService().Setimportations(_tap1.text,_tap2.text,_tap3.text,_tap4.text,_tap5.text,_tap6.text,_selectedValue!.name.toString(),_tap17.text,_tap7.text,_tap8.text,_tap9.text,_tap10.text,_selectedValue1!.name.toString(),_selectedValue2!.name.toString(),_tap11.text,_tap12.text,_tap13.text,_tap14.text,_tap15.text,_tap16.text,_tap18.text,jsonList,filePath));
 
-    if(success?.message =="success"){
-  if (Navigator.of(context, rootNavigator: true).canPop()) {
-    Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
-  }
+//     if(success?.message =="success"){
+//   if (Navigator.of(context, rootNavigator: true).canPop()) {
+//     Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+//   }
 
-  showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (_) {
-      return Dialog(
-        backgroundColor: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
+//   showDialog(
+//     barrierDismissible: false,
+//     context: context,
+//     builder: (_) {
+//       return Dialog(
+//         backgroundColor: Colors.white,
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 20),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: const [
 
-              SizedBox(height: 15),
-              Text('تم إرسال طلبك بنجاح')
-            ],
-          ),
-        ),
-      );
-    },
-  );
+//               SizedBox(height: 15),
+//               Text('تم إرسال طلبك بنجاح')
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   );
 
-  Future.delayed(Duration(seconds: 2), () {
-    if (Navigator.of(context, rootNavigator: true).canPop()) {
-      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
-    }
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MyHomePage()),
-            (route) => false);
-  });
+//   Future.delayed(Duration(seconds: 2), () {
+//     if (Navigator.of(context, rootNavigator: true).canPop()) {
+//       Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+//     }
+//     Navigator.of(context).pushAndRemoveUntil(
+//         MaterialPageRoute(builder: (context) => MyHomePage()),
+//             (route) => false);
+//   });
 
 
 
-}else{
-  if (Navigator.of(context, rootNavigator: true).canPop()) {
-    Navigator.of(context, rootNavigator: true).pop();
-    // Close the dialog
-  }
-  showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (_) {
-      return Dialog(
-        backgroundColor: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
+// }else{
+//   if (Navigator.of(context, rootNavigator: true).canPop()) {
+//     Navigator.of(context, rootNavigator: true).pop();
+//     // Close the dialog
+//   }
+//   showDialog(
+//     barrierDismissible: false,
+//     context: context,
+//     builder: (_) {
+//       return Dialog(
+//         backgroundColor: Colors.white,
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 20),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: const [
 
-              SizedBox(height: 15),
-              Text('الرجاء إدخال بيانات صحيحة')
-            ],
-          ),
-        ),
-      );
-    },
-  );
+//               SizedBox(height: 15),
+//               Text('الرجاء إدخال بيانات صحيحة')
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   );
 
-  Future.delayed(Duration(seconds: 2), () {
-    if (Navigator.of(context, rootNavigator: true).canPop()) {
-      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
-    }
-  });
-}
+//   Future.delayed(Duration(seconds: 2), () {
+//     if (Navigator.of(context, rootNavigator: true).canPop()) {
+//       Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+//     }
+//   });
+// }
     }
 
   }

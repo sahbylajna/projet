@@ -61,23 +61,21 @@ class ImportationsController extends Controller
 
             $importations = importations::create($data);
 
-            $ANIMAL_INFO = json_decode($data['ANIMAL_INFO'], true);
 
-            foreach ($ANIMAL_INFO as $key => $value) {
 
                 $animal = new ANIMAL_INFO();
-                $animal->ORIGIN_COUNTRY = $value['ORIGIN_COUNTRY'];
-                $animal->EXPORT_COUNTRY = $value['EXPORT_COUNTRY'];
-                $animal->TRANSIET_COUNTRY = $value['TRANSIET_COUNTRY'];
+                $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa;
+                $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRYa;
+                $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRYa;
                 $animal->ANML_SPECIES = "ابل هجن";
                 $animal->ANML_SEX = 'هجين';
-                $animal->ANML_NUMBER = $value['ANML_NUMBER'];
+                $animal->ANML_NUMBER = $request->ANML_NUMBER;
                 $animal->ANML_USE = 'مشاركة';
                 $animal->ANIMAL_BREED = "حسب الكشف المرفق";
                 $animal->client_id =  auth()->user()->id ;
                 $animal->save();
                 $importations->animal()->attach( $animal->id);
-            }
+
             return response()->json([
 
                 'message' => 'success',

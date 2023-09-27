@@ -5,6 +5,7 @@ import 'package:tasareeh/model/count.dart';
 import 'package:tasareeh/screens/back.dart';
 import 'package:tasareeh/screens/book.dart';
 import 'package:tasareeh/screens/in.dart';
+import 'package:tasareeh/screens/inafter.dart';
 import 'package:tasareeh/screens/out.dart';
 
 
@@ -46,7 +47,7 @@ void _fetchData(BuildContext context) async {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset('assets/loding.gif'),
+
               SizedBox(height: 15),
               Text('...تحميل'),
 
@@ -139,7 +140,7 @@ void _fetchData(BuildContext context) async {
         onPressed: () {
 
              Navigator.of(context).pushAndRemoveUntil(
-                 MaterialPageRoute(builder: (context) => InContent()),
+                 MaterialPageRoute(builder: (context) => InContentafter()),
                      (route) => true);
         },
 
