@@ -363,31 +363,31 @@ Route::group([
     //      ->name('importations.importation.destroy')->where('id', '[0-9]+');
 });
 
-Route::group([
-    'prefix' => 'backs',
-], function () {
-    Route::get('/', [BacksController::class, 'index'])
-         ->name('backs.back.index');
-    Route::get('/create', [BacksController::class, 'create'])
-         ->name('backs.back.create');
-    Route::get('/show/{back}',[BacksController::class, 'show'])
-         ->name('backs.back.show')->where('id', '[0-9]+');
-    Route::get('/{back}/edit',[BacksController::class, 'edit'])
-         ->name('backs.back.edit')->where('id', '[0-9]+');
+// Route::group([
+//     'prefix' => 'backs',
+// ], function () {
+//     Route::get('/', [BacksController::class, 'index'])
+//          ->name('backs.back.index');
+//     Route::get('/create', [BacksController::class, 'create'])
+//          ->name('backs.back.create');
+//     Route::get('/show/{back}',[BacksController::class, 'show'])
+//          ->name('backs.back.show')->where('id', '[0-9]+');
+//     Route::get('/{back}/edit',[BacksController::class, 'edit'])
+//          ->name('backs.back.edit')->where('id', '[0-9]+');
 
-         Route::get('/{back}/accept',[BacksController::class, 'accept'])
-         ->name('back.accept')->where('id', '[0-9]+');
+//          Route::get('/{back}/accept',[BacksController::class, 'accept'])
+//          ->name('back.accept')->where('id', '[0-9]+');
 
-         Route::post('/{back}/refuse',[BacksController::class, 'refuse'])
-         ->name('back.refuse')->where('id', '[0-9]+');
+//          Route::post('/{back}/refuse',[BacksController::class, 'refuse'])
+//          ->name('back.refuse')->where('id', '[0-9]+');
 
-    Route::post('/', [BacksController::class, 'store'])
-         ->name('backs.back.store');
-    Route::put('back/{back}', [BacksController::class, 'update'])
-         ->name('backs.back.update')->where('id', '[0-9]+');
-    Route::delete('/back/{back}',[BacksController::class, 'destroy'])
-         ->name('backs.back.destroy')->where('id', '[0-9]+');
-});
+//     Route::post('/', [BacksController::class, 'store'])
+//          ->name('backs.back.store');
+//     Route::put('back/{back}', [BacksController::class, 'update'])
+//          ->name('backs.back.update')->where('id', '[0-9]+');
+//     Route::delete('/back/{back}',[BacksController::class, 'destroy'])
+//          ->name('backs.back.destroy')->where('id', '[0-9]+');
+// });
 
 Route::group([
     'prefix' => 'exports',
@@ -412,6 +412,47 @@ Route::group([
     Route::delete('/export/{export}',[ExportsController::class, 'destroy'])
          ->name('exports.export.destroy')->where('id', '[0-9]+');
 });
+
+
+Route::group([
+    'prefix' => 'exportsafter',
+], function () {
+    Route::get('/', [ExportsController::class, 'indexafter'])
+         ->name('exports.after.export.index');
+
+         Route::get('/{export}/accept',[ExportsController::class, 'acceptafter'])
+         ->name('exports.after.accept')->where('id', '[0-9]+');
+
+    Route::get('/show/{export}',[ExportsController::class, 'showafter'])
+         ->name('exports.after.export.show')->where('id', '[0-9]+');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::group([
     'prefix' => 'terms',

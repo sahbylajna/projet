@@ -25,11 +25,16 @@ class ExportsController extends Controller
      */
     public function index()
     {
-        $exports = export::with('client')->paginate(25);
+        $exports = export::where('IMP_CER_SERIAL',null)->with('client')->paginate(25);
 
         return view('exports.index', compact('exports'));
     }
+    public function indexafter()
+    {
+        $exports = export::where('IMP_CER_SERIAL','!=',null)->with('client')->paginate(25);
 
+        return view('exports.after.index', compact('exports'));
+    }
     /**
      * Show the form for creating a new export.
      *
@@ -78,6 +83,13 @@ class ExportsController extends Controller
         $export = export::with('client')->findOrFail($id);
 
         return view('exports.show', compact('export'));
+    }
+
+    public function showafter($id)
+    {
+        $export = export::with('client')->findOrFail($id);
+
+        return view('exports.after.show', compact('export'));
     }
 
     /**
@@ -421,9 +433,10 @@ class ExportsController extends Controller
  ];
 
 
-
+ $pdfContents = file_get_contents(asset($export->files));
+ $pdfContents2 = file_get_contents(asset($export->files));
  try{
-    $pdfContents = file_get_contents(asset($export->files));
+
 
 
      $client2 = new ClientHTTP();
@@ -440,9 +453,14 @@ class ExportsController extends Controller
                 'contents' => $ANIMALINFOj,
             ],
             [
-                'name' => 'files',
+                'name' => 'files[]',
                 'contents' => $pdfContents, // PDF file contents
-                'filename' => 'test.pdf', // Adjust the filename
+                'filename' => 'files.pdf', // Adjust the filename
+            ],
+            [
+                'name' => 'files[]',
+                'contents' => $pdfContents2, // PDF file contents
+                'filename' => 'files2.pdf', // Adjust the filename
             ],
         ],
      ]);
@@ -460,7 +478,7 @@ class ExportsController extends Controller
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
- dd($exception);
+    return back()->withErrors($exception->getMessage());
  }
 
 
@@ -470,8 +488,139 @@ class ExportsController extends Controller
         return back();
 
 
-         return view('exports.edit', compact('export','clients'));
      }
+
+
+
+
+     public function acceptafter($id)
+     {
+         $export = export::findOrFail($id);
+         $apiUser = ApiUser::first();
+         $client = new ClientHTTP();
+         $res = $client->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/token', [
+             'form_params' => [
+                 'Username' => $apiUser->Username,
+                 'Password' => $apiUser->Password,
+                 'grant_type' => 'password',
+             ]
+         ]);
+         $response = (string) $res->getBody();
+         $response =json_decode($response); // Using this you can access any key like below
+         $access_token = $response->access_token;
+       // dd($access_token);
+
+ $data['CER_TYPE'] = $export->CER_TYPE;
+ $data['CER_LANG'] = $export->CER_LANG;
+ $data['COMP_ID'] = $export->COMP_ID;
+ $data['EUSER_QID'] = $export->EUSER_QID;
+ $data['EXP_NAME'] = $export->EXP_NAME;
+ $data['EXP_TEL'] = $export->EXP_TEL;
+ $data['EXP_FAX'] = $export->EXP_FAX;
+ $data['EXP_COUNTRY'] = $export->EXP_COUNTRY;
+ $data['IMP_NAME'] = $export->IMP_NAME;
+ $data['IMP_QID'] = $export->IMP_QID;
+ $data['IMP_FAX'] = $export->IMP_FAX;
+ $data['IMP_TEL'] = $export->IMP_TEL;
+ $data['IMP_COUNTRY'] = $export->IMP_COUNTRY;
+ $data['ORIGIN_COUNTRY'] = $export->ORIGIN_COUNTRY;
+ $data['SHIPPING_PLACE'] = $export->SHIPPING_PLACE;
+ $data['TRANSPORT'] = $export->TRANSPORT;
+
+ $data['IMP_CER_SERIAL'] = $export->IMP_CER_SERIAL;
+ $data['SHIPPING_DATE'] = $export->SHIPPING_DATE;
+ $data['APPLICANT_NAME'] = $export->APPLICANT_NAME;
+ $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
+ $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
+ $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
+ $data = json_encode($data);
+
+ $ANIMALINFO = [];
+
+ foreach ($export->animal as $key => $value) {
+
+
+    $data1['ANML_SPECIES'] = $value->ANML_SPECIES;
+    $data1['ANML_SEX'] = $value->ANML_SEX;
+    $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
+    $data1['ANML_USE'] = $value->ANML_USE;
+    $data1['ANML_MICROCHIP'] = $value->ANIMAL_BREED;
+
+     $ANIMALINFO[$key] = $data1;
+
+
+ }
+
+ $ANIMALINFOj = json_encode($ANIMALINFO);
+
+ $token ='Bearer '.$access_token;
+
+ $headers = [
+     'Authorization' => $token,
+     'Accept'        => 'application/json',
+ ];
+
+
+ $pdfContents = file_get_contents(asset($export->files));
+ $pdfContents2 = file_get_contents(asset($export->files));
+ try{
+
+
+
+     $client2 = new ClientHTTP();
+     $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT_AFTER_RACING', [
+
+         'headers' => $headers,
+         'multipart' => [
+            [
+                'name' => 'DATA',
+                'contents' => $data,
+            ],
+            [
+                'name' => 'ANIMAL_INFO',
+                'contents' => $ANIMALINFOj,
+            ],
+            [
+                'name' => 'files[]',
+                'contents' => $pdfContents, // PDF file contents
+                'filename' => 'files.pdf', // Adjust the filename
+            ],
+            [
+                'name' => 'files[]',
+                'contents' => $pdfContents2, // PDF file contents
+                'filename' => 'files2.pdf', // Adjust the filename
+            ],
+        ],
+     ]);
+     $responseBody = $res->getBody()->getContents();
+     $resp = json_decode($responseBody);
+
+     $export->CER_SERIAL = $resp->CER_SERIAL;
+     $export->accepted = 1;
+     $export->save();
+
+     $acceptation = new acceptation_demande();
+     $acceptation->User_id = Auth()->user()->id;
+     $acceptation->demande_id = $export->id;
+     $acceptation->type = 'export';
+     $acceptation->commenter = 'accepter';
+     $acceptation->save();
+ }catch(Exception $exception) {
+    return back()->withErrors($exception->getMessage());
+ }
+
+
+
+
+
+        return back();
+
+
+     }
+
+
+
+
 
      public function refuse($id,Request $request){
         $export = export::findOrFail($id);

@@ -134,6 +134,16 @@
             </a>
           </li>
 
+
+          <li class="nav-item">
+            <a class="nav-link {{'exportsafter' == request()->path() ? 'active' : ''}}{{'exportsafter/create' == request()->path() ? 'active' : ''}}" href="{{ route('exports.after.export.index') }}">
+              <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">logout</i>
+              </div>
+              <span class="nav-link-text me-1">{{ trans('exports.after') }} </span>
+            </a>
+          </li>
+
       </ul>
     </div>
 

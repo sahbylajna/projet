@@ -677,7 +677,7 @@ print(_index);
       // All variables have values, you can proceed with your logic
 
 
-    Success? success =  (await ApiService().Setexport(_EXPORT_COUNTRY!.name.toString(),_ORIGIN_COUNTRY!.name.toString(),_EXPORT_COUNTRYa!.name.toString(),_ORIGIN_COUNTRYa!.name.toString(),_TRANSIET_COUNTRY!.name.toString(),SHIPPING_DATE.text,ANML_NUMBER,files,Pledge,IMP_CER_SERIAL));
+    Success? success =  (await ApiService().Setexport(_EXPORT_COUNTRY!.name.toString(),_ORIGIN_COUNTRY!.name.toString(),_EXPORT_COUNTRYa!.name.toString(),_ORIGIN_COUNTRYa!.name.toString(),_TRANSIET_COUNTRY!.name.toString(),SHIPPING_DATE.text,ANML_NUMBER,files,Pledge,IMP_CER_SERIAL.text));
 
     if(success?.message =="success"){
   if (Navigator.of(context, rootNavigator: true).canPop()) {
