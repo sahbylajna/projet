@@ -324,12 +324,43 @@ Route::group([
 
 
 
+
+
     Route::post('/', [ImportationsController::class, 'store'])
          ->name('importations.importation.store');
     Route::put('importation/{importation}', [ImportationsController::class, 'update'])
          ->name('importations.importation.update')->where('id', '[0-9]+');
     Route::delete('/importation/{importation}',[ImportationsController::class, 'destroy'])
          ->name('importations.importation.destroy')->where('id', '[0-9]+');
+});
+
+
+
+
+Route::group([
+    'prefix' => 'importationsafter',
+], function () {
+    Route::get('/', [ImportationsController::class, 'indexafter'])
+         ->name('importationsafter.importation.index');
+
+
+    Route::get('/show/{importation}',[ImportationsController::class, 'showafter'])
+         ->name('importationsafter.importation.show')->where('id', '[0-9]+');
+
+
+
+
+
+
+
+
+
+    // Route::post('/', [ImportationsController::class, 'store'])
+    //      ->name('importationsafter.importation.store');
+    // Route::put('importation/{importation}', [ImportationsController::class, 'update'])
+    //      ->name('importations.importation.update')->where('id', '[0-9]+');
+    // Route::delete('/importation/{importation}',[ImportationsController::class, 'destroy'])
+    //      ->name('importations.importation.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([

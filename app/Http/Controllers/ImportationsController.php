@@ -24,9 +24,17 @@ class ImportationsController extends Controller
      */
     public function index()
     {
-        $importations = importation::with('client')->paginate(25);
+        $importations = importation::where('EXP_CER_SERIAL',null)->with('client')->paginate(25);
 
         return view('importations.index', compact('importations'));
+    }
+
+
+    public function indexafter()
+    {
+        $importations = importation::where('EXP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+
+        return view('importations.after.index', compact('importations'));
     }
 
 
@@ -95,6 +103,13 @@ class ImportationsController extends Controller
     {
         $importation = importation::with('client')->with('animal')->findOrFail($id);
         return view('importations.show', compact('importation'));
+    }
+
+
+    public function showafter($id)
+    {
+        $importation = importation::with('client')->with('animal')->findOrFail($id);
+        return view('importations.after.show', compact('importation'));
     }
 
     /**
@@ -685,4 +700,8 @@ $importation->save();
     $acceptation->save();
         return back();
     }
+
+
+
+
 }
