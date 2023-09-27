@@ -607,7 +607,7 @@ class ExportsController extends Controller
      ]);
      $responseBody = $res->getBody()->getContents();
      $resp = json_decode($responseBody);
-     dd($responseBody);
+
 
      $export->CER_SERIAL = $resp->CER_SERIAL;
      $export->accepted = 1;
@@ -620,6 +620,7 @@ class ExportsController extends Controller
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
+    dd($exception);
     return back()->withInput()
                  ->withErrors(['unexpected_error' => $exception->getMessage()]);
     return back()->withErrors($exception->getMessage());
