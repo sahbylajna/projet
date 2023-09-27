@@ -500,6 +500,7 @@ class ExportsController extends Controller
 
      public function acceptafter($id)
      {
+        try{
          $export = export::findOrFail($id);
          $apiUser = ApiUser::first();
          $client = new ClientHTTP();
@@ -575,27 +576,10 @@ class ExportsController extends Controller
     'token' => $token,
     'ANIMALINFOj' => $ANIMALINFOj,
     'data' => [
-        [
-            'name' => 'DATA',
-            'contents' => $data,
-        ],
-        [
-            'name' => 'ANIMAL_INFO',
-            'contents' => $ANIMALINFOj,
-        ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents, // PDF file contents
-            'filename' => 'files.pdf', // Adjust the filename
-        ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents2, // PDF file contents
-            'filename' => 'files2.pdf', // Adjust the filename
-        ]
+
     ]
 ]);
- try{
+
 
 
 
