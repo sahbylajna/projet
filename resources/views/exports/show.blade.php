@@ -92,7 +92,13 @@
                     </tbody>
                 </table>
                 </div>
-<br><br><br><br><br><br><br><br>
+<br><br><br><br>
+
+<dt>مشاهدة المرفقات</dt>
+<dd> <a href="{{ asset($export->files) }}" target="_blank">  كشف المطايا</a> </dd>
+<dd> <a href="{{ asset($export->Pledge) }}" target="_blank">التعهد</a> </dd>
+
+<br><br><br><br>
                 @if ($export->accepted == null)
                 {{-- <form method="POST" action="{!! route('clients.client.refused', $client->id) !!}" accept-charset="UTF-8"> --}}
                     {{-- <input name="_method" value="DELETE" type="hidden"> --}}
