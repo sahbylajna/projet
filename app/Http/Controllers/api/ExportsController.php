@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
 use App\Models\ANIMAL_INFO;
+use  App\Models\Setting;
+use  App\Models\countries;
 class ExportsController extends Controller
 {
 
@@ -30,7 +32,7 @@ class ExportsController extends Controller
     /**
      * Store a new export in the storage.
      *
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\Response
      */
@@ -47,20 +49,19 @@ class ExportsController extends Controller
             $data = $this->getData($request);
 
             $export = export::create($data);
-            $ANIMAL_INFO = json_decode($data['ANIMAL_INFO'], true);
-
-            foreach ($ANIMAL_INFO as $key => $value) {
-
-                $animal = new ANIMAL_INFO();
-                $animal->ANML_USE = $value['ANML_USE'];
-                $animal->ANML_SEX = $value['ANML_SEX'];
-                $animal->ANIMAL_BREED = $value['ANIMAL_BREED'];
-                $animal->ANML_NUMBER = $value['ANML_NUMBER'];
-                $animal->ANML_SPECIES = $value['ANML_SPECIES'];
-                $animal->client_id =  auth()->user()->id ;
-                $animal->save();
+            $animal = new ANIMAL_INFO();
+            $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa;
+            $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRYa;
+            $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRYa;
+            $animal->ANML_SPECIES = "ابل هجن";
+            $animal->ANML_SEX = 'هجين';
+            $animal->ANML_NUMBER = $request->ANML_NUMBER;
+            $animal->ANML_USE = 'مشاركة';
+            $animal->ANIMAL_BREED = "حسب الكشف المرفق";
+            $animal->client_id =  auth()->user()->id ;
+            $animal->save();
                 $export->animal()->attach( $animal->id);
-            }
+
             return response()->json([
 
                 'message' => 'success',
@@ -88,14 +89,7 @@ class ExportsController extends Controller
 		);
     }
 
-    /**
-     * Update the specified export in the storage.
-     *
-     * @param int $id
-     * @param Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\Response
-     */
+
     public function update($id, Request $request)
     {
         try {
@@ -185,44 +179,67 @@ class ExportsController extends Controller
      */
     protected function getData(Request $request)
     {
+
         $rules = [
 
-
-            'COMP_ID' => 'required',
-            'EUSER_QID' => 'string|min:1|required',
-            'EXP_NAME' => 'string|min:1|required',
-            'EXP_TEL' => 'string|min:1|required',
-            'EXP_FAX' => 'string|min:1|required',
-            'EXP_COUNTRY' => 'string|required',
-            'IMP_NAME' => 'string|min:1|nullable',
-            'IMP_QID' => 'string|min:1|nullable',
-            'IMP_FAX' => 'string|min:1|nullable',
-            'IMP_TEL' => 'string|min:1|nullable',
-            'IMP_COUNTRY' => 'string|nullable',
+            'EXP_COUNTRY' => 'string|nullable',
             'ORIGIN_COUNTRY' => 'string|nullable',
-            'SHIPPING_PLACE' => 'string|min:1|nullable',
-            'TRANSPORT' => 'string|min:1|nullable',
-            'SHIPPING_DATE' => 'string|date_format:Y-m-d',
-
-            'EXP_NATIONALITY' => 'string|min:1|nullable',
-            'EXP_PASSPORT_NUM' => 'string|min:1|nullable',
-
-            'ANIMAL_INFO' => 'required',
+            'ENTERY_PORT' => 'string|min:1|nullable',
+            'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
+            'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
+            'IMP_CER_SERIAL' => 'string|nullable',
             'files' => 'required',
+            'Pledge' => 'required',
+
+
+
         ];
 
 
         $data = $request->validate($rules);
+
+        $setting =  Setting::first();
+        $contry =  countries::find(auth()->user()->contry);
+
+        $data['COMP_ID'] =$setting->being_established;
+        $data['EUSER_QID'] ='';
+        $data['EXP_NAME'] ='Hijin';
+        $data['EXP_TEL'] =$setting->phone;
+        $data['IMP_QID'] =$setting->commercial_register;
+        $data['EXP_FAX'] =$setting->fax;
+
+        $data['IMP_NAME'] =auth()->user()->first_name .' '. auth()->user()->last_name;
+        $data['IMP_ADDRESS'] =auth()->user()->adresse;
+        $data['IMP_FAX'] =auth()->user()->fax;
+        $data['IMP_TEL'] =auth()->user()->phone;
+        $data['IMP_POBOX'] =auth()->user()->POBOX;
+        $data['IMP_COUNTRY'] = $contry->name;
+
+        $data['SHIPPING_PLACE'] ="منفذ ابو سمرة";
+        $data['APPLICANT_NAME'] ='';
+        $data['APPLICANT_TEL'] =$setting->phone;
+        $data['TRANSPORT'] ='';
+        $data['EXP_NATIONALITY'] ='';
+        $data['EXP_PASSPORT_NUM'] ='';
+
+
+
+
         $data['CER_TYPE'] ='EXHRC';
         $data['CER_LANG'] ='A';
         $data['client_id'] = auth()->user()->id;
-        $data['APPLICANT_NAME'] = auth()->user()->first_name .' '.  auth()->user()->last_name;
-        $data['APPLICANT_TEL'] = auth()->user()->phone;
-
-
+        $data['APPLICANT_NAME'] = '';
+        $data['APPLICANT_TEL'] = '';
         if ($request->hasFile('files')) {
             $data['files'] = $this->moveFile($request->file('files'));
         }
+
+        if ($request->hasFile('Pledge')) {
+            $data['Pledge'] = $this->moveFile($request->file('Pledge'));
+        }
+
+
+
 
 
         return $data;

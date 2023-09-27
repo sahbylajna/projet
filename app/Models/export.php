@@ -51,8 +51,10 @@ class export extends Model
                   'EXP_NATIONALITY',
                   'EXP_PASSPORT_NUM',
                   'accepted',
-                  'animal',
+                  'IMP_CER_SERIAL',
+                  'Pledge',
                   'reson',
+
                   'files'
               ];
 

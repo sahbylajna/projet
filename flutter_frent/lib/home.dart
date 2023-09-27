@@ -53,14 +53,15 @@ Widget? _child;
         body: _child,
         bottomNavigationBar: FluidNavBar(
           icons: [
-            FluidNavBarIcon(
-                icon: Icons.home,
-                backgroundColor: _accentColor,
-                extras: {"label": "home"}),
+
             FluidNavBarIcon(
                 icon: Icons.account_circle,
                 backgroundColor: _accentColor,
                 extras: {"label": "account"}),
+            FluidNavBarIcon(
+                icon: Icons.home,
+                backgroundColor: _accentColor,
+                extras: {"label": "home"}),
             FluidNavBarIcon(
                 icon: Icons.notifications,
                 backgroundColor: _accentColor,
@@ -71,7 +72,7 @@ Widget? _child;
             iconSelectedForegroundColor: Colors.white,
               iconUnselectedForegroundColor: Colors.white60),
           scaleFactor: 1.5,
-          defaultIndex: 0,
+          defaultIndex: 1,
           itemBuilder: (icon, item) => Semantics(
             label: icon.extras!["label"],
             child: item,
@@ -85,10 +86,10 @@ Widget? _child;
     setState(() {
       switch (index) {
         case 0:
-          _child = HomeContent();
+          _child = AccountContent();
           break;
         case 1:
-          _child = AccountContent();
+          _child = HomeContent();
           break;
         case 2:
           _child = SettingsContent();

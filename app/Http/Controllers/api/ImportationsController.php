@@ -32,13 +32,6 @@ class ImportationsController extends Controller
         return response()->json(  $data);
     }
 
-    /**
-     * Store a new importations in the storage.
-     *
-     * @param Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -107,9 +100,9 @@ class ImportationsController extends Controller
      * Update the specified importations in the storage.
      *
      * @param int $id
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function update($id, Request $request)
     {

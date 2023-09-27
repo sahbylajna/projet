@@ -441,6 +441,72 @@ print(request);
 
 
 
+Future<Success?> Setexport(
+    _EXPORT_COUNTRY,
+_ORIGIN_COUNTRY,
+_EXPORT_COUNTRYa,
+_ORIGIN_COUNTRYa,
+_TRANSIET_COUNTRY,
+
+SHIPPING_DATE,
+ANML_NUMBER,
+files,
+Pledge,IMP_CER_SERIAL) async {
+
+
+  try {
+    final user = await SharedPreferences.getInstance();
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.exports);
+    var request = http.MultipartRequest('POST', url);
+
+    request.headers['Authorization'] = 'Bearer ${user.getString('token')}';
+
+
+
+    request.fields['EXPORT_COUNTRYa'] = _EXPORT_COUNTRYa;
+    request.fields['ORIGIN_COUNTRYa'] = _ORIGIN_COUNTRYa;
+    request.fields['TRANSIET_COUNTRYa'] = _TRANSIET_COUNTRY;
+    request.fields['ANML_NUMBER'] = ANML_NUMBER;
+
+
+
+
+
+
+
+    request.fields['EXP_COUNTRY'] = _EXPORT_COUNTRY;
+
+    request.fields['ORIGIN_COUNTRY'] = _ORIGIN_COUNTRY;
+request.fields['IMP_CER_SERIAL'] = IMP_CER_SERIAL;
+
+
+    request.fields['SHIPPING_DATE'] = SHIPPING_DATE;
+
+
+    // Add the PDF file
+    var pdfFile = await http.MultipartFile.fromPath('files', files);
+    request.files.add(pdfFile);
+     // Add the PDF file
+    var Pledgef = await http.MultipartFile.fromPath('Pledge', Pledge);
+    request.files.add(Pledgef);
+print(request);
+    // Send the request
+    var response = await request.send();
+
+    print('hnaaaaaaaaaaaaaaaaaaaaaa');
+    final responseString = await response.stream.bytesToString();
+    print(responseString);
+
+    if (response.statusCode == 200) {
+      // Handle a successful response here if needed
+      Success model = successFromJson(responseString);
+      return model;
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+  return null;
+}
   Future<Success?> Setexports(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_FAX,IMP_TEL,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO,filePath) async {
     try {
       final user = await SharedPreferences.getInstance();

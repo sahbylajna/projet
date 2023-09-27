@@ -7,6 +7,7 @@ import 'package:tasareeh/screens/book.dart';
 import 'package:tasareeh/screens/in.dart';
 import 'package:tasareeh/screens/inafter.dart';
 import 'package:tasareeh/screens/out.dart';
+import 'package:tasareeh/screens/outafter.dart';
 
 
 class HomeContent extends StatefulWidget {
@@ -340,15 +341,16 @@ SizedBox(
        Row(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
-      OutlinedButton(
+
+ OutlinedButton(
         onPressed: () {
-             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BackContent()));
+             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OutContent()));
         },
 
    style: OutlinedButton.styleFrom(
 
       foregroundColor: Colors.white,
-     side:BorderSide(color: _primaryColor),
+      side:BorderSide(color: _primaryColor),
       shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(18),
@@ -373,7 +375,7 @@ SizedBox(
          SizedBox(
       width: 30, // <-- SEE HERE
     ),
- Image.asset('assets/back.png',height: 50,
+ Image.asset('assets/out.png',height: 50,
     width: 50,)
 
   ]),
@@ -385,11 +387,8 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text(" طلب عوده",style: TextStyle(color: _accentColor)),
+      Text("خروج للمشاركة",style: TextStyle(color: _accentColor)),
 
-      SizedBox(
-      width: 50, // <-- SEE HERE
-    ),
   ]),
 
     ],
@@ -399,18 +398,15 @@ SizedBox(
 
 
 
-
-
-
- OutlinedButton(
+OutlinedButton(
         onPressed: () {
-             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookContent()));
+             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OutafterContent()));
         },
 
    style: OutlinedButton.styleFrom(
 
       foregroundColor: Colors.white,
-     side:BorderSide(color: _primaryColor),
+      side:BorderSide(color: _primaryColor),
       shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(18),
@@ -432,7 +428,11 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
+         SizedBox(
+      width: 30, // <-- SEE HERE
+    ),
+ Image.asset('assets/out.png',height: 50,
+    width: 50,)
 
   ]),
 SizedBox(
@@ -443,17 +443,67 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
-      Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
+      Text("خروج بعد المشاركة",style: TextStyle(color: _accentColor)),
 
-      SizedBox(
-      width: 50, // <-- SEE HERE
-    ),
   ]),
 
     ],
 
   ),
     ),
+
+//  OutlinedButton(
+//         onPressed: () {
+//              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookContent()));
+//         },
+
+//    style: OutlinedButton.styleFrom(
+
+//       foregroundColor: Colors.white,
+//      side:BorderSide(color: _primaryColor),
+//       shape: const RoundedRectangleBorder(
+//               borderRadius: BorderRadius.all(
+//                 Radius.circular(18),
+//               ),
+//             ),
+
+//  backgroundColor: Colors.white,
+//       elevation: 20,
+//        fixedSize: Size(150,200),
+//     ),
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//         SizedBox(
+//       height: 10, // <-- SEE HERE
+//     ),
+//           Row(
+//             textDirection: TextDirection.rtl,
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   children: [
+
+// Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
+
+//   ]),
+// SizedBox(
+//       height: 100, // <-- SEE HERE
+//     ),
+
+//     Row(
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   children: [
+
+//       Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
+
+//       SizedBox(
+//       width: 50, // <-- SEE HERE
+//     ),
+//   ]),
+
+//     ],
+
+//   ),
+//     ),
 
 
 
