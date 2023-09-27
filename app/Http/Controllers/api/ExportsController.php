@@ -56,7 +56,12 @@ class ExportsController extends Controller
             $animal->ANML_SPECIES = "ابل هجن";
             $animal->ANML_SEX = 'هجين';
             $animal->ANML_NUMBER = $request->ANML_NUMBER;
-            $animal->ANML_USE = 'مشاركة';
+            if($request->IMP_CER_SERIAL != null){
+                $animal->ANML_USE = "بعد مشاركه";
+            }else{
+                $animal->ANML_USE = 'مشاركة';
+            }
+
             $animal->ANIMAL_BREED = "حسب الكشف المرفق";
             $animal->client_id =  auth()->user()->id ;
             $animal->save();

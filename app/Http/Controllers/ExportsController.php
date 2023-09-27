@@ -574,7 +574,26 @@ class ExportsController extends Controller
  Log::info('Request:', [
     'token' => $token,
     'ANIMALINFOj' => $ANIMALINFOj,
-    'data' => $data
+    'data' => [
+        [
+            'name' => 'DATA',
+            'contents' => $data,
+        ],
+        [
+            'name' => 'ANIMAL_INFO',
+            'contents' => $ANIMALINFOj,
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents, // PDF file contents
+            'filename' => 'files.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents2, // PDF file contents
+            'filename' => 'files2.pdf', // Adjust the filename
+        ]
+    ]
 ]);
  try{
 
@@ -594,12 +613,12 @@ class ExportsController extends Controller
                 'contents' => $ANIMALINFOj,
             ],
             [
-                'name' => 'files',
+                'name' => 'files[]',
                 'contents' => $pdfContents, // PDF file contents
                 'filename' => 'files.pdf', // Adjust the filename
             ],
             [
-                'name' => 'files',
+                'name' => 'files[]',
                 'contents' => $pdfContents2, // PDF file contents
                 'filename' => 'files2.pdf', // Adjust the filename
             ],
