@@ -361,7 +361,7 @@ public function getcheck(Request $request){
         'APPLICIANT_ID' => $setting->commercial_register,
     ];
 
-// $data = json_encode($data);
+$data = json_encode($data);
        try{
 
         $token ='Bearer '.$access_token;
@@ -382,21 +382,13 @@ public function getcheck(Request $request){
         $resp = json_decode($responseBody);
         return response()->json([
 
-            $res
+            $responseBody
 
 
         ]);
 
     }catch(Exception $exception) {
-            return response()->json([
 
-        'CER_SERIAL' => $request->CER_SERIAL,
-        'APPLICIANT_ID' => $setting->commercial_register,
-        'token' =>'Bearer '.$access_token,
-        '$exception' =>$exception
-
-
-    ]);
        return back()->withInput()
        ->withErrors(['unexpected_error' => $exception->getMessage()]);
 
