@@ -426,7 +426,7 @@ class ExportsController extends Controller
 
  }
 
- $ANIMALINFOj = json_encode($ANIMALINFO);
+
 
  $token ='Bearer '.$access_token;
 
