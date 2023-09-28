@@ -408,7 +408,7 @@ class ExportsController extends Controller
  $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
- $data = json_encode($data);
+ //$data = json_encode($data);
 
  $ANIMALINFO = [];
 
