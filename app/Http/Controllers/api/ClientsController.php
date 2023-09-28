@@ -356,10 +356,11 @@ public function getcheck(Request $request){
 
 
     // ]);
-    $data = [
-        'CER_SERIAL' => $request->CER_SERIAL,
-        'APPLICIANT_ID' => $setting->commercial_register,
-    ];
+
+
+
+  $data['CER_SERIAL'] = $request->CER_SERIAL;
+  $data['APPLICIANT_ID'] = $setting->commercial_register;
 // $data = json_encode($data);
        try{
 
@@ -375,6 +376,7 @@ public function getcheck(Request $request){
             'headers' => $headers,
             'form_params' => $data,
         ]);
+
 
         $responseBody = $res->getBody()->getContents();
         $resp = json_decode($responseBody);
