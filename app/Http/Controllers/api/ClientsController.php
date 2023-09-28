@@ -360,7 +360,7 @@ public function getcheck(Request $request){
         'CER_SERIAL' => $request->CER_SERIAL,
         'APPLICIANT_ID' => $setting->commercial_register,
     ];
-$data = json_encode($data);
+// $data = json_encode($data);
        try{
 
         $token ='Bearer '.$access_token;
