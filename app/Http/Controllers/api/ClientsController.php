@@ -370,7 +370,7 @@ $data = json_encode($data);
         $client2 = new ClientHTTP();
         $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
             'headers' => $headers,
-            'query' => [
+            'multipart' => [
                 $data
             ],
         ]);
