@@ -380,12 +380,12 @@ public function getcheck(Request $request){
 
         $responseBody = $res->getBody()->getContents();
         $resp = json_decode($responseBody);
-        return response()->json([
+        return response()->json(
 
             $resp
 
 
-        ]);
+        );
 
     }catch(Exception $exception) {
 
