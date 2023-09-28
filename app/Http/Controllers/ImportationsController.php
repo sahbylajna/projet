@@ -62,33 +62,32 @@ class ImportationsController extends Controller
      */
     public function store(Request $request)
     {
-      //  dd($request);
+     //   dd($request);
         try {
 
             $data = $this->getData($request);
 
             $importations =     importation::create($data);
-            $ANIMAL_INFO = json_decode($data['ANIMAL_INFO'], true);
 
-            foreach ($ANIMAL_INFO as $key => $value) {
 
-                $animal = new ANIMAL_INFO();
-                $animal->ORIGIN_COUNTRY = $value['ORIGIN_COUNTRY'];
-                $animal->EXPORT_COUNTRY = $value['EXPORT_COUNTRY'];
-                $animal->TRANSIET_COUNTRY = $value['TRANSIET_COUNTRY'];
-                $animal->ANML_SPECIES = $value['ANML_SPECIES'];
-                $animal->ANML_SEX = $value['ANML_SEX'];
-                $animal->ANML_NUMBER = $value['ANML_NUMBER'];
-                $animal->ANML_USE = $value['ANML_USE'];
-                $animal->ANIMAL_BREED = $value['ANIMAL_BREED'];
+            $animal = new ANIMAL_INFO();
+            $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa;
+            $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRY;
+            $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRY;
+            $animal->ANML_SPECIES = $request->ANML_SPECIES;
+            $animal->ANML_SEX = $request->ANML_SEX;
+            $animal->ANML_NUMBER = $request->ANML_NUMBER;
+            $animal->ANML_USE = $request->ANML_USE;
+            $animal->ANIMAL_BREED = $request->ANIMAL_BREED;
+
                 $animal->client_id =  auth()->user()->id ;
                 $animal->save();
                 $importations->animal()->attach( $animal->id);
-            }
+
             return redirect()->route('importations.importation.index')
                 ->with('success_message', trans('importations.model_was_added'));
         } catch (Exception $exception) {
-
+dd( $exception);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('importations.unexpected_error')]);
         }
@@ -373,7 +372,9 @@ class ImportationsController extends Controller
             $data['files'] = $this->moveFile($request->file('files'));
         }
 
-
+        if ($request->hasFile('Pledge')) {
+            $data['Pledge'] = $this->moveFile($request->file('Pledge'));
+        }
        // dd( $data);
 
         return $data;

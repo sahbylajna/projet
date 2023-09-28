@@ -253,41 +253,53 @@ Future<term?> getterm() async {
     return null;
   }
 
-
-Future<check?> getcheck(String CER_SERIAL) async {
+Future<check> getcheck(String CER_SERIAL) async {
   try {
     final user = await SharedPreferences.getInstance();
     var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.check);
+    var request = http.MultipartRequest('POST', url);
 
-    // Create a Map to hold the request headers
-    Map<String, String> headers = {
-      'Authorization': 'Bearer ${user.getString('token')}',
-      'Content-Type': 'application/x-www-form-urlencoded', // Set the content type
-    };
+    request.headers['Authorization'] = 'Bearer ${user.getString('token')}';
 
-    // Create a Map to hold the request body data
-    Map<String, String> body = {
-      'CER_SERIAL': CER_SERIAL,
-    };
+    request.fields['CER_SERIAL'] = CER_SERIAL;
 
-    var response = await http.post(
-      url,
-      headers: headers,
-      body: body,
-    );
+    print(url);
+    print(request);
+    var response = await request.send();
+
+    print( 'Bearer ${user.getString('token')}');
+    print(CER_SERIAL);
+    final responseString = await response.stream.bytesToString();
+    print(responseString);
 
     if (response.statusCode == 200) {
-        print(response.body);
-      check model = checkFromJson(response.body);
-      return model;
+      return checkFromJson(responseString);
     }
   } catch (e) {
     log(e.toString());
+    // Handle the error gracefully and return a default check object with an error message
+    return check(
+      cERSERIAL: ' ',
+      aPPLICIANTID: '',
+      statu: 'يرجى التأكد من المعرفه',
+      pAYMENTLINK: '',
+      pAYMENTERROR: '',
+      cERID: '',
+      data: '',
+    );
   }
-  return null;
+
+  // Handle the case where the response status code is not 200 gracefully
+  return check(
+    cERSERIAL: ' ',
+    aPPLICIANTID: '',
+    statu: 'يرجى التأكد من المعرفه',
+    pAYMENTLINK: '',
+    pAYMENTERROR: '',
+    cERID: '',
+    data: '',
+  );
 }
-
-
 
 
   Future<List<Demande>?> getlist() async {

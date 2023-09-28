@@ -308,7 +308,9 @@ print(_index);
 
 
 
-
+  const SizedBox(
+                          height: 10,
+                        ),
 
 
 
@@ -850,82 +852,51 @@ print(_index);
     } else {
       // All variables have values, you can proceed with your logic
 
+  if (Navigator.of(context, rootNavigator: true).canPop()) {
+          Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+        }
+    check checkss =  (await ApiService().getcheck(IMP_CER_SERIAL.text));
 
-    check? checks =  (await ApiService().getcheck(IMP_CER_SERIAL.text));
-
-    if(checks!.aPPLICATIONSTATUS!.isNotEmpty){
+print(checkss.statu);
+ final status = checkss?.statu ?? '';
   if (Navigator.of(context, rootNavigator: true).canPop()) {
     Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
   }
 
   // ignore: use_build_context_synchronously
-  showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (_) {
-      return Dialog(
-        backgroundColor: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-
-              SizedBox(height: 15),
-              Text('{checks.aPPLICATIONSTATUS.toString()}')
-            ],
+   showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 15),
+                Text(status),
+              ],
+            ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
 
-  Future.delayed(Duration(seconds: 2), () {
+  Future.delayed(Duration(seconds: 7), () {
     if (Navigator.of(context, rootNavigator: true).canPop()) {
       Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
     }
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MyHomePage()),
-            (route) => false);
+
   });
 
 
 
-}else{
-  if (Navigator.of(context, rootNavigator: true).canPop()) {
-    Navigator.of(context, rootNavigator: true).pop();
-    // Close the dialog
-  }
-  showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (_) {
-      return Dialog(
-        backgroundColor: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-
-              SizedBox(height: 15),
-              Text('الرجاء إدخال بيانات صحيحة')
-            ],
-          ),
-        ),
-      );
-    },
-  );
-
-  Future.delayed(Duration(seconds: 2), () {
-    if (Navigator.of(context, rootNavigator: true).canPop()) {
-      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
-    }
-  });
 }
     }
 
 
 
   }
-}
+
