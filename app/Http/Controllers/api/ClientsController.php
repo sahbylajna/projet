@@ -364,15 +364,14 @@ $data = json_encode($data);
         $token ='Bearer '.$access_token;
         $headers = [
             'Authorization' => $token,
-            'Accept'        => 'application/json',
+            'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
         ];
 
         $client2 = new ClientHTTP();
         $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
             'headers' => $headers,
-            'multipart' => [
-                $data
-            ],
+            'body' => json_encode($data),
         ]);
         $responseBody = $res->getBody()->getContents();
         $resp = json_decode($responseBody);
