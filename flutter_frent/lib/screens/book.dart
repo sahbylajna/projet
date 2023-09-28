@@ -190,7 +190,7 @@ Column(
         ,
 
 
-       Text(_list[index].accepted == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${_list[index].reson}' : '${_list[index].accepted}' ),
+       Text(_list[index].accepted == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${_list[index].reson}' : ' ' ),
 
 
 
@@ -199,7 +199,7 @@ Column(
         ,
       ),
     onTap: () {
-      print(_list[index].animal?.length.toString());
+   //   print(_list[index].animal?.length.toString());
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (context) => showContent(paramValue: _list[index]), // Pass the parameter

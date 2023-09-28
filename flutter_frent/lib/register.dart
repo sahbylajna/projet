@@ -158,44 +158,44 @@ SizedBox(height: 20.0),
 
 
 
-     Container(
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                          child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration(
-                                " رقم ال Fax",
-                                "أدخل رقم fax"),
-                                controller: fax,
-                            keyboardType: TextInputType.number,
-                            validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)  || (val.isEmpty)){
-                                return "أدخل رقم id صحيحًا";
-                              }
-                              return null;
+//      Container(
+//                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
+//                           child: TextFormField(
+//                             decoration: ThemeHelper().textInputDecoration(
+//                                 " رقم ال Fax",
+//                                 "أدخل رقم fax"),
+//                                 controller: fax,
+//                             keyboardType: TextInputType.number,
+//                             validator: (val) {
+//                               if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)  || (val.isEmpty)){
+//                                 return "أدخل رقم id صحيحًا";
+//                               }
+//                               return null;
 
-                            },
-                          ),
-                        ),
+//                             },
+//                           ),
+//                         ),
 
-SizedBox(height: 20.0),
+// SizedBox(height: 20.0),
 
 
- Container(
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                          child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration(
-                                " رقم ال POBOX",
-                                "أدخل رقم POBOX"),
-                                controller: POBOX,
-                            keyboardType: TextInputType.number,
-                            validator: (val) {
-                              if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)  || (val.isEmpty)){
-                                return "أدخل رقم id صحيحًا";
-                              }
-                              return null;
+//  Container(
+//                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
+//                           child: TextFormField(
+//                             decoration: ThemeHelper().textInputDecoration(
+//                                 " رقم ال POBOX",
+//                                 "أدخل رقم POBOX"),
+//                                 controller: POBOX,
+//                             keyboardType: TextInputType.number,
+//                             validator: (val) {
+//                               if(!(val!.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)  || (val.isEmpty)){
+//                                 return "أدخل رقم id صحيحًا";
+//                               }
+//                               return null;
 
-                            },
-                          ),
-                        ),
+//                             },
+//                           ),
+//                         ),
 
 SizedBox(height: 20.0),
 
@@ -491,7 +491,7 @@ width: screen.width * 0.45,
 
 
 
- Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),_selectedValue1!.id.toString(),base64Image1.toString(),base64Image2.toString(),adresse.text,fax.text,POBOX.text))!;
+ Success success =  (await ApiService().register(fistname.text,lastname.text,phone.text,password.text,email.text,ud.text,_selectedValue!.id.toString(),_selectedValue1!.id.toString(),base64Image1.toString(),base64Image2.toString(),'0','0','0'))!;
 
 
  if(success.message == 'success'){

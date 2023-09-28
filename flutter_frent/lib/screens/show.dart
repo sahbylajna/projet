@@ -256,27 +256,6 @@ class _showContentState extends State<showContent>{
 
 
 
-                        if (widget.paramValue.iMPQID.toString() != 'null')
-                        Padding(
-                          padding: EdgeInsets.all(10), // Add your desired padding values here
-                          child: Row(
-                            children: [
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('QID المورد'),
-                              ),
-                              SizedBox(width: 10), // Add spacing between text and value
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text(widget.paramValue.iMPQID.toString()),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
 
                         if (widget.paramValue.iMPFAX.toString() != 'null')
                         Padding(
@@ -557,7 +536,7 @@ class _showContentState extends State<showContent>{
                             child:
                             ListView.builder(
                               shrinkWrap: true,
-                              itemCount: widget.paramValue.animal?.length,
+                              itemCount: 0,
                               itemBuilder: (context, index) {
                                 return Card(
                                   elevation: 4, // You can adjust the elevation for the shadow effect
@@ -570,7 +549,7 @@ class _showContentState extends State<showContent>{
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: ListTile(
-                                      title: Text('البلد الأصلي: ${widget.paramValue.animal?[index].oRIGINCOUNTRY}'),
+                                      title: Text('البلد الأصلي: '),
                                     ),
                                   ),
                                 );

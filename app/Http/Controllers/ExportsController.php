@@ -435,6 +435,11 @@ class ExportsController extends Controller
      'Accept'        => 'application/json',
  ];
 
+ Log::info('Request:', [
+
+    'data' => $data
+]);
+
 
  $pdfContents = file_get_contents(asset($export->files));
  $pdfContents2 = file_get_contents(asset($export->files));
@@ -570,12 +575,6 @@ class ExportsController extends Controller
 
 
 
-
-//  Log::info('Request:', [
-//     'token' => $token,
-//     'ANIMAL_INFO' => $data1,
-//     'data' => $data
-// ]);
 
 
 

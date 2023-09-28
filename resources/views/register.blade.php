@@ -284,28 +284,28 @@ button{
 
 
 
-        <div id="right" class="form-group {{ $errors->has('adresse') ? 'has-error' : '' }}">
+        <div id="right" style="display: none;" class="form-group {{ $errors->has('adresse') ? 'has-error' : '' }}">
             <label for="adresse" class="col-md-2 control-label">{{ trans('clients.adresse') }}</label>
             <div class="col-md-10">
-                <input required class="form-control" name="adresse" type="adresse" id="adresse" value="" placeholder="{{ trans('clients.adresse__placeholder') }}">
+                <input required class="form-control" name="adresse" type="adresse" id="adresse" value="0" placeholder="{{ trans('clients.adresse__placeholder') }}">
                 {!! $errors->first('adresse', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 
 
-        <div id="right" class="form-group {{ $errors->has('fax') ? 'has-error' : '' }}">
+        <div id="right" style="display: none;" class="form-group {{ $errors->has('fax') ? 'has-error' : '' }}">
             <label for="fax" class="col-md-2 control-label">{{ trans('clients.fax') }}</label>
             <div class="col-md-10">
-                <input required class="form-control" name="fax" type="fax" id="fax" value="" placeholder="{{ trans('clients.fax__placeholder') }}">
+                <input required class="form-control" name="fax" type="fax" id="fax" value="0" placeholder="{{ trans('clients.fax__placeholder') }}">
                 {!! $errors->first('fax', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
 
 
-        <div id="right" class="form-group {{ $errors->has('POBOX') ? 'has-error' : '' }}">
+        <div id="right" style="display: none;" class="form-group {{ $errors->has('POBOX') ? 'has-error' : '' }}">
             <label for="POBOX" class="col-md-2 control-label">{{ trans('clients.POBOX') }}</label>
             <div class="col-md-10">
-                <input required class="form-control" name="POBOX" type="POBOX" id="POBOX" value="" placeholder="{{ trans('clients.POBOX__placeholder') }}">
+                <input required class="form-control" name="POBOX" type="POBOX" id="POBOX" value="0" placeholder="{{ trans('clients.POBOX__placeholder') }}">
                 {!! $errors->first('POBOX', '<p class="help-block">:message</p>') !!}
             </div>
         </div>

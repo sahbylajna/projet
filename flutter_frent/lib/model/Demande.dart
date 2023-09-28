@@ -23,7 +23,6 @@ class Demande {
   String? eXPCOUNTRY;
   String? iMPNAME;
   String? iMPADDRESS;
-  String? iMPQID;
   String? iMPFAX;
   String? iMPTEL;
   String? iMPPOBOX;
@@ -39,46 +38,50 @@ class Demande {
   String? eXPNATIONALITY;
   String? eXPPASSPORTNUM;
   String? accepted;
-
-  String? type;
   String? reson;
-  List<Animal>? animal;
+  String? files;
+  String? cERSERIAL;
+  String? pledge;
+  String? eXPCERSERIAL;
+  String? type;
 
   Demande(
       {this.id,
-        this.createdAt,
-        this.updatedAt,
-        this.clientId,
-        this.cERTYPE,
-        this.cERLANG,
-        this.cOMPID,
-        this.eUSERQID,
-        this.eXPNAME,
-        this.eXPTEL,
-        this.eXPQID,
-        this.eXPFAX,
-        this.eXPCOUNTRY,
-        this.iMPNAME,
-        this.iMPADDRESS,
-        this.iMPQID,
-        this.iMPFAX,
-        this.iMPTEL,
-        this.iMPPOBOX,
-        this.iMPCOUNTRY,
-        this.oRIGINCOUNTRY,
-        this.sHIPPINGPLACE,
-        this.eNTERYPORT,
-        this.eXPECTEDARRIVALDATE,
-        this.tRANSPORT,
-        this.sHIPPINGDATE,
-        this.aPPLICANTNAME,
-        this.aPPLICANTTEL,
-        this.eXPNATIONALITY,
-        this.eXPPASSPORTNUM,
-        this.accepted,
-this.reson,
-        this.type,
-        this.animal});
+      this.createdAt,
+      this.updatedAt,
+      this.clientId,
+      this.cERTYPE,
+      this.cERLANG,
+      this.cOMPID,
+      this.eUSERQID,
+      this.eXPNAME,
+      this.eXPTEL,
+      this.eXPQID,
+      this.eXPFAX,
+      this.eXPCOUNTRY,
+      this.iMPNAME,
+      this.iMPADDRESS,
+      this.iMPFAX,
+      this.iMPTEL,
+      this.iMPPOBOX,
+      this.iMPCOUNTRY,
+      this.oRIGINCOUNTRY,
+      this.sHIPPINGPLACE,
+      this.eNTERYPORT,
+      this.eXPECTEDARRIVALDATE,
+      this.tRANSPORT,
+      this.sHIPPINGDATE,
+      this.aPPLICANTNAME,
+      this.aPPLICANTTEL,
+      this.eXPNATIONALITY,
+      this.eXPPASSPORTNUM,
+      this.accepted,
+      this.reson,
+      this.files,
+      this.cERSERIAL,
+      this.pledge,
+      this.eXPCERSERIAL,
+      this.type});
 
   Demande.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -96,7 +99,6 @@ this.reson,
     eXPCOUNTRY = json['EXP_COUNTRY'];
     iMPNAME = json['IMP_NAME'];
     iMPADDRESS = json['IMP_ADDRESS'];
-    iMPQID = json['IMP_QID'];
     iMPFAX = json['IMP_FAX'];
     iMPTEL = json['IMP_TEL'];
     iMPPOBOX = json['IMP_POBOX'];
@@ -111,10 +113,13 @@ this.reson,
     aPPLICANTTEL = json['APPLICANT_TEL'];
     eXPNATIONALITY = json['EXP_NATIONALITY'];
     eXPPASSPORTNUM = json['EXP_PASSPORT_NUM'];
-
- reson = json['reson'];
+    accepted = json['accepted'];
+    reson = json['reson'];
+    files = json['files'];
+    cERSERIAL = json['CER_SERIAL'];
+    pledge = json['Pledge'];
+    eXPCERSERIAL = json['EXP_CER_SERIAL'];
     type = json['type'];
-
   }
 
   Map<String, dynamic> toJson() {
@@ -134,7 +139,6 @@ this.reson,
     data['EXP_COUNTRY'] = this.eXPCOUNTRY;
     data['IMP_NAME'] = this.iMPNAME;
     data['IMP_ADDRESS'] = this.iMPADDRESS;
-    data['IMP_QID'] = this.iMPQID;
     data['IMP_FAX'] = this.iMPFAX;
     data['IMP_TEL'] = this.iMPTEL;
     data['IMP_POBOX'] = this.iMPPOBOX;
@@ -150,9 +154,12 @@ this.reson,
     data['EXP_NATIONALITY'] = this.eXPNATIONALITY;
     data['EXP_PASSPORT_NUM'] = this.eXPPASSPORTNUM;
     data['accepted'] = this.accepted;
-data['reson'] = this.reson;
+    data['reson'] = this.reson;
+    data['files'] = this.files;
+    data['CER_SERIAL'] = this.cERSERIAL;
+    data['Pledge'] = this.pledge;
+    data['EXP_CER_SERIAL'] = this.eXPCERSERIAL;
     data['type'] = this.type;
-
     return data;
   }
 }
