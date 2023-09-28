@@ -387,7 +387,7 @@ public function getcheck(Request $request){
 
         );
 
-    }catch(Exception $exception) {
+    }catch(\Exception $exception) {
 
         return response()->json(
 
