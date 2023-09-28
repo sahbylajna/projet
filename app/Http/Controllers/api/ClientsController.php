@@ -351,9 +351,9 @@ public function getcheck(Request $request){
 
        try{
 
-
+        $token ='Bearer '.$access_token;
         $headers = [
-            'Authorization' => $access_token,
+            'Authorization' => $token,
             'Accept'        => 'application/json',
         ];
 
