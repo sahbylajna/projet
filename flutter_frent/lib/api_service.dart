@@ -254,30 +254,38 @@ Future<term?> getterm() async {
   }
 
 
-  Future<check?> getcheck(String CER_SERIAL) async {
-    try {
+Future<check?> getcheck(String CER_SERIAL) async {
+  try {
     final user = await SharedPreferences.getInstance();
-    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
-    var request = http.MultipartRequest('POST', url);
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.check);
 
-    request.headers['Authorization'] = 'Bearer ${user.getString('token')}';
+    // Create a Map to hold the request headers
+    Map<String, String> headers = {
+      'Authorization': 'Bearer ${user.getString('token')}',
+      'Content-Type': 'application/x-www-form-urlencoded', // Set the content type
+    };
 
-    request.fields['CER_SERIAL'] = CER_SERIAL;
-    // Send the request
-    var response = await request.send();
+    // Create a Map to hold the request body data
+    Map<String, String> body = {
+      'CER_SERIAL': CER_SERIAL,
+    };
 
-    print('hnaaaaaaaaaaaaaaaaaaaaaa');
-    final responseString = await response.stream.bytesToString();
-      if (response.statusCode == 200) {
-        check model = checkFromJson(responseString);
+    var response = await http.post(
+      url,
+      headers: headers,
+      body: body,
+    );
 
-        return model;
-      }
-    } catch (e) {
-      log(e.toString());
+    if (response.statusCode == 200) {
+        print(response.body);
+      check model = checkFromJson(response.body);
+      return model;
     }
-    return null;
+  } catch (e) {
+    log(e.toString());
   }
+  return null;
+}
 
 
 

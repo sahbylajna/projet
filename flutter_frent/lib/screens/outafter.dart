@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/home.dart';
+import 'package:tasareeh/model/check.dart';
 import 'package:tasareeh/model/contrie.dart';
 import 'package:tasareeh/model/success.dart';
 import 'package:intl/intl.dart' as inl;
@@ -278,7 +279,32 @@ print(_index);
                         ),
 
 
-
+ Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              checkd();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                              'البحث'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
 
 
 
@@ -749,6 +775,157 @@ print(_index);
   });
 }
     }
+
+  }
+  Future<void> checkd() async {
+
+
+
+
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/loding.gif'),
+                SizedBox(height: 15),
+                Text('...تحميل'),
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    List<String> variables = [
+
+
+      IMP_CER_SERIAL.text
+
+    ];
+
+    bool hasEmptyVariable = false;
+
+    for (var variable in variables) {
+      if (variable.isEmpty) {
+        hasEmptyVariable = true;
+        break;
+      }
+    }
+
+    if (hasEmptyVariable) {
+      Navigator.of(context, rootNavigator: true).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+
+                  SizedBox(height: 15),
+                  Text('الرجاء إدخال بيانات صحيحة')
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+      Future.delayed(Duration(seconds: 2), () {
+        if (Navigator.of(context, rootNavigator: true).canPop()) {
+          Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+        }
+      });
+    } else {
+      // All variables have values, you can proceed with your logic
+
+
+    check? checks =  (await ApiService().getcheck(IMP_CER_SERIAL.text));
+
+    if(checks!.aPPLICATIONSTATUS!.isNotEmpty){
+  if (Navigator.of(context, rootNavigator: true).canPop()) {
+    Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+  }
+
+  // ignore: use_build_context_synchronously
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) {
+      return Dialog(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+
+              SizedBox(height: 15),
+              Text('{checks.aPPLICATIONSTATUS.toString()}')
+            ],
+          ),
+        ),
+      );
+    },
+  );
+
+  Future.delayed(Duration(seconds: 2), () {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+            (route) => false);
+  });
+
+
+
+}else{
+  if (Navigator.of(context, rootNavigator: true).canPop()) {
+    Navigator.of(context, rootNavigator: true).pop();
+    // Close the dialog
+  }
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) {
+      return Dialog(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+
+              SizedBox(height: 15),
+              Text('الرجاء إدخال بيانات صحيحة')
+            ],
+          ),
+        ),
+      );
+    },
+  );
+
+  Future.delayed(Duration(seconds: 2), () {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+  });
+}
+    }
+
+
 
   }
 }
