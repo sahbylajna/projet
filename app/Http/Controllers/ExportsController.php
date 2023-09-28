@@ -458,7 +458,7 @@ class ExportsController extends Controller
             ],
             [
                 'name' => 'ANIMAL_INFO',
-                'contents' => $ANIMALINFOj,
+                'contents' => $ANIMALINFO,
             ],
             [
                 'name' => 'files[]',
