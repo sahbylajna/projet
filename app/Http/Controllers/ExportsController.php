@@ -387,7 +387,7 @@ class ExportsController extends Controller
 
  $data['CER_TYPE'] = $export->CER_TYPE;
  $data['CER_LANG'] = $export->CER_LANG;
- $data['COMP_ID'] = "{$export->COMP_ID}";
+ $data['COMP_ID'] = $export->COMP_ID;
  $data['EUSER_QID'] = $export->EUSER_QID;
  $data['EXP_NAME'] = $export->EXP_NAME;
  $data['EXP_TEL'] = $export->EXP_TEL;
@@ -523,7 +523,7 @@ class ExportsController extends Controller
 
  $data['CER_TYPE'] = $export->CER_TYPE;
  $data['CER_LANG'] = $export->CER_LANG;
- $data['COMP_ID'] = "{$export->COMP_ID}";
+ $data['COMP_ID'] = $export->COMP_ID;
  $data['EUSER_QID'] = $export->EUSER_QID;
  $data['EXP_NAME'] = $export->EXP_NAME;
  $data['EXP_TEL'] = $export->EXP_TEL;
