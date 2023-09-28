@@ -358,7 +358,7 @@ public function getcheck(Request $request){
         ];
 
         $client2 = new ClientHTTP();
-        $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
+        $res = $client2->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
 
             'headers' => $headers,
             'multipart' => [
