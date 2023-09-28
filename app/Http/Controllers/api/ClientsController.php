@@ -382,7 +382,7 @@ public function getcheck(Request $request){
         $resp = json_decode($responseBody);
         return response()->json([
 
-            $responseBody
+            $resp
 
 
         ]);
