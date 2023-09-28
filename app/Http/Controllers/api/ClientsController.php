@@ -358,20 +358,12 @@ public function getcheck(Request $request){
         ];
 
         $client2 = new ClientHTTP();
-        $res = $client2->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
-
+        $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
             'headers' => $headers,
-            'multipart' => [
-               [
-                   'name' => 'CER_SERIAL',
-                   'contents' => $request->CER_SERIAL,
-               ],
-               [
-                   'name' => 'APPLICIANT_ID',
-                   'contents' =>$setting->commercial_register,
-               ],
-
-           ],
+            'query' => [
+                'CER_SERIAL' => $request->CER_SERIAL,
+                'APPLICIANT_ID' => $setting->commercial_register,
+            ],
         ]);
         $responseBody = $res->getBody()->getContents();
         $resp = json_decode($responseBody);
