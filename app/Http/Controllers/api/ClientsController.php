@@ -16,8 +16,10 @@ use App\Models\export;
 use App\Models\importation;
 use App\Models\back;
 use Carbon\Carbon;
-
+use GuzzleHttp\Client as ClientHTTP;
+use App\Models\ApiUser;
 use App\Models\acceptation_demande;
+use  App\Models\Setting;
 class ClientsController extends Controller
 {
     public function create_token(Request $request)
@@ -329,6 +331,73 @@ if($user){
 
     }
 
+public function getcheck(Request $request){
+
+    $setting =  Setting::first();
+    $apiUser = ApiUser::first();
+  $client = new ClientHTTP();
+         $res = $client->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/token', [
+             'form_params' => [
+                 'Username' => $apiUser->Username,
+                 'Password' => $apiUser->Password,
+                 'grant_type' => 'password',
+             ]
+         ]);
+         $response = (string) $res->getBody();
+         $response =json_decode($response); // Using this you can access any key like below
+         $access_token = $response->access_token;
+       // dd($access_token);
+
+
+       try{
+
+
+        $headers = [
+            'Authorization' => $access_token,
+            'Accept'        => 'application/json',
+        ];
+
+        $client2 = new ClientHTTP();
+        $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT', [
+
+            'headers' => $headers,
+            'multipart' => [
+               [
+                   'name' => 'CER_SERIAL',
+                   'contents' => $request->CER_SERIAL,
+               ],
+               [
+                   'name' => 'APPLICIANT_ID',
+                   'contents' =>$setting->commercial_register,
+               ],
+
+           ],
+        ]);
+        $responseBody = $res->getBody()->getContents();
+        $resp = json_decode($responseBody);
+        return response()->json([
+
+            $responseBody
+
+
+        ]);
+
+    }catch(Exception $exception) {
+       return back()->withInput()
+       ->withErrors(['unexpected_error' => $exception->getMessage()]);
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
 
 
 public function getnotife(){
@@ -382,6 +451,7 @@ return response()->json(
     $repence
 
 );
+
 
 
 

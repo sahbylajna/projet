@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getcount', [ClientsController::class, 'getcount']);
     Route::get('/getlist', [ClientsController::class, 'getlist']);
     Route::get('/getnotife', [ClientsController::class, 'getnotife']);
-
+    Route::post('/getcheck', [ClientsController::class, 'getcheck']);
 
     Route::group([
         'prefix' => 'importations',

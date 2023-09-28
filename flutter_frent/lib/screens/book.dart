@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/model/Demande.dart';
+import 'package:tasareeh/model/check.dart';
 import 'package:tasareeh/screens/show.dart';
 
 import '../home.dart';
@@ -124,7 +125,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
 
   return Colors.white;
 }
-
+ TextEditingController CER_SERIAL = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +159,54 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
             ),
           ),
         ),
-    body:ListView.separated(
+    body:
+    Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+   Row(
+            textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+TextFormField(
+                          controller: CER_SERIAL,
+                          decoration: InputDecoration(
+                              label: Text('رقم الطلب '),
+                              border: OutlineInputBorder()),
+                        ),
+  ]),
+ Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              _apisend();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                              'إضافة'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+
+        SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
+
+    ListView.separated(
     padding: const EdgeInsets.all(10),
     itemCount: _list.length,
     itemBuilder: (BuildContext context, int index) {
@@ -186,13 +234,8 @@ Column(
                  Text(' ${_list[index].cERTYPE}/${_list[index].cOMPID}'),
 
              Text(' ${_list[index].type}')],
-        )
-        ,
-
-
+        ),
        Text(_list[index].accepted == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${_list[index].reson}' : ' ' ),
-
-
 
 ],
         )
@@ -208,18 +251,168 @@ Column(
       );
         print("Click event on x");
     },
-)
-
-
-
-
-
-      ;
+);
     },
     separatorBuilder: (BuildContext context, int index) => const Divider(),
-  )
+  ),
+     SizedBox(
+      height: 10, // <-- SEE HERE
+    ),
+
+    ])
 
     )
     );
   }
+  Future<void> _apisend() async {
+
+
+
+
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/loding.gif'),
+                SizedBox(height: 15),
+                Text('...تحميل'),
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    List<String> variables = [
+
+
+      CER_SERIAL.text
+
+    ];
+
+    bool hasEmptyVariable = false;
+
+    for (var variable in variables) {
+      if (variable.isEmpty) {
+        hasEmptyVariable = true;
+        break;
+      }
+    }
+
+    if (hasEmptyVariable) {
+      Navigator.of(context, rootNavigator: true).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+
+                  SizedBox(height: 15),
+                  Text('الرجاء إدخال بيانات صحيحة')
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+      Future.delayed(Duration(seconds: 2), () {
+        if (Navigator.of(context, rootNavigator: true).canPop()) {
+          Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+        }
+      });
+    } else {
+      // All variables have values, you can proceed with your logic
+
+
+    check? checks =  (await ApiService().getcheck(CER_SERIAL.text));
+
+    if(checks!.aPPLICATIONSTATUS!.isNotEmpty){
+  if (Navigator.of(context, rootNavigator: true).canPop()) {
+    Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+  }
+
+  // ignore: use_build_context_synchronously
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) {
+      return Dialog(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+
+              SizedBox(height: 15),
+              Text('{checks.aPPLICATIONSTATUS.toString()}')
+            ],
+          ),
+        ),
+      );
+    },
+  );
+
+  Future.delayed(Duration(seconds: 2), () {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+            (route) => false);
+  });
+
+
+
+}else{
+  if (Navigator.of(context, rootNavigator: true).canPop()) {
+    Navigator.of(context, rootNavigator: true).pop();
+    // Close the dialog
+  }
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) {
+      return Dialog(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+
+              SizedBox(height: 15),
+              Text('الرجاء إدخال بيانات صحيحة')
+            ],
+          ),
+        ),
+      );
+    },
+  );
+
+  Future.delayed(Duration(seconds: 2), () {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+  });
 }
+    }
+
+  }
+}
+
+

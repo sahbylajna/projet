@@ -3,6 +3,7 @@ import 'dart:convert';
 
 
 import 'package:tasareeh/model/Demande.dart';
+import 'package:tasareeh/model/check.dart';
 import 'package:tasareeh/model/count.dart';
 import 'package:tasareeh/model/notification.dart';
 import 'package:tasareeh/model/success.dart';
@@ -253,6 +254,32 @@ Future<term?> getterm() async {
   }
 
 
+  Future<check?> getcheck(String CER_SERIAL) async {
+    try {
+    final user = await SharedPreferences.getInstance();
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.importations);
+    var request = http.MultipartRequest('POST', url);
+
+    request.headers['Authorization'] = 'Bearer ${user.getString('token')}';
+
+    request.fields['CER_SERIAL'] = CER_SERIAL;
+    // Send the request
+    var response = await request.send();
+
+    print('hnaaaaaaaaaaaaaaaaaaaaaa');
+    final responseString = await response.stream.bytesToString();
+      if (response.statusCode == 200) {
+        check model = checkFromJson(responseString);
+
+        return model;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+
 
 
   Future<List<Demande>?> getlist() async {
@@ -384,60 +411,60 @@ print(request);
 
 
 
-  Future<Success?> Setbacks(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO) async {
-    try {
-      final user = await SharedPreferences.getInstance();
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.backs);
-      final Map<String, dynamic> requestData = {
-        'COMP_ID': COMP_ID,
-        'EUSER_QID': EUSER_QID,
-        'EXP_NAME': EXP_NAME,
-        'EXP_TEL': EXP_TEL,
-        'EXP_QID': EXP_QID,
-        'EXP_FAX': EXP_FAX,
-        'EXP_COUNTRY': EXP_COUNTRY,
-        'IMP_NAME': IMP_NAME,
-        'IMP_ADDRESS': IMP_ADDRESS,
-        'IMP_FAX': IMP_FAX,
-        'IMP_TEL': IMP_TEL,
-        'IMP_POBOX': IMP_POBOX,
-        'IMP_COUNTRY': IMP_COUNTRY,
-        'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
-        'SHIPPING_PLACE': SHIPPING_PLACE,
-        'ENTERY_PORT': ENTERY_PORT,
-        'EXPECTED_ARRIVAL_DATE': EXPECTED_ARRIVAL_DATE,
-        'TRANSPORT': TRANSPORT,
-        'SHIPPING_DATE': SHIPPING_DATE,
-        'EXP_NATIONALITY': EXP_NATIONALITY,
-        'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
-          'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
-      };
+//   Future<Success?> Setbacks(COMP_ID,EUSER_QID,EXP_NAME,EXP_TEL,EXP_QID,EXP_FAX,EXP_COUNTRY,IMP_NAME,IMP_ADDRESS,IMP_FAX,IMP_TEL,IMP_POBOX,IMP_COUNTRY,ORIGIN_COUNTRY,SHIPPING_PLACE,ENTERY_PORT,EXPECTED_ARRIVAL_DATE,TRANSPORT,SHIPPING_DATE,EXP_NATIONALITY,EXP_PASSPORT_NUM,ANIMAL_INFO) async {
+//     try {
+//       final user = await SharedPreferences.getInstance();
+//       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.backs);
+//       final Map<String, dynamic> requestData = {
+//         'COMP_ID': COMP_ID,
+//         'EUSER_QID': EUSER_QID,
+//         'EXP_NAME': EXP_NAME,
+//         'EXP_TEL': EXP_TEL,
+//         'EXP_QID': EXP_QID,
+//         'EXP_FAX': EXP_FAX,
+//         'EXP_COUNTRY': EXP_COUNTRY,
+//         'IMP_NAME': IMP_NAME,
+//         'IMP_ADDRESS': IMP_ADDRESS,
+//         'IMP_FAX': IMP_FAX,
+//         'IMP_TEL': IMP_TEL,
+//         'IMP_POBOX': IMP_POBOX,
+//         'IMP_COUNTRY': IMP_COUNTRY,
+//         'ORIGIN_COUNTRY': ORIGIN_COUNTRY,
+//         'SHIPPING_PLACE': SHIPPING_PLACE,
+//         'ENTERY_PORT': ENTERY_PORT,
+//         'EXPECTED_ARRIVAL_DATE': EXPECTED_ARRIVAL_DATE,
+//         'TRANSPORT': TRANSPORT,
+//         'SHIPPING_DATE': SHIPPING_DATE,
+//         'EXP_NATIONALITY': EXP_NATIONALITY,
+//         'EXP_PASSPORT_NUM': EXP_PASSPORT_NUM,
+//           'ANIMAL_INFO': jsonEncode(ANIMAL_INFO),
+//       };
 
-      var response = await http.post(url,
-        headers: <String, String>{
-          "Accept": "application/json",
-          'Authorization' : 'Bearer ${user.getString('token')}',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestData),
+//       var response = await http.post(url,
+//         headers: <String, String>{
+//           "Accept": "application/json",
+//           'Authorization' : 'Bearer ${user.getString('token')}',
+//           'Content-Type': 'application/json',
+//         },
+//         body: jsonEncode(requestData),
 
-      );
+//       );
 
-      print(requestData);
+//       print(requestData);
 
-      print('hnaaaaaaaaaaaaaaaaaaaaaa');
-      print(response.body.toString());
-      if (response.statusCode == 200) {
+//       print('hnaaaaaaaaaaaaaaaaaaaaaa');
+//       print(response.body.toString());
+//       if (response.statusCode == 200) {
 
-        Success model = successFromJson(response.body);
-        return model;
-      }
+//         Success model = successFromJson(response.body);
+//         return model;
+//       }
 
-    } catch (e) {
-      log(e.toString());
-    }
-    return null;
-  }
+//     } catch (e) {
+//       log(e.toString());
+//     }
+//     return null;
+//   }
 
 
 
