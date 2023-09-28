@@ -174,8 +174,7 @@ TextFormField(
                               label: Text('رقم الطلب '),
                               border: OutlineInputBorder()),
                         ),
-  ]),
- Container(
+                         Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [_primaryColor, _accentColor], // Start and end colors
@@ -201,6 +200,8 @@ TextFormField(
                             ),
                           ),
                         ),
+  ]),
+
 
         SizedBox(
       height: 10, // <-- SEE HERE

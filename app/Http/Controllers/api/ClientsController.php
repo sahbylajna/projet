@@ -373,11 +373,17 @@ $data = json_encode($data);
             'headers' => $headers,
             'body' => json_encode($data),
         ]);
+        return response()->json([
+
+            $res
+
+
+        ]);
         $responseBody = $res->getBody()->getContents();
         $resp = json_decode($responseBody);
         return response()->json([
 
-            $responseBody
+            $res
 
 
         ]);
