@@ -392,9 +392,9 @@ public function getcheck(Request $request){
         return response()->json(
 
            [
-            "CER_SERIAL" => "IMPRC/2023/60",
-            "APPLICIANT_ID" => "01003501",
-            "APPLICATION_STATUS" => "UNDER PROCESSING",
+            "CER_SERIAL" => "",
+            "APPLICIANT_ID" => "",
+            "APPLICATION_STATUS" => "يرجى التأكد من المعرفه",
             "PAYMENT_LINK" => null,
             "PAYMENT_ERROR" => null,
             "CER_ID" => "64873",
