@@ -163,44 +163,39 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
     Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-   Row(
-            textDirection: TextDirection.rtl,
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
+//    Row(
+//             textDirection: TextDirection.rtl,
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   children: [
 
-TextFormField(
-                          controller: CER_SERIAL,
-                          decoration: InputDecoration(
-                              label: Text('رقم الطلب '),
-                              border: OutlineInputBorder()),
-                        ),
-                         Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [_primaryColor, _accentColor], // Start and end colors
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(30), // Rounded corners
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Open a dialog to add a new row
-                              _apisend();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.transparent, // Transparent background
-                              onPrimary: Colors.white, // Text color
-                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                              elevation: 0, // No shadow
-                            ),
-                            child: Text(
-                              'إضافة'.toUpperCase(),
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-  ]),
+
+//                          Container(
+//                           decoration: BoxDecoration(
+//                             gradient: LinearGradient(
+//                               colors: [_primaryColor, _accentColor], // Start and end colors
+//                               begin: Alignment.centerLeft,
+//                               end: Alignment.centerRight,
+//                             ),
+//                             borderRadius: BorderRadius.circular(30), // Rounded corners
+//                           ),
+//                           child: ElevatedButton(
+//                             onPressed: () {
+//                               // Open a dialog to add a new row
+//                               _apisend();
+//                             },
+//                             style: ElevatedButton.styleFrom(
+//                               primary: Colors.transparent, // Transparent background
+//                               onPrimary: Colors.white, // Text color
+//                               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+//                               elevation: 0, // No shadow
+//                             ),
+//                             child: Text(
+//                               'إضافة'.toUpperCase(),
+//                               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+//                             ),
+//                           ),
+//                         ),
+//   ]),
 
 
         SizedBox(
