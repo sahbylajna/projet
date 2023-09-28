@@ -44,7 +44,7 @@
             <dt>{{ trans('exports.CER_LANG') }}</dt>
             <dd>{{ $export->CER_LANG }}</dd>
             <dt>{{ trans('exports.COMP_ID') }}</dt>
-            <dd>{{ optional($export->cOMP)->id }}</dd>
+            <dd>{{ $export->COMP_ID }}</dd>
             <dt>{{ trans('exports.EUSER_QID') }}</dt>
             <dd>{{ $export->EUSER_QID }}</dd>
             <dt>{{ trans('exports.EXP_NAME') }}</dt>
