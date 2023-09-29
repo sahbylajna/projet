@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appclient')
 
 @section('content')
 
@@ -7,11 +7,11 @@
         <div class="panel-heading clearfix">
 
             <span class="pull-left">
-                <h4 class="mt-5 mb-5">{{ trans('exports.create') }}</h4>
+                <h4 class="mt-5 mb-5">{{ trans('importations.create') }}</h4>
             </span>
 
             <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('exports.export.index') }}" class="btn btn-primary" title="{{ trans('exports.show_all') }}">
+                <a href="{{ route('importations.after.client.index') }}" class="btn btn-primary" title="{{ trans('importations.show_all') }}">
                     <span class="fa fa-th-list" aria-hidden="true"></span>
                 </a>
             </div>
@@ -28,12 +28,31 @@
                 </ul>
             @endif
 
-            <form method="POST" action="{{ route('exports.export.store') }}" accept-charset="UTF-8" id="create_export_form" name="create_export_form" class="form-horizontal">
+            <form method="POST" action="{{ route('importations.client.store') }}" accept-charset="UTF-8" id="create_importation_form" name="create_importation_form"  enctype="multipart/form-data"  class="form-horizontal">
             {{ csrf_field() }}
-            @include ('exports.form', [
-                                        'export' => null,
-                                      ])
+            <div class="form-group {{ $errors->has('EXP_CER_SERIAL') ? 'has-error' : '' }}">
+                <label for="EXP_CER_SERIAL" class="col-md-2 control-label">{{ trans('importations.EXP_CER_SERIAL') }}</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="EXP_CER_SERIAL" type="text" id="EXP_CER_SERIAL" value="" minlength="1" required placeholder="معرفه الخروج">
+                    {!! $errors->first('EXP_CER_SERIAL', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div id="toast" class="toast">
+                <div  id="toasttext"></div>
+              </div>
+              <br>
+              <br><br>
+              <br>
+            <div class="btn btn-primary" id="check"  onclick="check()"  > التحقق</div>
 
+
+            <br>
+            <br>
+
+
+          @include ('importationsclient.form', [
+                                        'importation' => null,
+                                      ])
 
 
 
@@ -60,9 +79,10 @@
 </div>
 
 <br><br><br><br>
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input class="btn btn-primary" type="submit" value="{{ trans('exports.add') }}">
+                        <input class="btn btn-primary" type="submit" value="{{ trans('importations.add') }}">
                     </div>
                 </div>
 
@@ -70,8 +90,6 @@
 
         </div>
     </div>
-
-
 
 
 
@@ -149,13 +167,34 @@
                 <div class="modal-footer">
 
 
-
+                    <input type="hidden" name="client_id" id="client_id" value="{{ auth()->guard('clientt')->user()->id }}" >
 
         <input type="button" class="btn outlined f-main" value=" {{ trans('importations.add') }} "  onclick="addRowto()" >
                 </div>
             </div>
         </div>
     </div>
+
+
+{{--
+    <!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+     <div  class="form-horizontal">
+
+
+        <input type="hidden" name="client_id" id="client_id" value="{{ auth()->guard('clientt')->user()->id }}" >
+
+        <input type="button" class="btn btn-primary" value=" {{ trans('importations.add') }} "  onclick="addRowto()" >
+
+
+     </div>
+    </div>
+
+  </div> --}}
 @endsection
 
 @section('css')
@@ -168,10 +207,34 @@ th, td{
   border: 1px solid black;
   padding: 10px;
 }
+
+
+.toast {
+    display: none;
+    position: fixed;
+    opacity: 1;
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style for the show button */
+#showToast {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#showToast:hover {
+    background-color: #0056b3;
+}
 </style>
 
 @endsection
-
 @section('js')
     <script>
          var table = document.getElementById("tableau");
@@ -187,12 +250,7 @@ span.onclick = function() {
 }
 
 function addRowto() {
-    if(table.rows.length > 1){
-//         while (table.rows.length > 1) {
-//     table.deleteRow(1);
-// }
-console.log(table.rows.length)
-    }
+
     var newRow = "<tr>"
    newRow=newRow + '<td><input style="    border: aliceblue;" type="text" name="EXPORT_COUNTRY" id="" value="'+ document.getElementById("EXPORT_COUNTRY").value+'" readonly></td>';
    newRow=newRow + '<td><input  style="    border: aliceblue;" type="text" name="ORIGIN_COUNTRYa" id="" value="'+ document.getElementById("ORIGIN_COUNTRYa").value+'" readonly></td>';
@@ -205,19 +263,51 @@ console.log(table.rows.length)
 
 
     newRow=newRow + "</tr>";
-    if(table.rows.length > 1){
-        while (table.rows.length > 1) {
-    table.deleteRow(1);
-}
-console.log(table.rows.length)
-    }
-
     $(table).find('tbody').append(newRow);
     modal.style.display = "none";
   //this adds row in 0 index i.e. first place
 
 
 }
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+function check() {
+    var EXP_CER_SERIAL = document.getElementById("EXP_CER_SERIAL").value;
+console.log(EXP_CER_SERIAL);
+var toast = document.getElementById("toast");
+var toasttext = document.getElementById("toasttext");
+$.ajax({
+    type: 'POST',
+    url: '{{ asset("api/getcheck") }}',
+    dataType: 'json',
+    data: {'CER_SERIAL': EXP_CER_SERIAL},
+    success: function(resp){
+        toasttext.innerHTML = '';
+
+        var textNode = document.createTextNode(resp.APPLICATION_STATUS);
+
+// Append the text node to the div
+toasttext.appendChild(textNode);
+        toast.style.display = "block";
+        console.log(textNode);
+// Hide the toast after a few seconds (e.g., 3 seconds)
+setTimeout(function() {
+    toast.style.display = "none";
+}, 3000);
+
+    },
+    error: function(xhr, status, error){
+        console.error(xhr.responseText);
+        console.log(EXP_CER_SERIAL);
+    }
+});
+
+
+}
+
     </script>
 @endsection
 

@@ -45,30 +45,52 @@ class ExportsController extends Controller
      */
     public function create()
     {
-        $clients = Client::pluck('created_at','id')->all();
 
-        return view('exports.create', compact('clients'));
+
+        return view('exports.create');
+    }
+    public function createafter()
+    {
+
+
+        return view('exports.after.create');
     }
 
-    /**
-     * Store a new export in the storage.
-     *
-     * @param Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
     public function store(Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            export::create($data);
+            $export =   export::create($data);
+
+            $animal = new ANIMAL_INFO();
+            $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa;
+            $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRY;
+            $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRY;
+            $animal->ANML_SPECIES = $request->ANML_SPECIES;
+            $animal->ANML_SEX = $request->ANML_SEX;
+            $animal->ANML_NUMBER = $request->ANML_NUMBER;
+            $animal->ANML_USE = $request->ANML_USE;
+            $animal->ANIMAL_BREED = $request->ANIMAL_BREED;
+
+                $animal->client_id =  auth()->user()->id ;
+                $animal->save();
+                $export->animal()->attach( $animal->id);
+            if($export->IMP_CER_SERIAL != null){
+
+                return redirect()->route('exportsafter.export.index')
+                ->with('success_message', trans('exports.model_was_added'));
+            }else{
+                return redirect()->route('exports.export.index')
+                ->with('success_message', trans('exports.model_was_added'));
+            }
 
             return redirect()->route('exports.export.index')
                 ->with('success_message', trans('exports.model_was_added'));
         } catch (Exception $exception) {
-
+            dd( $exception);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('exports.unexpected_error')]);
         }
@@ -111,14 +133,7 @@ class ExportsController extends Controller
         return view('exports.edit', compact('export','clients'));
     }
 
-    /**
-     * Update the specified export in the storage.
-     *
-     * @param int $id
-     * @param Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
     public function update($id, Request $request)
     {
         try {
@@ -169,37 +184,43 @@ class ExportsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'client_id' => 'string',
-            'CER_TYPE' => 'string|min:1',
-            'CER_LANG' => 'string|min:1',
-            'COMP_ID' => 'string',
-            'EUSER_QID' => 'string|min:1',
-            'EXP_NAME' => 'string|min:1',
-            'EXP_TEL' => 'string|min:1',
-            'EXP_FAX' => 'string|min:1',
-            'EXP_COUNTRY' => 'string',
-            'IMP_NAME' => 'string|min:1',
+                'client_id' => 'nullable|string',
+            'CER_TYPE' => 'nullable|string|min:1',
+            'CER_LANG' => 'nullable|string|min:1',
+            'COMP_ID' => 'nullable|string',
+            'EUSER_QID' => 'nullable|string|min:1',
+            'EXP_NAME' => 'nullable|string|min:1',
+            'EXP_TEL' => 'nullable|string|min:1',
+            'EXP_FAX' => 'nullable|string|min:1',
+            'EXP_COUNTRY' => 'nullable|string',
+            'IMP_NAME' => 'nullable|string|min:1',
             'IMP_QID' => 'string|min:1',
-            'IMP_FAX' => 'string|min:1',
-            'IMP_TEL' => 'string|min:1',
-            'IMP_COUNTRY' => 'string',
-            'ORIGIN_COUNTRY' => 'string',
-            'SHIPPING_PLACE' => 'string|min:1',
-            'TRANSPORT' => 'string|min:1',
-            'SHIPPING_DATE' => 'string',
-            'APPLICANT_NAME' => 'string|min:1',
-            'APPLICANT_TEL' => 'string|min:1',
-            'EXP_NATIONALITY' => 'string|min:1',
+            'IMP_FAX' => 'nullable|string|min:1',
+            'IMP_TEL' => 'nullable|string|min:1',
+            'IMP_COUNTRY' => 'nullable|string',
+            'ORIGIN_COUNTRY' => 'nullable|string',
+            'SHIPPING_PLACE' => 'nullable|string|min:1',
+            'TRANSPORT' => 'nullable|string|min:1',
+            'SHIPPING_DATE' => 'nullable|string',
+            'APPLICANT_NAME' => 'nullable|string|min:1',
+            'APPLICANT_TEL' => 'nullable|string|min:1',
+            'EXP_NATIONALITY' => 'nullable|string|min:1',
             'EXP_PASSPORT_NUM' => 'nullable|string|min:1',
             'files' => 'required',
+            'Pledge' => 'required',
+            'IMP_CER_SERIAL' => 'nullable',
 
 
         ];
 
         $data = $request->validate($rules);
-         if ($request->hasFile('files')) {
-             $data['files'] = $this->moveFile($request->file('files'));
-         }
+        if ($request->hasFile('files')) {
+            $data['files'] = $this->moveFile($request->file('files'));
+        }
+
+        if ($request->hasFile('Pledge')) {
+            $data['Pledge'] = $this->moveFile($request->file('Pledge'));
+        }
 
 
 
@@ -215,35 +236,39 @@ class ExportsController extends Controller
 
         return  $saved;
     }
-    /**
-     * Get the request's data from the request.
-     *
-     * @param Illuminate\Http\Request\Request $request
-     * @return array
-     */
 
 
      public function indexclient()
      {
 
-         $exports = export::where('client_id',auth()->guard('clientt')->user()->id)->get();
+         $exports = export::where('client_id',auth()->guard('clientt')->user()->id)->where('IMP_CER_SERIAL',null)->get();
 
          return view('exportsclient.index', compact('exports'));
      }
 
-
-
-      /**
-      * Show the form for creating a new export.
-      *
-      * @return \Illuminate\View\View
-      */
      public function createclient()
      {
          $clients = Client::pluck('ud','id')->all();
 
 
          return view('exportsclient.create', compact('clients'));
+     }
+
+
+
+     public function indexclientafter()
+     {
+
+         $exports = export::where('client_id',auth()->guard('clientt')->user()->id)->where('IMP_CER_SERIAL','!=',null)->get();
+
+         return view('exportsclient.after.index', compact('exports'));
+     }
+
+     public function createclientafter()
+     {
+
+
+         return view('exportsclient.after.create');
      }
 
      /**
@@ -277,11 +302,16 @@ class ExportsController extends Controller
 
            }
 
+if($export->IMP_CER_SERIAL == null){
+    return redirect()->route('exports.client.index')
+    ->with('success_message', trans('exports.model_was_added'));
+}else{
+    return redirect()->route('exports.after.client.index')
+    ->with('success_message', trans('exports.model_was_added'));
+}
 
 
 
-             return redirect()->route('exports.client.index')
-                 ->with('success_message', trans('exports.model_was_added'));
          } catch (Exception $exception) {
  dd($exception);
              return back()->withInput()

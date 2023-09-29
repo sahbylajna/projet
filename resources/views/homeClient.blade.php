@@ -23,7 +23,7 @@ $exports = \App\Models\export::where('client_id', auth()->guard('clientt')->user
         </div>
 
 
-        <div class="col-md-3">
+        {{-- <div class="col-md-3">
             <div class="card" style="    color: #fff;background-color: #30f873;border-color: #30f873;">
                 <div class="card-header"> {{ trans('backs.model_plural') }}</div>
                 <div class="card-body">
@@ -33,7 +33,7 @@ $exports = \App\Models\export::where('client_id', auth()->guard('clientt')->user
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
 

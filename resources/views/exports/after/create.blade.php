@@ -30,12 +30,28 @@
 
             <form method="POST" action="{{ route('exports.export.store') }}" accept-charset="UTF-8" id="create_export_form" name="create_export_form" class="form-horizontal">
             {{ csrf_field() }}
+
+<div class="form-group {{ $errors->has('IMP_CER_SERIAL') ? 'has-error' : '' }}">
+    <label for="IMP_CER_SERIAL" class="col-md-2 control-label">{{ trans('importations.IMP_CER_SERIAL') }}</label>
+    <div class="col-md-10">
+        <input class="form-control" name="IMP_CER_SERIAL" type="text" id="IMP_CER_SERIAL" required value="" minlength="1" placeholder="معرفه الخروج">
+        {!! $errors->first('IMP_CER_SERIAL', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div id="toast" class="toast">
+    <div  id="toasttext"></div>
+  </div>
+<br>
+<br>
+
+<div class="btn btn-primary" id="check"  onclick="check()"  > التحقق</div>
+
+<br>
+<br>
+
             @include ('exports.form', [
                                         'export' => null,
                                       ])
-
-
-
 
 <input type="button" class="btn btn-primary" value=" {{ trans('importations.add') }} "  onclick="addRow()" >
 <div  class="form-group">
@@ -70,10 +86,6 @@
 
         </div>
     </div>
-
-
-
-
 
 
 
@@ -156,6 +168,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('css')
@@ -168,11 +181,39 @@ th, td{
   border: 1px solid black;
   padding: 10px;
 }
+/* Styles for the toast */
+.toast {
+    display: none;
+    position: fixed;
+    /* bottom: 20px;
+    right: 20px; */
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style for the show button */
+#showToast {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#showToast:hover {
+    background-color: #0056b3;
+}
+
 </style>
 
 @endsection
 
 @section('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <script>
          var table = document.getElementById("tableau");
         var span = document.getElementsByClassName("close")[0];
@@ -186,13 +227,47 @@ span.onclick = function() {
   modal.style.display = "none";
 }
 
-function addRowto() {
-    if(table.rows.length > 1){
-//         while (table.rows.length > 1) {
-//     table.deleteRow(1);
-// }
-console.log(table.rows.length)
+
+function check() {
+    var IMP_CER_SERIAL = document.getElementById("IMP_CER_SERIAL").value;
+console.log(IMP_CER_SERIAL);
+var toast = document.getElementById("toast");
+var toasttext = document.getElementById("toasttext");
+$.ajax({
+    type: 'POST',
+    url: '{{ asset("api/getcheck") }}',
+    dataType: 'json',
+    data: {'CER_SERIAL': IMP_CER_SERIAL},
+    success: function(resp){
+        toasttext.innerHTML = '';
+
+        var textNode = document.createTextNode(resp.APPLICATION_STATUS);
+
+// Append the text node to the div
+toasttext.appendChild(textNode);
+        toast.style.display = "block";
+
+// Hide the toast after a few seconds (e.g., 3 seconds)
+setTimeout(function() {
+    toast.style.display = "none";
+}, 3000);
+
+    },
+    error: function(xhr, status, error){
+        console.error(xhr.responseText);
     }
+});
+
+
+}
+
+
+
+
+
+function addRowto() {
+
+
     var newRow = "<tr>"
    newRow=newRow + '<td><input style="    border: aliceblue;" type="text" name="EXPORT_COUNTRY" id="" value="'+ document.getElementById("EXPORT_COUNTRY").value+'" readonly></td>';
    newRow=newRow + '<td><input  style="    border: aliceblue;" type="text" name="ORIGIN_COUNTRYa" id="" value="'+ document.getElementById("ORIGIN_COUNTRYa").value+'" readonly></td>';
@@ -220,4 +295,3 @@ console.log(table.rows.length)
 }
     </script>
 @endsection
-

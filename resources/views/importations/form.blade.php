@@ -6,7 +6,6 @@
 <input type="hidden" name="CER_TYPE" value="IMPRC">
 <input type="hidden" name="CER_LANG" value="A">
 <input type="hidden" name="COMP_ID" value="{{ $setting->being_established }}">
-<input type="hidden" name="EUSER_QID" value="">
 <input type="hidden" name="EXP_NAME" value="Hijin">
 <input type="hidden" name="EXP_TEL" value="{{ $setting->phone }}">
 <input type="hidden" name="EXP_QID" value="{{ $setting->commercial_register }}">

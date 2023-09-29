@@ -21,7 +21,11 @@
             <div class="pull-left">
                 <h4 class="mt-5 mb-5">{{ trans('exports.model_plural') }}</h4>
             </div>
-
+            <div class="btn-group btn-group-sm pull-right" role="group">
+                <a href="{{ route('exports.export.create') }}" class="btn btn-success" title="{{ trans('exports.create') }}">
+                    <span class="fa fa-plus" aria-hidden="true"></span>
+                </a>
+            </div>
 
         </div>
 

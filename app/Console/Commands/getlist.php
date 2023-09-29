@@ -22,7 +22,7 @@ class getlist extends Command
      *
      * @var string
      */
-    protected $signature = 'app:getlist';
+    protected $signature = 'commandgetlist';
 
     /**
      * The console command description.

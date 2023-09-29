@@ -16,11 +16,12 @@ use App\Http\Controllers\api\ExportsController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/getcheck', [ClientsController::class, 'getcheck']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getcount', [ClientsController::class, 'getcount']);
     Route::get('/getlist', [ClientsController::class, 'getlist']);
     Route::get('/getnotife', [ClientsController::class, 'getnotife']);
-    Route::post('/getcheck', [ClientsController::class, 'getcheck']);
+
 
     Route::group([
         'prefix' => 'importations',

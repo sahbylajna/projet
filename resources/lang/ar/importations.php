@@ -59,6 +59,8 @@ return [
     'accepted' => 'Accepted',
     'files' => 'كشف المطايا',
     'Pledge' => 'التعهد',
+    'EXP_CER_SERIAL' => 'معرفه الخروج',
+    'IMP_CER_SERIAL' => 'معرفه خروج',
     'after' => "طلب دخول بعد المشاركة",
     'accepted__placeholder' => 'Enter accepted here...',
     'reson' => 'سبب الرفض',

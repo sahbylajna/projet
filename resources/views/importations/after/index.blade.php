@@ -23,7 +23,11 @@
             </div>
 
 
-
+            <div class="btn-group btn-group-sm pull-right" role="group">
+                <a href="{{ route('importations.after.importation.create') }}" class="btn btn-success" title="{{ trans('importations.create') }}">
+                    <span class="fa fa-plus" aria-hidden="true"></span>
+                </a>
+            </div>
         </div>
 
         @if(count($importations) == 0)
@@ -37,7 +41,7 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>{{ trans('importations.client_id') }}</th>
+                            <th>{{ trans('importations.EXP_CER_SERIAL') }}</th>
 
 
 
@@ -57,7 +61,7 @@
                     <tbody>
                     @foreach($importations as $importation)
                         <tr>
-                            <td>{{ optional($importation->client)->ud }}</td>
+                            <td>{{ $importation->EXP_CER_SERIAL}}</td>
 
 
 

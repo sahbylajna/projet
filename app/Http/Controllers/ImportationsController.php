@@ -52,14 +52,14 @@ class ImportationsController extends Controller
 
         return view('importations.create', compact('clients'));
     }
+    public function createafter()
+    {
+        $clients = Client::pluck('ud','id')->all();
 
-    /**
-     * Store a new importation in the storage.
-     *
-     * @param Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
+        return view('importations.after.create', compact('clients'));
+    }
+
     public function store(Request $request)
     {
      //   dd($request);
@@ -84,23 +84,22 @@ class ImportationsController extends Controller
                 $animal->client_id =  auth()->user()->id ;
                 $animal->save();
                 $importations->animal()->attach( $animal->id);
+if($importations->EXP_CER_SERIAL != null){
+    return redirect()->route('importationsafter.importation.index')
+    ->with('success_message', trans('importations.model_was_added'));
+}else{
+    return redirect()->route('importations.importation.index')
+    ->with('success_message', trans('importations.model_was_added'));
+}
 
-            return redirect()->route('importations.importation.index')
-                ->with('success_message', trans('importations.model_was_added'));
         } catch (Exception $exception) {
-dd( $exception);
+
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('importations.unexpected_error')]);
         }
     }
 
-    /**
-     * Display the specified importation.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function show($id)
     {
         $importation = importation::with('client')->with('animal')->findOrFail($id);
@@ -114,13 +113,6 @@ dd( $exception);
         return view('importations.after.show', compact('importation'));
     }
 
-    /**
-     * Show the form for editing the specified importation.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function edit($id)
     {
         $importation = importation::findOrFail($id);
@@ -130,14 +122,7 @@ dd( $exception);
         return view('importations.edit', compact('importation','clients'));
     }
 
-    /**
-     * Update the specified importation in the storage.
-     *
-     * @param int $id
-     * @param Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
     public function update($id, Request $request)
     {
         try {
@@ -156,13 +141,7 @@ dd( $exception);
         }
     }
 
-    /**
-     * Remove the specified importation from the storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
     public function destroy($id)
     {
         try {
@@ -179,44 +158,43 @@ dd( $exception);
     }
 
 
-    /**
-     * Get the request's data from the request.
-     *
-     * @param Illuminate\Http\Request\Request $request
-     * @return array
-     */
+
 
 
     public function indexclient()
     {
 
-        $importations = importation::where('client_id',auth()->guard('clientt')->user()->id)->get();
+        $importations = importation::where('client_id',auth()->guard('clientt')->user()->id)->where('EXP_CER_SERIAL',null)->get();
 
         return view('importationsclient.index', compact('importations'));
     }
 
-
-
-     /**
-     * Show the form for creating a new importation.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function createclient()
+    public function indexclientafter()
     {
-        $clients = Client::pluck('ud','id')->all();
 
+        $importations = importation::where('client_id',auth()->guard('clientt')->user()->id)->where('EXP_CER_SERIAL','!=',null)->get();
 
-        return view('importationsclient.create', compact('clients'));
+        return view('importationsclient.after.index', compact('importations'));
     }
 
-    /**
-     * Store a new importation in the storage.
-     *
-     * @param Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
+    public function createclient()
+    {
+
+
+
+        return view('importationsclient.create');
+    }
+
+    public function createclientafter()
+    {
+
+
+
+        return view('importationsclient.after.create');
+    }
+
+
     public function storeclient(Request $request)
     {
 
@@ -243,10 +221,15 @@ dd( $exception);
           $animal->client_id = auth()->guard('clientt')->user()->id ;
           $animal->save();
           $importation->animal()->attach( $animal->id);
+if($importation->EXP_CER_SERIAL == null){
+    return redirect()->route('importations.client.index')
+    ->with('success_message', trans('importations.model_was_added'));
+}else{
+    return redirect()->route('importations.after.client.index')
+    ->with('success_message', trans('importations.model_was_added'));
+}
 
 
-            return redirect()->route('importations.client.index')
-                ->with('success_message', trans('importations.model_was_added'));
         } catch (Exception $exception) {
 //dd($exception);
             return back()->withInput()
@@ -268,13 +251,6 @@ dd( $exception);
         return view('importationsclient.show', compact('importation'));
     }
 
-    /**
-     * Show the form for editing the specified importation.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function editclient($id)
     {
         $importation = importation::findOrFail($id);
@@ -284,14 +260,7 @@ dd( $exception);
         return view('importationsclient.edit', compact('importation','clients'));
     }
 
-    /**
-     * Update the specified importation in the storage.
-     *
-     * @param int $id
-     * @param Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
     public function updateclient($id, Request $request)
     {
         try {
@@ -310,13 +279,7 @@ dd( $exception);
         }
     }
 
-    /**
-     * Remove the specified importation from the storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Routing\Redirector
-     */
+
     public function destroyclient($id)
     {
         try {
@@ -363,7 +326,7 @@ dd( $exception);
             'EXP_PASSPORT_NUM' => 'nullable',
             'files' => 'required',
             'Pledge' => 'required',
-
+            'EXP_CER_SERIAL' => 'nullable',
 
         ];
 

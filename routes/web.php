@@ -204,22 +204,25 @@ Route::group([
 
 
 Route::group([
-    'prefix' => 'backs',
+    'prefix' => 'importationsafter',
 ], function () {
-    Route::get('/', [BacksController::class, 'indexclient'])
-         ->name('backs.client.index');
-    Route::get('/create', [BacksController::class, 'createclient'])
-         ->name('backs.client.create');
-    Route::get('/show/{back}',[BacksController::class, 'showclient'])
-         ->name('backs.client.show')->where('id', '[0-9]+');
-    Route::get('/{back}/edit',[BacksController::class, 'editclient'])
-         ->name('backs.client.edit')->where('id', '[0-9]+');
-    Route::post('/', [BacksController::class, 'storeclient'])
-         ->name('backs.client.store');
-    Route::put('back/{back}', [BacksController::class, 'updateclient'])
-         ->name('backs.client.update')->where('id', '[0-9]+');
-    Route::delete('/back/{back}',[BacksController::class, 'destroyclient'])
-         ->name('backs.client.destroy')->where('id', '[0-9]+');
+    Route::get('/', [ImportationsController::class, 'indexclientafter'])
+         ->name('importations.after.client.index');
+
+    Route::get('/create', [ImportationsController::class, 'createclientafter'])
+         ->name('importations.after.client.create');
+
+});
+
+
+Route::group([
+    'prefix' => 'exportsafter',
+], function () {
+    Route::get('/', [ExportsController::class, 'indexclientafter'])
+         ->name('exports.after.client.index');
+    Route::get('/create', [ExportsController::class, 'createclientafter'])
+         ->name('exports.after.client.create');
+
 });
 
 
@@ -346,48 +349,11 @@ Route::group([
 
     Route::get('/show/{importation}',[ImportationsController::class, 'showafter'])
          ->name('importationsafter.importation.show')->where('id', '[0-9]+');
-
-
-
-
-
-
-
-
-
-    // Route::post('/', [ImportationsController::class, 'store'])
-    //      ->name('importationsafter.importation.store');
-    // Route::put('importation/{importation}', [ImportationsController::class, 'update'])
-    //      ->name('importations.importation.update')->where('id', '[0-9]+');
-    // Route::delete('/importation/{importation}',[ImportationsController::class, 'destroy'])
-    //      ->name('importations.importation.destroy')->where('id', '[0-9]+');
+         Route::get('/create', [ImportationsController::class, 'createafter'])
+         ->name('importations.after.importation.create');
 });
 
-// Route::group([
-//     'prefix' => 'backs',
-// ], function () {
-//     Route::get('/', [BacksController::class, 'index'])
-//          ->name('backs.back.index');
-//     Route::get('/create', [BacksController::class, 'create'])
-//          ->name('backs.back.create');
-//     Route::get('/show/{back}',[BacksController::class, 'show'])
-//          ->name('backs.back.show')->where('id', '[0-9]+');
-//     Route::get('/{back}/edit',[BacksController::class, 'edit'])
-//          ->name('backs.back.edit')->where('id', '[0-9]+');
 
-//          Route::get('/{back}/accept',[BacksController::class, 'accept'])
-//          ->name('back.accept')->where('id', '[0-9]+');
-
-//          Route::post('/{back}/refuse',[BacksController::class, 'refuse'])
-//          ->name('back.refuse')->where('id', '[0-9]+');
-
-//     Route::post('/', [BacksController::class, 'store'])
-//          ->name('backs.back.store');
-//     Route::put('back/{back}', [BacksController::class, 'update'])
-//          ->name('backs.back.update')->where('id', '[0-9]+');
-//     Route::delete('/back/{back}',[BacksController::class, 'destroy'])
-//          ->name('backs.back.destroy')->where('id', '[0-9]+');
-// });
 
 Route::group([
     'prefix' => 'exports',
@@ -422,7 +388,8 @@ Route::group([
 
          Route::get('/{export}/accept',[ExportsController::class, 'acceptafter'])
          ->name('exports.after.accept')->where('id', '[0-9]+');
-
+         Route::get('/create', [ExportsController::class, 'createafter'])
+         ->name('exports.after.export.create');
     Route::get('/show/{export}',[ExportsController::class, 'showafter'])
          ->name('exports.after.export.show')->where('id', '[0-9]+');
 

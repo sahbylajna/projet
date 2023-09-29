@@ -102,6 +102,7 @@ return [
     'create' => 'خروج',
     'delete' => 'خروج',
     'edit' => 'خروج',
+
     'show' => 'خروج',
     'show_all' => 'Show All Export',
     'add' => 'إضافة',

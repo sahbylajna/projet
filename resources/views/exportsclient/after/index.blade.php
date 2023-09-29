@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appclient')
 
 @section('content')
 
@@ -19,14 +19,15 @@
         <div class="panel-heading clearfix">
 
             <div class="pull-left">
-                <h4 class="mt-5 mb-5">{{ trans('exports.model_plural') }}</h4>
+                <h4 class="mt-5 mb-5">{{ trans('exports.after') }}</h4>
             </div>
 
             <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('exports.after.export.create') }}" class="btn btn-success" title="{{ trans('exports.create') }}">
+                <a href="{{ route('exports.after.client.create') }}" class="btn btn-success" title="{{ trans('exports.create') }}">
                     <span class="fa fa-plus" aria-hidden="true"></span>
                 </a>
             </div>
+
         </div>
 
         @if(count($exports) == 0)
@@ -40,22 +41,29 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>{{ trans('exports.client_id') }}</th>
-
-
+                            {{-- <th>{{ trans('exports.client_id') }}</th>
+                            <th>{{ trans('exports.CER_TYPE') }}</th>
+                            <th>{{ trans('exports.CER_LANG') }}</th> --}}
                             <th>{{ trans('exports.COMP_ID') }}</th>
                             <th>{{ trans('exports.EUSER_QID') }}</th>
                             <th>{{ trans('exports.EXP_NAME') }}</th>
                             <th>{{ trans('exports.EXP_TEL') }}</th>
-
-
+                            <th>{{ trans('exports.EXP_FAX') }}</th>
+                            <th>{{ trans('exports.EXP_COUNTRY') }}</th>
                             <th>{{ trans('exports.IMP_NAME') }}</th>
                             <th>{{ trans('exports.IMP_QID') }}</th>
-
+                            <th>{{ trans('exports.IMP_FAX') }}</th>
                             <th>{{ trans('exports.IMP_TEL') }}</th>
+                            <th>{{ trans('exports.IMP_COUNTRY') }}</th>
+                            <th>{{ trans('exports.ORIGIN_COUNTRY') }}</th>
+                            <th>{{ trans('exports.SHIPPING_PLACE') }}</th>
+                            <th>{{ trans('exports.TRANSPORT') }}</th>
+                            <th>{{ trans('exports.SHIPPING_DATE') }}</th>
+                            <th>{{ trans('exports.APPLICANT_NAME') }}</th>
+                            <th>{{ trans('exports.APPLICANT_TEL') }}</th>
+                            <th>{{ trans('exports.EXP_NATIONALITY') }}</th>
+                            <th>{{ trans('exports.EXP_PASSPORT_NUM') }}</th>
 
-                            <th>{{ trans('exports.accepted') }}</th>
-                            <th>{{ trans('exports.reson') }}</th>
 
                             <th></th>
                         </tr>
@@ -63,38 +71,31 @@
                     <tbody>
                     @foreach($exports as $export)
                         <tr>
-                            <td>{{ optional($export->client)->ud }}</td>
-
-
+                            {{-- <td>{{ optional($export->client)->ud }}</td>
+                            <td>{{ $export->CER_TYPE }}</td>
+                            <td>{{ $export->CER_LANG }}</td> --}}
                             <td>{{ $export->COMP_ID }}</td>
                             <td>{{ $export->EUSER_QID }}</td>
                             <td>{{ $export->EXP_NAME }}</td>
                             <td>{{ $export->EXP_TEL }}</td>
-
-
+                            <td>{{ $export->EXP_FAX }}</td>
+                            <td>{{ $export->EXP_COUNTRY }}</td>
                             <td>{{ $export->IMP_NAME }}</td>
                             <td>{{ $export->IMP_QID }}</td>
-
+                            <td>{{ $export->IMP_FAX }}</td>
                             <td>{{ $export->IMP_TEL }}</td>
-
-                            <td>{{ $export->accepted }}</td>
-                            <td>{{ $export->reson }}</td>
-
-                            <td>
-
-
-
-                                    <div class="btn-group btn-group-xs pull-right" role="group" style="direction: initial;">
-                                        <a href="{{ route('exports.after.export.show', $export->id ) }}" class="btn btn-info" title="{{ trans('exports.show') }}">
-                                            <span class="fa fa-eye" aria-hidden="true"></span>
-                                        </a>
+                            <td>{{ $export->IMP_COUNTRY }}</td>
+                            <td>{{ $export->ORIGIN_COUNTRY }}</td>
+                            <td>{{ $export->SHIPPING_PLACE }}</td>
+                            <td>{{ $export->TRANSPORT }}</td>
+                            <td>{{ $export->SHIPPING_DATE }}</td>
+                            <td>{{ $export->APPLICANT_NAME }}</td>
+                            <td>{{ $export->APPLICANT_TEL }}</td>
+                            <td>{{ $export->EXP_NATIONALITY }}</td>
+                            <td>{{ $export->EXP_PASSPORT_NUM }}</td>
+                          <td></td>
 
 
-
-                                    </div>
-
-
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -103,9 +104,7 @@
             </div>
         </div>
 
-        <div class="panel-footer">
-            {!! $exports->render() !!}
-        </div>
+
 
         @endif
 
