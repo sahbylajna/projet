@@ -3,9 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\Client;
-use App\SMS\Sms;
-use App\Models\countries as Contry;
 use App\Models\export;
 use App\Models\importation;
 use App\Models\back;
@@ -13,16 +10,23 @@ use Carbon\Carbon;
 use GuzzleHttp\Client as ClientHTTP;
 use App\Models\ApiUser;
 use App\Models\acceptation_demande;
-use  App\Models\Setting;
-use App\Models\export as importations;
 use Illuminate\Support\Facades\Log;
-
-class commandex extends Command
+use  App\Models\Setting;
+use App\Models\importation as importations;
+class pdf extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'getpdf';
 
-    protected $signature = 'commandex';
-
-
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Command description';
 
     /**
@@ -30,7 +34,7 @@ class commandex extends Command
      */
     public function handle()
     {
-        $importationsObjects = importations::where('accepted',1)->get();
+        $importationsObjects = importations::where('accepted',3)->where('pdf',null)->get();
 
         $setting =  Setting::first();
         $apiUser = ApiUser::first();
@@ -73,7 +77,7 @@ class commandex extends Command
             ];
 
             $client2 = new ClientHTTP();
-            $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
+            $res = $client->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GENERATE_PDF', [
                 'headers' => $headers,
                 'json' => $data,
             ]);
@@ -82,20 +86,25 @@ class commandex extends Command
             $responseBody = $res->getBody()->getContents();
             $resp = json_decode($responseBody);
 
+
             if($resp->APPLICATION_STATUS == "APPROVED "){
-                $value->accepted = 3;
+                $value->pdf = $resp->PDF_LINK;
                 $value->save();
-                $sms = new Sms;
-                $client = Client::find($value->client_id);
-                $message = "تم قبلو طلبك '.$value->id.' لمشاهدة او تحميل الطلب https://tasareeh.qa/apk";
-            $contry = Contry::find($client->contry_id );
-            $sms->send($contry->phonecode.$client->phone,$message );
+
+                Log::info('Request:', [
+
+                    '$value' => $resp,
+                    'APPROVED' => $resp->PDF_LINK,
+
+                ]);
             }
             Log::info('Request:', [
 
-                'resp' => $resp,
+                '$value' => $resp,
+
 
             ]);
+
         }catch(\Exception $exception) {
 
             Log::info('Request:', [

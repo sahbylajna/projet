@@ -42,6 +42,8 @@ class Demande {
   String? cERSERIAL;
   String? pledge;
   String? eXPCERSERIAL;
+  String? pdf;
+  String? linkpayment;
   String? type;
   String? date;
   List<Animal>? animal;
@@ -82,6 +84,8 @@ class Demande {
       this.cERSERIAL,
       this.pledge,
       this.eXPCERSERIAL,
+      this.pdf,
+      this.linkpayment,
       this.type,
       this.date,
       this.animal});
@@ -122,6 +126,8 @@ class Demande {
     cERSERIAL = json['CER_SERIAL'];
     pledge = json['Pledge'];
     eXPCERSERIAL = json['EXP_CER_SERIAL'];
+    pdf = json['pdf'];
+    linkpayment = json['linkpayment'];
     type = json['type'];
     date = json['date'];
     if (json['animal'] != null) {
@@ -169,6 +175,8 @@ class Demande {
     data['CER_SERIAL'] = this.cERSERIAL;
     data['Pledge'] = this.pledge;
     data['EXP_CER_SERIAL'] = this.eXPCERSERIAL;
+    data['pdf'] = this.pdf;
+    data['linkpayment'] = this.linkpayment;
     data['type'] = this.type;
     data['date'] = this.date;
     if (this.animal != null) {

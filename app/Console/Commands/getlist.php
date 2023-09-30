@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\SMS\Sms;
+
 use App\Models\export;
 use App\Models\importation;
 use App\Models\back;
@@ -14,6 +14,9 @@ use App\Models\acceptation_demande;
 use  App\Models\Setting;
 use App\Models\importation as importations;
 use Illuminate\Support\Facades\Log;
+use App\Models\Client;
+use App\SMS\Sms;
+use App\Models\countries as Contry;
 
 class getlist extends Command
 {
@@ -88,12 +91,29 @@ foreach ($importationsObjects as  $value) {
 
         $responseBody = $res->getBody()->getContents();
         $resp = json_decode($responseBody);
+
+
+        if($resp->APPLICATION_STATUS == "APPROVED "){
+            $value->accepted = 3;
+            $value->save();
+            $sms = new Sms;
+            $client = Client::find($value->client_id);
+            $message = "تم قبلو طلبك '.$value->id.' لمشاهدة او تحميل الطلب https://tasareeh.qa/apk";
+        $contry = Contry::find($client->contry_id );
+        $sms->send($contry->phonecode.$client->phone,$message );
+            Log::info('Request:', [
+
+                '$value' => $value,
+                'APPROVED' => $resp->APPLICATION_STATUS,
+
+            ]);
+        }
         Log::info('Request:', [
 
-            'resp' => $resp,
+            '$value' => $value,
+            'APPROVED' => $resp->APPLICATION_STATUS,
 
         ]);
-
     }catch(\Exception $exception) {
 
         Log::info('Request:', [

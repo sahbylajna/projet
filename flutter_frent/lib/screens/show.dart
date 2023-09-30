@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:tasareeh/api_service.dart';
-import 'package:tasareeh/common/theme_helper.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:tasareeh/constants.dart';
-import 'package:tasareeh/home.dart';
-import 'package:tasareeh/model/contrie.dart';
-import 'package:tasareeh/model/success.dart';
-import 'package:intl/intl.dart' as inl;
 import 'package:tasareeh/screens/book.dart';
 import 'package:tasareeh/widgets/PDFViewerScreen.dart';
+
 
 import '../model/Demande.dart';
 
@@ -32,6 +27,8 @@ class _showContentState extends State<showContent>{
 
   @override
   Widget build(BuildContext context) {
+    String? url = widget.paramValue.pdf;
+    print(widget.paramValue.pdf);
     return Directionality(
         textDirection: TextDirection.rtl,
         child:Scaffold(
@@ -71,6 +68,38 @@ class _showContentState extends State<showContent>{
                         SizedBox(
                           height: 30, // <-- SEE HERE
                         ),
+
+                             if(widget.paramValue.pdf != null && widget.paramValue.accepted.toString() == "3")
+
+                         IconButton(
+                icon: Icon(Icons.download, color: Color.fromARGB(255, 153, 117, 96)),
+                onPressed: () async {
+                        String pdfUrl = '${widget.paramValue.pdf}'; // Replace with your PDF URL
+
+                PDF(
+        swipeHorizontal: true,
+      ).cachedFromUrl(pdfUrl);
+
+                }
+              ),
+
+
+//                          ListTile(
+//                                       title:Icon( Icons.download,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
+//                                        onTap: () {
+//             // Handle onTap action here
+
+//             Navigator.of(context).push(
+//   MaterialPageRoute(
+//     builder: (context) => PDFViewerScreen(pdfUrl: '${widget.paramValue.pdf}'),
+//   ),
+// );
+
+
+//           },
+
+//                                     ),
+
 
                         const SizedBox(
                           height: 10,
@@ -383,7 +412,8 @@ class _showContentState extends State<showContent>{
                         const SizedBox(
                           height: 20,
                         ),
-ListTile(
+
+                       if(widget.paramValue.files != null)  ListTile(
                                       title: Text('كشف المطايا'),
                                        onTap: () {
             // Handle onTap action here
@@ -403,9 +433,13 @@ ListTile(
                                        const SizedBox(
                           height: 20,
                         ),
- Text(widget.paramValue.accepted.toString() == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${widget.paramValue.reson}' : ' ' ),
+ Text(widget.paramValue.accepted.toString() == "0" ?  'تم رفض طلبك من الثروة الحيوانية و ذلك لسبب :${widget.paramValue.reson}' : ' ' ),
         Text(widget.paramValue.accepted.toString() == "1" ? 'تم قبول طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
  Text(widget.paramValue.accepted.toString() == "null" ? 'قيد المعالجة': ' ' ),
+
+
+    Text(widget.paramValue.accepted.toString() == "2" ? ' تم رفض طلبك من الثروة الحيوانية ' : ' ' ),
+        Text(widget.paramValue.accepted.toString() == "3" ? 'تم قبول طلبك من الثروة الحيوانية' : ' ' ),
 
 
                         const SizedBox(

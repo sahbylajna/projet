@@ -56,6 +56,8 @@ class importation extends Model
                   'EXP_PASSPORT_NUM',
                   'accepted',
                   'reson',
+                  'pdf',
+                  'linkpayment',
                   'CER_SERIAL',
                   'EXP_CER_SERIAL',
                   'Pledge',

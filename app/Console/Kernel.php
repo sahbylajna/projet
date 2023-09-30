@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('commandgetlist')->everyTwoMinutes();
          $schedule->command('commandex')->everyTwoMinutes();
+         $schedule->command('getpdf')->everyTwoMinutes();
     }
 
     /**

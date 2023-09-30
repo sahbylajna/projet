@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/model/count.dart';
@@ -71,11 +72,7 @@ users = prefs.getString('first_name')! ;
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),
-
+ Lottie.asset('assets/loading.json'),
               SizedBox(height: 15),
               Text('...تحميل'),
 

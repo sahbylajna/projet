@@ -4,6 +4,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/model/token.dart';
 import 'package:tasareeh/model/user.dart';
@@ -63,10 +64,7 @@ print(prefs.getString('first_name'));
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-               SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),                SizedBox(height: 15),
+                Lottie.network(    'https://lottie.host/66e2a97f-0826-425b-bca6-d7e1ee74f757/YmBvSTB48I.json'),                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],

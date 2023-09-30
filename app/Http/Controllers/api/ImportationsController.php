@@ -46,11 +46,7 @@ class ImportationsController extends Controller
             }
 
             $data = $this->getData($request);
-            Log::info('Request:', [
-                'val' => $validator->errors()->all(),
-                'body' => $request->all(),
-                'data' => $data
-            ]);
+
             $importations = importations::create($data);
 
 
@@ -74,7 +70,11 @@ class ImportationsController extends Controller
                 'errors' => ''
             ]);
         } catch (Exception $exception) {
+            return response()->json([
 
+                'message' => '',
+                'errors' => $exception->getMessage()
+            ]);
             return $this->errorResponse($exception->getMessage());
         }
     }
@@ -160,19 +160,22 @@ class ImportationsController extends Controller
     {
         $rules = [
 
-            'COMP_ID' => 'string',
-            'EUSER_QID' => 'string|min:1',
-            'EXP_NAME' => 'string|min:1',
-            'EXP_TEL' => 'string|min:1',
-            'EXP_QID' => 'string|min:1',
-            'EXP_FAX' => 'string|min:1',
-            'EXP_COUNTRY' => 'string',
-            'IMP_NAME' => 'string|min:1',
-            'IMP_ADDRESS' => 'string|min:1',
-            'IMP_FAX' => 'string|min:1',
-            'IMP_TEL' => 'string|min:1',
-            'IMP_POBOX' => 'string|min:1',
-            'IMP_COUNTRY' => 'string',
+            'client_id' => 'nullable',
+            'CER_TYPE' => 'nullable',
+            'CER_LANG' => 'nullable',
+            'COMP_ID' => 'nullable',
+            'EUSER_QID' => 'nullable',
+            'EXP_NAME' => 'nullable',
+            'EXP_TEL' => 'nullable',
+            'EXP_QID' => 'nullable',
+            'EXP_FAX' => 'nullable',
+            'EXP_COUNTRY' => 'nullable',
+            'IMP_NAME' => 'nullable',
+            'IMP_ADDRESS' => 'nullable',
+            'IMP_FAX' => 'nullable',
+            'IMP_TEL' => 'nullable',
+            'IMP_POBOX' => 'nullable',
+            'IMP_COUNTRY' => 'nullable',
             'ORIGIN_COUNTRY' => 'string',
             'SHIPPING_PLACE' => 'string|min:1',
             'ENTERY_PORT' => 'string|min:1',
@@ -203,27 +206,30 @@ class ImportationsController extends Controller
 
             'EXP_COUNTRY' => 'string|nullable',
             'ORIGIN_COUNTRY' => 'string|nullable',
+            'EXPORT_COUNTRYa' => 'string|nullable',
+            'ORIGIN_COUNTRYa' => 'string|nullable',
+            'TRANSIET_COUNTRYa' => 'string|min:1|nullable',
             'ENTERY_PORT' => 'string|min:1|nullable',
             'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
             'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
             'EXP_CER_SERIAL' => 'string|nullable',
             'files' => 'required',
-            'Pledge' => 'required',
+            'Pledge' => 'nullable',
 
 
 
         ];
-        $validator = \Validator::make($request->all(),  $rules);
-        if ($validator->fails()) {
+        // $validator = \Validator::make($request->all(),  $rules);
+        // if ($validator->fails()) {
 
-            //pass validator errors as errors object for ajax response
+        //     //pass validator errors as errors object for ajax response
 
-            return response()->json([
-                'id' => 0,
-                'message' => $validator,
-                'errors' => 'errors'
-            ]);
-        }
+        //     return response()->json([
+        //         'id' => 0,
+        //         'message' => $validator,
+        //         'errors' => 'errors'
+        //     ]);
+        // }
 
         $data = $request->validate($rules);
 

@@ -1,12 +1,14 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/home.dart';
 import 'package:tasareeh/model/contrie.dart';
 import 'package:tasareeh/model/success.dart';
 import 'package:intl/intl.dart' as inl;
+import 'package:tasareeh/model/term.dart';
 
 class OutContent extends StatefulWidget{
   const OutContent({Key? key}): super(key:key);
@@ -97,6 +99,7 @@ class StepperExample extends StatefulWidget {
 
 class _StepperExampleState extends State<StepperExample> {
       late List<Contries> _contrie = [];
+       term? _term ;
  @override
   void initState() {
     super.initState();
@@ -118,10 +121,7 @@ class _StepperExampleState extends State<StepperExample> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),                SizedBox(height: 15),
+ Lottie.network(    'https://lottie.host/66e2a97f-0826-425b-bca6-d7e1ee74f757/YmBvSTB48I.json'),                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],
@@ -130,6 +130,7 @@ SpinKitWaveSpinner(
         );
       },
     );
+      _term = (await ApiService().getterm())!;
     _contrie = (await ApiService().getcontries())!;
     if(_contrie != null){
       if (Navigator.of(context, rootNavigator: true).canPop()) {
@@ -157,7 +158,7 @@ bool hide = false;
 
     String ANML_NUMBER = '';
 
-   String? files,Pledge;
+   String? files,Pledge='';
 
  Future<void> _pickPDF() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -173,18 +174,7 @@ bool hide = false;
   }
 
 
- Future<void> _pickPDF2() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
 
-    if (result != null) {
-      setState(() {
-        Pledge = result.files.single.path;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -385,14 +375,35 @@ print(_index);
               child: Text( 'كشف المطايا'),
             ),
 
- const SizedBox(
+   const SizedBox(
                           height: 10,
                         ),
-
-                         ElevatedButton(
-              onPressed: _pickPDF2,
-              child: Text('التعهد'),
-            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              _showDialog(_term);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                              'التعهد'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
 
                       ]
                   ),
@@ -563,6 +574,50 @@ print(_index);
 
     );
   }
+    Future<void>  _showDialog(_term) async {
+
+
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(('التعهد')),
+          content: Text(_term!.conditionar),
+          actions: <Widget>[
+               Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                               'موافق'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+          ],
+        );
+      },
+    );
+  }
 
    Future<void> _apisend() async {
 
@@ -580,11 +635,7 @@ print(_index);
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-               SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),                SizedBox(height: 15),
-                Text('...تحميل'),
+              Lottie.asset('assets/up.json'),
 
               ],
             ),

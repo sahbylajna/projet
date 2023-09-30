@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/home.dart';
 import 'package:tasareeh/model/contrie.dart';
 import 'package:tasareeh/model/success.dart';
 import 'package:intl/intl.dart' as inl;
+import 'package:tasareeh/model/term.dart';
 
 import '../model/check.dart';
 
@@ -99,8 +101,11 @@ class StepperExample extends StatefulWidget {
   State<StepperExample> createState() => _StepperExampleState();
 }
 
+
+
 class _StepperExampleState extends State<StepperExample> {
       late List<Contries> _contrie = [];
+        term? _term ;
  @override
   void initState() {
     super.initState();
@@ -122,10 +127,7 @@ class _StepperExampleState extends State<StepperExample> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),                SizedBox(height: 15),
+ Lottie.network(    'https://lottie.host/66e2a97f-0826-425b-bca6-d7e1ee74f757/YmBvSTB48I.json'),                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],
@@ -134,6 +136,9 @@ SpinKitWaveSpinner(
         );
       },
     );
+
+
+          _term = (await ApiService().getterm())!;
     _contrie = (await ApiService().getcontries())!;
     if(_contrie != null){
       if (Navigator.of(context, rootNavigator: true).canPop()) {
@@ -149,7 +154,8 @@ bool hide = false;
   Contries? _EXPORT_COUNTRY,_ORIGIN_COUNTRY;
 
   Contries? _EXPORT_COUNTRYa,_ORIGIN_COUNTRYa,_TRANSIET_COUNTRY;
-  TextEditingController ENTERY_PORT = TextEditingController();
+  String ENTERY_PORT = 'معبر ابو سمرة';
+
  TextEditingController EXP_CER_SERIAL = TextEditingController();
   TextEditingController EXPECTED_ARRIVAL_DATE = TextEditingController();
   TextEditingController SHIPPING_DATE = TextEditingController();
@@ -165,7 +171,7 @@ bool hide = false;
 
     String ANML_NUMBER = '';
 
-   String? files,Pledge;
+   String? files;
 
  Future<void> _pickPDF() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -181,30 +187,20 @@ bool hide = false;
   }
 
 
- Future<void> _pickPDF2() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
 
-    if (result != null) {
-      setState(() {
-        Pledge = result.files.single.path;
-      });
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Stepper(
-        type: StepperType.horizontal,
+        type: StepperType.vertical,
       currentStep: _index,
 
       onStepContinue: () {
-        if (_index <= 0) {
+        if (_index <= 1) {
           setState(() {
             _index += 1;
-           if (_index == 1) {
+           if (_index == 2) {
              hide = true;
            }else if (_index == 0) {
             hide = false;
@@ -217,7 +213,7 @@ print(_index);
         setState(() {
           _index = index;
            print(hide);
-           if (_index == 1) {
+           if (_index == 2) {
              hide = true;
            }else if (_index == 0) {
             hide = false;
@@ -234,8 +230,8 @@ print(_index);
       },
 
   steps: <Step>[
-        Step(
-          title: const Text('البيانات العامة'),
+     Step(
+          title: const Text('البحث'),
           content: Container(
 
             child: SingleChildScrollView( // Wrap your content with SingleChildScrollView
@@ -248,7 +244,7 @@ print(_index);
                           height: 10, // <-- SEE HERE
                         ),
 
- TextFormField(
+TextFormField(
                           controller: EXP_CER_SERIAL,
                           decoration: InputDecoration(
                               errorText: _validateEXP_CER_SERIAL ? 'يرجي ادخال معرفه الخروج صحيح' : null,
@@ -293,12 +289,70 @@ print(_index);
                           height: 10,
                         ),
 
-                        TextFormField(
-                          controller: ENTERY_PORT,
-                          decoration: InputDecoration(
-                              errorText: _validateENTERY_PORT ? 'يرجي ادخال منفذ الدخول صحيح' : null,
-                              label: Text('منفذ الدخول'),
-                              border: OutlineInputBorder()),
+
+
+
+
+
+
+
+
+
+
+
+                      ]
+                  ),
+                  )
+                  ),
+          ),
+        ),
+        Step(
+          title: const Text('البيانات العامة'),
+          content: Container(
+
+            child: SingleChildScrollView( // Wrap your content with SingleChildScrollView
+                child:  Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+
+                        SizedBox(
+                          height: 10, // <-- SEE HERE
+                        ),
+
+
+
+
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Center(
+                            child: Row(
+                              children: [
+                                Text('منفذ الدخول'),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                DropdownButton<String>(
+                                  hint: Text('منفذ الدخول'),
+                                  items: <String>['معبر ابو سمرة']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      ENTERY_PORT = newValue.toString();
+
+                                      // print("selected2 "+_EXPORT_COUNTRY!.name.toString());
+                                    });
+                                  },
+                                  value: ENTERY_PORT,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
     const SizedBox(
                           height: 10,
@@ -510,10 +564,71 @@ print(_index);
                           height: 10,
                         ),
 
-                         ElevatedButton(
-              onPressed: _pickPDF2,
-              child: Text('التعهد'),
-            ),
+                  const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              _showDialog(_term);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                              'التعهد'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+
+     Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              checkd();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                              'البحث'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+
+
+
+
+
+
+
+
+
 
                       ]
                   ),
@@ -685,6 +800,52 @@ print(_index);
     );
   }
 
+
+    Future<void>  _showDialog(_term) async {
+
+
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(('التعهد')),
+          content: Text(_term!.conditionar),
+          actions: <Widget>[
+               Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+                              if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                               'موافق'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+          ],
+        );
+      },
+    );
+  }
+
    Future<void> _apisend() async {
 
 
@@ -701,11 +862,7 @@ print(_index);
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-               SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),                SizedBox(height: 15),
-                Text('...تحميل'),
+          Lottie.asset('assets/up.json'),
 
               ],
             ),
@@ -720,7 +877,7 @@ print(_index);
       _ORIGIN_COUNTRY != null ? _ORIGIN_COUNTRY!.name.toString() : '',
       _ORIGIN_COUNTRYa != null ? _ORIGIN_COUNTRYa!.name.toString() : '',
       _TRANSIET_COUNTRY != null ? _TRANSIET_COUNTRY!.name.toString() : '',
-      ENTERY_PORT.text,
+      ENTERY_PORT,
       EXPECTED_ARRIVAL_DATE.text,
       SHIPPING_DATE.text,
       EXP_CER_SERIAL.text
@@ -768,7 +925,7 @@ print(_index);
       // All variables have values, you can proceed with your logic
 
 
-    Success? success =  (await ApiService().Setimportations(_EXPORT_COUNTRY!.name.toString(),_ORIGIN_COUNTRY!.name.toString(),_EXPORT_COUNTRYa!.name.toString(),_ORIGIN_COUNTRYa!.name.toString(),_TRANSIET_COUNTRY!.name.toString(),ENTERY_PORT.text,EXPECTED_ARRIVAL_DATE.text,SHIPPING_DATE.text,ANML_NUMBER,files,Pledge,EXP_CER_SERIAL.text));
+    Success? success =  (await ApiService().Setimportations(_EXPORT_COUNTRY!.name.toString(),_ORIGIN_COUNTRY!.name.toString(),_EXPORT_COUNTRYa!.name.toString(),_ORIGIN_COUNTRYa!.name.toString(),_TRANSIET_COUNTRY!.name.toString(),ENTERY_PORT,EXPECTED_ARRIVAL_DATE.text,SHIPPING_DATE.text,ANML_NUMBER,files,'',EXP_CER_SERIAL.text));
 
     if(success?.message =="success"){
   if (Navigator.of(context, rootNavigator: true).canPop()) {
@@ -788,14 +945,23 @@ print(_index);
             children:  [
 
               SizedBox(height: 15),
-              Text('تم إرسال طلبك بنجاح')
-,
+              Text('تم إرسال طلبك بنجاح'),
 
 
-                         ElevatedButton(
+
+                            Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _accentColor], // Start and end colors
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(30), // Rounded corners
+                          ),
+                          child: ElevatedButton(
                             onPressed: () {
                               // Open a dialog to add a new row
-   if (Navigator.of(context, rootNavigator: true).canPop()) {
+                              if (Navigator.of(context, rootNavigator: true).canPop()) {
       Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
     }
     Navigator.of(context).pushAndRemoveUntil(
@@ -809,10 +975,16 @@ print(_index);
                               elevation: 0, // No shadow
                             ),
                             child: Text(
-                              'عودة للصفحة الرئيسية'.toUpperCase(),
+                               'عودة للصفحة الرئيسية'.toUpperCase(),
                               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
+                        ),
+
+
+
+
+
             ],
           ),
         ),
@@ -878,10 +1050,8 @@ Future<void> checkd() async {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-               SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),                SizedBox(height: 15),
+                Lottie.network(    'https://lottie.host/66e2a97f-0826-425b-bca6-d7e1ee74f757/YmBvSTB48I.json'),
+                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],

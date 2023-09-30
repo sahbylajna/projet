@@ -5,11 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateTermsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('terms', function(Blueprint $table)

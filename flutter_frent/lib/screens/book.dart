@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/model/Demande.dart';
 import 'package:tasareeh/screens/constants.dart';
@@ -27,7 +28,7 @@ class _BookContentState extends State<BookContent>{
     super.initState();
      _isLoading = true;
 
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 5), () {
       setState(() {
         _isLoading = false;
       });
@@ -56,11 +57,7 @@ showAlertDialog(BuildContext context) async {
                 mainAxisSize: MainAxisSize.min,
                 children:  [
                   // The loading indicator
-                         SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),
-                  SizedBox(
+                          Lottie.asset('assets/loading.json'),                  SizedBox(
                     height: 15,
                   ),
                   // Some text
@@ -100,11 +97,7 @@ showAlertDialog(BuildContext context) async {
            child: Column(
              mainAxisSize: MainAxisSize.min,
              children: [
-                      SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),
-               SizedBox(height: 15),
+                       Lottie.asset('assets/loading.json'),               SizedBox(height: 15),
                Text('...تحميل'),
 
              ],
@@ -226,21 +219,15 @@ Column(
         Text(_list[index].accepted == "1" ? 'تم قبول طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
  Text(_list[index].accepted == "null" ? 'قيد المعالجة': ' ' ),
 
+        Text(_list[index].accepted == "2" ? 'تم رفض طلبك من الثروة الحيوانية ' : ' ' ),
+        Text(_list[index].accepted == "3" ? 'تم قبول طلبك من الثروة الحيوانية' : ' ' ),
+
+
              ],
 
         ),
 
-//          Row(
-//              textDirection: TextDirection.ltr,
-//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: [
 
-//         Text(_list[index].accepted == "2" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
-//         Text(_list[index].accepted == "3" ? 'تم قبول طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
-
-//             ],
-
-//         ),
 
 ],
         )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,10 +47,7 @@ class _AccountContentState extends State<AccountContent> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                 SpinKitWaveSpinner(
-  color: _primaryColor,
-  size: 50.0,
-),                  SizedBox(height: 15),
+                  Lottie.network(    'https://lottie.host/66e2a97f-0826-425b-bca6-d7e1ee74f757/YmBvSTB48I.json'),                  SizedBox(height: 15),
                   Text('...تحميل'),
 
                 ],

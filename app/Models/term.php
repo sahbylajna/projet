@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class term extends Model
 {
-    
+
 
     /**
      * The database table used by the model.
@@ -29,7 +29,9 @@ class term extends Model
      */
     protected $fillable = [
                   'term_ar',
-                  'term_en'
+                  'term_en',
+                  'Conditionar',
+                  'Conditionen'
               ];
 
     /**
@@ -38,14 +40,14 @@ class term extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
 
 
 

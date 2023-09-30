@@ -159,7 +159,7 @@ class ExportsController extends Controller
             'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
             'IMP_CER_SERIAL' => 'string|nullable',
             'files' => 'required',
-            'Pledge' => 'required',
+            'Pledge' => 'nullable',
 
         ];
 
@@ -185,7 +185,7 @@ class ExportsController extends Controller
             'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
             'IMP_CER_SERIAL' => 'string|nullable',
             'files' => 'required',
-            'Pledge' => 'required',
+            'Pledge' => 'nullable',
 
 
 

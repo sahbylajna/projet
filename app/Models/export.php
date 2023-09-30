@@ -54,7 +54,8 @@ class export extends Model
                   'IMP_CER_SERIAL',
                   'Pledge',
                   'reson',
-
+                  'pdf',
+                  'linkpayment',
                   'files'
               ];
 

@@ -139,7 +139,7 @@ if($user){
             'errors' => ''
         ]);
     }
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return response()->json([
                 'id' => 0,
                 'message' => '',
@@ -200,7 +200,7 @@ if($user){
                 'message' => 'success',
                 'errors' => ''
             ]);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return response()->json([
                 'id' => 0,
                 'message' => 'الرجاء إدخال بيانات صحيحة',
@@ -310,6 +310,8 @@ if($user){
 
             'term_ar' => $term->term_ar,
             'term_en' => $term->term_en,
+            'Conditionar' => $term->Conditionar,
+            'Conditionen' => $term->Conditionen,
 
         ]);
     }
@@ -405,6 +407,11 @@ public function getcheck(Request $request){
         );
 
     }
+
+
+
+
+
 
 }
 
