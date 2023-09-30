@@ -1,6 +1,7 @@
 
 <?php
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
@@ -40,7 +41,27 @@ Route::delete('/log', [LogController::class, 'deleteLogs'])->name('logs.delete')
 
 
 
+Route::get('/test', function () {
+    $client = Client::findOrFail('1');
+    $term = \App\Models\term::first();
+    $client->term_ar = $term->Conditionar;
+    $data =        $client->toArray();
+//dd($data);
+view()->share('data', $data);
 
+
+
+
+
+ $pdf = Pdf::loadView('test',['data' => $data] );
+
+ $fileName = $client->ud . '.pdf';
+    $pdf->save(public_path('pdf/' . $fileName));
+
+    return 'PDF saved in public directory.';
+
+        return view('test');
+    })->name('/test');
 
 
 

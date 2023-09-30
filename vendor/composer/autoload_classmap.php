@@ -6,6 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\commandex' => $baseDir . '/app/Console/Commands/commandex.php',
+    'App\\Console\\Commands\\getlist' => $baseDir . '/app/Console/Commands/getlist.php',
+    'App\\Console\\Commands\\pdf' => $baseDir . '/app/Console/Commands/pdf.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\ANIMALINFOsController' => $baseDir . '/app/Http/Controllers/ANIMALINFOsController.php',
@@ -25,6 +28,8 @@ return array(
     'App\\Http\\Controllers\\HomeClientController' => $baseDir . '/app/Http/Controllers/HomeClientController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\ImportationsController' => $baseDir . '/app/Http/Controllers/ImportationsController.php',
+    'App\\Http\\Controllers\\LogController' => $baseDir . '/app/Http/Controllers/LogController.php',
+    'App\\Http\\Controllers\\SettingsController' => $baseDir . '/app/Http/Controllers/SettingsController.php',
     'App\\Http\\Controllers\\TermsController' => $baseDir . '/app/Http/Controllers/TermsController.php',
     'App\\Http\\Controllers\\UsersController' => $baseDir . '/app/Http/Controllers/UsersController.php',
     'App\\Http\\Controllers\\api\\ClientsController' => $baseDir . '/app/Http/Controllers/api/ClientsController.php',
@@ -38,11 +43,14 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Http\\Middleware\\clientAuth' => $baseDir . '/app/Http/Middleware/clientAuth.php',
     'App\\Models\\ANIMAL_INFO' => $baseDir . '/app/Models/ANIMAL_INFO.php',
     'App\\Models\\AcceptationClient' => $baseDir . '/app/Models/AcceptationClient.php',
     'App\\Models\\ApiUser' => $baseDir . '/app/Models/ApiUser.php',
     'App\\Models\\Client' => $baseDir . '/app/Models/Client.php',
+    'App\\Models\\Setting' => $baseDir . '/app/Models/Setting.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\acceptation_demande' => $baseDir . '/app/Models/acceptation_demande.php',
     'App\\Models\\back' => $baseDir . '/app/Models/back.php',
     'App\\Models\\countries' => $baseDir . '/app/Models/countries.php',
     'App\\Models\\export' => $baseDir . '/app/Models/export.php',

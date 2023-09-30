@@ -576,6 +576,9 @@ class ComposerStaticInit355baad7d76c5de52f11be9f4fb0fafc
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\commandex' => __DIR__ . '/../..' . '/app/Console/Commands/commandex.php',
+        'App\\Console\\Commands\\getlist' => __DIR__ . '/../..' . '/app/Console/Commands/getlist.php',
+        'App\\Console\\Commands\\pdf' => __DIR__ . '/../..' . '/app/Console/Commands/pdf.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\ANIMALINFOsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ANIMALINFOsController.php',
@@ -595,6 +598,8 @@ class ComposerStaticInit355baad7d76c5de52f11be9f4fb0fafc
         'App\\Http\\Controllers\\HomeClientController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeClientController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ImportationsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImportationsController.php',
+        'App\\Http\\Controllers\\LogController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogController.php',
+        'App\\Http\\Controllers\\SettingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/SettingsController.php',
         'App\\Http\\Controllers\\TermsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TermsController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Controllers\\api\\ClientsController' => __DIR__ . '/../..' . '/app/Http/Controllers/api/ClientsController.php',
@@ -608,11 +613,14 @@ class ComposerStaticInit355baad7d76c5de52f11be9f4fb0fafc
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Middleware\\clientAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/clientAuth.php',
         'App\\Models\\ANIMAL_INFO' => __DIR__ . '/../..' . '/app/Models/ANIMAL_INFO.php',
         'App\\Models\\AcceptationClient' => __DIR__ . '/../..' . '/app/Models/AcceptationClient.php',
         'App\\Models\\ApiUser' => __DIR__ . '/../..' . '/app/Models/ApiUser.php',
         'App\\Models\\Client' => __DIR__ . '/../..' . '/app/Models/Client.php',
+        'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\acceptation_demande' => __DIR__ . '/../..' . '/app/Models/acceptation_demande.php',
         'App\\Models\\back' => __DIR__ . '/../..' . '/app/Models/back.php',
         'App\\Models\\countries' => __DIR__ . '/../..' . '/app/Models/countries.php',
         'App\\Models\\export' => __DIR__ . '/../..' . '/app/Models/export.php',

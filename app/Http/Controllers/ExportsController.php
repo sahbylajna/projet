@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
 
 use App\Models\ANIMAL_INFO;
@@ -471,8 +472,24 @@ if($export->IMP_CER_SERIAL == null){
 ]);
 
 
- $pdfContents = file_get_contents(asset($export->files));
- $pdfContents2 = file_get_contents(asset($export->files));
+$client = Client::findOrFail( $export->client_id);
+
+$term = \App\Models\term::first();
+$client->term_ar = $term->Conditionar;
+$data =        $client->toArray();
+//dd($data);
+view()->share('data', $data);
+$pdf = Pdf::loadView('test',['data' => $data] );
+
+$fileName = $client->ud . '.pdf';
+$pdf->save(public_path('pdf/' . $fileName));
+
+$pdfContents = file_get_contents(asset($export->files));
+$pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
+$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
+
+
  try{
 
 
@@ -491,15 +508,20 @@ if($export->IMP_CER_SERIAL == null){
                 'contents' => $ANIMALINFOj,
             ],
             [
-                'name' => 'files[]',
-                'contents' => $pdfContents, // PDF file contents
-                'filename' => 'files.pdf', // Adjust the filename
-            ],
-            [
-                'name' => 'files[]',
-                'contents' => $pdfContents2, // PDF file contents
-                'filename' => 'files2.pdf', // Adjust the filename
-            ],
+            'name' => 'files[]',
+            'contents' => $pdfContents3, // PDF file contents
+            'filename' => 'photo_ud_frent.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents4, // PDF file contents
+            'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents2, // PDF file contents
+            'filename' => $fileName, // Adjust the filename
+        ],
         ],
      ]);
      $responseBody = $res->getBody()->getContents();
@@ -600,9 +622,22 @@ if($export->IMP_CER_SERIAL == null){
  ];
 
 
- $pdfContents = file_get_contents(asset($export->files));
- $pdfContents2 = file_get_contents(asset($export->files));
+ $client = Client::findOrFail( $export->client_id);
 
+ $term = \App\Models\term::first();
+ $client->term_ar = $term->Conditionar;
+ $data =        $client->toArray();
+ //dd($data);
+ view()->share('data', $data);
+ $pdf = Pdf::loadView('test',['data' => $data] );
+
+ $fileName = $client->ud . '.pdf';
+ $pdf->save(public_path('pdf/' . $fileName));
+
+ $pdfContents = file_get_contents(asset($export->files));
+ $pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
+ $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
 
 
 
@@ -623,15 +658,20 @@ if($export->IMP_CER_SERIAL == null){
                 'contents' => json_encode($data1),
             ],
             [
-                'name' => 'files[]',
-                'contents' => $pdfContents, // PDF file contents
-                'filename' => 'files.pdf', // Adjust the filename
-            ],
-            [
-                'name' => 'files[]',
-                'contents' => $pdfContents2, // PDF file contents
-                'filename' => 'files2.pdf', // Adjust the filename
-            ],
+            'name' => 'files[]',
+            'contents' => $pdfContents3, // PDF file contents
+            'filename' => 'photo_ud_frent.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents4, // PDF file contents
+            'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents2, // PDF file contents
+            'filename' => $fileName, // Adjust the filename
+        ],
         ],
      ]);
      $responseBody = $res->getBody()->getContents();

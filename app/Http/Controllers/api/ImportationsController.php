@@ -176,16 +176,16 @@ class ImportationsController extends Controller
             'IMP_TEL' => 'nullable',
             'IMP_POBOX' => 'nullable',
             'IMP_COUNTRY' => 'nullable',
-            'ORIGIN_COUNTRY' => 'string',
-            'SHIPPING_PLACE' => 'string|min:1',
-            'ENTERY_PORT' => 'string|min:1',
-            'EXPECTED_ARRIVAL_DATE' => 'string|date_format:Y-m-d',
-            'TRANSPORT' => 'string|min:1',
-            'SHIPPING_DATE' => 'string|date_format:Y-m-d',
-            'APPLICANT_NAME' => 'string|min:1',
-            'APPLICANT_TEL' => 'string|min:1',
-            'EXP_NATIONALITY' => 'string|min:1',
-            'EXP_PASSPORT_NUM' => 'string|min:1',
+            'ORIGIN_COUNTRY' => 'nullable|string',
+            'SHIPPING_PLACE' => 'nullable|string|min:1',
+            'ENTERY_PORT' => 'nullable|string|min:1',
+            'EXPECTED_ARRIVAL_DATE' => 'nullable|string|date_format:Y-m-d',
+            'TRANSPORT' => 'nullable|string|min:1',
+            'SHIPPING_DATE' => 'nullable|string|date_format:Y-m-d',
+            'APPLICANT_NAME' => 'nullable|string|min:1',
+            'APPLICANT_TEL' => 'nullable|string|min:1',
+            'EXP_NATIONALITY' => 'nullable|string|min:1',
+            'EXP_PASSPORT_NUM' => 'nullable|string|min:1',
 
         ];
 
@@ -202,6 +202,8 @@ class ImportationsController extends Controller
     protected function getData(Request $request)
     {
 
+
+
         $rules = [
 
             'EXP_COUNTRY' => 'string|nullable',
@@ -213,12 +215,14 @@ class ImportationsController extends Controller
             'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
             'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
             'EXP_CER_SERIAL' => 'string|nullable',
-            'files' => 'required',
+            'files' => 'required|nullable',
             'Pledge' => 'nullable',
 
 
 
         ];
+
+
         // $validator = \Validator::make($request->all(),  $rules);
         // if ($validator->fails()) {
 
@@ -226,7 +230,7 @@ class ImportationsController extends Controller
 
         //     return response()->json([
         //         'id' => 0,
-        //         'message' => $validator,
+        //         'message' =>  $request->validate($rules),
         //         'errors' => 'errors'
         //     ]);
         // }

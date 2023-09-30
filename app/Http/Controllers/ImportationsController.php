@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 use App\Models\Client;
+use App\SMS\Sms;
+use App\Models\countries as Contry;
 use App\Models\importation;
 use App\Models\ANIMAL_INFO;
 use App\Models\acceptation_demande;
@@ -13,9 +16,9 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
 
-use App\SMS\Sms;
+
 use App\Models\ApiUser;
-use App\Models\countries as Contry;
+
 class ImportationsController extends Controller
 {
 
@@ -427,10 +430,22 @@ $headers = [
 
 
 
+$client = Client::findOrFail( $importation->client_id);
 
+$term = \App\Models\term::first();
+$client->term_ar = $term->Conditionar;
+$data =        $client->toArray();
+//dd($data);
+view()->share('data', $data);
+$pdf = Pdf::loadView('test',['data' => $data] );
+
+$fileName = $client->ud . '.pdf';
+$pdf->save(public_path('pdf/' . $fileName));
 
 $pdfContents = file_get_contents(asset($importation->files));
-$pdfContents2 = file_get_contents(asset($importation->Pledge));
+$pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
+$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
 try{
 
     $client2 = new ClientHTTP();
@@ -453,8 +468,18 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
         ],
         [
             'name' => 'files[]',
+            'contents' => $pdfContents3, // PDF file contents
+            'filename' => 'photo_ud_frent.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents4, // PDF file contents
+            'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
             'contents' => $pdfContents2, // PDF file contents
-            'filename' => 'test.pdf', // Adjust the filename
+            'filename' => $fileName, // Adjust the filename
         ],
     ],
 ]);
@@ -572,11 +597,22 @@ $headers = [
 
 
 
+$client = Client::findOrFail( $importation->client_id);
 
+$term = \App\Models\term::first();
+$client->term_ar = $term->Conditionar;
+$data =        $client->toArray();
+//dd($data);
+view()->share('data', $data);
+$pdf = Pdf::loadView('test',['data' => $data] );
 
+$fileName = $client->ud . '.pdf';
+$pdf->save(public_path('pdf/' . $fileName));
 
 $pdfContents = file_get_contents(asset($importation->files));
-$pdfContents2 = file_get_contents(asset($importation->Pledge));
+$pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
+$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
 try{
 
     $client2 = new ClientHTTP();
@@ -599,8 +635,18 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
         ],
         [
             'name' => 'files[]',
+            'contents' => $pdfContents3, // PDF file contents
+            'filename' => 'photo_ud_frent.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents4, // PDF file contents
+            'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        ],
+        [
+            'name' => 'files[]',
             'contents' => $pdfContents2, // PDF file contents
-            'filename' => 'files2.pdf', // Adjust the filename
+            'filename' => $fileName, // Adjust the filename
         ],
     ],
 ]);
@@ -668,7 +714,7 @@ $importation->save();
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
     $acceptation->commenter = $request->commenter;
-   // $acceptation->save();
+    $acceptation->save();
     $sms = new Sms;
     $client = Client::find($importation->client_id);
 
