@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiConstants {
   static String baseUrl = 'https://tasareeh.qa/api';
+    static String bUrl = 'https://tasareeh.qa/';
   static String contries = '/contries';
   static String login = '/login';
 

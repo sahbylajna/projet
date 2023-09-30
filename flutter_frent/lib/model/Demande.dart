@@ -6,7 +6,6 @@ import 'package:tasareeh/model/Animal.dart';
 List<Demande> DemandeFromJson(String str) => List<Demande>.from(json.decode(str).map((x) => Demande.fromJson(x)));
 
 String DemandeToJson(List<Demande> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class Demande {
   int? id;
   String? createdAt;
@@ -44,6 +43,8 @@ class Demande {
   String? pledge;
   String? eXPCERSERIAL;
   String? type;
+  String? date;
+  List<Animal>? animal;
 
   Demande(
       {this.id,
@@ -81,7 +82,9 @@ class Demande {
       this.cERSERIAL,
       this.pledge,
       this.eXPCERSERIAL,
-      this.type});
+      this.type,
+      this.date,
+      this.animal});
 
   Demande.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -120,6 +123,13 @@ class Demande {
     pledge = json['Pledge'];
     eXPCERSERIAL = json['EXP_CER_SERIAL'];
     type = json['type'];
+    date = json['date'];
+    if (json['animal'] != null) {
+      animal = <Animal>[];
+      json['animal'].forEach((v) {
+        animal!.add(new Animal.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -160,7 +170,10 @@ class Demande {
     data['Pledge'] = this.pledge;
     data['EXP_CER_SERIAL'] = this.eXPCERSERIAL;
     data['type'] = this.type;
+    data['date'] = this.date;
+    if (this.animal != null) {
+      data['animal'] = this.animal!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
-

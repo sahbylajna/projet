@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/common/theme_helper.dart';
+import 'package:tasareeh/constants.dart';
 import 'package:tasareeh/home.dart';
 import 'package:tasareeh/model/contrie.dart';
 import 'package:tasareeh/model/success.dart';
 import 'package:intl/intl.dart' as inl;
 import 'package:tasareeh/screens/book.dart';
+import 'package:tasareeh/widgets/PDFViewerScreen.dart';
 
 import '../model/Demande.dart';
 
@@ -74,118 +76,8 @@ class _showContentState extends State<showContent>{
                           height: 10,
                         ),
 
-                        Padding(
-                          padding: EdgeInsets.all(10), // Add your desired padding values here
-                          child: Row(
-                            children: [
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('EUSER_QID :'),
-                              ),
-                              SizedBox(width: 10), // Add spacing between text and value
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text(widget.paramValue.eUSERQID.toString()),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
 
 
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-                        if (widget.paramValue.eXPNAME.toString() != 'null')
-                        Padding(
-                          padding: EdgeInsets.all(10), // Add your desired padding values here
-                          child: Row(
-                            children: [
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('اسم المصدر :'),
-                              ),
-                              SizedBox(width: 10), // Add spacing between text and value
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text(widget.paramValue.eXPNAME.toString()),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-
-                        if (widget.paramValue.eXPTEL.toString() != 'null')
-                        Padding(
-                          padding: EdgeInsets.all(10), // Add your desired padding values here
-                          child: Row(
-                            children: [
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('هاتف المصدر'),
-                              ),
-                              SizedBox(width: 10), // Add spacing between text and value
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text(widget.paramValue.eXPTEL.toString()),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-
-                        if (widget.paramValue.eXPQID.toString() != 'null')
-                        Padding(
-                          padding: EdgeInsets.all(10), // Add your desired padding values here
-                          child: Row(
-                            children: [
-
-                                Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('QID المصدر'),
-                                ),
-                                SizedBox(width: 10), // Add spacing between text and value
-                                Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text(widget.paramValue.eXPQID.toString()),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-
-                        if (widget.paramValue.eXPFAX.toString() != 'null')
-                        Padding(
-                          padding: EdgeInsets.all(10), // Add your desired padding values here
-                          child: Row(
-                            children: [
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('فاكس المصدر'),
-                              ),
-                              SizedBox(width: 10), // Add spacing between text and value
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text(widget.paramValue.eXPFAX.toString()),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
 
 
                         if (widget.paramValue.eXPCOUNTRY.toString() != 'null')
@@ -299,27 +191,6 @@ class _showContentState extends State<showContent>{
                           height: 10,
                         ),
 
-
-                        if (widget.paramValue.iMPPOBOX.toString() != 'null')
-                        Padding(
-                          padding: EdgeInsets.all(10), // Add your desired padding values here
-                          child: Row(
-                            children: [
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('المورد  POBOX'),
-                              ),
-                              SizedBox(width: 10), // Add spacing between text and value
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text(widget.paramValue.iMPPOBOX.toString()),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
 
                         if (widget.paramValue.iMPCOUNTRY.toString() != 'null')
                         Padding(
@@ -450,54 +321,6 @@ class _showContentState extends State<showContent>{
 
 
 
-                        if (widget.paramValue.eXPNATIONALITY.toString() != 'null')
-                          Padding(
-                            padding: EdgeInsets.all(10), // Add your desired padding values here
-                            child: Row(
-                              children: [
-                                Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Text('الجنسية المصدر '),
-                                ),
-                                SizedBox(width: 10), // Add spacing between text and value
-                                Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Text(widget.paramValue.eXPNATIONALITY.toString()),
-                                ),
-                              ],
-                            ),
-                          ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-
-
-
-
-                        if (widget.paramValue.eXPPASSPORTNUM.toString() != 'null')
-                          Padding(
-                            padding: EdgeInsets.all(10), // Add your desired padding values here
-                            child: Row(
-                              children: [
-                                Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Text('رقم جواز السفر'),
-                                ),
-                                SizedBox(width: 10), // Add spacing between text and value
-                                Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Text(widget.paramValue.eXPPASSPORTNUM.toString()),
-                                ),
-                              ],
-                            ),
-                          ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-
-
 
 
 
@@ -536,7 +359,7 @@ class _showContentState extends State<showContent>{
                             child:
                             ListView.builder(
                               shrinkWrap: true,
-                              itemCount: 0,
+                              itemCount: widget.paramValue.animal?.length,
                               itemBuilder: (context, index) {
                                 return Card(
                                   elevation: 4, // You can adjust the elevation for the shadow effect
@@ -549,7 +372,8 @@ class _showContentState extends State<showContent>{
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: ListTile(
-                                      title: Text('البلد الأصلي: '),
+                                      title: Text('عدد هجن: ${widget.paramValue.animal?[index].aNMLNUMBER}'),
+
                                     ),
                                   ),
                                 );
@@ -559,7 +383,26 @@ class _showContentState extends State<showContent>{
                         const SizedBox(
                           height: 20,
                         ),
+ListTile(
+                                      title: Text('كشف المطايا'),
+                                       onTap: () {
+            // Handle onTap action here
 
+            Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => PDFViewerScreen(pdfUrl: '${ApiConstants.bUrl}'+'${widget.paramValue.files}'),
+  ),
+);
+
+
+          },
+
+                                    ),
+
+
+                                       const SizedBox(
+                          height: 20,
+                        ),
  Text(widget.paramValue.accepted.toString() == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${widget.paramValue.reson}' : ' ' ),
         Text(widget.paramValue.accepted.toString() == "1" ? 'تم قبول طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
  Text(widget.paramValue.accepted.toString() == "null" ? 'قيد المعالجة': ' ' ),
