@@ -59,7 +59,6 @@ void _fetchData(BuildContext context) async {
  final prefs = await SharedPreferences.getInstance();
 users = prefs.getString('first_name')! ;
 
-
    //  user = await SharedPreferences.getInstance();
   showDialog(
     barrierDismissible: false,
