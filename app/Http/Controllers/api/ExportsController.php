@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\api\Controller;
 use App\Models\export;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
@@ -159,7 +160,7 @@ class ExportsController extends Controller
             'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
             'IMP_CER_SERIAL' => 'string|nullable',
             'files' => 'required',
-            'Pledge' => 'nullable',
+
 
         ];
 
@@ -230,10 +231,18 @@ class ExportsController extends Controller
             $data['files'] = $this->moveFile($request->file('files'));
         }
 
-        if ($request->hasFile('Pledge')) {
-            $data['Pledge'] = $this->moveFile($request->file('Pledge'));
-        }
+        $client =auth()->user();
 
+        $term = \App\Models\term::first();
+        $client->term_ar = $term->Conditionar;
+        $data =$client->toArray();
+        //dd($data);
+        view()->share('data', $data);
+        $pdf = Pdf::loadView('test',['data' => $data] );
+
+        $fileName = $client->ud . '.pdf';
+        $pdf->save(public_path('pdf/' . $fileName));
+        $data['Pledge'] =$fileName;
 
 
 
