@@ -223,17 +223,17 @@ class ImportationsController extends Controller
         ];
 
 
-        // $validator = \Validator::make($request->all(),  $rules);
-        // if ($validator->fails()) {
+        $validator = \Validator::make($request->all(),  $rules);
+        if ($validator->fails()) {
 
-        //     //pass validator errors as errors object for ajax response
+            //pass validator errors as errors object for ajax response
 
-        //     return response()->json([
-        //         'id' => 0,
-        //         'message' =>  $request->validate($rules),
-        //         'errors' => 'errors'
-        //     ]);
-        // }
+            return response()->json([
+                'id' => 0,
+                'message' =>  $request->validate($rules),
+                'errors' => 'errors'
+            ]);
+        }
 
         $data = $request->validate($rules);
 
