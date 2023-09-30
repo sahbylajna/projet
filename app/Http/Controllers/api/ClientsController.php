@@ -422,7 +422,6 @@ public function getnotife(){
 
     $exports = export::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
     $importations = importation::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
-    $backs = back::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
     $c = collect();
 
 
@@ -447,16 +446,7 @@ $d->date = Carbon::parse($d->created_at)->format('d-m-Y');
 $c->add( $d);
 }
 }
-foreach ($backs as $key => $value) {
-    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at','desc')->get();
-foreach($dd as $d){
-    $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
-    $d->type=" طلب عودة";
-$d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
-$d->date = Carbon::parse($d->created_at)->format('d-m-Y');
-$c->add( $d);
-}
-}
+
 
 $repence = collect();
 foreach($c->sortByDesc('created_at') as $it){
@@ -488,8 +478,8 @@ return response()->json(
 
 
     public function getlist(){
-        $exports = export::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
-        $importations = importation::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+        $exports = export::with('animal')->where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+        $importations = importation::with('animal')->where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
         $backs = back::where('client_id',auth()->user()->id)->orderBy('created_at','desc')->get();
         $c = collect();
 
@@ -510,8 +500,13 @@ foreach($c->sortByDesc('created_at') as $it){
     if ($it->accepted == null) {
         $it->accepted = "null";
     }
+    $it->date = Carbon::parse($it->created_at)->format('d-m-Y');
     $repence->add( $it);
+
 }
+
+
+
         return response()->json(
 
             $repence

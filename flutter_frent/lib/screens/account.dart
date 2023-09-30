@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasareeh/screens/constants.dart';
+import 'package:tasareeh/screens/home.dart';
 
 import '../api_service.dart';
 import '../model/user.dart';
@@ -16,8 +19,8 @@ class AccountContent extends StatefulWidget {
 
 class _AccountContentState extends State<AccountContent> {
   late SharedPreferences prefs;
-   Color _primaryColor = Color.fromARGB(220,84,254,1000);
-  Color _accentColor = Color.fromARGB(138,2,174,1000);
+   Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
   User?  _user;
   @override
   void initState() {
@@ -43,8 +46,10 @@ class _AccountContentState extends State<AccountContent> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset('assets/loding.gif'),
-                  SizedBox(height: 15),
+                 SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),                  SizedBox(height: 15),
                   Text('...تحميل'),
 
                 ],
@@ -98,10 +103,10 @@ class _AccountContentState extends State<AccountContent> {
 
 
      if(_user == null){
-       Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
+  Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
          showAlertDialog(context);
        }));
-       return Directionality(
+       return  Directionality(
       textDirection: TextDirection.rtl,
       child:Scaffold(
            appBar:AppBar(
@@ -126,56 +131,15 @@ class _AccountContentState extends State<AccountContent> {
                ),
              ),
            ),
-    body: Directionality(
-         textDirection: TextDirection.rtl,
+    body: ListView.separated(
+                itemCount: 5,
+                itemBuilder: (context, index) => const NewsCardSkelton(),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: defaultPadding),
+              )
+       )
 
-
-         child: Column(
-
-           children: <Widget>[
-
-             Card(
-               child: Container(
-
-                 alignment: Alignment.centerRight,
-                 padding: EdgeInsets.all(15),
-
-
-                 child: Column(
-                   children: <Widget>[
-                     Column(
-                       children: <Widget>[
-                         ...ListTile.divideTiles(
-                           color: Colors.grey,
-                           tiles: [
-
-
-                             ListTile(
-                               leading: Icon(Icons.email),
-                               title: Text("بريد إلكتروني"),
-                               subtitle: Text(''),
-                             ),
-                             ListTile(
-                               leading: Icon(Icons.phone),
-                               title: Text("هاتف"),
-                               subtitle: Text(''),
-                             ),
-                             ListTile(
-                               leading: Icon(Icons.person),
-                               title: Text("ud"),
-                               subtitle: Text(''),
-                             ),
-                           ],
-                         ),
-                       ],
-                     )
-                   ],
-                 ),
-               ),
-             )
-           ],
-         ),
-       )));
+       );
 
      }else{
        return Directionality(

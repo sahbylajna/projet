@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/home.dart';
@@ -23,8 +24,8 @@ class InContent extends StatefulWidget{
 
 
 class _InContentState extends State<InContent>{
-  Color _primaryColor = Color.fromARGB(220,84,254,1000);
-  Color _accentColor = Color.fromARGB(138,2,174,1000);
+  Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
 
 
   @override
@@ -33,7 +34,7 @@ class _InContentState extends State<InContent>{
         textDirection: TextDirection.rtl,
         child:Scaffold(
             appBar:AppBar(
-              title: Center(child: Text('اللجنة المنضمة لسباق الهجن')),
+              title: Center(child: Text("دخول بعد المشاركة")),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(40.0),
@@ -121,8 +122,10 @@ class _StepperExampleState extends State<StepperExample> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
- Image.asset('assets/loding.gif'),
-                SizedBox(height: 15),
+SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],
@@ -140,8 +143,8 @@ class _StepperExampleState extends State<StepperExample> {
     }
   }
   int _index = 0;
-    Color _primaryColor = Color.fromARGB(220,84,254,1000);
-  Color _accentColor = Color.fromARGB(138,2,174,1000);
+    Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
 bool hide = false;
   Contries? _EXPORT_COUNTRY,_ORIGIN_COUNTRY;
 
@@ -698,8 +701,10 @@ print(_index);
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset('assets/loding.gif'),
-                SizedBox(height: 15),
+               SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],
@@ -777,13 +782,37 @@ print(_index);
       return Dialog(
         backgroundColor: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 60),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children:  [
 
               SizedBox(height: 15),
               Text('تم إرسال طلبك بنجاح')
+,
+
+
+                         ElevatedButton(
+                            onPressed: () {
+                              // Open a dialog to add a new row
+   if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
+    }
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+            (route) => false);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent, // Transparent background
+                              onPrimary: Colors.white, // Text color
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                              elevation: 0, // No shadow
+                            ),
+                            child: Text(
+                              'عودة للصفحة الرئيسية'.toUpperCase(),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
             ],
           ),
         ),
@@ -792,12 +821,7 @@ print(_index);
   );
 
   Future.delayed(Duration(seconds: 2), () {
-    if (Navigator.of(context, rootNavigator: true).canPop()) {
-      Navigator.of(context, rootNavigator: true).pop(); // Close the dialog
-    }
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MyHomePage()),
-            (route) => false);
+
   });
 
 
@@ -854,8 +878,10 @@ Future<void> checkd() async {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset('assets/loding.gif'),
-                SizedBox(height: 15),
+               SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],

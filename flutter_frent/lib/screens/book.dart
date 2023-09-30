@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/model/Demande.dart';
+import 'package:tasareeh/screens/constants.dart';
+import 'package:tasareeh/screens/home.dart';
 import 'package:tasareeh/screens/show.dart';
 
 import '../home.dart';
@@ -14,14 +17,23 @@ class BookContent extends StatefulWidget{
 
 
 class _BookContentState extends State<BookContent>{
- Color _primaryColor = Color.fromARGB(220,84,254,1000);
-  Color _accentColor = Color.fromARGB(138,2,174,1000);
+ Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
        late List<Demande> _list = [];
+          late bool _isLoading;
+
 @override
   void initState() {
     super.initState();
+     _isLoading = true;
+
+    Future.delayed(const Duration(seconds: 4), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
     Future.delayed(Duration.zero, () {
-      _getData(context);
+   _getData(context);
     });
   //  showAlertDialog(context);
   }
@@ -30,7 +42,6 @@ class _BookContentState extends State<BookContent>{
 
 
 showAlertDialog(BuildContext context) async {
-
     showDialog(
         // The user CANNOT close this dialog  by pressing outsite it
         barrierDismissible: false,
@@ -43,9 +54,12 @@ showAlertDialog(BuildContext context) async {
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children:  [
                   // The loading indicator
-                  CircularProgressIndicator(),
+                         SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),
                   SizedBox(
                     height: 15,
                   ),
@@ -86,7 +100,10 @@ showAlertDialog(BuildContext context) async {
            child: Column(
              mainAxisSize: MainAxisSize.min,
              children: [
-               Image.asset('assets/loding.gif'),
+                      SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),
                SizedBox(height: 15),
                Text('...تحميل'),
 
@@ -132,7 +149,7 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
         textDirection: TextDirection.rtl,
         child:Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('اللجنة المنضمة لسباق الهجن')),
+          title: Center(child: Text('قائمة الطلبات')),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(40.0),
@@ -159,6 +176,14 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
           ),
         ),
     body:
+    _isLoading
+            ? ListView.separated(
+                itemCount: 5,
+                itemBuilder: (context, index) => const NewsCardSkelton(),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: defaultPadding),
+              )
+            :
 
 
     ListView.separated(
@@ -186,11 +211,36 @@ Column(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
 
-                 Text(' ${_list[index].cERTYPE}/${_list[index].cOMPID}'),
+                 Text(' ${_list[index].cERTYPE}/${_list[index].id}'),
 
-             Text(' ${_list[index].type}')],
+             Text(' ${_list[index].type}')
+             ],
+
         ),
-       Text(_list[index].accepted == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${_list[index].reson}' : ' ' ),
+         Row(
+             textDirection: TextDirection.ltr,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+
+               Text(_list[index].accepted == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
+        Text(_list[index].accepted == "1" ? 'تم قبول طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
+ Text(_list[index].accepted == "null" ? 'قيد المعالجة': ' ' ),
+
+             ],
+
+        ),
+
+//          Row(
+//              textDirection: TextDirection.ltr,
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//             children: [
+
+//         Text(_list[index].accepted == "2" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
+//         Text(_list[index].accepted == "3" ? 'تم قبول طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
+
+//             ],
+
+//         ),
 
 ],
         )

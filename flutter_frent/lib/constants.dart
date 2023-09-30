@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class ApiConstants {
   static String baseUrl = 'https://tasareeh.qa/api';
   static String contries = '/contries';
@@ -9,7 +11,7 @@ class ApiConstants {
  static String term = '/term';
 
   static String signature = '/signature';
-
+get userzs async => await SharedPreferences.getInstance();
   static String confiramtion = '/confiramtion';
     static String getcount = '/getcount';
   static String getlist = '/getlist';

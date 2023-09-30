@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/model/notification.dart';
+import 'package:tasareeh/screens/constants.dart';
+import 'package:tasareeh/screens/home.dart';
 import 'package:tasareeh/screens/show.dart';
 
 
@@ -15,12 +18,21 @@ class SettingsContent extends StatefulWidget{
 
 
 class _SettingsContent extends State<SettingsContent>{
- Color _primaryColor = Color.fromARGB(220,84,254,1000);
-  Color _accentColor = Color.fromARGB(138,2,174,1000);
+  Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
        late List<notification> _list = [];
+        late bool _isLoading;
 @override
   void initState() {
     super.initState();
+       _isLoading = true;
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+
     Future.delayed(Duration.zero, () {
       _getData(context);
     });
@@ -92,8 +104,10 @@ showAlertDialog(BuildContext context) async {
            child: Column(
              mainAxisSize: MainAxisSize.min,
              children: [
-               Image.asset('assets/loding.gif'),
-               SizedBox(height: 15),
+              SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),               SizedBox(height: 15),
                Text('...تحميل'),
 
              ],
@@ -159,7 +173,14 @@ Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {
             ),
           ),
         ),
-    body:ListView.separated(
+    body:_isLoading
+            ? ListView.separated(
+                itemCount: 5,
+                itemBuilder: (context, index) => const NewsCardSkelton(),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: defaultPadding),
+              )
+            :ListView.separated(
     padding: const EdgeInsets.all(10),
     itemCount: _list.length,
     itemBuilder: (BuildContext context, int index) {

@@ -22,8 +22,8 @@ class showContent extends StatefulWidget{
 
 
 class _showContentState extends State<showContent>{
-  Color _primaryColor = Color.fromARGB(220,84,254,1000);
-  Color _accentColor = Color.fromARGB(138,2,174,1000);
+  Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
 
 
   final GlobalKey<State> _statefulBuilderKey = GlobalKey<State>();
@@ -34,7 +34,7 @@ class _showContentState extends State<showContent>{
         textDirection: TextDirection.rtl,
         child:Scaffold(
             appBar:AppBar(
-              title: Center(child: Text(widget.paramValue.cOMPID.toString()+'/'+widget.paramValue.cERTYPE.toString())),
+              title: Center(child: Text(widget.paramValue.type.toString())),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(40.0),
@@ -560,7 +560,9 @@ class _showContentState extends State<showContent>{
                           height: 20,
                         ),
 
-
+ Text(widget.paramValue.accepted.toString() == "0" ? 'تم رفض طلبك من اللجنة المنضمة لسباق الهجن و ذلك لسبب :${widget.paramValue.reson}' : ' ' ),
+        Text(widget.paramValue.accepted.toString() == "1" ? 'تم قبول طلبك من اللجنة المنضمة لسباق الهجن' : ' ' ),
+ Text(widget.paramValue.accepted.toString() == "null" ? 'قيد المعالجة': ' ' ),
 
 
                         const SizedBox(

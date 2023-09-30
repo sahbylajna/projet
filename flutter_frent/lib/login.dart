@@ -3,6 +3,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tasareeh/common/theme_helper.dart';
 import 'package:tasareeh/model/token.dart';
 import 'package:tasareeh/model/user.dart';
@@ -26,6 +27,8 @@ class _LoginPageState extends State<LoginPage>{
  final user = SharedPreferences.getInstance();
       late List<Contries> _contrie = [];
     Contries? _selectedValue;
+ Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
 
 @override
   void initState() {
@@ -42,6 +45,7 @@ class _LoginPageState extends State<LoginPage>{
 
  if(prefs.getString('ud') != null){
 
+print(prefs.getString('first_name'));
 
         Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => MyHomePage()), (route) => false);
@@ -59,8 +63,10 @@ class _LoginPageState extends State<LoginPage>{
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset('assets/loding.gif'),
-                SizedBox(height: 15),
+               SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),                SizedBox(height: 15),
                 Text('...تحميل'),
 
               ],

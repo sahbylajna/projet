@@ -29,13 +29,13 @@ class ThemeHelper{
   }
 
   BoxDecoration buttonBoxDecoration(BuildContext context, [String color1 = "", String color2 = ""]) {
-    Color c1 = Theme.of(context).primaryColor;
-    Color c2 = Color.fromARGB(138,2,174,1000);
+    Color c1 = Color.fromARGB(234,176,74,1);
+    Color c2 = Color.fromARGB(255, 90, 42, 8);
     if (color1.isEmpty == false) {
-      c1 = Color.fromARGB(220,84,254,1000);
+      c1 = Color.fromARGB(234,176,74,1);
     }
     if (color2.isEmpty == false) {
-      c2 =  Color.fromARGB(138,2,174,1000);
+      c2 =  Color.fromARGB(255, 90, 42, 8);
     }
 
     return BoxDecoration(
@@ -51,7 +51,7 @@ class ThemeHelper{
           c2,
         ],
       ),
-      color: const Color.fromARGB(255, 185, 144, 255),
+      color: const Color.fromARGB(234,176,74,1),
       borderRadius: BorderRadius.circular(30),
     );
   }

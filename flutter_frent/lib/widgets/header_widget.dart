@@ -17,7 +17,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   double _height;
   bool _showIcon;
   IconData _icon;
-
+ Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
   _HeaderWidgetState(this._height, this._showIcon, this._icon);
 
   @override
@@ -43,8 +44,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: [
-                      Theme.of(context).primaryColor.withOpacity(0.4),
-                      Color.fromARGB(138,2,174,1000).withOpacity(0.4),
+                      _primaryColor,
+                      Color.fromARGB(255, 90, 42, 8).withOpacity(0.4),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -67,8 +68,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: [
-                      Theme.of(context).primaryColor.withOpacity(0.4),
-                      Color.fromARGB(138,2,174,1000).withOpacity(0.4),
+                      _primaryColor.withOpacity(0.4),
+                      Color.fromARGB(255, 90, 42, 8).withOpacity(0.4),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -91,8 +92,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: [
-                      Theme.of(context).primaryColor,
-                      Color.fromARGB(138,2,174,1000),
+                     _primaryColor,
+                      Color.fromARGB(255, 90, 42, 8),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),

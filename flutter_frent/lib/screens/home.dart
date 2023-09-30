@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasareeh/api_service.dart';
 import 'package:tasareeh/model/count.dart';
+
 import 'package:tasareeh/screens/back.dart';
 import 'package:tasareeh/screens/book.dart';
+import 'package:tasareeh/screens/constants.dart';
 import 'package:tasareeh/screens/in.dart';
 import 'package:tasareeh/screens/inafter.dart';
 import 'package:tasareeh/screens/out.dart';
 import 'package:tasareeh/screens/outafter.dart';
+import 'package:tasareeh/screens/skeleton.dart';
 
 
 class HomeContent extends StatefulWidget {
@@ -20,23 +25,41 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   count? _count;
+   late bool _isLoading;
+  // ignore: prefer_typing_uninitialized_variables
+   String  users="";
   String importations = '-1';
   String exports = '0';
   String backs = '0';
   // Remove the GlobalKey
   // GlobalKey<State> _dialogKey = GlobalKey<State>();
-  Color _primaryColor = Color.fromARGB(220,84,254,1000);
-  Color _accentColor = Color.fromARGB(138,2,174,1000);
+  Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
+     _isLoading = true;
       _fetchData(context);
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+
+    Future.delayed(Duration.zero, () async {
+
+
     });
   }
 
-  bool isLoading = true;
+
+
 void _fetchData(BuildContext context) async {
+ final prefs = await SharedPreferences.getInstance();
+users = prefs.getString('first_name')! ;
+
+
+   //  user = await SharedPreferences.getInstance();
   showDialog(
     barrierDismissible: false,
     context: context,
@@ -48,6 +71,10 @@ void _fetchData(BuildContext context) async {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+SpinKitWaveSpinner(
+  color: _primaryColor,
+  size: 50.0,
+),
 
               SizedBox(height: 15),
               Text('...تحميل'),
@@ -65,7 +92,7 @@ void _fetchData(BuildContext context) async {
     exports = _count!.exports;
     importations = _count!.importations;
     backs = _count!.backs;
-    isLoading = false;
+
 
     // Close the dialog after a 2-second delay
     Future.delayed(Duration(seconds: 2), () {
@@ -99,6 +126,7 @@ void _fetchData(BuildContext context) async {
      //_fetchData(context) ;
     var borderRadius = BorderRadius.circular(8.0);
 
+
     return Directionality(
         textDirection: TextDirection.rtl,
         child:Scaffold(
@@ -120,80 +148,23 @@ void _fetchData(BuildContext context) async {
                 width: 80,
                 height: 80,
               ),
-              Text('اللجنة المنضمة لسباق الهجن', style: TextStyle(fontSize: 20)),
+              Text('مرحبا بك ${users}', style: TextStyle(fontSize: 20)),
               SizedBox(width: 40, height: 40), // Empty SizedBox for spacing
             ],
           ),
           toolbarHeight: 150, // Set the height of the AppBar
         ),
-    body:
+    body:_isLoading
+            ? SpinKitRotatingCircle(
+  color: Colors.white,
+  size: 50.0,
+)
+            :
 
    Center(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-
-
-       Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-
-
- OutlinedButton(
-        onPressed: () {
-             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookContent()));
-        },
-
-   style: OutlinedButton.styleFrom(
-
-      foregroundColor: Colors.white,
-     side:BorderSide(color: _primaryColor),
-      shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(18),
-              ),
-            ),
-
- backgroundColor: Colors.white,
-      elevation: 10,
-       fixedSize: Size(300,70),
-    ),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-        SizedBox(
-      height: 10, // <-- SEE HERE
-    ),
-          Row(
-            textDirection: TextDirection.rtl,
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-
-Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
-
-  ]),
-SizedBox(
-      height: 2, // <-- SEE HERE
-    ),
-
-    Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-
-      Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
-
-
-  ]),
-
-    ],
-
-  ),
-    ),
-
-
-
-  ],
-),
 
 
 
@@ -220,13 +191,13 @@ SizedBox(
 
  backgroundColor: Colors.white,
       elevation: 10,
-       fixedSize: Size(130,140),
+       fixedSize: Size(130,120),
     ),
   child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
         SizedBox(
-      height: 10, // <-- SEE HERE
+      height: 5, // <-- SEE HERE
     ),
           Row(
             textDirection: TextDirection.rtl,
@@ -280,13 +251,13 @@ SizedBox(
 
  backgroundColor: Colors.white,
       elevation: 10,
-       fixedSize: Size(130,140),
+       fixedSize: Size(130,120),
     ),
   child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
         SizedBox(
-      height: 10, // <-- SEE HERE
+      height: 7, // <-- SEE HERE
     ),
           Row(
             textDirection: TextDirection.rtl,
@@ -350,6 +321,7 @@ SizedBox(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: [
 
+
  OutlinedButton(
         onPressed: () {
              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OutContent()));
@@ -367,7 +339,7 @@ SizedBox(
 
  backgroundColor: Colors.white,
       elevation: 10,
-       fixedSize: Size(130,140),
+       fixedSize: Size(130,120),
     ),
   child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,13 +395,13 @@ OutlinedButton(
 
  backgroundColor: Colors.white,
       elevation: 10,
-       fixedSize: Size(130,140),
+       fixedSize: Size(130,120),
     ),
   child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
         SizedBox(
-      height: 10, // <-- SEE HERE
+      height: 5, // <-- SEE HERE
     ),
           Row(
             textDirection: TextDirection.rtl,
@@ -477,7 +449,7 @@ SizedBox(
 
 //  backgroundColor: Colors.white,
 //       elevation: 10,
-//        fixedSize: Size(130,140),
+//        fixedSize: Size(130,120),
 //     ),
 //   child: Column(
 //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -529,6 +501,57 @@ SizedBox(
 
 
 
+ OutlinedButton(
+        onPressed: () {
+             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BookContent()));
+        },
+
+   style: OutlinedButton.styleFrom(
+
+      foregroundColor: Colors.white,
+     side:BorderSide(color: _primaryColor),
+      shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(18),
+              ),
+            ),
+
+ backgroundColor: Colors.white,
+      elevation: 2,
+       fixedSize: Size(300,70),
+    ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+
+          Row(
+            textDirection: TextDirection.rtl,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+Icon( Icons.book_outlined,size: 30, color: Color.fromARGB(255, 153, 117, 96)),
+
+  ]),
+SizedBox(
+      height: 2, // <-- SEE HERE
+    ),
+
+    Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+
+      Text("قائمة طلبات",style: TextStyle(color: _accentColor)),
+
+
+  ]),
+
+    ],
+
+  ),
+    )
+,
+
+
 
 
 
@@ -551,3 +574,43 @@ SizedBox(
   }
 }
 
+
+class NewsCardSkelton extends StatelessWidget {
+  const NewsCardSkelton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Skeleton(height: 120, width: 120),
+        const SizedBox(width: defaultPadding),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Skeleton(width: 80),
+              const SizedBox(height: defaultPadding / 2),
+              const Skeleton(),
+              const SizedBox(height: defaultPadding / 2),
+              const Skeleton(),
+              const SizedBox(height: defaultPadding / 2),
+              Row(
+                children: const [
+                  Expanded(
+                    child: Skeleton(),
+                  ),
+                  SizedBox(width: defaultPadding),
+                  Expanded(
+                    child: Skeleton(),
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}

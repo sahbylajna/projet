@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'package:tasareeh/login.dart';
 
@@ -18,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _SplashScreenState(){
 
-    Timer(const Duration(milliseconds: 2000), (){
+    Timer(const Duration(milliseconds: 4000), (){
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
@@ -26,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     Timer(
-      Duration(milliseconds: 10),(){
+      Duration(milliseconds: 50),(){
         setState(() {
           _isVisible = true; // Now it is showing fade effect and navigating to Login page
         });
@@ -37,43 +39,53 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+  // GlobalKey<State> _dialogKey = GlobalKey<State>();
+  Color _primaryColor = Color.fromARGB(234,176,74,1);
+  Color _accentColor = Color.fromARGB(255, 90, 42, 8);
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color.fromARGB(138,2,174,1000), Theme.of(context).primaryColor],
+          colors: [_primaryColor, _accentColor],
           begin: const FractionalOffset(0, 0),
           end: const FractionalOffset(1.0, 0.0),
           stops: [0.0, 1.0],
           tileMode: TileMode.clamp,
         ),
       ),
-      child: AnimatedOpacity(
-        opacity: _isVisible ? 1.0 : 0,
-        duration: Duration(milliseconds: 1200),
-        child: Center(
-          child: Container(
-            height: 140.0,
-            width: 140.0,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 2.0,
-                  offset: Offset(5.0, 3.0),
-                  spreadRadius: 2.0,
-                )
-              ]
-            ),
-            child: Center(
-              child: ClipOval(
-                child: Image.asset('assets/logo.png'), //put your logo here
-              ),
-            ),
-          ),
-        ),
+      child: AnimatedSplashScreen(
+        splash:  Image.asset('assets/logo.png',
+         width: 200.0, // Set the desired width
+  height: 150.0, // Set the desired height
+        ) ,
+        nextScreen: LoginPage() ,
+        duration: 3000,
+        splashTransition: SplashTransition.rotationTransition,
+
+            backgroundColor: _accentColor
+        // duration: Duration(milliseconds: 1200),
+        // child: Center(
+        //   child: Container(
+        //     height: 140.0,
+        //     width: 140.0,
+        //     decoration: BoxDecoration(
+        //       shape: BoxShape.circle,
+        //       color: Colors.white,
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.black.withOpacity(0.3),
+        //           blurRadius: 2.0,
+        //           offset: Offset(5.0, 3.0),
+        //           spreadRadius: 2.0,
+        //         )
+        //       ]
+        //     ),
+        //     child: Center(
+        //       child: ClipOval(
+        //         child: Image.asset('assets/logo.png'), //put your logo here
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
