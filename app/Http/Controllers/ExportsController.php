@@ -411,11 +411,14 @@ if($export->IMP_CER_SERIAL == null){
                  'grant_type' => 'password',
              ]
          ]);
+
          $response = (string) $res->getBody();
+     //    dd($response);
          $response =json_decode($response); // Using this you can access any key like below
          $access_token = $response->access_token;
        // dd($access_token);
 
+       $data = [];
  $data['CER_TYPE'] = $export->CER_TYPE;
  $data['CER_LANG'] = $export->CER_LANG;
  $data['COMP_ID'] = $export->COMP_ID;
@@ -466,26 +469,13 @@ if($export->IMP_CER_SERIAL == null){
      'Accept'        => 'application/json',
  ];
 
- Log::info('Request:', [
-
-    'data' => $data
-]);
 
 
-$client = Client::findOrFail( $export->client_id);
 
-$term = \App\Models\term::first();
-$client->term_ar = $term->Conditionar;
-$data =        $client->toArray();
-//dd($data);
-view()->share('data', $data);
-$pdf = Pdf::loadView('test',['data' => $data] );
-
-$fileName = $client->ud . '.pdf';
-$pdf->save(public_path('pdf/' . $fileName));
+ $client = Client::findOrFail( $export->client_id);
 
 $pdfContents = file_get_contents(asset($export->files));
-$pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
+$pdfContents2 = file_get_contents(asset($export-> Pledge));
 $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
 $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
 
@@ -508,6 +498,11 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
                 'contents' => $ANIMALINFOj,
             ],
             [
+                'name' => 'files[]',
+                'contents' => $pdfContents, // PDF file contents
+                'filename' => 'test.pdf', // Adjust the filename
+            ],
+            [
             'name' => 'files[]',
             'contents' => $pdfContents3, // PDF file contents
             'filename' => 'photo_ud_frent.pdf', // Adjust the filename
@@ -520,7 +515,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
         [
             'name' => 'files[]',
             'contents' => $pdfContents2, // PDF file contents
-            'filename' => $fileName, // Adjust the filename
+            'filename' => 'photo_ud_back.pdf', // Adjust the filename
         ],
         ],
      ]);
@@ -538,6 +533,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
+    dd($exception);
     return back()->withInput()
     ->withErrors(['unexpected_error' => $exception->getMessage()]);
     return back()->withErrors($exception->getMessage());
@@ -571,7 +567,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
          $response = (string) $res->getBody();
          $response =json_decode($response); // Using this you can access any key like below
          $access_token = $response->access_token;
-       // dd($access_token);
+        dd($access_token);
 
  $data['CER_TYPE'] = $export->CER_TYPE;
  $data['CER_LANG'] = $export->CER_LANG;
@@ -599,7 +595,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
  $data = json_encode($data);
 
 
-
+ $ANIMALINFO = [];
  foreach ($export->animal as $key => $value) {
 
 
@@ -607,12 +603,13 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
     $data1['ANML_NUMBER'] = $value->ANML_NUMBER;
     $data1['ANML_USE'] = "بعد مشاركه";
 
-
+    $ANIMALINFO[$key] = $data1;
 
 
 
  }
 
+ $ANIMALINFOj = json_encode($ANIMALINFO);
 
  $token ='Bearer '.$access_token;
 
@@ -622,22 +619,13 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
  ];
 
 
+
  $client = Client::findOrFail( $export->client_id);
 
- $term = \App\Models\term::first();
- $client->term_ar = $term->Conditionar;
- $data =        $client->toArray();
- //dd($data);
- view()->share('data', $data);
- $pdf = Pdf::loadView('test',['data' => $data] );
-
- $fileName = $client->ud . '.pdf';
- $pdf->save(public_path('pdf/' . $fileName));
-
- $pdfContents = file_get_contents(asset($export->files));
- $pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
- $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
- $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
+$pdfContents = file_get_contents(asset($export->files));
+$pdfContents2 = file_get_contents(asset($export-> Pledge));
+$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
 
 
 
@@ -655,12 +643,18 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
             ],
             [
                 'name' => 'ANIMAL_INFO',
-                'contents' => json_encode($data1),
+                'contents' => $ANIMALINFOj,
             ],
             [
             'name' => 'files[]',
             'contents' => $pdfContents3, // PDF file contents
             'filename' => 'photo_ud_frent.pdf', // Adjust the filename
+        ],
+
+        [
+            'name' => 'files[]',
+            'contents' => $pdfContents, // PDF file contents
+            'filename' => 'pdfContents.pdf', // Adjust the filename
         ],
         [
             'name' => 'files[]',
@@ -670,7 +664,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
         [
             'name' => 'files[]',
             'contents' => $pdfContents2, // PDF file contents
-            'filename' => $fileName, // Adjust the filename
+            'filename' => 'Pdf.pdf', // Adjust the filename
         ],
         ],
      ]);
@@ -690,7 +684,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
      $acceptation->commenter = 'accepter';
      $acceptation->save();
  }catch(Exception $exception) {
-   // dd($exception);
+    dd($exception);
     return back()->withInput()
                  ->withErrors(['unexpected_error' => $exception->getMessage()]);
     return back()->withErrors($exception->getMessage());

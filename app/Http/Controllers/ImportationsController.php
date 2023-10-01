@@ -434,10 +434,10 @@ $client = Client::findOrFail( $importation->client_id);
 
 $term = \App\Models\term::first();
 $client->term_ar = $term->Conditionar;
-$data =        $client->toArray();
-//dd($data);
-view()->share('data', $data);
-$pdf = Pdf::loadView('test',['data' => $data] );
+$datass =        $client->toArray();
+//dd($datass);
+view()->share('data', $datass);
+$pdf = Pdf::loadView('test',['data' => $datass] );
 
 $fileName = $client->ud . '.pdf';
 $pdf->save(public_path('pdf/' . $fileName));

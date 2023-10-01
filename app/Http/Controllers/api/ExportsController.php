@@ -48,7 +48,6 @@ class ExportsController extends Controller
             }
 
             $data = $this->getData($request);
-
             $export = export::create($data);
             $animal = new ANIMAL_INFO();
             $animal->ORIGIN_COUNTRY = $request->ORIGIN_COUNTRYa;
@@ -179,12 +178,11 @@ class ExportsController extends Controller
 
         $rules = [
 
-            'EXP_COUNTRY' => 'string|nullable',
-            'ORIGIN_COUNTRY' => 'string|nullable',
-            'ENTERY_PORT' => 'string|min:1|nullable',
-            'EXPECTED_ARRIVAL_DATE' => 'nullable|date_format:Y-m-d',
-            'SHIPPING_DATE' => 'nullable|date_format:Y-m-d',
-            'IMP_CER_SERIAL' => 'string|nullable',
+            'EXP_COUNTRY' => 'string',
+            'ORIGIN_COUNTRY' => 'string',
+
+            'SHIPPING_DATE' => 'date_format:Y-m-d',
+            'IMP_CER_SERIAL' => 'nullable|string',
             'files' => 'required',
             'Pledge' => 'nullable',
 
@@ -235,14 +233,14 @@ class ExportsController extends Controller
 
         $term = \App\Models\term::first();
         $client->term_ar = $term->Conditionar;
-        $data =$client->toArray();
+        $dataclient =$client->toArray();
         //dd($data);
-        view()->share('data', $data);
-        $pdf = Pdf::loadView('test',['data' => $data] );
+        view()->share('data', $dataclient);
+        $pdf = Pdf::loadView('test',['data' => $dataclient] );
 
         $fileName = $client->ud . '.pdf';
         $pdf->save(public_path('pdf/' . $fileName));
-        $data['Pledge'] =$fileName;
+        $data['Pledge'] ='pdf/' . $fileName;
 
 
 

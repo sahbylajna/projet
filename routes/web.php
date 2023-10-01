@@ -48,11 +48,6 @@ Route::get('/test', function () {
     $data =        $client->toArray();
 //dd($data);
 view()->share('data', $data);
-
-
-
-
-
  $pdf = Pdf::loadView('test',['data' => $data] );
 
  $fileName = $client->ud . '.pdf';
@@ -384,8 +379,11 @@ Route::group([
 
          Route::post('/{export}/refuse',[ExportsController::class, 'refuse'])
          ->name('export.refuse')->where('id', '[0-9]+');
+
+
          Route::get('/{export}/accept',[ExportsController::class, 'accept'])
          ->name('exports.accept')->where('id', '[0-9]+');
+
     Route::get('/create', [ExportsController::class, 'create'])
          ->name('exports.export.create');
     Route::get('/show/{export}',[ExportsController::class, 'show'])
@@ -409,6 +407,8 @@ Route::group([
 
          Route::get('/{export}/accept',[ExportsController::class, 'acceptafter'])
          ->name('exports.after.accept')->where('id', '[0-9]+');
+
+
          Route::get('/create', [ExportsController::class, 'createafter'])
          ->name('exports.after.export.create');
     Route::get('/show/{export}',[ExportsController::class, 'showafter'])
