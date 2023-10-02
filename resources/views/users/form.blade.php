@@ -41,3 +41,16 @@
     </div>
 </div>
 
+
+
+<div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+    <label for="password" class="col-md-2 control-label">{{ trans('users.password') }}</label>
+    <div class="col-md-10">
+       <select name="getrole"  class="form-control" >
+        <option value="delegate">مندوب</option>
+        <option value="admin">مشرف</option>
+
+       </select>
+    </div>
+</div>
+

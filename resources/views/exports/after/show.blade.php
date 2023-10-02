@@ -121,11 +121,12 @@
                 {{-- <form method="POST" action="{!! route('clients.client.refused', $client->id) !!}" accept-charset="UTF-8"> --}}
                     {{-- <input name="_method" value="DELETE" type="hidden"> --}}
                     {{-- {{ csrf_field() }} --}}
-                <a href="{{ route('exports.after.accept', $export->id) }}" class="btn btn-primary">{{ trans('clients.accepted') }}</a>
+                    @if(!Auth::user()->hasRole('delegate'))
+                    <a href="{{ route('exports.after.accept', $export->id) }}" class="btn btn-primary">{{ trans('clients.accepted') }}</a>
 
 
                 <a  onclick="addRow()"  class="btn btn-danger">{{ trans('clients.refused') }}</a>
-
+@endif
 
                </div>
 

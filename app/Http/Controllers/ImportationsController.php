@@ -29,16 +29,23 @@ class ImportationsController extends Controller
      */
     public function index()
     {
-        $importations = importation::where('EXP_CER_SERIAL',null)->with('client')->paginate(25);
-
+        if(Auth::user()->hasRole('delegate')){
+            $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL',null)->with('client')->paginate(25);
+        }else{
+        $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL',null)->with('client')->paginate(25);
+        }
         return view('importations.index', compact('importations'));
     }
 
 
     public function indexafter()
     {
-        $importations = importation::where('EXP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+        if(Auth::user()->hasRole('delegate')){
+        $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+    }else{
 
+        $importations = importation::where('EXP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+    }
         return view('importations.after.index', compact('importations'));
     }
 
@@ -343,6 +350,10 @@ if($importation->EXP_CER_SERIAL == null){
             $data['Pledge'] = $this->moveFile($request->file('Pledge'));
         }
        // dd( $data);
+       if(Auth::user()->hasRole('delegate')){
+        $data['delegate'] = Auth::user()->id;
+    }
+
 
         return $data;
     }

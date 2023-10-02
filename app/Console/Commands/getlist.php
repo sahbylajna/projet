@@ -101,6 +101,18 @@ foreach ($importationsObjects as  $value) {
             $message = "تم قبلو طلبك '.$value->id.' لمشاهدة او تحميل الطلب https://tasareeh.qa/apk";
         $contry = Contry::find($client->contry_id );
         $sms->send($contry->phonecode.$client->phone,$message );
+
+
+
+
+
+
+
+
+
+
+
+
             Log::info('Request:', [
 
                 '$value' => $value,

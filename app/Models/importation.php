@@ -60,6 +60,7 @@ class importation extends Model
                   'linkpayment',
                   'CER_SERIAL',
                   'EXP_CER_SERIAL',
+                  'delegate',
                   'Pledge',
                   'files'
               ];

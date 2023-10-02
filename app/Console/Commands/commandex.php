@@ -30,7 +30,7 @@ class commandex extends Command
      */
     public function handle()
     {
-        $importationsObjects = importations::where('accepted',1)->get();
+        $importationsObjects = importations::whereIN('accepted',[1,5])->get();
 
         $setting =  Setting::first();
         $apiUser = ApiUser::first();
@@ -60,6 +60,8 @@ class commandex extends Command
         $data = [
             'CER_SERIAL' => $value->CER_SERIAL,
             'APPLICIANT_ID' => $setting->commercial_register,
+            'PAY_MOBILE' => $setting->phone,
+            'DEBIT' => 'true',
         ];
 
     // $data = json_encode($data);
@@ -73,7 +75,7 @@ class commandex extends Command
             ];
 
             $client2 = new ClientHTTP();
-            $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
+            $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_PAYMENT_LINK', [
                 'headers' => $headers,
                 'json' => $data,
             ]);
@@ -82,12 +84,27 @@ class commandex extends Command
             $responseBody = $res->getBody()->getContents();
             $resp = json_decode($responseBody);
 
-            if($resp->APPLICATION_STATUS == "APPROVED "){
-                $value->accepted = 3;
+            if($resp->APPLICATION_STATUS == "APPROVED BUT NOT PAID"){
+                $value->accepted = 5;
+
+                $value->linkpayment = $resp->PAYMENT_LINK;
                 $value->save();
                 $sms = new Sms;
                 $client = Client::find($value->client_id);
-                $message = "تم قبلو طلبك '.$value->id.' لمشاهدة او تحميل الطلب https://tasareeh.qa/apk";
+                $message = "تم قبلو طلبك '.$value->id.' لمشاهدة او دفع الطلب  https://tasareeh.qa/apk";
+            $contry = Contry::find($client->contry_id );
+            $sms->send($contry->phonecode.$client->phone,$message );
+            }
+
+
+            if($resp->APPLICATION_STATUS == "APPROVED AND PAID"){
+                $value->accepted = 3;
+
+               // $value->linkpayment = $resp->PAYMENT_LINK;
+                $value->save();
+                $sms = new Sms;
+                $client = Client::find($value->client_id);
+                $message = "تم قبلو طلبك '.$value->id.' لمشاهدة  الطلب  https://tasareeh.qa/apk";
             $contry = Contry::find($client->contry_id );
             $sms->send($contry->phonecode.$client->phone,$message );
             }

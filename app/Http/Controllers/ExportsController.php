@@ -29,14 +29,22 @@ class ExportsController extends Controller
      */
     public function index()
     {
-        $exports = export::where('IMP_CER_SERIAL',null)->with('client')->paginate(25);
+        if(Auth::user()->hasRole('delegate')){
+            $exports = export::where('delegate',Auth::user()->id)->where('IMP_CER_SERIAL',null)->with('client')->paginate(25);
+        }else{
 
+
+        $exports = export::where('IMP_CER_SERIAL',null)->with('client')->paginate(25);
+    }
         return view('exports.index', compact('exports'));
     }
     public function indexafter()
     {
+        if(Auth::user()->hasRole('delegate')){
+            $exports = export::where('delegate',Auth::user()->id)->where('IMP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+        }else{
         $exports = export::where('IMP_CER_SERIAL','!=',null)->with('client')->paginate(25);
-
+        }
         return view('exports.after.index', compact('exports'));
     }
     /**
@@ -222,7 +230,9 @@ class ExportsController extends Controller
         if ($request->hasFile('Pledge')) {
             $data['Pledge'] = $this->moveFile($request->file('Pledge'));
         }
-
+if(Auth::user()->hasRole('delegate')){
+    $data['delegate'] = Auth::user()->id;
+}
 
 
 

@@ -21,12 +21,14 @@
             <div class="pull-left">
                 <h4 class="mt-5 mb-5">{{ trans('importations.model_plural') }}</h4>
             </div>
+@can('delegate')
+<div class="btn-group btn-group-sm pull-right" role="group">
+    <a href="{{ route('importations.importation.create') }}" class="btn btn-success" title="{{ trans('importations.create') }}">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+    </a>
+</div>
 
-            <div class="btn-group btn-group-sm pull-right" role="group">
-                <a href="{{ route('importations.importation.create') }}" class="btn btn-success" title="{{ trans('importations.create') }}">
-                    <span class="fa fa-plus" aria-hidden="true"></span>
-                </a>
-            </div>
+@endcan
 
 
         </div>

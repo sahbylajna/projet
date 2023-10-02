@@ -56,6 +56,7 @@ class export extends Model
                   'reson',
                   'pdf',
                   'linkpayment',
+                  'delegate',
                   'files'
               ];
 

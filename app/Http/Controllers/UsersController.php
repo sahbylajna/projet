@@ -57,7 +57,7 @@ class UsersController extends Controller
             $data = $this->getData($request);
 
             $user =users::create($data);
-            $user->assignRole('admin');
+            $user->assignRole($request->getrole);
             return redirect()->route('users.users.index')
                 ->with('success_message', trans('users.model_was_added'));
         } catch (Exception $exception) {

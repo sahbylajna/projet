@@ -119,6 +119,7 @@
                 <dd> <a href="{{ asset($importation->files) }}" target="_blank">  كشف المطايا</a> </dd>
                 <dd> <a href="{{ asset($importation->Pledge) }}" target="_blank">التعهد</a> </dd>
 
+                @if(!Auth::user()->hasRole('delegate'))
                 @if ($importation->accepted == null)
                 {{-- <form method="POST" action="{!! route('clients.client.refused', $client->id) !!}" accept-charset="UTF-8"> --}}
                     {{-- <input name="_method" value="DELETE" type="hidden"> --}}
@@ -137,6 +138,7 @@
             <p class="btn btn-info">{{ trans('clients.accepted') }}</p>
             @elseif ($importation->accepted == 0)
             <p class="btn btn-danger">  {{ trans('importations.reson') }} : {{ $importation->reson }} </p>
+            @endif
             @endif
                 <br><br><br>
         </dl>
