@@ -40,7 +40,7 @@
         <div class="panel-body panel-body-with-table">
             <div class="table-responsive">
 
-                <table class="table table-striped ">
+                <table class="table align-items-center mb-0" style="   "  id="table">
                     <thead>
                         <tr>
                             <th>{{ trans('clients.first_name') }}</th>
@@ -60,7 +60,7 @@
                     </thead>
                     <tbody>
                     @foreach($clients as $client)
-                    @if(($client->accepted == null) &&  ($client->refused == null))
+                    @if(($client->accepted == null) &&  ($client->refused == null) &&  ($client->virification == '1'))
                         <tr>
                             <td>{{ $client->first_name }}</td>
                             <td>{{ $client->last_name }}</td>
@@ -138,7 +138,7 @@
         <div class="panel-body panel-body-with-table">
             <div class="table-responsive">
 
-                <table class="table table-striped ">
+                <table class="table align-items-center mb-0" style="   "  id="table1">
                     <thead>
                         <tr>
                             <th>{{ trans('clients.first_name') }}</th>
@@ -158,7 +158,7 @@
                     </thead>
                     <tbody>
                     @foreach($clients as $client)
-                    @if(($client->accepted != null) ||  ($client->refused != null))
+                    @if(($client->accepted != null) ||  ($client->refused != null) &&  ($client->virification  != null))
 
 
                         <tr>

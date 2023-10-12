@@ -45,5 +45,13 @@ class acceptation_demande extends Model
     {
         return $this->belongsTo('App\Models\User','User_id');
     }
+    public function importation()
+    {
+        return $this->belongsTo('App\Models\importation','demande_id');
+    }
 
+    public function export()
+    {
+        return $this->belongsTo('App\Models\export','demande_id');
+    }
 }

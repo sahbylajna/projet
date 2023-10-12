@@ -14,7 +14,7 @@ use App\SMS\Sms;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\term;
 
 class ClientsController extends Controller
@@ -45,7 +45,7 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        $contries = Contry::where('active','1')->pluck('name','id')->all();
+        $contries = Contry::where('active','1')->get();
 
         return view('clients.create', compact('contries'));
     }
@@ -69,8 +69,9 @@ class ClientsController extends Controller
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
 
+       //    dd($exception , $request);
             return back()->withInput()
-                ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
+                ->withErrors(['unexpected_error' =>$exception->getMessage()]);
         }
     }
 
@@ -88,6 +89,13 @@ class ClientsController extends Controller
         return view('clients.show', compact('client'));
     }
 
+    public function showdd($id)
+    {
+        $client = Client::with('contrys')->findOrFail($id);
+dd($client);
+        return view('clients.show', compact('client'));
+    }
+
     /**
      * Show the form for editing the specified client.
      *
@@ -98,7 +106,7 @@ class ClientsController extends Controller
     public function edit($id)
     {
         $client = Client::findOrFail($id);
-        $contries = Contry::pluck('id','id')->all();
+        $contries = Contry::where('active','1')->get();
 
         return view('clients.edit', compact('client','contries'));
     }
@@ -115,16 +123,22 @@ class ClientsController extends Controller
     {
 
         try {
-
-            $data = $this->getData($request);
-
             $client = Client::findOrFail($id);
+            $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->first();
+            if($user->id != $client->id) {
+
+                return back()->withInput()
+                ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
+            }
+            $data = $this->getData1($request);
+
+
             $client->update($data);
 
             return redirect()->route('clients.client.index')
                 ->with('success_message', trans('clients.model_was_updated'));
         } catch (Exception $exception) {
-
+//dd($exception);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => trans('clients.unexpected_error')]);
         }
@@ -173,8 +187,53 @@ class ClientsController extends Controller
             'contry_id' => 'required',
             'contry' => 'required',
             'adresse' => 'required',
-            'fax' => 'required',
-            'POBOX' => 'required',
+            'fax' => 'required|nullable',
+            'POBOX' => 'required|nullable',
+            'accepted' => 'string|min:1|nullable',
+            'refused' => 'string|min:1|nullable',
+        ];
+
+
+
+
+
+
+
+
+
+
+        $data = $request->validate($rules);
+        if ($request->hasFile('photo_ud_frent')) {
+            $data['photo_ud_frent'] = $this->moveFile($request->file('photo_ud_frent'));
+        }
+        if ($request->hasFile('photo_ud_back')) {
+            $data['photo_ud_back'] = $this->moveFile($request->file('photo_ud_back'));
+        }
+
+
+        $data['password']=  Hash::make($data['password']);
+
+        return $data;
+    }
+
+
+
+    protected function getData1(Request $request)
+    {
+        $rules = [
+                'first_name' => 'string|min:1|nullable',
+            'last_name' => 'string|min:1|nullable',
+            'phone' => 'string|min:1',
+            'ud' => 'required|string|min:1|max:255',
+            'email' => 'required|string|min:1|max:255',
+            'photo_ud_frent' => 'file|nullable',
+            'photo_ud_back' => 'file|nullable',
+            'password' => 'confirmed|nullable',
+            'contry_id' => 'required',
+            'contry' => 'required',
+            'adresse' => 'required',
+            'fax' => 'required|nullable',
+            'POBOX' => 'required|nullable',
             'accepted' => 'string|min:1|nullable',
             'refused' => 'string|min:1|nullable',
         ];
@@ -219,9 +278,7 @@ class ClientsController extends Controller
         try {
 
             $data = $this->getData($request);
-
          $client =    Client::create($data);
-
             return redirect()->route('term',['id' => $client->id] )
                 ->with('success_message', trans('clients.model_was_added'));
         } catch (Exception $exception) {
@@ -260,9 +317,6 @@ class ClientsController extends Controller
     public function confiramtion($id, Request $request)
     {
         try {
-
-
-
             $client = Client::findOrFail($id);
             if($client->code == $request->code){
                 $client->virification = 1;
@@ -339,7 +393,7 @@ $sms->send($contry->phonecode.$client->phone,$message );
 
 
 
-    function login(Request $request){
+function login(Request $request){
 
         $client = Client::where('phone',$request->phone)->where('contry_id',$request->ccontry_id)->first();
 
@@ -371,9 +425,6 @@ $sms->send($contry->phonecode.$client->phone,$message );
     {
 
         try {
-
-
-
             $client = Client::findOrFail($id);
             $client->first_name =$request->first_name;
             $client->last_name =$request->last_name;
@@ -417,13 +468,20 @@ view()->share('data', $data);
 
 
 
-  // $pdf = mb_convert_encoding(\View::make('pdf', $data), 'HTML-ENTITIES', 'UTF-8');
-  //   return PDF::loadHtml($pdf)->download('invoice.pdf');
+$reportHtml = view('pdf',['data' => $data] )->render();
 
- $pdf = PDF::loadView('pdf',['data' => $data] );
+        $arabic = new \ArPHP\I18N\Arabic();
+        $p = $arabic->arIdentify($reportHtml);
+
+        for ($i = count($p)-1; $i >= 0; $i-=2) {
+            $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+            $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+
+        }
+
+        $pdf = PDF::loadHTML($reportHtml);
  $fileName = $client->ud . '.pdf';
-    //Save the pdf file in the public storage
-  //  $pdf->save( public_path('pdf/tasareeh.pdf'));
+
     return $pdf->download($fileName);
 }
 

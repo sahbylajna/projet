@@ -14,6 +14,8 @@ class CreateTermsTable extends Migration
             $table->timestamps();
             $table->longText('term_ar')->nullable();
             $table->longText('term_en')->nullable();
+            $table->longText('Conditionar')->nullable();
+            $table->longText('Conditionen')->nullable();
 
         });
     }

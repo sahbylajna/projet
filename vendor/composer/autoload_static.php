@@ -186,6 +186,7 @@ class ComposerStaticInit355baad7d76c5de52f11be9f4fb0fafc
         ),
         'A' => 
         array (
+            'ArPHP\\I18N\\' => 11,
             'App\\' => 4,
         ),
     );
@@ -568,6 +569,10 @@ class ComposerStaticInit355baad7d76c5de52f11be9f4fb0fafc
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
         ),
+        'ArPHP\\I18N\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/khaled.alshamaa/ar-php/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -578,7 +583,7 @@ class ComposerStaticInit355baad7d76c5de52f11be9f4fb0fafc
     public static $classMap = array (
         'App\\Console\\Commands\\commandex' => __DIR__ . '/../..' . '/app/Console/Commands/commandex.php',
         'App\\Console\\Commands\\getlist' => __DIR__ . '/../..' . '/app/Console/Commands/getlist.php',
-        'App\\Console\\Commands\\pdf' => __DIR__ . '/../..' . '/app/Console/Commands/pdf.php',
+        'App\\Console\\Commands\\pdfd' => __DIR__ . '/../..' . '/app/Console/Commands/pdfd.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\ANIMALINFOsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ANIMALINFOsController.php',
@@ -632,6 +637,7 @@ class ComposerStaticInit355baad7d76c5de52f11be9f4fb0fafc
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\SMS\\Sms' => __DIR__ . '/../..' . '/app/SMS/Sms.php',
+        'ArPHP\\I18N\\Arabic' => __DIR__ . '/..' . '/khaled.alshamaa/ar-php/src/Arabic.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Barryvdh\\DomPDF\\Facade\\Pdf' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',

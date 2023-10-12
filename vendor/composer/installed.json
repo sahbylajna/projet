@@ -1536,6 +1536,72 @@
             "install-path": "../jeroennoten/laravel-adminlte"
         },
         {
+            "name": "khaled.alshamaa/ar-php",
+            "version": "v6.3.4",
+            "version_normalized": "6.3.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/khaled-alshamaa/ar-php.git",
+                "reference": "36550a0d805dc50fcede0132cd8b83c80fe1fd6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/khaled-alshamaa/ar-php/zipball/36550a0d805dc50fcede0132cd8b83c80fe1fd6c",
+                "reference": "36550a0d805dc50fcede0132cd8b83c80fe1fd6c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-calendar": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "9.*"
+            },
+            "time": "2023-04-04T22:05:31+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ArPHP\\I18N\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Khaled Al-Sham'aa",
+                    "email": "khaled@ar-php.org",
+                    "homepage": "http://www.ar-php.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Set of functionalities enable Arabic website developers to serve professional search, present and process Arabic content in PHP",
+            "homepage": "https://github.com/khaled-alshamaa/ar-php",
+            "keywords": [
+                "arabic",
+                "arabic-calendar",
+                "arabic-glyphs",
+                "arabic-numbers",
+                "arabic-segments-identifier",
+                "arabic-sentiment",
+                "arabic-sql-query"
+            ],
+            "support": {
+                "issues": "https://github.com/khaled-alshamaa/ar-php/issues",
+                "source": "https://github.com/khaled-alshamaa/ar-php/tree/v6.3.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/khaled-alshamaa",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../khaled.alshamaa/ar-php"
+        },
+        {
             "name": "laravel/framework",
             "version": "v10.16.1",
             "version_normalized": "10.16.1.0",
@@ -6227,17 +6293,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v6.3.0",
-            "version_normalized": "6.3.0.0",
+            "version": "v6.3.4",
+            "version_normalized": "6.3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "8788808b07cf0bdd6e4b7fdd23d8ddb1470c83b7"
+                "reference": "eca495f2ee845130855ddf1cf18460c38966c8b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/8788808b07cf0bdd6e4b7fdd23d8ddb1470c83b7",
-                "reference": "8788808b07cf0bdd6e4b7fdd23d8ddb1470c83b7",
+                "url": "https://api.github.com/repos/symfony/console/zipball/eca495f2ee845130855ddf1cf18460c38966c8b6",
+                "reference": "eca495f2ee845130855ddf1cf18460c38966c8b6",
                 "shasum": ""
             },
             "require": {
@@ -6266,7 +6332,7 @@
                 "symfony/process": "^5.4|^6.0",
                 "symfony/var-dumper": "^5.4|^6.0"
             },
-            "time": "2023-05-29T12:49:39+00:00",
+            "time": "2023-08-16T10:10:12+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -6300,7 +6366,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v6.3.0"
+                "source": "https://github.com/symfony/console/tree/v6.3.4"
             },
             "funding": [
                 {

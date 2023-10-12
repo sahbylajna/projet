@@ -38,7 +38,7 @@
         <div class="panel-body panel-body-with-table">
             <div class="table-responsive">
 
-                <table class="table table-striped ">
+                <table class="table align-items-center mb-0" style="   "  id="table">
                     <thead>
                         <tr>
                             <th>{{ trans('a_n_i_m_a_l__i_n_f_os.ORIGIN_COUNTRY') }}</th>

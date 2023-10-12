@@ -27,6 +27,10 @@ class CreateClientsTable extends Migration
             $table->integer('contry_id')->unsigned()->nullable()->index();
             $table->string('accepted')->nullable();
             $table->string('refused')->nullable();
+            $table->string('contry');
+            $table->string('adresse')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('POBOX')->nullable();
 
         });
     }

@@ -41,12 +41,8 @@
             <dd>{{ optional($export->client)->name }}</dd>
             <dt>{{ trans('exports.CER_TYPE') }}</dt>
             <dd>{{ $export->CER_TYPE }}</dd>
-            <dt>{{ trans('exports.CER_LANG') }}</dt>
-            <dd>{{ $export->CER_LANG }}</dd>
-            <dt>{{ trans('exports.COMP_ID') }}</dt>
-            <dd>{{ $export->COMP_ID }}</dd>
-            <dt>{{ trans('exports.EUSER_QID') }}</dt>
-            <dd>{{ $export->EUSER_QID }}</dd>
+
+
             <dt>{{ trans('exports.EXP_NAME') }}</dt>
             <dd>{{ $export->EXP_NAME }}</dd>
             <dt>{{ trans('exports.EXP_TEL') }}</dt>
@@ -55,32 +51,18 @@
             <dd>{{ $export->EXP_FAX }}</dd>
             <dt>{{ trans('exports.EXP_COUNTRY') }}</dt>
             <dd>{{ $export->EXP_COUNTRY }}</dd>
-            <dt>{{ trans('exports.IMP_NAME') }}</dt>
-            <dd>{{ $export->IMP_NAME }}</dd>
-            <dt>{{ trans('exports.IMP_QID') }}</dt>
-            <dd>{{ $export->IMP_QID }}</dd>
-            <dt>{{ trans('exports.IMP_FAX') }}</dt>
-            <dd>{{ $export->IMP_FAX }}</dd>
-            <dt>{{ trans('exports.IMP_TEL') }}</dt>
-            <dd>{{ $export->IMP_TEL }}</dd>
+
             <dt>{{ trans('exports.IMP_COUNTRY') }}</dt>
             <dd>{{ $export->IMP_COUNTRY }}</dd>
             <dt>{{ trans('exports.ORIGIN_COUNTRY') }}</dt>
             <dd>{{ $export->ORIGIN_COUNTRY }}</dd>
             <dt>{{ trans('exports.SHIPPING_PLACE') }}</dt>
             <dd>{{ $export->SHIPPING_PLACE }}</dd>
-            <dt>{{ trans('exports.TRANSPORT') }}</dt>
-            <dd>{{ $export->TRANSPORT }}</dd>
+
             <dt>{{ trans('exports.SHIPPING_DATE') }}</dt>
             <dd>{{ $export->SHIPPING_DATE }}</dd>
-            <dt>{{ trans('exports.APPLICANT_NAME') }}</dt>
-            <dd>{{ $export->APPLICANT_NAME }}</dd>
-            <dt>{{ trans('exports.APPLICANT_TEL') }}</dt>
-            <dd>{{ $export->APPLICANT_TEL }}</dd>
-            <dt>{{ trans('exports.EXP_NATIONALITY') }}</dt>
-            <dd>{{ $export->EXP_NATIONALITY }}</dd>
-            <dt>{{ trans('exports.EXP_PASSPORT_NUM') }}</dt>
-            <dd>{{ $export->EXP_PASSPORT_NUM }}</dd>
+
+
             <dt>{{ trans('importations.animal') }}</dt>
             <div  class="form-group">
 
@@ -101,7 +83,7 @@
                             <tr>
 
                                 <td> {{ $value->ANML_SPECIES }}</td>
-                                <td> {{ $value->ANML_SEX }}</td>
+                                <td> مختلط</td>
                                 <td> {{ $value->ANML_NUMBER }}</td>
                                 <td> {{ $value->ANML_USE }}</td>
                                 <td> {{ $value->ANIMAL_BREED }}</td>
@@ -131,11 +113,14 @@
                </div>
 
                  </form>
-            @elseif ($export->accepted == 1)
-            <p class="btn btn-info">{{ trans('clients.accepted') }}</p>
-            @elseif ($export->accepted == 0)
-            <p class="btn btn-danger">  {{ trans('importations.reson') }} : {{ $export->reson }} </p>
-            @endif
+                 @elseif ($export->accepted == '1' )
+
+                 <p class="btn btn-info">{{ trans('importations.acceptedfirst') }}</p>
+                 @elseif ( $export->accepted == '3')
+                 <p class="btn btn-info">{{ trans('importations.acceptedsacend') }}</p>
+                 @elseif ($export->accepted == '0')
+                 <p class="btn btn-danger">  {{ trans('importations.refused') }}  </p>
+                 @endif
                 <br><br><br>
 
         </dl>

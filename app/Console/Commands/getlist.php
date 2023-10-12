@@ -13,7 +13,6 @@ use App\Models\ApiUser;
 use App\Models\acceptation_demande;
 use  App\Models\Setting;
 use App\Models\importation as importations;
-use Illuminate\Support\Facades\Log;
 use App\Models\Client;
 use App\SMS\Sms;
 use App\Models\countries as Contry;
@@ -94,14 +93,20 @@ foreach ($importationsObjects as  $value) {
 
 
         if($resp->APPLICATION_STATUS == "APPROVED "){
-            $value->accepted = 3;
+            $value->accepted = '3';
             $value->save();
             $sms = new Sms;
             $client = Client::find($value->client_id);
-            $message = "تم قبلو طلبك '.$value->id.' لمشاهدة او تحميل الطلب https://tasareeh.qa/apk";
+            $message = "تم قبلو طلبك ".$value->CER_SERIAL." لمشاهدة او تحميل الطلب https://tasareeh.qa/apk";
         $contry = Contry::find($client->contry_id );
         $sms->send($contry->phonecode.$client->phone,$message );
 
+        $acceptation = new acceptation_demande();
+        $acceptation->User_id =0;
+        $acceptation->demande_id = $value->id;
+        $acceptation->type = 'importation';
+        $acceptation->commenter = "تم قبول طلبك من قبل الهيئة ";
+        $acceptation->save();
 
 
 
@@ -112,27 +117,10 @@ foreach ($importationsObjects as  $value) {
 
 
 
-
-            Log::info('Request:', [
-
-                '$value' => $value,
-                'APPROVED' => $resp->APPLICATION_STATUS,
-
-            ]);
         }
-        Log::info('Request:', [
 
-            '$value' => $value,
-            'APPROVED' => $resp->APPLICATION_STATUS,
-
-        ]);
     }catch(\Exception $exception) {
 
-        Log::info('Request:', [
-
-            'exception' => $exception->getMessage(),
-
-        ]);
 
 
 

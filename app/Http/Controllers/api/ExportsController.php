@@ -21,13 +21,13 @@ class ExportsController extends Controller
      */
     public function index()
     {
-        $exports = export::where('client_id',auth()->user()->id)->get();
+        $exports = export::where('client_id',auth()->user()->id)->where('accepted',3)->get();
 
-        $data = $exports->transform(function ($export) {
-            return $this->transform($export);
-        });
+foreach ($exports as  $value) {
+    $value->COMP_ID="$value->COMP_ID";
+}
 
-        return response()->json(  $data);
+        return response()->json(  $exports);
     }
 
     /**
@@ -54,7 +54,7 @@ class ExportsController extends Controller
             $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRYa;
             $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRYa;
             $animal->ANML_SPECIES = "ابل هجن";
-            $animal->ANML_SEX = 'هجين';
+            $animal->ANML_SEX = 'مختلط';
             $animal->ANML_NUMBER = $request->ANML_NUMBER;
             if($request->IMP_CER_SERIAL != null){
                 $animal->ANML_USE = "بعد مشاركه";
@@ -233,10 +233,24 @@ class ExportsController extends Controller
 
         $term = \App\Models\term::first();
         $client->term_ar = $term->Conditionar;
+        $client->phone = $contry->phonecode.$client->phone;
+
+
         $dataclient =$client->toArray();
         //dd($data);
         view()->share('data', $dataclient);
-        $pdf = Pdf::loadView('test',['data' => $dataclient] );
+        $reportHtml = view('test',['data' => $dataclient] )->render();
+
+        $arabic = new \ArPHP\I18N\Arabic();
+        $p = $arabic->arIdentify($reportHtml);
+
+        for ($i = count($p)-1; $i >= 0; $i-=2) {
+            $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+            $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+
+        }
+
+        $pdf = PDF::loadHTML($reportHtml);
 
         $fileName = $client->ud . '.pdf';
         $pdf->save(public_path('pdf/' . $fileName));

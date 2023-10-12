@@ -187,12 +187,12 @@ class pdfd extends Command
 
                 ]);
             }
-            Log::info('Request:', [
+            // Log::info('Request:', [
 
-                '$value' => $resp,
+            //     '$value' => $resp,
 
 
-            ]);
+            // ]);
 
         }catch(\Exception $exception) {
 

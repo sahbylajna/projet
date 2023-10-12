@@ -2,11 +2,17 @@
 
 return [
     'id' => 'Id',
+
     'id__placeholder' => 'Enter id here...',
     'term_ar' => 'الشروط والأحكام باللغة العربية',
     'term_ar__placeholder' => 'الشروط والأحكام باللغة العربية',
     'term_en' => 'الشروط والأحكام باللغة الإنجليزية',
-    'term_en__placeholder' => 'Enter term en here...',
+    'term_en__placeholder' =>'الشروط والأحكام باللغة العربية',
+
+    'Conditionar' => 'تعهد  باللغة العربية',
+    'Conditionar__placeholder' => 'تعهد  باللغة العربية',
+    'Conditionen' => 'تعهد  باللغة الإنجليزية',
+    'Conditionen__placeholder' =>'تعهد  باللغة العربية',
     'access_token_with_bearer' => 'The access token prefixed with the "Bearer " key word.',
     'index_route_description' => 'Retrieve existing terms.',
     'index_route_response_description' => 'The API\'s response will be JSON based data. The JSON object will be structured as follow',

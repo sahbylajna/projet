@@ -3,14 +3,20 @@
 return [
     'id' => 'Id',
     'id__placeholder' => 'Enter id here...',
-    'first_name' => 'First Name',
-    'first_name__placeholder' => 'Enter first name here...',
-    'last_name' => 'Last Name',
-    'last_name__placeholder' => 'Enter last name here...',
-    'ud' => 'Ud',
-    'ud__placeholder' => 'Enter ud here...',
+
+    'first_name' => 'الاسم الاول ',
+    'first_name__placeholder' => 'الاسم الاول ',
+    'last_name' => 'الاسم الثاني ',
+    'last_name__placeholder' => 'الاسم الثاني ',
+    'phone' => 'رقم الهاتف ',
+    'phone__placeholder' => 'رقم الهاتف ',
     'email' => 'Email',
     'email__placeholder' => 'Enter email here...',
+    'ud' => 'رقم ال id ',
+    'ud__placeholder' => 'رقم ال id ',
+
+
+
     'email_verified_at' => 'Email Verified At',
     'email_verified_at__placeholder' => 'Enter email verified at here...',
     'password' => 'Password',
@@ -54,7 +60,7 @@ return [
     'list_of_the_invalid_errors' => 'List of the invalid errors.',
     'the_requested_model_does_not_exists' => 'The requested users does not exists.',
     'the_user_does_not_have_permission_to_access_the_requested_resource' => 'User does not have permission to access the requested resource.',
-    'create' => 'Create New المسؤول',
+    'create' => '  المسؤول',
     'delete' => 'Delete المسؤول',
     'edit' => 'Edit المسؤول',
     'show' => 'Show المسؤول',

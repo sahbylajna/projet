@@ -22,12 +22,12 @@
         <input required class="form-control" name="phone" type="number" id="phone" value="{{ old('phone', optional($client)->phone) }}" minlength="1" placeholder="{{ trans('clients.phone__placeholder') }}">
         {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
         <select class="form-control select-css " id="contry_id" name="contry_id">
         	    <option value="" style="display: none;" {{ old('contry_id', optional($client)->contry_id ?: '') == '' ? 'selected' : '' }} disabled selected>{{ trans('clients.contry_id__placeholder') }}</option>
-        	@foreach ($contries as $key => $contry)
-			    <option value="{{ $key }}" {{ old('contry_id', optional($client)->contry_id) == $key ? 'selected' : '' }}>
-			    	{{ $contry }}
+        	@foreach ($contries as $contry)
+			    <option value="{{ $contry->id }}" {{ old('contry_id', optional($client)->contry_id) == $contry->id ? 'selected' : '' }}>
+			    	{{ $contry->name }}
 			    </option>
 			@endforeach
         </select>
@@ -35,6 +35,24 @@
         {!! $errors->first('contry_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+</div>
+
+
+
+<div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }} col-md-10 ">
+    <label for="phone" class="col-md-2 control-label">{{ trans('clients.contry') }}</label>
+
+        <select class="form-control select-css " id="contry" name="contry">
+                <option value="" style="display: none;" disabled selected>{{ trans('clients.contry_id__placeholder') }}</option>
+            @foreach ($contries as  $contry)
+                <option value="{{ $contry->id }}"  {{ old('contry', optional($client)->contry) == $contry->id ? 'selected' : '' }} >
+                    {{ $contry->name }}
+                </option>
+            @endforeach
+        </select>
+
+        {!! $errors->first('contry_id', '<p class="help-block">:message</p>') !!}
+
 </div>
 
 <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
@@ -101,3 +119,29 @@
     </div>
 </div> --}}
 
+
+<div id="right" style="display: none;" class="form-group {{ $errors->has('adresse') ? 'has-error' : '' }}">
+    <label for="adresse" class="col-md-2 control-label">{{ trans('clients.adresse') }}</label>
+    <div class="col-md-10">
+        <input required class="form-control" name="adresse" type="adresse" id="adresse" value="0" placeholder="{{ trans('clients.adresse__placeholder') }}">
+        {!! $errors->first('adresse', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+
+<div id="right" style="display: none;" class="form-group {{ $errors->has('fax') ? 'has-error' : '' }}">
+    <label for="fax" class="col-md-2 control-label">{{ trans('clients.fax') }}</label>
+    <div class="col-md-10">
+        <input required class="form-control" name="fax" type="fax" id="fax" value="0" placeholder="{{ trans('clients.fax__placeholder') }}">
+        {!! $errors->first('fax', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+
+<div id="right" style="display: none;" class="form-group {{ $errors->has('POBOX') ? 'has-error' : '' }}">
+    <label for="POBOX" class="col-md-2 control-label">{{ trans('clients.POBOX') }}</label>
+    <div class="col-md-10">
+        <input required class="form-control" name="POBOX" type="POBOX" id="POBOX" value="0" placeholder="{{ trans('clients.POBOX__placeholder') }}">
+        {!! $errors->first('POBOX', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>

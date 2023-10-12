@@ -26,7 +26,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $usersObjects = users::paginate(25);
+        $usersObjects = users::all();
 
         return view('users.index', compact('usersObjects'));
     }
@@ -107,18 +107,27 @@ class UsersController extends Controller
     public function update($id, Request $request)
     {
         try {
-
-            $data = $this->getData($request);
-
             $users = users::findOrFail($id);
+            $client = users::where('email',$request->email)->orWhere('ud',$request->ud)->first();
+
+if($client != $users){
+    return back()->withInput()
+    ->withErrors(['unexpected_error' => trans('users.unexpected_error')]);
+}
+
+            $data = $this->getData1($request);
+
+
             $users->update($data);
 
             return redirect()->route('users.users.index')
                 ->with('success_message', trans('users.model_was_updated'));
         } catch (Exception $exception) {
+dd($exception);
 
-            return back()->withInput()
-                ->withErrors(['unexpected_error' => trans('users.unexpected_error')]);
+return back()->withInput()
+->withErrors(['unexpected_error' => trans('users.unexpected_error')]);
+
         }
     }
 
@@ -160,6 +169,27 @@ class UsersController extends Controller
             'email' => 'required|string|min:1|max:255|unique:users,email',
 
             'password' => 'required|string|min:1|max:255',
+        ];
+
+
+        $data = $request->validate($rules);
+
+
+
+
+        return $data;
+    }
+
+
+    protected function getData1(Request $request)
+    {
+        $rules = [
+                'first_name' => 'required|string|min:1|max:255',
+            'last_name' => 'required|string|min:1|max:255',
+            'ud' => 'required|string|min:1|max:255',
+            'email' => 'required|string|min:1|max:255',
+
+            'password' => 'string|min:1|max:255',
         ];
 
 

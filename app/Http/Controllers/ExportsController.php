@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Log;
 use App\Models\ANIMAL_INFO;
 use App\Models\Client;
 use App\Models\export;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
+use GuzzleHttp\Exception\RequestException;
 use App\SMS\Sms;
 use App\Models\ApiUser;
 use App\Models\countries as Contry;
@@ -27,25 +29,25 @@ class ExportsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         if(Auth::user()->hasRole('delegate')){
-            $exports = export::where('delegate',Auth::user()->id)->where('IMP_CER_SERIAL',null)->with('client')->paginate(25);
+            $exports = export::where('delegate',Auth::user()->id)->where('IMP_CER_SERIAL',null)->with('client')->get();
         }else{
 
 
-        $exports = export::where('IMP_CER_SERIAL',null)->with('client')->paginate(25);
+        $exports = export::where('IMP_CER_SERIAL',null)->with('client')->get();
     }
-        return view('exports.index', compact('exports'));
+        return view('exports.index', compact('exports', 'request'));
     }
-    public function indexafter()
+    public function indexafter(Request $request)
     {
         if(Auth::user()->hasRole('delegate')){
-            $exports = export::where('delegate',Auth::user()->id)->where('IMP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+            $exports = export::where('delegate',Auth::user()->id)->where('IMP_CER_SERIAL','!=',null)->with('client')->get();
         }else{
-        $exports = export::where('IMP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+        $exports = export::where('IMP_CER_SERIAL','!=',null)->with('client')->get();
         }
-        return view('exports.after.index', compact('exports'));
+        return view('exports.after.index', compact('exports', 'request'));
     }
     /**
      * Show the form for creating a new export.
@@ -427,11 +429,11 @@ if($export->IMP_CER_SERIAL == null){
          $response =json_decode($response); // Using this you can access any key like below
          $access_token = $response->access_token;
        // dd($access_token);
-
+       $setting =  Setting::first();
        $data = [];
  $data['CER_TYPE'] = $export->CER_TYPE;
  $data['CER_LANG'] = $export->CER_LANG;
- $data['COMP_ID'] = $export->COMP_ID;
+ $data['COMP_ID'] = $setting->being_established;
  $data['EUSER_QID'] = $export->EUSER_QID;
  $data['EXP_NAME'] = $export->EXP_NAME;
  $data['EXP_TEL'] = $export->EXP_TEL;
@@ -485,9 +487,19 @@ if($export->IMP_CER_SERIAL == null){
  $client = Client::findOrFail( $export->client_id);
 
 $pdfContents = file_get_contents(asset($export->files));
-$pdfContents2 = file_get_contents(asset($export-> Pledge));
-$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
-$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
+$pdfContents2 = file_get_contents(asset($export->Pledge));
+if($export->delegate ==null){
+  
+    $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+    $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
+
+    }else{
+        $pdfContents3 = '';
+    $pdfContents4 = '';
+
+    }
+
+
 
 
  try{
@@ -540,13 +552,40 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
      $acceptation->User_id = Auth()->user()->id;
      $acceptation->demande_id = $export->id;
      $acceptation->type = 'export';
-     $acceptation->commenter = 'accepter';
+     $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
      $acceptation->save();
- }catch(Exception $exception) {
-    dd($exception);
+
+     if($export->delegate ==null){
+  
+        $sms = new Sms;
+        $client = Client::find($export->client_id);
+   
+    $contry = Contry::find($client->contry_id );
+    $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
+        }
+
+
+ }catch(RequestException $exception) {
+//dd($exception);
+$response = $exception->getResponse();
+
+if ($response !== null) {
+    $statusCode = $response->getStatusCode();
+    $body = $response->getBody()->getContents();
+    $resp = json_decode($body);
+    // Handle the response for non-2xx status codes
+    if($statusCode == 400){
+        return back()->withInput()
+        ->withErrors(['unexpected_error' => $resp->CER_ERROR]);
+    }else{
+        return back()->withInput()
+        ->withErrors(['unexpected_error' => $resp->Message]);
+    }
+} else {
+    // Handle the exception (e.g., network error)
     return back()->withInput()
     ->withErrors(['unexpected_error' => $exception->getMessage()]);
-    return back()->withErrors($exception->getMessage());
+}
  }
 
 
@@ -564,6 +603,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
      public function acceptafter($id)
      {
         try{
+             $setting =  Setting::first();
          $export = export::findOrFail($id);
          $apiUser = ApiUser::first();
          $client = new ClientHTTP();
@@ -577,11 +617,11 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
          $response = (string) $res->getBody();
          $response =json_decode($response); // Using this you can access any key like below
          $access_token = $response->access_token;
-        dd($access_token);
+     //   dd($access_token);
 
  $data['CER_TYPE'] = $export->CER_TYPE;
  $data['CER_LANG'] = $export->CER_LANG;
- $data['COMP_ID'] = $export->COMP_ID;
+ $data['COMP_ID'] = $setting->being_established;
  $data['EUSER_QID'] = $export->EUSER_QID;
  $data['EXP_NAME'] = $export->EXP_NAME;
  $data['EXP_TEL'] = $export->EXP_TEL;
@@ -619,7 +659,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
 
  }
 
- $ANIMALINFOj = json_encode($ANIMALINFO);
+ $ANIMALINFOj = json_encode($data1);
 
  $token ='Bearer '.$access_token;
 
@@ -632,16 +672,23 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
 
  $client = Client::findOrFail( $export->client_id);
 
+
+
 $pdfContents = file_get_contents(asset($export->files));
-$pdfContents2 = file_get_contents(asset($export-> Pledge));
-$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
-$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
+$pdfContents2 = file_get_contents(asset($export->Pledge));
+if($export->delegate ==null){
+  
+    $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+    $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
+
+    }else{
+        $pdfContents3 = '';
+    $pdfContents4 = '';
+
+    }
 
 
-
-
-
-
+// dd($data,$ANIMALINFOj,$headers);
      $client2 = new ClientHTTP();
      $res = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/EXHRC_SUBMIT_AFTER_RACING', [
 
@@ -664,7 +711,7 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
         [
             'name' => 'files[]',
             'contents' => $pdfContents, // PDF file contents
-            'filename' => 'pdfContents.pdf', // Adjust the filename
+            'filename' => $export->files, // Adjust the filename
         ],
         [
             'name' => 'files[]',
@@ -678,10 +725,10 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
         ],
         ],
      ]);
+
      $responseBody = $res->getBody()->getContents();
 
      $resp = json_decode($responseBody);
-
 
      $export->CER_SERIAL = $resp->CER_SERIAL;
      $export->accepted = 1;
@@ -691,13 +738,40 @@ $pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
      $acceptation->User_id = Auth()->user()->id;
      $acceptation->demande_id = $export->id;
      $acceptation->type = 'export';
-     $acceptation->commenter = 'accepter';
+     $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
      $acceptation->save();
- }catch(Exception $exception) {
-    dd($exception);
-    return back()->withInput()
-                 ->withErrors(['unexpected_error' => $exception->getMessage()]);
-    return back()->withErrors($exception->getMessage());
+     if($export->delegate ==null){
+  
+     $sms = new Sms;
+     $client = Client::find($export->client_id);
+
+ $contry = Contry::find($client->contry_id );
+ $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
+     }
+ }catch(RequestException $exception) {
+
+    $response = $exception->getResponse();
+
+    if ($response !== null) {
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+        $resp = json_decode($body);
+        if($statusCode == 400){
+            return back()->withInput()
+            ->withErrors(['unexpected_error' => $resp->CER_ERROR]);
+        }else{
+            return back()->withInput()
+            ->withErrors(['unexpected_error' => $resp->Message]);
+        }
+    } else {
+        // Handle the exception (e.g., network error)
+        return back()->withInput()
+        ->withErrors(['unexpected_error' => $exception->getMessage()]);
+    }
+
+    // dd($exception  );
+
+    // return back()->withErrors($exception->getMessage());
  }
 
 
@@ -725,11 +799,14 @@ $export->save();
     $acceptation->type = 'export';
     $acceptation->commenter =  $message ;
     $acceptation->save();
-    $sms = new Sms;
-    $client = Client::find($export->client_id);
-
-$contry = Contry::find($client->contry_id );
-$sms->send($contry->phonecode.$client->phone,$message );
+    if($export->delegate ==null){
+        $sms = new Sms;
+        $client = Client::find($export->client_id);
+    
+    $contry = Contry::find($client->contry_id );
+    $sms->send($contry->phonecode.$client->phone,$message );
+    }
+   
         return back();
     }
 

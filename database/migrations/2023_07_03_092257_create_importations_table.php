@@ -44,6 +44,13 @@ class CreateImportationsTable extends Migration
             $table->string('EXP_PASSPORT_NUM')->nullable();
             $table->string('accepted')->nullable();
             $table->string('reson')->nullable();
+            $table->longText('delegate')->nullable();
+            $table->string('pdf')->nullable();
+            $table->string('linkpayment')->nullable();
+            $table->string('EXP_CER_SERIAL')->nullable();
+            $table->string('Pledge')->nullable();
+            $table->string('CER_SERIAL')->nullable();
+            $table->string('files')->nullable();
 
         });
     }

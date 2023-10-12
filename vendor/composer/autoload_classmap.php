@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Commands\\commandex' => $baseDir . '/app/Console/Commands/commandex.php',
     'App\\Console\\Commands\\getlist' => $baseDir . '/app/Console/Commands/getlist.php',
-    'App\\Console\\Commands\\pdf' => $baseDir . '/app/Console/Commands/pdf.php',
+    'App\\Console\\Commands\\pdfd' => $baseDir . '/app/Console/Commands/pdfd.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\ANIMALINFOsController' => $baseDir . '/app/Http/Controllers/ANIMALINFOsController.php',
@@ -62,6 +62,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\SMS\\Sms' => $baseDir . '/app/SMS/Sms.php',
+    'ArPHP\\I18N\\Arabic' => $vendorDir . '/khaled.alshamaa/ar-php/src/Arabic.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Barryvdh\\DomPDF\\Facade\\Pdf' => $vendorDir . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
     'Barryvdh\\DomPDF\\PDF' => $vendorDir . '/barryvdh/laravel-dompdf/src/PDF.php',

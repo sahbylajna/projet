@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client as ClientHTTP;
+use GuzzleHttp\Exception\RequestException;
 
 
 use App\Models\ApiUser;
@@ -27,26 +28,26 @@ class ImportationsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         if(Auth::user()->hasRole('delegate')){
-            $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL',null)->with('client')->paginate(25);
+            $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL',null)->with('client')->orderBy('id','desc')->get();
         }else{
-        $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL',null)->with('client')->paginate(25);
+        $importations = importation::where('EXP_CER_SERIAL',null)->with('client')->orderBy('id','desc')->get();
         }
-        return view('importations.index', compact('importations'));
+        return view('importations.index', compact('importations', 'request'));
     }
 
 
-    public function indexafter()
+    public function indexafter(Request $request)
     {
         if(Auth::user()->hasRole('delegate')){
-        $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+        $importations = importation::where('delegate',Auth::user()->id)->where('EXP_CER_SERIAL','!=',null)->with('client')->orderBy('id','desc')->get();
     }else{
 
-        $importations = importation::where('EXP_CER_SERIAL','!=',null)->with('client')->paginate(25);
+        $importations = importation::where('EXP_CER_SERIAL','!=',null)->with('client')->orderBy('id','desc')->get();
     }
-        return view('importations.after.index', compact('importations'));
+        return view('importations.after.index', compact('importations', 'request'));
     }
 
 
@@ -441,22 +442,45 @@ $headers = [
 
 
 
-$client = Client::findOrFail( $importation->client_id);
 
-$term = \App\Models\term::first();
-$client->term_ar = $term->Conditionar;
-$datass =        $client->toArray();
-//dd($datass);
-view()->share('data', $datass);
-$pdf = Pdf::loadView('test',['data' => $datass] );
 
-$fileName = $client->ud . '.pdf';
-$pdf->save(public_path('pdf/' . $fileName));
+if($importation->delegate ==null){
+    $client5 = Client::findOrFail( $importation->client_id);
 
-$pdfContents = file_get_contents(asset($importation->files));
-$pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
-$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
-$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
+    $term = \App\Models\term::first();
+    $client5->term_ar = $term->Conditionar;
+    $data12 =        $client5->toArray();
+    //dd($data);
+    view()->share('data', $data12);
+    $reportHtml = view('test',['data' => $data12] )->render();
+    
+            $arabic = new \ArPHP\I18N\Arabic();
+            $p = $arabic->arIdentify($reportHtml);
+    
+            for ($i = count($p)-1; $i >= 0; $i-=2) {
+                $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+                $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+    
+            }
+    
+            $pdf = PDF::loadHTML($reportHtml);
+    
+    $fileName = $client->ud . '.pdf';
+    $pdf->save(public_path('pdf/' . $fileName));
+    $pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
+    $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+    $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
+
+    }else{
+        $pdfContents2 = file_get_contents(asset($importation->Pledge));
+    $pdfContents3 = '';
+    $pdfContents4 ='';
+
+    }
+
+
+
+
 try{
 
     $client2 = new ClientHTTP();
@@ -506,12 +530,43 @@ $importation->save();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
-    $acceptation->commenter = 'accepter';
+    $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
     $acceptation->save();
 
+    if($importation->delegate ==null){
+        $sms = new Sms;
+        $client = Client::find($importation->client_id);
+    
+    $contry = Contry::find($client->contry_id );
+    $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
+    
+        }
 
-}catch(Exception $exception) {
-    dd($exception->getMessage());
+  
+
+}catch(RequestException $exception) {
+
+    $response = $exception->getResponse();
+
+    if ($response !== null) {
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+        $resp = json_decode($body);
+       // dd($resp);
+       if($statusCode == 400){
+            return back()->withInput()
+            ->withErrors(['unexpected_error' => $resp->CER_ERROR]);
+        }else{
+            return back()->withInput()
+            ->withErrors(['unexpected_error' => $resp->Message]);
+        }
+        // Handle the response for non-2xx status codes
+
+    } else {
+        // Handle the exception (e.g., network error)
+        return back()->withInput()
+        ->withErrors(['unexpected_error' => $exception->getMessage()]);
+    }
 }
 
      //
@@ -608,22 +663,44 @@ $headers = [
 
 
 
-$client = Client::findOrFail( $importation->client_id);
 
-$term = \App\Models\term::first();
-$client->term_ar = $term->Conditionar;
-$data =        $client->toArray();
-//dd($data);
-view()->share('data', $data);
-$pdf = Pdf::loadView('test',['data' => $data] );
-
-$fileName = $client->ud . '.pdf';
-$pdf->save(public_path('pdf/' . $fileName));
 
 $pdfContents = file_get_contents(asset($importation->files));
-$pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
-$pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
-$pdfContents4 = file_get_contents(asset( $client->photo_ud_frent));
+
+if($importation->delegate ==null){
+    $client5 = Client::findOrFail( $importation->client_id);
+
+    $term = \App\Models\term::first();
+    $client5->term_ar = $term->Conditionar;
+    $data12 =        $client5->toArray();
+    //dd($data);
+    view()->share('data', $data12);
+    $reportHtml = view('test',['data' => $data12] )->render();
+    
+            $arabic = new \ArPHP\I18N\Arabic();
+            $p = $arabic->arIdentify($reportHtml);
+    
+            for ($i = count($p)-1; $i >= 0; $i-=2) {
+                $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+                $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+    
+            }
+    
+            $pdf = PDF::loadHTML($reportHtml);
+    
+    $fileName = $client->ud . '.pdf';
+    $pdf->save(public_path('pdf/' . $fileName));
+    $pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
+    $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
+    $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
+
+    }else{
+        $pdfContents2 = file_get_contents(asset($importation->Pledge));
+    $pdfContents3 = '';
+    $pdfContents4 ='';
+
+    }
+
 try{
 
     $client2 = new ClientHTTP();
@@ -673,12 +750,39 @@ $importation->save();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
-    $acceptation->commenter = 'accepter';
+    $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
     $acceptation->save();
+    if($importation->delegate ==null){
+        $sms = new Sms;
+        $client = Client::find($importation->client_id);
+    
+    $contry = Contry::find($client->contry_id );
+    $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
+    
+        }
 
 
-}catch(Exception $exception) {
-    dd($exception->getMessage());
+}catch(RequestException $exception) {
+
+    $response = $exception->getResponse();
+
+    if ($response !== null) {
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+        $resp = json_decode($body);
+
+      if($statusCode == 400){
+            return back()->withInput()
+            ->withErrors(['unexpected_error' => $resp->CER_ERROR]);
+        }else{
+            return back()->withInput()
+            ->withErrors(['unexpected_error' => $resp->Message]);
+        }
+    } else {
+        // Handle the exception (e.g., network error)
+        return back()->withInput()
+        ->withErrors(['unexpected_error' => $exception->getMessage()]);
+    }
 }
 
      //
@@ -726,11 +830,18 @@ $importation->save();
     $acceptation->type = 'importation';
     $acceptation->commenter = $request->commenter;
     $acceptation->save();
-    $sms = new Sms;
-    $client = Client::find($importation->client_id);
+    if($importation->delegate ==null){
+        $sms = new Sms;
+        $client = Client::find($importation->client_id);
+    
+    $contry = Contry::find($client->contry_id );
+    $sms->send($contry->phonecode.$client->phone,$message );
+    
+        }
 
-$contry = Contry::find($client->contry_id );
-$sms->send($contry->phonecode.$client->phone,$message );
+   
+   
+
         return back();
     }
 

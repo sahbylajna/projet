@@ -44,3 +44,68 @@
     </div>
 
 @endsection
+@section('css')
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+@endsection
+
+@section('js')
+
+
+    <script>
+        var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // Text formatting
+  ['blockquote', 'code-block'],                    // Blocks
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],    // Lists
+  [{ 'indent': '-1'}, { 'indent': '+1' }],        // Indentation
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],       // Headers
+  ['link', 'image'],                               // Links and images
+  [{ 'color': [] }, { 'background': [] }],         // Text color and background
+  [{ 'align': [] }]                                // Text alignment
+];
+  var quill = new Quill('#editor', {
+            placeholder: 'Enter Detail',
+            theme: 'snow',
+            modules: {
+                toolbar:toolbarOptions
+            }
+        });
+
+        quill.on('text-change', function(delta, oldDelta, source) {
+            console.log(quill.container.firstChild.innerHTML)
+            $('#description').val(quill.container.firstChild.innerHTML);
+        });
+
+
+        var quill2 = new Quill('#editor2', {
+            placeholder: 'Enter Detail',
+            theme: 'snow',
+            modules: {
+                toolbar:toolbarOptions
+            }
+        });
+
+        quill2.on('text-change', function(delta, oldDelta, source) {
+            console.log(quill2.container.firstChild.innerHTML)
+            $('#Conditionar').val(quill2.container.firstChild.innerHTML);
+        });
+
+
+
+
+
+$(document).ready(function(){
+
+  $("#create_users_form").on("submit", function () {
+
+    // var hvalue = $('#editor').html();
+    // $(this).append("<textarea name='description' style='display:none'>"+hvalue+"</textarea>");
+    // return true;
+   });
+
+});
+
+
+    </script>
+@endsection

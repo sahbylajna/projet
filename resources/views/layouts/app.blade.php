@@ -18,10 +18,84 @@
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
+
+
+
   <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.0.0') }}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css" integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @yield('css')
 <style>
+
+
+
+
+
+
+
+
+
+
+/* Custom Select wrapper */
+.filter {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  border-radius: .25em;
+  overflow: hidden;
+}
+/* Arrow */
+.filter::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  background-color: #34495e;
+  transition: .25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.filter:hover::after {
+  color: #f39c12;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.table-responsive {
+    overflow-x: clip;}
+.btn-group, .btn-group-vertical {
+    direction: initial;}
+.current{
+    background-color: #20c997!important;
+}
+.paginate_button {
+    color: #7b809a;
+    padding: 10px;
+    margin: 4px 4px;
+    border-radius: 50%!important;
+    font-size: .875rem;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
     .navbar-vertical.navbar-expand-xs .navbar-collapse {
         height: auto!important;
     }
@@ -106,10 +180,9 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
       $(document).ready( function () {
-  $('.table').DataTable({
+  $('#table').DataTable({
 
-
-
+    order: [ [0, 'desc'] ],
 
                 "language": {
                     "sProcessing": "جارٍ التحميل...",
@@ -127,9 +200,48 @@
                         "sNext": "التالي",
                         "sLast": "الأخير"
                     }
-                    }
+                    },
+                    initComplete: function() {
+      var column = this.api().column(5);
+
+      var select = $('<select class="filter"><option value=""></option></select>')
+        .appendTo('#selectTriggerFilter')
+        .on('change', function() {
+          var val = $(this).val();
+          column.search(val ? '^' + $(this).val() + '$' : val, true, false).draw();
+        });
+
+      column.data().unique().sort().each(function(d, j) {
+        select.append('<option value="' + d + '">' + d + '</option>');
+      });
+    }
 
                 });
+
+                $('#table1').DataTable({
+
+                  order: [ [0, 'desc'] ],
+
+
+"language": {
+    "sProcessing": "جارٍ التحميل...",
+    "sLengthMenu": "أظهر _MENU_ مدخلات",
+    "sZeroRecords": "لم يعثر على أية سجلات",
+    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+    "sInfoPostFix": "",
+    "sSearch": "ابحث:",
+    "sUrl": "",
+    "oPaginate": {
+        "sFirst": "الأول",
+        "sPrevious": "السابق",
+        "sNext": "التالي",
+        "sLast": "الأخير"
+    }
+    }
+
+});
 }
 );
 

@@ -15,6 +15,7 @@ use App\SMS\Sms;
 use App\Models\export;
 use App\Models\importation;
 use App\Models\back;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use GuzzleHttp\Client as ClientHTTP;
 use App\Models\ApiUser;
@@ -32,6 +33,18 @@ class ClientsController extends Controller
 
         $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->first();
 if($user){
+
+    if($user->virification != '1'){
+        return response()->json([
+
+            'access_token' => (string)$user->id,
+        'error' => 'في إنتظار تفعيل حسابك.',
+        'token_type' => ''
+        ]);
+    }
+
+
+
     if($user->accepted != '1'){
         return response()->json([
 
@@ -40,6 +53,9 @@ if($user){
         'token_type' => ''
         ]);
     }
+
+
+
 }
         if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return response()->json([
@@ -77,25 +93,23 @@ if($user){
             'password' => 'required',
             'contry_id' => 'required',
             'contry' => 'required',
-            'adresse' => 'required',
-            'POBOX' => 'required',
-            'fax' => 'required',
+            'adresse' => 'nullable',
+            'POBOX' => 'nullable',
+            'fax' => 'nullable',
 
         ];
 
 
-          //  $data = $this->getData($request);
-          $validator = \Validator::make($request->all(),  $rules);
-         if ($validator->fails()) {
-
+        $user = Client::where('phone', $request->input('phone'))->where('contry_id', $request->input('contry_id'))->first();
+        if ($user) {
             //pass validator errors as errors object for ajax response
-
             return response()->json([
-                'id' => 0,
+                'id' =>0,
                 'message' => 'الرجاء إدخال بيانات صحيحة',
                 'errors' => 'errors'
             ]);
-        }else{
+        }
+         //   $data = $this->getData($request);
             $client =    new Client();
             if ($request->photo_ud_frent) {
                 $folderPath = "images/";
@@ -138,8 +152,15 @@ if($user){
             'message' => 'success',
             'errors' => ''
         ]);
-    }
+
         } catch (\Exception $exception) {
+
+            Log::info('Request:', [
+
+                '$request' => $request->all(),
+                'errors' => $exception->getMessage()
+
+            ]);
             return response()->json([
                 'id' => 0,
                 'message' => '',
@@ -152,7 +173,31 @@ if($user){
 
 
 
+public function resend($id){
 
+    $client = Client::findOrFail($id);
+    $contry = countries::find($client->contry_id );
+
+    $code = mt_rand(1111,9999);
+    $client->code = $code;
+    $client->save();
+    try {
+        $sms = new Sms;
+  $sms->send($contry->phonecode.$client->phone,"مرحبا الرمز الخاص بك:  ".$code);
+  return response()->json([
+    'id' => $client->id,
+    'message' => 'success',
+    'errors' => ''
+]);
+    } catch (\Throwable $th) {
+        return response()->json([
+            'id' => '',
+            'message' => '',
+            'errors' => 'errors'
+        ]);
+    }
+
+}
 
     public function signature($id, Request $request)
     {
@@ -191,7 +236,7 @@ if($user){
     $client->save();
     try {
         $sms = new Sms;
-  //  $sms->send($contry->phonecode.$client->phone,"Hello your code :  ".$code);
+  $sms->send($contry->phonecode.$client->phone,"مرحبا الرمز الخاص بك:  ".$code);
     } catch (\Throwable $th) {
        dd($th);
     }
@@ -233,7 +278,7 @@ if($user){
 
             $client = Client::findOrFail($id);
             if($client->code == $request->code){
-                $client->virification = 1;
+                $client->virification = "1";
                 $client->save();
 
 
@@ -374,7 +419,7 @@ public function getcheck(Request $request){
         ];
 
         $client2 = new ClientHTTP();
-        $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CER_STATUS', [
+        $res = $client->request('GET', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/GET_CERTIFICATE_DATA_INFO', [
             'headers' => $headers,
             'json' => $data,
         ]);
@@ -394,13 +439,13 @@ public function getcheck(Request $request){
         return response()->json(
 
            [
-            "CER_SERIAL" => "",
-            "APPLICIANT_ID" => "",
-            "APPLICATION_STATUS" => "يرجى التأكد من المعرفه",
-            "PAYMENT_LINK" => null,
-            "PAYMENT_ERROR" => null,
-            "CER_ID" => "64873",
-            "data" => null]
+
+            "EXP_TOTAL_NUM" => null,
+            "ACTUAL_IMP_NUM" => null,
+            "IMP_TOTAL_NUM" => null,
+            "ACTUAL_EXP_NUM" => null,
+            "TOTAL_REST" => null
+            ]
 
 
 
@@ -433,22 +478,22 @@ public function getnotife(){
 
 
 foreach ($exports as $key => $value) {
-    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at','desc')->get();
+    $dd = acceptation_demande::where('demande_id', $value->id)->where('type','export')->orderBy('created_at','desc')->get();
     foreach($dd as $d){
-        $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
+        $d->name=$value->CER_SERIAL;
     $d->type=" طلب خروج";
-    $d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+    $d->message=$d->commenter;
     $d->date = Carbon::parse($d->created_at)->format('d-m-Y');
     $c->add( $d);
     }
 
 }
 foreach ($importations as $key => $value) {
-    $dd = acceptation_demande::where('demande_id', $value->id)->orderBy('created_at','desc')->get();
+    $dd = acceptation_demande::where('demande_id', $value->id)->where('type','importation')->orderBy('created_at','desc')->get();
 foreach($dd as $d){
-    $d->name=$value->CER_TYPE.'/'.$value->COMP_ID;
+    $d->name=$value->CER_SERIAL;
     $d->type=" طلب دخول";
-$d->message="تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+    $d->message=$d->commenter;
 $d->date = Carbon::parse($d->created_at)->format('d-m-Y');
 $c->add( $d);
 }
@@ -461,17 +506,8 @@ foreach($c->sortByDesc('created_at') as $it){
     $repence->add( $it);
 }
 return response()->json(
-
-
     $repence
-
 );
-
-
-
-
-
-
 }
 
 
@@ -492,13 +528,25 @@ return response()->json(
 
 
 foreach ($exports as $key => $value) {
-    $value->type=" طلب خروج";
-    $value->COMP_ID="$value->COMP_ID";
+    if( $value->IMP_CER_SERIAL == null){
+        $value->type=" طلب خروج";
+        $value->COMP_ID="$value->COMP_ID";
+    }else{
+        $value->type="طلب خروج بعد المشاركة";
+        $value->COMP_ID="$value->COMP_ID";
+    }
+
     $c->add( $value);
 }
 foreach ($importations as $key => $value) {
-    $value->type=" طلب دخول";
-    $value->COMP_ID="$value->COMP_ID";
+    if( $value->IMP_CER_SERIAL == null){
+        $value->type=" طلب دخول";
+        $value->COMP_ID="$value->COMP_ID";
+    }else{
+        $value->type="طلب دخول بعد المشاركة";
+        $value->COMP_ID="$value->COMP_ID";
+    }
+
     $c->add( $value);
 }
 

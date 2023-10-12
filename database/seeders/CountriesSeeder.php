@@ -38,5 +38,13 @@ class CountriesSeeder extends Seeder
 
           DB::table('countries')->insert($countries);
 
+
+
+
+
+
+
+
+
     }
 }

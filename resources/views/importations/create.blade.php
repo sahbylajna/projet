@@ -28,7 +28,7 @@
                 </ul>
             @endif
 
-            <form method="POST" action="{{ route('importations.importation.store') }}" accept-charset="UTF-8" id="create_importation_form" name="create_importation_form" class="form-horizontal">
+            <form method="POST" action="{{ route('importations.importation.store') }}" accept-charset="UTF-8" enctype="multipart/form-data" id="create_importation_form" name="create_importation_form" class="form-horizontal">
             {{ csrf_field() }}
             @include ('importations.form', [
                                         'importation' => null,

@@ -32,6 +32,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<link rel="stylesheet" href="{{ asset('client/css/main.css')}}">
 <style>
+
+    .filter{
+
+        
+    }
     .rtl .avam-container.bmd-drawer-in::before {
 
     width: 0px!important;
@@ -46,6 +51,114 @@
    height: 54px!important;
     padding: 0px;
     font-size: 19px;}
+
+
+
+
+    .border-radius-xl {
+    border-radius: 0.75rem;
+}
+
+.icon-lg {
+    width: 64px;
+    height: 64px;
+}
+.icon-shape {
+    width: 48px;
+    height: 48px;
+    background-position: center;
+    border-radius: 0.5rem;
+}
+.bg-gradient-success {
+    background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+}
+.shadow-success {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4) !important;
+}
+.text-center {
+    text-align: center !important;
+}
+.mt-n4 {
+    margin-top: -1.5rem !important;
+}
+.position-absolute {
+    position: absolute !important;
+}
+.icon {
+    fill: currentColor;
+    stroke: none;
+}
+.icon-lg {
+    height: 1.6em;
+    width: 1.6em;
+}
+.icon {
+    display: inline-block;
+    color: #111111;
+    height: 1em;
+    width: 1em;
+}
+
+
+    .border-radius-xl {
+    border-radius: 0.75rem;
+}
+
+.icon-lg {
+    width: 64px;
+    height: 64px;
+}
+.icon-shape {
+    width: 48px;
+    height: 48px;
+    background-position: center;
+    border-radius: 0.5rem;
+}
+.bg-gradient-success {
+    background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+}
+.shadow-success {
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4) !important;
+}
+.text-center {
+    text-align: center !important;
+}
+.mt-n4 {
+    margin-top: -1.5rem !important;
+}
+.position-absolute {
+    position: absolute !important;
+}
+.icon {
+    fill: currentColor;
+    stroke: none;
+}
+.icon-lg {
+    height: 1.6em;
+    width: 1.6em;
+}
+.icon {
+    display: inline-block;
+    color: #111111;
+    height: 1em;
+    width: 1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
     @yield('css')
 </head>

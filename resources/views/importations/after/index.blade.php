@@ -39,10 +39,12 @@
         @else
         <div class="panel-body panel-body-with-table">
             <div class="table-responsive">
+                <div style="direction:rtl">     <p id="selectTriggerFilter"><label><b>Filter:</b></label><br></p></div>
 
-                <table class="table table-striped ">
+                <table class="table align-items-center mb-0" style="   "  id="table23">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>{{ trans('importations.EXP_CER_SERIAL') }}</th>
 
 
@@ -55,7 +57,7 @@
 
 
                             <th>{{ trans('importations.accepted') }}</th>
-                            <th>{{ trans('importations.reson') }}</th>
+
 
                             <th></th>
                         </tr>
@@ -63,6 +65,7 @@
                     <tbody>
                     @foreach($importations as $importation)
                         <tr>
+                            <td> {{ $importation->CER_SERIAL }}</td>
                             <td>{{ $importation->EXP_CER_SERIAL}}</td>
 
 
@@ -73,9 +76,21 @@
 
                             <td>{{ $importation->IMP_TEL }}</td>
 
-
-                            <td>{{ $importation->accepted }}</td>
-                            <td>{{ $importation->reson }}</td>
+                            @if ($importation->accepted == '1' )
+                            <td>
+                            {{ trans('importations.acceptedfirst') }}</td>
+                            @elseif ( $importation->accepted == '3')
+                            <td>
+                                {{ trans('importations.acceptedsacend') }}</td>
+                            @elseif ($importation->accepted == '0')
+                            <td >
+                                {{ trans('importations.refused') }}  </td>
+                            @elseif ($importation->accepted == null )
+                            
+                            <td>تحت الاجراء</td>
+                            @else
+                            <td> </td>
+                            @endif
 
                             <td>
 
@@ -105,11 +120,70 @@
             </div>
         </div>
 
-        <div class="panel-footer">
-            {!! $importations->render() !!}
-        </div>
+
 
         @endif
 
     </div>
+@endsection
+
+@section('js')
+<script>
+  $(document).ready( function () {
+
+$('#table23').DataTable({
+
+order: [ [0, 'desc'] ],
+
+            "language": {
+                "sProcessing": "جارٍ التحميل...",
+                "sLengthMenu": "أظهر _MENU_ مدخلات",
+                "sZeroRecords": "لم يعثر على أية سجلات",
+                "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                "sInfoPostFix": "",
+                "sSearch": "ابحث:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "الأول",
+                    "sPrevious": "السابق",
+                    "sNext": "التالي",
+                    "sLast": "الأخير"
+                }
+                },
+                initComplete: function() {
+  var column = this.api().column(4);
+
+  var select = $('<select id="mySelect" class="filter"><option value=""></option></select>')
+    .appendTo('#selectTriggerFilter')
+    .on('change', function() {
+      var val = $(this).val();
+      column.search(val ? '^' + $(this).val() + '$' : val, true, false).draw();
+    });
+
+  column.data().unique().sort().each(function(d, j) {
+    select.append('<option value="' + d + '">' + d + '</option>');
+  });
+  
+  const $select = document.querySelector('#mySelect');
+  @if($request->value != null)
+  text ='{{ $request->value}}'
+  
+  const $options = Array.from($select.options);
+  const optionToSelect = $options.find(item => item.text ===text);
+  optionToSelect.selected = true;
+  column.search(text ? '^' + text + '$' : text, true, false).draw();
+  @else
+  text = "تحت الاجراء"
+  @endif
+
+}
+
+});
+});
+
+
+</script>
+
 @endsection

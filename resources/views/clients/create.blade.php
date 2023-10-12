@@ -28,7 +28,7 @@
                 </ul>
             @endif
 
-            <form method="POST" action="{{ route('clients.client.store') }}" accept-charset="UTF-8" id="create_client_form" name="create_client_form" class="form-horizontal">
+            <form method="POST" action="{{ route('clients.client.store') }}" enctype="multipart/form-data" accept-charset="UTF-8" id="create_client_form" name="create_client_form" class="form-horizontal">
             {{ csrf_field() }}
             @include ('clients.form', [
                                         'client' => null,

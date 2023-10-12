@@ -39,23 +39,44 @@ Route::get('/log', [LogController::class, 'showLogs'])->name('logs.show');
 Route::delete('/log', [LogController::class, 'deleteLogs'])->name('logs.delete');
 
 
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('/privacy');
+use Symfony\Component\HttpFoundation\Response;
 
 
 Route::get('/test', function () {
     $client = Client::findOrFail('1');
     $term = \App\Models\term::first();
     $client->term_ar = $term->Conditionar;
+
     $data =        $client->toArray();
 //dd($data);
-view()->share('data', $data);
- $pdf = Pdf::loadView('test',['data' => $data] );
+// view()->share('data', $data);
+// return view('test');
+//  $pdf = Pdf::loadView('test',['data' => $data] );
 
+$reportHtml = view('test',['data' => $data] )->render();
+
+        $arabic = new \ArPHP\I18N\Arabic();
+        $p = $arabic->arIdentify($reportHtml);
+
+        for ($i = count($p)-1; $i >= 0; $i-=2) {
+            $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+            $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+
+        }
+
+        $pdf = PDF::loadHTML($reportHtml);
  $fileName = $client->ud . '.pdf';
-    $pdf->save(public_path('pdf/' . $fileName));
 
-    return 'PDF saved in public directory.';
+ // Return the response
 
-        return view('test');
+ $pdf->save(public_path('pdf/' . $fileName));
+
+    return  asset('pdf/' . $fileName) ;
+
+        return $pdf;
     })->name('/test');
 
 
@@ -509,7 +530,8 @@ Route::group([
     Route::get('/', [ClientsController::class, 'index'])
          ->name('clients.client.index');
 
-
+         Route::get('/showdd/{client}',[ClientsController::class, 'showdd'])
+         ->name('clients.client.showdd')->where('id', '[0-9]+');
 
 
     Route::get('/create', [ClientsController::class, 'create'])

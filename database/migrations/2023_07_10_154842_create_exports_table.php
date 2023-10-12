@@ -40,6 +40,14 @@ class CreateExportsTable extends Migration
             $table->string('EXP_PASSPORT_NUM')->nullable();
             $table->string('accepted')->nullable();
             $table->string('reson')->nullable();
+            $table->string('CER_SERIAL')->nullable();
+            $table->string('files')->nullable();
+            $table->string('Pledge')->nullable();
+            $table->string('IMP_CER_SERIAL')->nullable();
+            $table->string('pdf')->nullable();
+            $table->string('linkpayment')->nullable();
+            $table->longText('delegate')->nullable();
+
 
         });
     }

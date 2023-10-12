@@ -24,27 +24,43 @@ class ImportationsController extends Controller
     public function index()
     {
 
-        $importationsObjects = importations::where('client_id',auth()->user()->id)->get();
-
-       $data  = $importationsObjects->transform(function ($importations) {
-            return $this->transform($importations);
-        });
+        $data = importations::where('client_id',auth()->user()->id)->where('accepted',3)->get();
 
         return response()->json(  $data);
     }
 
     public function store(Request $request)
     {
+        $client =auth()->user();
 
+        $term = \App\Models\term::first();
+        $client->term_ar = $term->Conditionar;
+        $dataclient =$client->toArray();
+
+        view()->share('data', $dataclient);
+        $reportHtml = view('test',['data' => $dataclient] )->render();
+
+        $arabic = new \ArPHP\I18N\Arabic();
+        $p = $arabic->arIdentify($reportHtml);
+
+        for ($i = count($p)-1; $i >= 0; $i-=2) {
+            $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+            $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+
+        }
+
+        $pdf = PDF::loadHTML($reportHtml);
+
+        $fileName = $client->ud . '.pdf';
+        $pdf->save(public_path('pdf/' . $fileName));
+     //   dd($fileName);
+//$data['Pledge'] =$fileName;
         try {
 
 
             $validator = $this->getValidator($request);
 
 
-            if ($validator->fails()) {
-                return $this->errorResponse($validator->errors()->all());
-            }
 
             $data = $this->getData($request);
 
@@ -57,7 +73,7 @@ class ImportationsController extends Controller
                 $animal->EXPORT_COUNTRY = $request->EXPORT_COUNTRYa;
                 $animal->TRANSIET_COUNTRY = $request->TRANSIET_COUNTRYa;
                 $animal->ANML_SPECIES = "ابل هجن";
-                $animal->ANML_SEX = 'هجين';
+                $animal->ANML_SEX = 'مختلط';
                 $animal->ANML_NUMBER = $request->ANML_NUMBER;
                 $animal->ANML_USE = 'مشاركة';
                 $animal->ANIMAL_BREED = "حسب الكشف المرفق";
@@ -232,7 +248,7 @@ class ImportationsController extends Controller
             return response()->json([
                 'id' => 0,
                 'message' =>  $request->validate($rules),
-                'errors' => 'errors'
+                'errors' => $validator
             ]);
         }
 
@@ -276,15 +292,28 @@ class ImportationsController extends Controller
 
         $client =auth()->user();
 
-$term = \App\Models\term::first();
-$client->term_ar = $term->Conditionar;
-$data =$client->toArray();
-//dd($data);
-view()->share('data', $data);
-$pdf = Pdf::loadView('test',['data' => $data] );
+        $term = \App\Models\term::first();
+        $client->term_ar = '$term->Conditionar';
+        $client->phone = $contry->phonecode.$client->phone;
 
-$fileName = $client->ud . '.pdf';
-$pdf->save(public_path('pdf/' . $fileName));
+        $dataclient =$client->toArray();
+
+        view()->share('data', $dataclient);
+        $reportHtml = view('test',['data' => $dataclient] )->render();
+
+        $arabic = new \ArPHP\I18N\Arabic();
+        $p = $arabic->arIdentify($reportHtml);
+
+        for ($i = count($p)-1; $i >= 0; $i-=2) {
+            $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+            $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+
+        }
+
+        $pdf = PDF::loadHTML($reportHtml);
+
+        $fileName = $client->ud . '.pdf';
+        $pdf->save(public_path('pdf/' . $fileName));
 $data['Pledge'] =$fileName;
 
 

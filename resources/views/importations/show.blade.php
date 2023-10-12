@@ -1,6 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+@if(Session::has('success_message'))
+<div class="alert alert-success">
+    <span class="glyphicon glyphicon-ok"></span>
+    {!! session('success_message') !!}
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+</div>
+@endif
+
 
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
@@ -26,6 +38,13 @@
     </div>
 
     <div class="panel-body">
+         @if ($errors->any())
+        <ul class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
         <dl class="dl-horizontal">
             <dt>{{ trans('importations.client_id') }}</dt>
             <dd>{{ optional($importation->client)->ud }}</dd>
@@ -103,7 +122,7 @@
                                 <td> {{ $value->ORIGIN_COUNTRY }}</td>
                                 <td> {{ $value->TRANSIET_COUNTRY }}</td>
                                 <td> {{ $value->ANML_SPECIES }}</td>
-                                <td> {{ $value->ANML_SEX }}</td>
+                                <td>مختلط</td>
                                 <td> {{ $value->ANML_NUMBER }}</td>
                                 <td> {{ $value->ANML_USE }}</td>
                                 <td> {{ $value->ANIMAL_BREED }}</td>
@@ -117,7 +136,7 @@
 
                 <dt>مشاهدة المرفقات</dt>
                 <dd> <a href="{{ asset($importation->files) }}" target="_blank">  كشف المطايا</a> </dd>
-                <dd> <a href="{{ asset($importation->Pledge) }}" target="_blank">التعهد</a> </dd>
+                <dd> <a href="{{ asset('pdf/'.$importation->Pledge) }}" target="_blank">التعهد</a> </dd>
 
                 @if(!Auth::user()->hasRole('delegate'))
                 @if ($importation->accepted == null)
@@ -134,11 +153,14 @@
                </div>
 
                  </form>
-            @elseif ($importation->accepted == 1)
-            <p class="btn btn-info">{{ trans('clients.accepted') }}</p>
-            @elseif ($importation->accepted == 0)
-            <p class="btn btn-danger">  {{ trans('importations.reson') }} : {{ $importation->reson }} </p>
-            @endif
+                 @elseif ($importation->accepted == '1' )
+
+                 <p class="btn btn-info">{{ trans('importations.acceptedfirst') }}</p>
+                 @elseif ( $importation->accepted == '3')
+                 <p class="btn btn-info">{{ trans('importations.acceptedsacend') }}</p>
+                 @elseif ($importation->accepted == '0')
+                 <p class="btn btn-danger">  {{ trans('importations.refused') }}  </p>
+                 @endif
             @endif
                 <br><br><br>
         </dl>

@@ -77,13 +77,25 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 Route::get('/user', function() {
+    return auth()->user();
     $contry =  App\Models\countries::find(auth()->user()->contry);
     $user =auth()->user();
     $user->contry = $contry->name;
     return $user;
 })->middleware('auth:sanctum');
 
-
+Route::get('/delete', function() {
+    
+   
+     $user =auth()->user();
+     $user->delete() ;
+     
+     return response()->json([
+          'id' =>0,
+          'message' => 'success',
+          'errors' => ''
+      ]);
+ })->middleware('auth:sanctum');
 
 
 Route::get('/term', [ClientsController::class, 'term']);
@@ -92,6 +104,10 @@ Route::post('/login', [ClientsController::class, 'create_token']);
 Route::post('/sungupp', [ClientsController::class, 'sungupp']);
 
 Route::post('confiramtion/{client}', [ClientsController::class, 'confiramtion']);
+
+
+Route::post('resend/{client}', [ClientsController::class, 'resend']);
+
 
 Route::post('signature/{client}', [ClientsController::class, 'signature']);
 

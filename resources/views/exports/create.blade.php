@@ -28,7 +28,7 @@
                 </ul>
             @endif
 
-            <form method="POST" action="{{ route('exports.export.store') }}" accept-charset="UTF-8" id="create_export_form" name="create_export_form" class="form-horizontal">
+            <form method="POST" action="{{ route('exports.export.store') }}" enctype="multipart/form-data" accept-charset="UTF-8" id="create_export_form" name="create_export_form" class="form-horizontal">
             {{ csrf_field() }}
             @include ('exports.form', [
                                         'export' => null,

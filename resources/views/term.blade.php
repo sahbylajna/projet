@@ -10,7 +10,7 @@
     <style media="screen">
 
 body {
-	background: #4d3278;
+	background: #83482d;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -33,8 +33,8 @@ body {
 	color: #ffffff;
 	text-align: center;
 	line-height: 60px;
-	border: 10px solid #4d3278;
-	/* background: linear-gradient(to right, #9d50bb, #6e48aa); */
+	border: 10px solid #83482d;
+	/* background: linear-gradient(to right, #c68263, #6e48aa); */
 	transform: translate(-50%, -50%);
 }
 
@@ -68,7 +68,7 @@ label {
 
 
 button {
-	background: linear-gradient(to right, #9d50bb, #6e48aa);
+	background: linear-gradient(to right, #c68263, #6e48aa);
 	padding: 14px;
 	border: 0;
 	color: #fff;
@@ -254,7 +254,7 @@ button#clear span {
             @php
                 $term = App\Models\term::first();
             @endphp
-            {{ $term->term_ar }}
+            {!!  $term->term_ar !!}
         </p>
 
         <label for="password">{{ __('login.signature') }}</label>

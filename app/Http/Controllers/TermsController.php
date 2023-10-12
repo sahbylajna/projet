@@ -152,6 +152,8 @@ dd($exception);
         $rules = [
                 'term_ar' => 'string|min:1|nullable',
             'term_en' => 'string|min:1|nullable',
+            'Conditionar' => 'string|min:1|nullable',
+            'Conditionen' => 'string|min:1|nullable',
         ];
 
 

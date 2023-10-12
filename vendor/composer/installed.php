@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8789cb809cea6b8a5b522ea83f0bab50fc6797c4',
+        'reference' => 'a0e4e49f3e3f1df935cd11a09c3afd64e3880126',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -400,6 +400,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'khaled.alshamaa/ar-php' => array(
+            'pretty_version' => 'v6.3.4',
+            'version' => '6.3.4.0',
+            'reference' => '36550a0d805dc50fcede0132cd8b83c80fe1fd6c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../khaled.alshamaa/ar-php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -418,7 +427,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8789cb809cea6b8a5b522ea83f0bab50fc6797c4',
+            'reference' => 'a0e4e49f3e3f1df935cd11a09c3afd64e3880126',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1056,9 +1065,9 @@
             'dev_requirement' => false,
         ),
         'symfony/console' => array(
-            'pretty_version' => 'v6.3.0',
-            'version' => '6.3.0.0',
-            'reference' => '8788808b07cf0bdd6e4b7fdd23d8ddb1470c83b7',
+            'pretty_version' => 'v6.3.4',
+            'version' => '6.3.4.0',
+            'reference' => 'eca495f2ee845130855ddf1cf18460c38966c8b6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/console',
             'aliases' => array(),

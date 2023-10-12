@@ -36,7 +36,7 @@
         <div class="panel-body panel-body-with-table">
             <div class="table-responsive">
 
-                <table class="table table-striped ">
+                <table class="table align-items-center mb-0" style="   "  id="table">
                     <thead>
                         <tr>
                             <th>{{ trans('acceptation_clients.User_id') }}</th>
