@@ -92,7 +92,7 @@
                             <td >
                                 {{ trans('importations.refused') }}  </td>
                             @elseif ($export->accepted == null )
-                            
+
                             <td>تحت الاجراء</td>
                             @else
                             <td> </td>
@@ -101,15 +101,23 @@
                             <td>
 
 
+                                <form method="POST" action="{!! route('exports.export.destroy', $export->id) !!}" accept-charset="UTF-8">
+                                    <input name="_method" value="DELETE" type="hidden">
+                                    {{ csrf_field() }}
 
-                                    <div class="btn-group btn-group-xs pull-right" role="group" style="direction: initial;">
-                                        <a href="{{ route('exports.after.export.show', $export->id ) }}" class="btn btn-info" title="{{ trans('exports.show') }}">
-                                            <span class="fa fa-eye" aria-hidden="true"></span>
-                                        </a>
+                                        <div class="btn-group btn-group-xs pull-right " style="direction: initial;" role="group">
+                                            <a href="{{ route('exports.after.export.show', $export->id ) }}" class="btn btn-info" title="{{ trans('exports.show') }}">
+                                                <span class="fa fa-eye" aria-hidden="true"></span>
+                                            </a>
 
 
 
-                                    </div>
+                                            <button type="submit" class="btn btn-danger" title="{{ trans('importations.delete') }}" onclick="return confirm(&quot;{{ trans('importations.confirm_delete') }}&quot;)">
+                                                <span class="fa fa-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+
+                                    </form>
 
 
                             </td>
@@ -165,11 +173,11 @@ order: [ [0, 'desc'] ],
   column.data().unique().sort().each(function(d, j) {
     select.append('<option value="' + d + '">' + d + '</option>');
   });
-  
+
   const $select = document.querySelector('#mySelect');
   @if($request->value != null)
   text ='{{ $request->value}}'
- 
+
 
   const $options = Array.from($select.options);
   const optionToSelect = $options.find(item => item.text ===text);

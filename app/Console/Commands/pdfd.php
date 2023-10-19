@@ -91,27 +91,27 @@ class pdfd extends Command
                 $value->pdf = $resp->PDF_LINK;
                 $value->save();
 
-                Log::info('Request:', [
+                // Log::info('Request:', [
 
-                    '$value' => $resp,
-                    'APPROVED' => $resp->PDF_LINK,
+                //     '$value' => $resp,
+                //     'APPROVED' => $resp->PDF_LINK,
 
-                ]);
+                // ]);
             }
-            Log::info('Request:', [
+            // Log::info('Request:', [
 
-                '$value' => $resp,
+            //     '$value' => $resp,
 
 
-            ]);
+            // ]);
 
         }catch(\Exception $exception) {
 
-            Log::info('Request:', [
+            // Log::info('Request:', [
 
-                'exception' => $exception->getMessage(),
+            //     'exception' => $exception->getMessage(),
 
-            ]);
+            // ]);
 
 
 
@@ -180,12 +180,12 @@ class pdfd extends Command
                 $value->pdf = $resp->PDF_LINK;
                 $value->save();
 
-                Log::info('Request:', [
+                // Log::info('Request:', [
 
-                    '$value' => $resp,
-                    'APPROVED' => $resp->PDF_LINK,
+                //     '$value' => $resp,
+                //     'APPROVED' => $resp->PDF_LINK,
 
-                ]);
+                // ]);
             }
             // Log::info('Request:', [
 
@@ -196,11 +196,11 @@ class pdfd extends Command
 
         }catch(\Exception $exception) {
 
-            Log::info('Request:', [
+            // Log::info('Request:', [
 
-                'exception' => $exception->getMessage(),
+            //     'exception' => $exception->getMessage(),
 
-            ]);
+            // ]);
 
 
 

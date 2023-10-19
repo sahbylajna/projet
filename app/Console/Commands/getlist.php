@@ -105,7 +105,7 @@ foreach ($importationsObjects as  $value) {
         $acceptation->User_id =0;
         $acceptation->demande_id = $value->id;
         $acceptation->type = 'importation';
-        $acceptation->commenter = "تم قبول طلبك من قبل الهيئة ";
+        $acceptation->commenter = "تم قبول طلبك من قبل الثروة الحيوانية ";
         $acceptation->save();
 
 

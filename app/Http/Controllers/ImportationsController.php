@@ -116,7 +116,11 @@ if($importations->EXP_CER_SERIAL != null){
         $importation = importation::with('client')->with('animal')->findOrFail($id);
         return view('importations.show', compact('importation'));
     }
-
+    public function showdd($id)
+    {
+        $importation = importation::with('client')->with('animal')->findOrFail($id);
+       dd( $importation);
+    }
 
     public function showafter($id)
     {
@@ -157,10 +161,24 @@ if($importations->EXP_CER_SERIAL != null){
     {
         try {
             $importation = importation::findOrFail($id);
+            $after = true;
+            if($importation->EXP_CER_SERIAL != null){
+                $after = false;
+            }
+
             $importation->delete();
 
-            return redirect()->route('importations.importation.index')
+
+            if($after){
+                return redirect()->route('importationsafter.importation.index')
                 ->with('success_message', trans('importations.model_was_deleted'));
+            }else{
+                 return redirect()->route('importations.importation.index')
+                ->with('success_message', trans('importations.model_was_deleted'));
+            }
+
+
+
         } catch (Exception $exception) {
 
             return back()->withInput()
@@ -382,6 +400,10 @@ if($importation->EXP_CER_SERIAL == null){
         $response = (string) $res->getBody();
         $response =json_decode($response); // Using this you can access any key like below
         $access_token = $response->access_token;
+
+
+
+
       // dd($access_token);
       $data = [];
 $data['CER_TYPE'] = $importation->CER_TYPE;
@@ -394,10 +416,10 @@ $data['EXP_QID'] = $importation->EXP_QID;
 $data['EXP_FAX'] = $importation->EXP_FAX;
 $data['EXP_COUNTRY'] = $importation->EXP_COUNTRY;
 $data['IMP_NAME'] = $importation->IMP_NAME;
-$data['IMP_ADDRESS'] = $importation->IMP_ADDRESS;
-$data['IMP_FAX'] = $importation->IMP_FAX;
+$data['IMP_ADDRESS'] = "IMP_ADDRESS";
+$data['IMP_FAX'] = "554433";
 $data['IMP_TEL'] = $importation->IMP_TEL;
-$data['IMP_POBOX'] = $importation->IMP_POBOX;
+$data['IMP_POBOX'] = "554433";
 $data['IMP_COUNTRY'] = $importation->IMP_COUNTRY;
 $data['ORIGIN_COUNTRY'] = $importation->ORIGIN_COUNTRY;
 $data['SHIPPING_PLACE'] = $importation->SHIPPING_PLACE;
@@ -409,7 +431,7 @@ $data['APPLICANT_NAME'] = $importation->APPLICANT_NAME;
 $data['APPLICANT_TEL'] = $importation->APPLICANT_TEL;
 $data['EXP_NATIONALITY'] = $importation->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $importation->EXP_PASSPORT_NUM;
-$data = json_encode($data);
+$data = json_encode($data, JSON_UNESCAPED_UNICODE);
 $ANIMALINFO = [];
 
 
@@ -428,7 +450,7 @@ foreach ($importation->animal as $key => $value) {
 
 }
 
-$ANIMALINFOj = json_encode($ANIMALINFO);
+$ANIMALINFOj = json_encode($ANIMALINFO, JSON_UNESCAPED_UNICODE);
 
 
 $token ='Bearer '.$access_token;
@@ -442,10 +464,10 @@ $headers = [
 
 
 
-
+$pdfContents = file_get_contents(asset($importation->files));
 
 if($importation->delegate ==null){
-    $client5 = Client::findOrFail( $importation->client_id);
+    $client5 = \App\Models\Client::findOrFail( $importation->client_id);
 
     $term = \App\Models\term::first();
     $client5->term_ar = $term->Conditionar;
@@ -453,23 +475,23 @@ if($importation->delegate ==null){
     //dd($data);
     view()->share('data', $data12);
     $reportHtml = view('test',['data' => $data12] )->render();
-    
+
             $arabic = new \ArPHP\I18N\Arabic();
             $p = $arabic->arIdentify($reportHtml);
-    
+
             for ($i = count($p)-1; $i >= 0; $i-=2) {
                 $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
                 $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
-    
+
             }
-    
+
             $pdf = PDF::loadHTML($reportHtml);
-    
-    $fileName = $client->ud . '.pdf';
+
+    $fileName = $client5->ud . '.pdf';
     $pdf->save(public_path('pdf/' . $fileName));
     $pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
-    $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
-    $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
+    $pdfContents3 = file_get_contents(asset( $client5->photo_ud_frent));
+    $pdfContents4 = file_get_contents(asset( $client5->photo_ud_back));
 
     }else{
         $pdfContents2 = file_get_contents(asset($importation->Pledge));
@@ -481,11 +503,17 @@ if($importation->delegate ==null){
 
 
 
+//dd($headers, $data,$ANIMALINFOj,asset('pdf/' . $fileName),asset( $client5->photo_ud_frent),asset( $client5->photo_ud_back),asset($importation->files),$pdfContents,$pdfContents2,$pdfContents3,$pdfContents4);
+
+
+
+
+
 try{
 
-    $client2 = new ClientHTTP();
+    $ClientHTTP = new ClientHTTP();
 
-$re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
+$IMPRC_SUBMIT = $ClientHTTP->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/data/IMPRC_SUBMIT', [
     'headers' => $headers, // Add your headers
     'multipart' => [
         [
@@ -506,51 +534,52 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
             'contents' => $pdfContents3, // PDF file contents
             'filename' => 'photo_ud_frent.pdf', // Adjust the filename
         ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents4, // PDF file contents
-            'filename' => 'photo_ud_back.pdf', // Adjust the filename
-        ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents2, // PDF file contents
-            'filename' => $fileName, // Adjust the filename
-        ],
+        // [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents4, // PDF file contents
+        //     'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        // ],
+        // [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents2, // PDF file contents
+        //     'filename' => 'Pledge.pdf', // Adjust the filename
+        // ],
     ],
 ]);
 
-$responseBody = $re->getBody()->getContents();
-$resp = json_decode($responseBody);
+$responseBodyIMPRC_SUBMIT = $IMPRC_SUBMIT->getBody()->getContents();
+$resppost = json_decode($responseBodyIMPRC_SUBMIT);
 
 
-$importation->CER_SERIAL = $resp->CER_SERIAL;
+$importation->CER_SERIAL = $resppost->CER_SERIAL;
 $importation->accepted = 1;
 $importation->save();
     $acceptation = new acceptation_demande();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
-    $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+    $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الثروة الحيوانية ";
     $acceptation->save();
 
     if($importation->delegate ==null){
         $sms = new Sms;
-        $client = Client::find($importation->client_id);
-    
-    $contry = Contry::find($client->contry_id );
-    $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
-    
+        $clientsms = Client::find($importation->client_id);
+
+    $contry = Contry::find($clientsms->contry_id );
+    $sms->send($contry->phonecode.$clientsms->phone,$acceptation->commenter );
+
         }
 
-  
+
 
 }catch(RequestException $exception) {
 
-    $response = $exception->getResponse();
 
-    if ($response !== null) {
-        $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
+    $responsecatch = $exception->getResponse();
+
+    if ($responsecatch !== null) {
+        $statusCode = $responsecatch->getStatusCode();
+        $body = $responsecatch->getBody()->getContents();
         $resp = json_decode($body);
        // dd($resp);
        if($statusCode == 400){
@@ -565,7 +594,7 @@ $importation->save();
     } else {
         // Handle the exception (e.g., network error)
         return back()->withInput()
-        ->withErrors(['unexpected_error' => $exception->getMessage()]);
+        ->withErrors(['unexpected_error' =>' here'. $exception->getMessage()]);
     }
 }
 
@@ -631,7 +660,7 @@ $data['APPLICANT_TEL'] = $importation->APPLICANT_TEL;
 $data['EXP_NATIONALITY'] = $importation->EXP_NATIONALITY;
 $data['EXP_PASSPORT_NUM'] = $importation->EXP_PASSPORT_NUM;
 $data['EXP_CER_SERIAL'] = $importation->EXP_CER_SERIAL;
-$data = json_encode($data);
+$data = json_encode($data, JSON_UNESCAPED_UNICODE);
 $ANIMALINFO = [];
 
 
@@ -650,7 +679,7 @@ foreach ($importation->animal as $key => $value) {
 
 }
 
-$ANIMALINFOj = json_encode($ANIMALINFO);
+$ANIMALINFOj = json_encode($ANIMALINFO, JSON_UNESCAPED_UNICODE);
 
 
 $token ='Bearer '.$access_token;
@@ -676,23 +705,23 @@ if($importation->delegate ==null){
     //dd($data);
     view()->share('data', $data12);
     $reportHtml = view('test',['data' => $data12] )->render();
-    
+
             $arabic = new \ArPHP\I18N\Arabic();
             $p = $arabic->arIdentify($reportHtml);
-    
+
             for ($i = count($p)-1; $i >= 0; $i-=2) {
                 $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
                 $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
-    
+
             }
-    
+
             $pdf = PDF::loadHTML($reportHtml);
-    
-    $fileName = $client->ud . '.pdf';
+
+    $fileName = $client5->ud . '.pdf';
     $pdf->save(public_path('pdf/' . $fileName));
     $pdfContents2 = file_get_contents(asset('pdf/' . $fileName));
-    $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
-    $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
+    $pdfContents3 = file_get_contents(asset( $client5->photo_ud_frent));
+    $pdfContents4 = file_get_contents(asset( $client5->photo_ud_back));
 
     }else{
         $pdfContents2 = file_get_contents(asset($importation->Pledge));
@@ -726,16 +755,16 @@ $re = $client2->request('POST', 'https://animalcert.mme.gov.qa/HIJIN_API/api/dat
             'contents' => $pdfContents3, // PDF file contents
             'filename' => 'photo_ud_frent.pdf', // Adjust the filename
         ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents4, // PDF file contents
-            'filename' => 'photo_ud_back.pdf', // Adjust the filename
-        ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents2, // PDF file contents
-            'filename' => $fileName, // Adjust the filename
-        ],
+        // [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents4, // PDF file contents
+        //     'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        // ],
+        // [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents2, // PDF file contents
+        //     'filename' => $fileName, // Adjust the filename
+        // ],
     ],
 ]);
 
@@ -750,15 +779,15 @@ $importation->save();
     $acceptation->User_id = Auth()->user()->id;
     $acceptation->demande_id = $importation->id;
     $acceptation->type = 'importation';
-    $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+    $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الثروة الحيوانية ";
     $acceptation->save();
     if($importation->delegate ==null){
         $sms = new Sms;
-        $client = Client::find($importation->client_id);
-    
-    $contry = Contry::find($client->contry_id );
-    $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
-    
+        $clientsms = Client::find($importation->client_id);
+
+    $contry = Contry::find($clientsms->contry_id );
+    $sms->send($contry->phonecode.$clientsms->phone,$acceptation->commenter );
+
         }
 
 
@@ -833,14 +862,14 @@ $importation->save();
     if($importation->delegate ==null){
         $sms = new Sms;
         $client = Client::find($importation->client_id);
-    
+
     $contry = Contry::find($client->contry_id );
     $sms->send($contry->phonecode.$client->phone,$message );
-    
+
         }
 
-   
-   
+
+
 
         return back();
     }

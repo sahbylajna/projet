@@ -98,7 +98,7 @@ class commandex extends Command
            $acceptation->User_id =0;
            $acceptation->demande_id = $value->id;
            $acceptation->type = 'export';
-           $acceptation->commenter = "تم قبول طلبك من قبل الهيئة في إنتظار الدفع ";
+           $acceptation->commenter = "تم قبول طلبك من قبل الثروة الحيوانية في إنتظار الدفع ";
            $acceptation->save();
 
                }
@@ -121,11 +121,11 @@ class commandex extends Command
 
         }catch(\Exception $exception) {
 
-            Log::info('Request:', [
+            // Log::info('Request:', [
 
-                '$exception' => $exception,
-                '$value' => $value,
-            ]);
+            //     '$exception' => $exception,
+            //     '$value' => $value,
+            // ]);
 
 
 

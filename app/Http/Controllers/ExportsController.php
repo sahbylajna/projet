@@ -174,10 +174,28 @@ class ExportsController extends Controller
     {
         try {
             $export = export::findOrFail($id);
+
+
+            $after = true;
+            if($export->EXP_CER_SERIAL != null){
+                $after = false;
+            }
+
             $export->delete();
 
-            return redirect()->route('exports.export.index')
+
+            if($after){
+                return redirect()->route('exports.after.export.index')
                 ->with('success_message', trans('exports.model_was_deleted'));
+
+
+            }else{
+                 return redirect()->route('exports.export.index')
+                ->with('success_message', trans('exports.model_was_deleted'));
+            }
+
+
+
         } catch (Exception $exception) {
 
             return back()->withInput()
@@ -326,7 +344,7 @@ if($export->IMP_CER_SERIAL == null){
 
 
          } catch (Exception $exception) {
- dd($exception);
+//  dd($exception);
              return back()->withInput()
                  ->withErrors(['unexpected_error' => trans('exports.unexpected_error')]);
          }
@@ -454,7 +472,7 @@ if($export->IMP_CER_SERIAL == null){
  $data['APPLICANT_TEL'] = $export->APPLICANT_TEL;
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
- $data = json_encode($data);
+ $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 
  $ANIMALINFO = [];
 
@@ -472,7 +490,7 @@ if($export->IMP_CER_SERIAL == null){
 
  }
 
- $ANIMALINFOj = json_encode($ANIMALINFO);
+ $ANIMALINFOj = json_encode($ANIMALINFO, JSON_UNESCAPED_UNICODE);
 
  $token ='Bearer '.$access_token;
 
@@ -489,7 +507,7 @@ if($export->IMP_CER_SERIAL == null){
 $pdfContents = file_get_contents(asset($export->files));
 $pdfContents2 = file_get_contents(asset($export->Pledge));
 if($export->delegate ==null){
-  
+
     $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
     $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
 
@@ -524,16 +542,16 @@ if($export->delegate ==null){
                 'contents' => $pdfContents, // PDF file contents
                 'filename' => 'test.pdf', // Adjust the filename
             ],
-            [
-            'name' => 'files[]',
-            'contents' => $pdfContents3, // PDF file contents
-            'filename' => 'photo_ud_frent.pdf', // Adjust the filename
-        ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents4, // PDF file contents
-            'filename' => 'photo_ud_back.pdf', // Adjust the filename
-        ],
+        //     [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents3, // PDF file contents
+        //     'filename' => 'photo_ud_frent.pdf', // Adjust the filename
+        // ],
+        // [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents4, // PDF file contents
+        //     'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        // ],
         [
             'name' => 'files[]',
             'contents' => $pdfContents2, // PDF file contents
@@ -552,16 +570,16 @@ if($export->delegate ==null){
      $acceptation->User_id = Auth()->user()->id;
      $acceptation->demande_id = $export->id;
      $acceptation->type = 'export';
-     $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+     $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الثروة الحيوانية ";
      $acceptation->save();
 
      if($export->delegate ==null){
-  
+
         $sms = new Sms;
-        $client = Client::find($export->client_id);
-   
-    $contry = Contry::find($client->contry_id );
-    $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
+        $clientsms = Client::find($export->client_id);
+
+    $contry = Contry::find($clientsms->contry_id );
+    $sms->send($contry->phonecode.$clientsms->phone,$acceptation->commenter );
         }
 
 
@@ -642,7 +660,7 @@ if ($response !== null) {
  $data['APPLICANT_TEL'] = 0;
  $data['EXP_NATIONALITY'] = $export->EXP_NATIONALITY;
  $data['EXP_PASSPORT_NUM'] = $export->EXP_PASSPORT_NUM;
- $data = json_encode($data);
+ $data = json_encode($data, JSON_UNESCAPED_UNICODE);
 
 
  $ANIMALINFO = [];
@@ -659,7 +677,7 @@ if ($response !== null) {
 
  }
 
- $ANIMALINFOj = json_encode($data1);
+ $ANIMALINFOj = json_encode($data1, JSON_UNESCAPED_UNICODE);
 
  $token ='Bearer '.$access_token;
 
@@ -670,16 +688,16 @@ if ($response !== null) {
 
 
 
- $client = Client::findOrFail( $export->client_id);
+ $getclient = Client::findOrFail( $export->client_id);
 
 
 
 $pdfContents = file_get_contents(asset($export->files));
 $pdfContents2 = file_get_contents(asset($export->Pledge));
 if($export->delegate ==null){
-  
-    $pdfContents3 = file_get_contents(asset( $client->photo_ud_frent));
-    $pdfContents4 = file_get_contents(asset( $client->photo_ud_back));
+
+    $pdfContents3 = file_get_contents(asset( $getclient->photo_ud_frent));
+    $pdfContents4 = file_get_contents(asset( $getclient->photo_ud_back));
 
     }else{
         $pdfContents3 = '';
@@ -702,22 +720,22 @@ if($export->delegate ==null){
                 'name' => 'ANIMAL_INFO',
                 'contents' => $ANIMALINFOj,
             ],
-            [
-            'name' => 'files[]',
-            'contents' => $pdfContents3, // PDF file contents
-            'filename' => 'photo_ud_frent.pdf', // Adjust the filename
-        ],
+        //     [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents3, // PDF file contents
+        //     'filename' => 'photo_ud_frent.pdf', // Adjust the filename
+        // ],
 
         [
             'name' => 'files[]',
             'contents' => $pdfContents, // PDF file contents
             'filename' => $export->files, // Adjust the filename
         ],
-        [
-            'name' => 'files[]',
-            'contents' => $pdfContents4, // PDF file contents
-            'filename' => 'photo_ud_back.pdf', // Adjust the filename
-        ],
+        // [
+        //     'name' => 'files[]',
+        //     'contents' => $pdfContents4, // PDF file contents
+        //     'filename' => 'photo_ud_back.pdf', // Adjust the filename
+        // ],
         [
             'name' => 'files[]',
             'contents' => $pdfContents2, // PDF file contents
@@ -738,15 +756,15 @@ if($export->delegate ==null){
      $acceptation->User_id = Auth()->user()->id;
      $acceptation->demande_id = $export->id;
      $acceptation->type = 'export';
-     $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الهيئة ";
+     $acceptation->commenter = "تم قبول طلبك من قبل المشرف في إنتظار قرار الثروة الحيوانية ";
      $acceptation->save();
      if($export->delegate ==null){
-  
-     $sms = new Sms;
-     $client = Client::find($export->client_id);
 
- $contry = Contry::find($client->contry_id );
- $sms->send($contry->phonecode.$client->phone,$acceptation->commenter );
+     $sms = new Sms;
+     $getclient = Client::find($export->client_id);
+
+ $contry = Contry::find($getclient->contry_id );
+ $sms->send($contry->phonecode.$getclient->phone,$acceptation->commenter );
      }
  }catch(RequestException $exception) {
 
@@ -802,11 +820,11 @@ $export->save();
     if($export->delegate ==null){
         $sms = new Sms;
         $client = Client::find($export->client_id);
-    
+
     $contry = Contry::find($client->contry_id );
     $sms->send($contry->phonecode.$client->phone,$message );
     }
-   
+
         return back();
     }
 

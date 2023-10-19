@@ -349,6 +349,15 @@ Route::group([
          ->name('importations.importation.create');
     Route::get('/show/{importation}',[ImportationsController::class, 'show'])
          ->name('importations.importation.show')->where('id', '[0-9]+');
+
+
+
+         Route::get('/showdd/{importation}',[ImportationsController::class, 'showdd'])
+         ->name('importations.importation.showdd')->where('id', '[0-9]+');
+
+
+
+
     Route::get('/{importation}/edit',[ImportationsController::class, 'edit'])
          ->name('importations.importation.edit')->where('id', '[0-9]+');
          Route::get('/{importation}/accept',[ImportationsController::class, 'accept'])
